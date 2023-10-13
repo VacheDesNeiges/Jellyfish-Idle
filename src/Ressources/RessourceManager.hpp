@@ -12,9 +12,13 @@ public:
   void gatherFood ();
   double getCurrentQuantity (RessourceType);
   double getMaxQuantity (RessourceType);
+  double getNetProduction (RessourceType);
   std::string_view getName (RessourceType);
 
+  void zerosValuePerTick ();
+
   void add (RessourceType, double);
+  void addToProdPerTick (RessourceType, double);
 
 private:
   std::map<RessourceType, Ressource> ressources;

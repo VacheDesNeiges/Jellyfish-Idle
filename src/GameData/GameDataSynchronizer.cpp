@@ -7,6 +7,7 @@
 void
 GameDataSynchronizer::gameTick ()
 {
+  ressources.zerosValuePerTick ();
   for (auto b = static_cast<int> (BuildingType::PlanktonField);
        b != static_cast<int> (BuildingType::Last); b++)
     {
@@ -14,8 +15,16 @@ GameDataSynchronizer::gameTick ()
            getBuildingProduction (static_cast<BuildingType> (b)))
         {
           ressources.add (ressource, quantity);
+          ressources.addToProdPerTick (ressource, quantity);
         }
     }
+  ressources.add (RessourceType::Food,
+                  -1 * static_cast<double> (getNumJellies ()));
+  ressources.addToProdPerTick (RessourceType::Food,
+                               -1 * (static_cast<double> (getNumJellies ())));
+
+  checkAchievements ();
+  checkJellyfishArrival ();
 }
 
 void
@@ -100,4 +109,53 @@ void
 GameDataSynchronizer::unlock (AchievementIDs id)
 {
   achievements.unlock (id);
+}
+
+void
+GameDataSynchronizer::checkAchievements ()
+{
+  using enum AchievementIDs;
+  for (auto a = static_cast<int> (PlanktonField); a != static_cast<int> (Last);
+       a++)
+    {
+      auto id = static_cast<AchievementIDs> (a);
+      using enum AchievementIDs;
+      if (achievements.isUnlocked (id))
+        continue;
+
+      switch (id)
+        {
+        case PlanktonField:
+          if (ressources.getCurrentQuantity (RessourceType::Food) >= 5)
+            {
+              achievements.unlock (id);
+            }
+          break;
+
+        default:
+          break;
+        }
+    }
+}
+
+void
+GameDataSynchronizer::checkJellyfishArrival ()
+{
+  static short gameTicksInterval = 0;
+  if (jellies.getNum () == jellies.getMaxNum ())
+    {
+      gameTicksInterval = 0;
+    }
+  else
+    {
+      gameTicksInterval++;
+      if (gameTicksInterval == 8
+          && ressources.getNetProduction (RessourceType::Food) >= 1)
+        {
+          gameTicksInterval = 0;
+          jellies.createJellyfish ();
+        }
+      if (gameTicksInterval >= 8)
+        gameTicksInterval = 0;
+    }
 }

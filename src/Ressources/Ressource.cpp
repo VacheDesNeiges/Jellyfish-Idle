@@ -70,3 +70,28 @@ Ressource::getName () const
 {
   return name;
 }
+
+void
+Ressource::resetValuesPerTick ()
+{
+  prodPerTick = 0;
+  consumptionPerTick = 0;
+}
+
+void
+Ressource::addToConsumptionPerTick (double n)
+{
+  consumptionPerTick += -n;
+}
+
+void
+Ressource::addToProdPerTick (double n)
+{
+  prodPerTick += n;
+}
+
+double
+Ressource::getNetProduction () const
+{
+  return prodPerTick - consumptionPerTick;
+}

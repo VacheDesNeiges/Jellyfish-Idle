@@ -23,7 +23,11 @@ public:
   void add (double n);
   double getCurrentQuantity () const;
   double getMaxQuantity () const;
+  double getNetProduction () const;
   std::string_view getName () const;
+  void resetValuesPerTick ();
+  void addToConsumptionPerTick (double);
+  void addToProdPerTick (double);
 
 private:
   std::string name;
@@ -33,4 +37,6 @@ private:
   //? maybe use upgrades as boolean somewhere else ? Like in GameData
 
   double base_production; // per sec ?
+  double prodPerTick;
+  double consumptionPerTick;
 };

@@ -42,4 +42,7 @@ private:
   BuildingManager buildings;
   JellyfishManager jellies;
   AchievementSystem achievements;
+
+  void checkAchievements ();
+  void checkJellyfishArrival ();
 };
