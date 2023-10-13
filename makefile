@@ -16,7 +16,7 @@ TEST_DEPS := $(TEST_OBJS:.o=.d)
 
 CPPFLAGS ?= -Wall -Wextra -std=c++20 -pedantic -Wshadow -Wconversion -O3 -fPIC -g -fprofile-instr-generate=build/default.profraw -fcoverage-mapping  #-g for debug, TODO : remove later or implement a make debug command instead
 LIBS := -lgtest -lpthread -lstdc++ -lm -lSDL2
-INCLUDES := -I../ -Iimgui/ -Iimgui/backends/ -Isrc/UI -Isrc/Ressources -Isrc/Buildings -Isrc/Jellyfishs
+INCLUDES := -I../ -Iimgui/ -Iimgui/backends/ -Isrc/UI -Isrc/Ressources -Isrc/GameData -Isrc/Buildings -Isrc/Jellyfishs
 
 LDFLAGS :=
 TESTLDFLAGS := -fprofile-instr-generate

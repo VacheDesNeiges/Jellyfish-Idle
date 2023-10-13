@@ -38,9 +38,6 @@ Ressource::update (unsigned int nbTicks)
   quantity += (base_production * static_cast<float> (nbTicks));
   if (quantity > static_cast<float> (max_quantity))
     quantity = static_cast<float> (max_quantity);
-  std::string s = name + " " + std::to_string (quantity) + "/"
-                  + std::to_string (max_quantity) + "\n+"
-                  + std::to_string (base_production) + " per sec";
 }
 
 void

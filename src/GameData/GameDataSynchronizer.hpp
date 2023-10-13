@@ -1,4 +1,6 @@
 #pragma once
+#include "Achievement.hpp"
+#include "AchievementSystem.hpp"
 #include "Building.hpp"
 #include "BuildingManager.hpp"
 #include "Ressource.hpp"
@@ -25,13 +27,19 @@ public:
   std::list<std::pair<RessourceType, double> >
       getBuildingProduction (BuildingType);
 
+  unsigned long getNumJellies ();
   long getNumJellies (JellyJobs);
+  unsigned long getMaxNumJellies ();
 
   bool unassignJelly (JellyJobs);
   bool assignJelly (JellyJobs);
+
+  bool isUnlocked (AchievementIDs);
+  void unlock (AchievementIDs);
 
 private:
   RessourceManager ressources;
   BuildingManager buildings;
   JellyfishManager jellies;
+  AchievementSystem achievements;
 };

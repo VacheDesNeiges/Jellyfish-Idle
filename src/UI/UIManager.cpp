@@ -1,18 +1,31 @@
 #include "UIManager.hpp"
 #include "Building.hpp"
+#include "GameDataSynchronizer.hpp"
+#include "Jellyfish.hpp"
 #include "Ressource.hpp"
 #include "imgui.h"
 #include <iomanip>
 #include <ios>
 #include <iostream>
-#include <src/GameData/GameDataSynchronizer.hpp>
-#include <src/Jellyfishs/Jellyfish.hpp>
 #include <sstream>
 #include <string>
 
 void
 UIManager::renderRessources () const
 {
+  ImGui::Begin ("Ressources");
+  ImGui::Text ("Jellyfish");
+  ImGui::SameLine ();
+  std::string jfishtxt = std::to_string (gData->getNumJellies ()) + "/"
+                         + std::to_string (gData->getMaxNumJellies ());
+
+  auto x = (ImGui::GetCursorPosX () + ImGui::GetColumnWidth ()
+            - ImGui::CalcTextSize (jfishtxt.c_str ()).x - ImGui::GetScrollX ()
+            - 2 * ImGui::GetStyle ().ItemSpacing.x);
+  if (x > ImGui::GetCursorPosX ())
+    ImGui::SetCursorPosX (x);
+  ImGui::Text ("%s", jfishtxt.c_str ());
+
   for (auto r = static_cast<int> (RessourceType::Food);
        r != static_cast<int> (RessourceType::Last); r++)
     {
@@ -42,6 +55,7 @@ UIManager::renderRessources () const
 
       ImGui::End ();
     }
+  ImGui::End ();
 }
 
 void
@@ -67,37 +81,45 @@ UIManager::renderUI () const
               gData->gatherFood ();
             }
           ImGui::SameLine ();
-          if (ImGui::Button (("Plankton Field ("
-                              + std::to_string (gData->getBuildingQuantity (
-                                  BuildingType::PlanktonField))
-                              + ")")
-                                 .c_str (),
-                             sz))
+          if (gData->isUnlocked (AchievementIDs::PlanktonField))
             {
-              gData->buy (BuildingType::PlanktonField);
+
+              ImGui::BeginDisabled (false);
+              if (ImGui::Button (
+                      ("Plankton Field ("
+                       + std::to_string (gData->getBuildingQuantity (
+                           BuildingType::PlanktonField))
+                       + ")")
+                          .c_str (),
+                      sz))
+                {
+                  gData->buy (BuildingType::PlanktonField);
+                }
+              ImGui::EndDisabled ();
+              if (ImGui::IsItemHovered (ImGuiHoveredFlags_DelayNone))
+                ImGui::SetTooltip ("I am a a tooltip.");
             }
 
           ImGui::EndTabItem ();
         }
       if (ImGui::BeginTabItem ("Jobs"))
         {
-          ImGui::Text ("Available Jellies : %ld",
-                       gData->getNumJellies (JellyJobs::None));
+          using enum JellyJobs;
+          ImGui::Text ("Available Jellies : %ld", gData->getNumJellies (None));
 
           ImGui::Text ("Gather Sea Shells");
           ImGui::SameLine ();
           ImGui::PushButtonRepeat (true);
           if (ImGui::ArrowButton ("##left", ImGuiDir_Left))
             {
-              gData->unassignJelly (JellyJobs::GatherSeaShell);
+              gData->unassignJelly (GatherSeaShell);
             }
           ImGui::SameLine ();
-          ImGui::Text ("%ld",
-                       gData->getNumJellies (JellyJobs::GatherSeaShell));
+          ImGui::Text ("%ld", gData->getNumJellies (GatherSeaShell));
           ImGui::SameLine (0.0f);
           if (ImGui::ArrowButton ("##right", ImGuiDir_Right))
             {
-              gData->assignJelly (JellyJobs::GatherSeaShell);
+              gData->assignJelly (GatherSeaShell);
             }
           ImGui::PopButtonRepeat ();
 

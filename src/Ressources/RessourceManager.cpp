@@ -6,9 +6,10 @@ RessourceManager::RessourceManager () { init (); }
 void
 RessourceManager::init ()
 {
-  ressources[RessourceType::Food] = Ressource (RessourceType::Food);
-  ressources[RessourceType::SeaShells] = Ressource (RessourceType::SeaShells);
-  ressources[RessourceType::Minerals] = Ressource (RessourceType::Minerals);
+  using enum RessourceType;
+  ressources[Food] = Ressource (Food);
+  ressources[SeaShells] = Ressource (SeaShells);
+  ressources[Minerals] = Ressource (Minerals);
 }
 
 void

@@ -1,4 +1,5 @@
 #include "GameDataSynchronizer.hpp"
+#include "Achievement.hpp"
 #include "Building.hpp"
 #include "Ressource.hpp"
 #include <src/Jellyfishs/Jellyfish.hpp>
@@ -53,10 +54,22 @@ GameDataSynchronizer::getBuildingProduction (BuildingType t)
   return buildings.getProduction (t);
 }
 
+unsigned long
+GameDataSynchronizer::getNumJellies ()
+{
+  return jellies.getNum ();
+}
+
 long
 GameDataSynchronizer::getNumJellies (JellyJobs j)
 {
   return jellies.getNum (j);
+}
+
+unsigned long
+GameDataSynchronizer::getMaxNumJellies ()
+{
+  return jellies.getMaxNum ();
 }
 
 bool
@@ -75,4 +88,16 @@ std::string_view
 GameDataSynchronizer::getRessourceName (RessourceType r)
 {
   return ressources.getName (r);
+}
+
+bool
+GameDataSynchronizer::isUnlocked (AchievementIDs id)
+{
+  return achievements.isUnlocked (id);
+}
+
+void
+GameDataSynchronizer::unlock (AchievementIDs id)
+{
+  achievements.unlock (id);
 }

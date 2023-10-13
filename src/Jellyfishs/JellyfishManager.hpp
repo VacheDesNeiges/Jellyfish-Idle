@@ -6,17 +6,12 @@
 class JellyfishManager
 {
 public:
+  unsigned long getNum () const;
+  unsigned long getMaxNum () const;
   long getNum (JellyJobs);
   bool assign (JellyJobs);
   bool unasign (JellyJobs);
-
-  JellyfishManager ()
-  {
-    jellies.emplace_back ();
-    jellies.emplace_back ();
-
-    jellies.emplace_back ();
-  };
+  void createJellyfish ();
 
 private:
   std::vector<Jellyfish> jellies;

@@ -65,9 +65,9 @@ JellyfishManager::assign (JellyJobs j)
 {
   if (numJobNone == 0)
     return false;
-  auto it = std::find_if (
-      jellies.begin (), jellies.end (),
-      [] (const auto &jelly) { return (jelly.getJob () == JellyJobs::None); });
+  auto it = std::ranges::find_if (jellies, [] (const auto &jelly) {
+    return (jelly.getJob () == JellyJobs::None);
+  });
   if (it == jellies.end ())
     return false;
 
@@ -122,9 +122,8 @@ JellyfishManager::unasign (JellyJobs j)
       return false;
     }
 
-  auto it = std::find_if (
-      jellies.begin (), jellies.end (),
-      [j] (const auto &jelly) { return (jelly.getJob () == j); });
+  auto it = std::ranges::find_if (
+      jellies, [j] (const auto &jelly) { return (jelly.getJob () == j); });
 
   if (it == jellies.end ())
     return false;
@@ -132,4 +131,22 @@ JellyfishManager::unasign (JellyJobs j)
   numJobNone++;
 
   return true;
+}
+
+void
+JellyfishManager::createJellyfish ()
+{
+  jellies.emplace_back ();
+}
+
+unsigned long
+JellyfishManager::getNum () const
+{
+  return jellies.size ();
+}
+
+unsigned long
+JellyfishManager::getMaxNum () const
+{
+  return 1;
 }

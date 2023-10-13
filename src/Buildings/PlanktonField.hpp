@@ -12,5 +12,5 @@ public:
   void update () override;
 
 private:
-  const double baseFoodProduction = 0.5;
+  const double baseFoodProduction = 0.125;
 };
