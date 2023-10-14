@@ -3,6 +3,7 @@
 #include <list>
 #include <memory>
 #include <string>
+#include <utility>
 
 enum class BuildingType
 {
@@ -20,15 +21,19 @@ public:
   unsigned getCurrentQuantity () const;
   virtual void update () = 0;
   virtual std::list<std::pair<RessourceType, double> > getProdPerTick () = 0;
-
-  // Cost ?
+  std::list<std::pair<RessourceType, double> > getNextBuyCost ();
+  virtual std::string getDescription () = 0;
 
 private:
   std::string name;
   unsigned quantity = 0;
 
+  std::list<std::pair<RessourceType, double> > basePrice;
+  double priceMultiplier;
+
   std::list<std::pair<RessourceType, double> > prodPerTick;
 
+  // Building classes ----------------------
   friend class PlanktonField;
 };
 

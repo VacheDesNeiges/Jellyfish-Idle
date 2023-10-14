@@ -1,6 +1,8 @@
 #include "Building.hpp"
 #include "PlanktonField.hpp"
+#include "Ressource.hpp"
 #include <cstddef>
+#include <math.h>
 #include <memory>
 
 void
@@ -28,4 +30,16 @@ BuildingFactory::createBuildingInstance (BuildingType t)
     default:
       return nullptr;
     }
+}
+
+std::list<std::pair<RessourceType, double> >
+Building::getNextBuyCost ()
+{
+  std::list<std::pair<RessourceType, double> > ret;
+  for (auto &[ressource, cost] : basePrice)
+    {
+      ret.emplace_back (
+          std::pair (ressource, cost * pow (priceMultiplier, quantity)));
+    }
+  return ret;
 }

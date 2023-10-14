@@ -84,7 +84,8 @@ UIManager::renderUI () const
           if (gData->isUnlocked (AchievementIDs::PlanktonField))
             {
 
-              ImGui::BeginDisabled (false);
+              ImGui::BeginDisabled (
+                  !gData->isBuyable (BuildingType::PlanktonField));
               if (ImGui::Button (
                       ("Plankton Field ("
                        + std::to_string (gData->getBuildingQuantity (
@@ -96,8 +97,12 @@ UIManager::renderUI () const
                   gData->buy (BuildingType::PlanktonField);
                 }
               ImGui::EndDisabled ();
-              if (ImGui::IsItemHovered (ImGuiHoveredFlags_DelayNone))
-                ImGui::SetTooltip ("I am a a tooltip.");
+              if (ImGui::IsItemHovered (ImGuiHoveredFlags_DelayNone
+                                        | ImGuiHoveredFlags_AllowWhenDisabled))
+                ImGui::SetTooltip (
+                    "%s",
+                    gData->getBuildingDescription (BuildingType::PlanktonField)
+                        .c_str ());
             }
 
           ImGui::EndTabItem ();

@@ -11,8 +11,11 @@ public:
   void updateRessources ();
   unsigned getCurrentQuantity (BuildingType);
   void buy (BuildingType);
+  std::list<std::pair<RessourceType, double> > nextBuyCost (BuildingType);
 
   std::list<std::pair<RessourceType, double> > getProduction (BuildingType);
+
+  std::string getDescription (BuildingType);
 
 private:
   std::map<BuildingType, std::unique_ptr<Building> > buildings;

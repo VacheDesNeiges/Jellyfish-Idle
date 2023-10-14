@@ -30,3 +30,15 @@ BuildingManager::getProduction (BuildingType t)
 {
   return buildings[t]->getProdPerTick ();
 }
+
+std::list<std::pair<RessourceType, double> >
+BuildingManager::nextBuyCost (BuildingType t)
+{
+  return buildings[t]->getNextBuyCost ();
+}
+
+std::string
+BuildingManager::getDescription (BuildingType t)
+{
+  return buildings[t]->getDescription ();
+}

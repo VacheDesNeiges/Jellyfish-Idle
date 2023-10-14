@@ -1,6 +1,7 @@
 #include "GameDataSynchronizer.hpp"
 #include "Achievement.hpp"
 #include "Building.hpp"
+#include "BuildingManager.hpp"
 #include "Ressource.hpp"
 #include <src/Jellyfishs/Jellyfish.hpp>
 
@@ -158,4 +159,22 @@ GameDataSynchronizer::checkJellyfishArrival ()
       if (gameTicksInterval >= 8)
         gameTicksInterval = 0;
     }
+}
+
+bool
+GameDataSynchronizer::isBuyable (BuildingType t)
+{
+  bool buyable = true;
+  for (const auto &[ressource, price] : buildings.nextBuyCost (t))
+    {
+      if (price > ressources.getCurrentQuantity (ressource))
+        buyable = false;
+    }
+  return buyable;
+}
+
+std::string
+GameDataSynchronizer::getBuildingDescription (BuildingType t)
+{
+  return buildings.getDescription (t);
 }

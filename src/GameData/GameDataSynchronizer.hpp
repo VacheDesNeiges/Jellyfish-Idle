@@ -18,6 +18,7 @@ public:
 
   void gatherFood ();
   void buy (BuildingType);
+  bool isBuyable (BuildingType);
 
   double getRessourceQuantity (RessourceType);
   double getRessourceMaxQuantity (RessourceType);
@@ -26,11 +27,11 @@ public:
   unsigned getBuildingQuantity (BuildingType);
   std::list<std::pair<RessourceType, double> >
       getBuildingProduction (BuildingType);
+  std::string getBuildingDescription (BuildingType);
 
   unsigned long getNumJellies ();
   long getNumJellies (JellyJobs);
   unsigned long getMaxNumJellies ();
-
   bool unassignJelly (JellyJobs);
   bool assignJelly (JellyJobs);
 
