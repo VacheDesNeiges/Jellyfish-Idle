@@ -13,3 +13,33 @@ Individuality -> each jelly get 10% increased exp for each job level they have
 # Time system
 
 With years, Late game glacial age through timeskips ? Rituals ?
+
+# 
+
+Gather sand job
+sand nest building for more jellies
+unlocks 
+
+2000+ depths unlocks geothermal vents, use them to melt sand and get glass
+
+
+ressources sous-marines :
+
+hydrocarbures pétrole et gaz
+
+
+utiliser courants marins
+déssaler l'eau en late game ? pour avoir eau douce et sel
+
+modules polymetaliques (manganese + oxyde de fer)
+ressources biochimiques 
+
+algues
+
+equilibre climatique, réchauffement/refroidissement pour boost les méduses/autres espèces
+
+faire trucs à la surface à un moment ?
+
+lovecraft, mythologie grècque (médusa (gorgones), poseidon & amphitrite) sirènes
+cancer (carcinus); thalassa; Leviathan; Déluge; Styx ; nessie; moby dick; kappa
+hydres;

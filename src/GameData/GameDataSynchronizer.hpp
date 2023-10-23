@@ -3,17 +3,17 @@
 #include "AchievementSystem.hpp"
 #include "Building.hpp"
 #include "BuildingManager.hpp"
+#include "Jellyfish.hpp"
+#include "JellyfishManager.hpp"
 #include "Ressource.hpp"
 #include "RessourceManager.hpp"
 #include <map>
-#include <src/Jellyfishs/Jellyfish.hpp>
-#include <src/Jellyfishs/JellyfishManager.hpp>
 
 class GameDataSynchronizer
 {
 
 public:
-  void loadSave (); // TODO implement save and load system
+  void loadSave ();
   void gameTick ();
 
   void gatherFood ();
@@ -29,9 +29,9 @@ public:
       getBuildingProduction (BuildingType);
   std::string getBuildingDescription (BuildingType);
 
-  unsigned long getNumJellies ();
+  unsigned long getNumJellies () const;
   long getNumJellies (JellyJobs);
-  unsigned long getMaxNumJellies ();
+  unsigned long getMaxNumJellies () const;
   bool unassignJelly (JellyJobs);
   bool assignJelly (JellyJobs);
 
@@ -46,4 +46,8 @@ private:
 
   void checkAchievements ();
   void checkJellyfishArrival ();
+
+  std::map<RessourceType, double>
+  addMaps (const std::map<RessourceType, double> &,
+           const std::map<RessourceType, double> &) const;
 };

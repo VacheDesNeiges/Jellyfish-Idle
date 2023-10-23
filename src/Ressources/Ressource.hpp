@@ -6,6 +6,7 @@
 enum class RessourceType
 {
   Food,
+  Sand,
   SeaShells,
   Minerals,
   Last

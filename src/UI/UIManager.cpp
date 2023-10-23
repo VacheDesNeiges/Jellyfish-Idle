@@ -112,19 +112,19 @@ UIManager::renderUI () const
           using enum JellyJobs;
           ImGui::Text ("Available Jellies : %ld", gData->getNumJellies (None));
 
-          ImGui::Text ("Gather Sea Shells");
+          ImGui::Text ("Gather Sand");
           ImGui::SameLine ();
           ImGui::PushButtonRepeat (true);
           if (ImGui::ArrowButton ("##left", ImGuiDir_Left))
             {
-              gData->unassignJelly (GatherSeaShell);
+              gData->unassignJelly (GatherSand);
             }
           ImGui::SameLine ();
-          ImGui::Text ("%ld", gData->getNumJellies (GatherSeaShell));
+          ImGui::Text ("%ld", gData->getNumJellies (GatherSand));
           ImGui::SameLine (0.0f);
           if (ImGui::ArrowButton ("##right", ImGuiDir_Right))
             {
-              gData->assignJelly (GatherSeaShell);
+              gData->assignJelly (GatherSand);
             }
           ImGui::PopButtonRepeat ();
 
@@ -148,5 +148,5 @@ UIManager::renderUI () const
   renderRessources ();
 
   ImGui::ShowDemoWindow ();
-  //   ImGui::ShowStyleEditor ();
+  ImGui::ShowStyleEditor ();
 }

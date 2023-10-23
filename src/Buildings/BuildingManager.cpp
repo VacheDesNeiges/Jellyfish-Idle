@@ -1,5 +1,6 @@
 #include "BuildingManager.hpp"
 #include "Building.hpp"
+#include "Ressource.hpp"
 #include <iostream>
 
 BuildingManager::BuildingManager ()
@@ -41,4 +42,32 @@ std::string
 BuildingManager::getDescription (BuildingType t)
 {
   return buildings[t]->getDescription ();
+}
+
+std::map<RessourceType, double>
+BuildingManager::getProductionRates () const
+{
+  std::map<RessourceType, double> result;
+  for (const auto &[_, b] : buildings)
+    {
+      for (const auto &[rType, productionRate] : b->getProdPerTick ())
+        {
+          result[rType] += productionRate;
+        }
+    }
+  return result;
+}
+
+std::map<RessourceType, double>
+BuildingManager::getConsumptionRates () const
+{
+  std::map<RessourceType, double> result;
+  for (const auto &[_, b] : buildings)
+    {
+      for (const auto &[rType, consumptionRate] : b->getConsumPerTick ())
+        {
+          result[rType] += consumptionRate;
+        }
+    }
+  return result;
 }

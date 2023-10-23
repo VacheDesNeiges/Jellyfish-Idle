@@ -8,6 +8,7 @@
 enum class BuildingType
 {
   PlanktonField,
+  SandNest,
   Last
 };
 
@@ -21,6 +22,7 @@ public:
   unsigned getCurrentQuantity () const;
   virtual void update () = 0;
   virtual std::list<std::pair<RessourceType, double> > getProdPerTick () = 0;
+  virtual std::list<std::pair<RessourceType, double> > getConsumPerTick () = 0;
   std::list<std::pair<RessourceType, double> > getNextBuyCost ();
   virtual std::string getDescription () = 0;
 

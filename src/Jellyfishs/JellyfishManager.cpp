@@ -1,4 +1,5 @@
 #include "JellyfishManager.hpp"
+#include "Ressource.hpp"
 #include <algorithm>
 #include <exception>
 #include <iostream>
@@ -19,8 +20,8 @@ JellyfishManager::getNum (JellyJobs job)
       return numJobNone;
     case GatherFood:
       return numJobGatheringFood;
-    case GatherSeaShell:
-      return numJobGatheringShells;
+    case GatherSand:
+      return numJobGatheringSand;
     case Mining:
       return numJobMining;
     case Last:
@@ -34,7 +35,7 @@ JellyfishManager::updateNumJobs ()
 {
   numJobNone = 0;
   numJobMining = 0;
-  numJobGatheringShells = 0;
+  numJobGatheringSand = 0;
   numJobGatheringFood = 0;
   for (const auto &jfish : jellies)
     {
@@ -47,8 +48,8 @@ JellyfishManager::updateNumJobs ()
         case GatherFood:
           numJobGatheringFood++;
           break;
-        case GatherSeaShell:
-          numJobGatheringShells++;
+        case GatherSand:
+          numJobGatheringSand++;
           break;
         case Mining:
           numJobMining++;
@@ -79,8 +80,8 @@ JellyfishManager::assign (JellyJobs j)
     case JellyJobs::GatherFood:
       numJobGatheringFood++;
       break;
-    case JellyJobs::GatherSeaShell:
-      numJobGatheringShells++;
+    case JellyJobs::GatherSand:
+      numJobGatheringSand++;
       break;
     case JellyJobs::Mining:
       numJobMining++;
@@ -104,11 +105,11 @@ JellyfishManager::unasign (JellyJobs j)
 
       break;
 
-    case JellyJobs::GatherSeaShell:
-      if (numJobGatheringShells == 0)
+    case JellyJobs::GatherSand:
+      if (numJobGatheringSand == 0)
         return false;
 
-      numJobGatheringShells--;
+      numJobGatheringSand--;
       break;
 
     case JellyJobs::Mining:
@@ -140,13 +141,22 @@ JellyfishManager::createJellyfish ()
 }
 
 unsigned long
-JellyfishManager::getNum () const
+JellyfishManager::getNumJellies () const
 {
   return jellies.size ();
 }
 
 unsigned long
-JellyfishManager::getMaxNum () const
+JellyfishManager::getMaxNumJellies () const
 {
   return 1;
+}
+
+std::vector<std::pair<RessourceType, double> >
+JellyfishManager::getProduction () const
+{
+  std::vector<std::pair<RessourceType, double> > production;
+  using enum RessourceType;
+  production.emplace_back (Sand, numJobGatheringSand * 0.04);
+  return production;
 }

@@ -13,6 +13,13 @@ Ressource::Ressource (RessourceType rType)
       base_production = 0.005f;
       break;
 
+    case RessourceType::Sand:
+      name = "Sand";
+      max_quantity = 400;
+      quantity = 0;
+      base_production = 0;
+      break;
+
     case RessourceType::Minerals:
       name = "Minerals";
       max_quantity = 300;

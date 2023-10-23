@@ -8,7 +8,7 @@ RessourceManager::init ()
 {
   using enum RessourceType;
   ressources[Food] = Ressource (Food);
-  ressources[SeaShells] = Ressource (SeaShells);
+  ressources[Sand] = Ressource (Sand);
   ressources[Minerals] = Ressource (Minerals);
 }
 

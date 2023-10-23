@@ -13,5 +13,6 @@ private:
 enum class AchievementIDs
 {
   PlanktonField,
+  FirstSandNest,
   Last
 };

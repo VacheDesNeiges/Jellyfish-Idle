@@ -2,13 +2,20 @@
 #include "Achievement.hpp"
 #include "Building.hpp"
 #include "BuildingManager.hpp"
+#include "Jellyfish.hpp"
 #include "Ressource.hpp"
-#include <src/Jellyfishs/Jellyfish.hpp>
 
 void
 GameDataSynchronizer::gameTick ()
 {
   ressources.zerosValuePerTick ();
+
+  // Ressource consumption
+  ressources.consume (addMaps (buildings.getConsumptionRates (),
+                               jellies.getProductionRates ()));
+  // Ressource conversion
+  // Ressource production
+
   for (auto b = static_cast<int> (BuildingType::PlanktonField);
        b != static_cast<int> (BuildingType::Last); b++)
     {
@@ -65,9 +72,9 @@ GameDataSynchronizer::getBuildingProduction (BuildingType t)
 }
 
 unsigned long
-GameDataSynchronizer::getNumJellies ()
+GameDataSynchronizer::getNumJellies () const
 {
-  return jellies.getNum ();
+  return jellies.getNumJellies ();
 }
 
 long
@@ -77,9 +84,9 @@ GameDataSynchronizer::getNumJellies (JellyJobs j)
 }
 
 unsigned long
-GameDataSynchronizer::getMaxNumJellies ()
+GameDataSynchronizer::getMaxNumJellies () const
 {
-  return jellies.getMaxNum ();
+  return jellies.getMaxNumJellies ();
 }
 
 bool
@@ -133,6 +140,12 @@ GameDataSynchronizer::checkAchievements ()
             }
           break;
 
+        case FirstSandNest:
+          if (buildings.getCurrentQuantity (BuildingType::SandNest) >= 1)
+            {
+              achievements.unlock (id);
+            }
+
         default:
           break;
         }
@@ -143,7 +156,7 @@ void
 GameDataSynchronizer::checkJellyfishArrival ()
 {
   static short gameTicksInterval = 0;
-  if (jellies.getNum () == jellies.getMaxNum ())
+  if (jellies.getNumJellies () == jellies.getMaxNumJellies ())
     {
       gameTicksInterval = 0;
     }
@@ -177,4 +190,18 @@ std::string
 GameDataSynchronizer::getBuildingDescription (BuildingType t)
 {
   return buildings.getDescription (t);
+}
+
+std::map<RessourceType, double>
+GameDataSynchronizer::addMaps (
+    const std::map<RessourceType, double> &map1,
+    const std::map<RessourceType, double> &map2) const
+{
+  auto result = map1;
+
+  for (const auto &[key, value] : map2)
+    {
+      result[key] += value;
+    }
+  return result;
 }
