@@ -9,27 +9,12 @@ void
 GameDataSynchronizer::gameTick ()
 {
   ressources.zerosValuePerTick ();
-
   // Ressource consumption
-  ressources.consume (addMaps (buildings.getConsumptionRates (),
-                               jellies.getProductionRates ()));
+  ressources.consume (jellies.getConsumptionRates ());
   // Ressource conversion
   // Ressource production
-
-  for (auto b = static_cast<int> (BuildingType::PlanktonField);
-       b != static_cast<int> (BuildingType::Last); b++)
-    {
-      for (const auto &[ressource, quantity] :
-           getBuildingProduction (static_cast<BuildingType> (b)))
-        {
-          ressources.add (ressource, quantity);
-          ressources.addToProdPerTick (ressource, quantity);
-        }
-    }
-  ressources.add (RessourceType::Food,
-                  -1 * static_cast<double> (getNumJellies ()));
-  ressources.addToProdPerTick (RessourceType::Food,
-                               -1 * (static_cast<double> (getNumJellies ())));
+  ressources.produce (addMaps (buildings.getProductionRates (),
+                               jellies.getProductionRates ()));
 
   checkAchievements ();
   checkJellyfishArrival ();
@@ -56,6 +41,10 @@ GameDataSynchronizer::getRessourceMaxQuantity (RessourceType t)
 void
 GameDataSynchronizer::buy (BuildingType t)
 {
+  for (const auto &[rType, quant] : buildings.nextBuyCost (t))
+    {
+      ressources.add (rType, -quant);
+    }
   buildings.buy (t);
 }
 

@@ -69,3 +69,23 @@ RessourceManager::getNetProduction (RessourceType t)
 {
   return ressources[t].getNetProduction ();
 }
+
+void
+RessourceManager::consume (const std::map<RessourceType, double> &rates)
+{
+  for (const auto &[type, rate] : rates)
+    {
+      ressources[type].add (-rate);
+      ressources[type].addToConsumptionPerTick (rate);
+    }
+}
+
+void
+RessourceManager::produce (const std::map<RessourceType, double> &rates)
+{
+  for (const auto &[type, rate] : rates)
+    {
+      ressources[type].add (rate);
+      ressources[type].addToProdPerTick (rate);
+    }
+}

@@ -138,6 +138,7 @@ void
 JellyfishManager::createJellyfish ()
 {
   jellies.emplace_back ();
+  numJobNone++;
 }
 
 unsigned long
@@ -159,4 +160,22 @@ JellyfishManager::getProduction () const
   using enum RessourceType;
   production.emplace_back (Sand, numJobGatheringSand * 0.04);
   return production;
+}
+
+std::map<RessourceType, double>
+JellyfishManager::getProductionRates () const
+{
+  std::map<RessourceType, double> result;
+  using enum RessourceType;
+  result[Sand] = numJobGatheringSand * 0.04;
+  return result;
+}
+
+std::map<RessourceType, double>
+JellyfishManager::getConsumptionRates () const
+{
+  std::map<RessourceType, double> result;
+  using enum RessourceType;
+  result[Food] = static_cast<double> (getNumJellies ()) * 1;
+  return result;
 }

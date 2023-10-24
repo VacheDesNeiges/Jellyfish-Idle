@@ -57,17 +57,3 @@ BuildingManager::getProductionRates () const
     }
   return result;
 }
-
-std::map<RessourceType, double>
-BuildingManager::getConsumptionRates () const
-{
-  std::map<RessourceType, double> result;
-  for (const auto &[_, b] : buildings)
-    {
-      for (const auto &[rType, consumptionRate] : b->getConsumPerTick ())
-        {
-          result[rType] += consumptionRate;
-        }
-    }
-  return result;
-}

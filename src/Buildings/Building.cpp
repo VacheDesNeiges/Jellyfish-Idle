@@ -1,6 +1,7 @@
 #include "Building.hpp"
 #include "PlanktonField.hpp"
 #include "Ressource.hpp"
+#include "SandNest.hpp"
 #include <cstddef>
 #include <math.h>
 #include <memory>
@@ -25,8 +26,9 @@ BuildingFactory::createBuildingInstance (BuildingType t)
     {
     case BuildingType::PlanktonField:
       return std::make_unique<PlanktonField> ();
-    case BuildingType::Last:
-      return nullptr;
+    case BuildingType::SandNest:
+      return std::make_unique<SandNest> ();
+
     default:
       return nullptr;
     }

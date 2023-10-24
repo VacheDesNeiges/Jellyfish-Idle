@@ -22,7 +22,6 @@ public:
   unsigned getCurrentQuantity () const;
   virtual void update () = 0;
   virtual std::list<std::pair<RessourceType, double> > getProdPerTick () = 0;
-  virtual std::list<std::pair<RessourceType, double> > getConsumPerTick () = 0;
   std::list<std::pair<RessourceType, double> > getNextBuyCost ();
   virtual std::string getDescription () = 0;
 
@@ -37,6 +36,7 @@ private:
 
   // Building classes ----------------------
   friend class PlanktonField;
+  friend class SandNest;
 };
 
 class BuildingFactory

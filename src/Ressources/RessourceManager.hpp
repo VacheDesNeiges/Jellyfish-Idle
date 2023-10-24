@@ -20,8 +20,8 @@ public:
   void add (RessourceType, double);
   void addToProdPerTick (RessourceType, double);
 
-  void consume (std::map<RessourceType, double>);
-  void produce (std::map<RessourceType, double>);
+  void consume (const std::map<RessourceType, double> &);
+  void produce (const std::map<RessourceType, double> &);
 
 private:
   std::map<RessourceType, Ressource> ressources;

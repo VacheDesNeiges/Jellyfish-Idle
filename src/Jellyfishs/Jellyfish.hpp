@@ -17,7 +17,7 @@ public:
   JellyJobs getJob () const;
 
 private:
-  unsigned id;
+  unsigned id = 0;
   JellyJobs currentJob = JellyJobs::None;
 
   unsigned GatheringFoodLvl = 0;

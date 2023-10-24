@@ -1,4 +1,5 @@
 #include "Ressource.hpp"
+#include <iostream>
 #include <string_view>
 
 Ressource::Ressource (RessourceType rType)
@@ -88,7 +89,7 @@ Ressource::resetValuesPerTick ()
 void
 Ressource::addToConsumptionPerTick (double n)
 {
-  consumptionPerTick += -n;
+  consumptionPerTick += n;
 }
 
 void
