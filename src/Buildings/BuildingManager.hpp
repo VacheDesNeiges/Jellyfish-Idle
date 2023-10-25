@@ -15,7 +15,9 @@ public:
 
   std::list<std::pair<RessourceType, double> > getProduction (BuildingType);
 
+  std::string getBuildingName (BuildingType);
   std::string getDescription (BuildingType);
+  std::string getAdvancedDescription (BuildingType);
 
   std::map<RessourceType, double> getProductionRates () const;
   std::map<RessourceType, double> getConsumptionRates () const;

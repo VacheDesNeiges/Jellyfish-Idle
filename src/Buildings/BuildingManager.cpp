@@ -2,6 +2,7 @@
 #include "Building.hpp"
 #include "Ressource.hpp"
 #include <iostream>
+#include <string>
 
 BuildingManager::BuildingManager ()
 {
@@ -39,9 +40,21 @@ BuildingManager::nextBuyCost (BuildingType t)
 }
 
 std::string
+BuildingManager::getBuildingName (BuildingType t)
+{
+  return buildings[t]->getBuildingName ();
+}
+
+std::string
 BuildingManager::getDescription (BuildingType t)
 {
   return buildings[t]->getDescription ();
+}
+
+std::string
+BuildingManager::getAdvancedDescription (BuildingType t)
+{
+  return buildings[t]->getAdvancedDescription ();
 }
 
 std::map<RessourceType, double>

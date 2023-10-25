@@ -27,7 +27,10 @@ public:
   unsigned getBuildingQuantity (BuildingType);
   std::list<std::pair<RessourceType, double> >
       getBuildingProduction (BuildingType);
+
+  std::string getBuildingName (BuildingType);
   std::string getBuildingDescription (BuildingType);
+  std::string getAdvancedBuildingDescription (BuildingType);
 
   unsigned long getNumJellies () const;
   long getNumJellies (JellyJobs);
@@ -35,6 +38,7 @@ public:
   bool unassignJelly (JellyJobs);
   bool assignJelly (JellyJobs);
 
+  bool isUnlocked (BuildingType);
   bool isUnlocked (AchievementIDs);
   void unlock (AchievementIDs);
 

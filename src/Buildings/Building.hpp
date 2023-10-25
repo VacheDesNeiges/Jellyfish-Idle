@@ -23,7 +23,9 @@ public:
   virtual void update () = 0;
   virtual std::list<std::pair<RessourceType, double> > getProdPerTick () = 0;
   std::list<std::pair<RessourceType, double> > getNextBuyCost ();
-  virtual std::string getDescription () = 0;
+  std::string getBuildingName () const;
+  virtual std::string getDescription ();
+  virtual std::string getAdvancedDescription ();
 
 private:
   std::string name;

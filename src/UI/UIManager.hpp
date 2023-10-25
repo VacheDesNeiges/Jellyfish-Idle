@@ -1,3 +1,4 @@
+#include "Building.hpp"
 #include "imgui.h"
 #include <memory>
 #include <src/GameData/GameDataSynchronizer.hpp>
@@ -11,6 +12,9 @@ public:
 private:
   std::shared_ptr<GameDataSynchronizer> gData;
   void renderRessources () const;
+
   void renderBuildings () const;
+  bool renderBuildingButton (BuildingType) const;
+
   void renderJobs () const;
 };

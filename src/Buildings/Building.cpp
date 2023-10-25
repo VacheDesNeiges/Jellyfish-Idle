@@ -3,6 +3,7 @@
 #include "Ressource.hpp"
 #include "SandNest.hpp"
 #include <cstddef>
+#include <fmt/core.h>
 #include <math.h>
 #include <memory>
 
@@ -44,4 +45,30 @@ Building::getNextBuyCost ()
           std::pair (ressource, cost * pow (priceMultiplier, quantity)));
     }
   return ret;
+}
+
+std::string
+Building::getBuildingName () const
+{
+  return name;
+}
+
+std::string
+Building::getDescription ()
+{
+  std::string s;
+  s = fmt::format ("{} ({})", name, quantity);
+
+  return s;
+}
+
+std::string
+Building::getAdvancedDescription ()
+{
+  std::string s = "price :";
+  for (const auto &[ressource, price] : basePrice)
+    {
+      s += fmt::format ("\n{:.2f}", price * pow (priceMultiplier, quantity));
+    }
+  return s;
 }

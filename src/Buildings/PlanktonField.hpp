@@ -10,7 +10,6 @@ public:
   std::list<std::pair<RessourceType, double> > getProdPerTick () override;
 
   void update () override;
-  std::string getDescription () override;
 
 private:
   const double baseFoodProduction = 0.125;

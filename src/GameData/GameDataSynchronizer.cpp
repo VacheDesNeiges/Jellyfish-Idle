@@ -4,6 +4,7 @@
 #include "BuildingManager.hpp"
 #include "Jellyfish.hpp"
 #include "Ressource.hpp"
+#include <string>
 
 void
 GameDataSynchronizer::gameTick ()
@@ -102,6 +103,23 @@ GameDataSynchronizer::isUnlocked (AchievementIDs id)
   return achievements.isUnlocked (id);
 }
 
+bool
+GameDataSynchronizer::isUnlocked (BuildingType t)
+{
+  using enum BuildingType;
+  switch (t)
+    {
+    case PlanktonField:
+      return achievements.isUnlocked (AchievementIDs::PlanktonField);
+
+    case SandNest:
+      return achievements.isUnlocked (AchievementIDs::FirstSandNest);
+
+    default:
+      return false;
+    }
+}
+
 void
 GameDataSynchronizer::unlock (AchievementIDs id)
 {
@@ -177,9 +195,21 @@ GameDataSynchronizer::isBuyable (BuildingType t)
 }
 
 std::string
+GameDataSynchronizer::getBuildingName (BuildingType t)
+{
+  return buildings.getBuildingName (t);
+}
+
+std::string
 GameDataSynchronizer::getBuildingDescription (BuildingType t)
 {
   return buildings.getDescription (t);
+}
+
+std::string
+GameDataSynchronizer::getAdvancedBuildingDescription (BuildingType t)
+{
+  return buildings.getAdvancedDescription (t);
 }
 
 std::map<RessourceType, double>

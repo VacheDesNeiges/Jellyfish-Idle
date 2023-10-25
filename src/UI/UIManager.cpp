@@ -1,4 +1,5 @@
 #include "UIManager.hpp"
+#include "Achievement.hpp"
 #include "Building.hpp"
 #include "GameDataSynchronizer.hpp"
 #include "Jellyfish.hpp"
@@ -107,31 +108,27 @@ UIManager::renderBuildings () const
         {
           gData->gatherFood ();
         }
-      ImGui::SameLine ();
-      if (gData->isUnlocked (AchievementIDs::PlanktonField))
-        {
 
-          using enum BuildingType;
-          ImGui::BeginDisabled (!gData->isBuyable (PlanktonField));
-          if (ImGui::Button (("Plankton Field ("
-                              + std::to_string (
-                                  gData->getBuildingQuantity (PlanktonField))
-                              + ")")
-                                 .c_str (),
-                             sz))
-            {
-              gData->buy (PlanktonField);
-            }
-          ImGui::EndDisabled ();
-          if (ImGui::IsItemHovered (ImGuiHoveredFlags_DelayNone
-                                    | ImGuiHoveredFlags_AllowWhenDisabled))
-            ImGui::SetTooltip (
-                "%s", gData->getBuildingDescription (PlanktonField).c_str ());
-        }
+      ImGui::SameLine ();
+      bool odd = true;
+
+      {
+        using enum BuildingType;
+        for (auto building = static_cast<int> (PlanktonField);
+             building != static_cast<int> (Last); building++)
+          {
+            if (renderBuildingButton (static_cast<BuildingType> (building)))
+              odd = !odd;
+
+            if (odd)
+              ImGui::SameLine ();
+          }
+      }
 
       ImGui::EndTabItem ();
     }
 }
+
 void
 UIManager::renderJobs () const
 {
@@ -155,7 +152,33 @@ UIManager::renderJobs () const
           gData->assignJelly (GatherSand);
         }
       ImGui::PopButtonRepeat ();
-
       ImGui::EndTabItem ();
     }
+}
+
+bool
+UIManager::renderBuildingButton (BuildingType building) const
+{
+  auto sz = ImVec2 (300.f, 20.0f);
+
+  if (gData->isUnlocked (building))
+    {
+
+      ImGui::BeginDisabled (!gData->isBuyable (building));
+      if (ImGui::Button (gData->getBuildingDescription (building).c_str (),
+                         sz))
+        {
+          gData->buy (building);
+        }
+      ImGui::EndDisabled ();
+      if (ImGui::IsItemHovered (ImGuiHoveredFlags_DelayNone
+                                | ImGuiHoveredFlags_AllowWhenDisabled))
+        {
+          ImGui::SetTooltip (
+              "%s", gData->getAdvancedBuildingDescription (building).c_str ());
+        }
+
+      return true;
+    }
+  return false;
 }
