@@ -1,4 +1,5 @@
 #include "Game.hpp"
+#include "GameDataSynchronizer.hpp"
 #include "imgui.h"
 #include "imgui_impl_sdl2.h"
 #include "imgui_impl_sdlrenderer2.h"
@@ -7,7 +8,6 @@
 #include <chrono>
 #include <exception>
 #include <memory>
-#include <src/GameData/GameDataSynchronizer.hpp>
 #include <stdexcept>
 #include <stdio.h>
 #include <system_error>
@@ -68,6 +68,17 @@ Game::initialize ()
   UI = std::make_unique<UIManager> ();
   gameData = std::make_shared<GameDataSynchronizer> ();
   UI->bindGameData (gameData);
+
+  ImGuiStyle &style = ImGui::GetStyle ();
+  style.FrameRounding = 12.f;
+  style.FramePadding = { 20.f, 3.f };
+  style.WindowRounding = 12.f;
+
+  ImVec4 *colors = ImGui::GetStyle ().Colors;
+  colors[ImGuiCol_WindowBg] = ImVec4 (0.01f, 0.02f, 0.06f, 0.94f);
+  colors[ImGuiCol_PopupBg] = ImVec4 (0.13f, 0.19f, 0.26f, 0.94f);
+  colors[ImGuiCol_Button] = ImVec4 (0.31f, 0.76f, 0.83f, 0.41f);
+  colors[ImGuiCol_ButtonHovered] = ImVec4 (0.20f, 0.49f, 0.50f, 1.00f);
 }
 
 void

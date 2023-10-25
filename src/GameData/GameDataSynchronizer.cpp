@@ -130,10 +130,11 @@ GameDataSynchronizer::checkAchievements ()
           break;
 
         case FirstSandNest:
-          if (buildings.getCurrentQuantity (BuildingType::SandNest) >= 1)
+          if (ressources.getCurrentQuantity (RessourceType::Sand) >= 1)
             {
               achievements.unlock (id);
             }
+          break;
 
         default:
           break;

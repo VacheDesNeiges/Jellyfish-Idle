@@ -9,6 +9,8 @@ public:
   void bindGameData (std::shared_ptr<GameDataSynchronizer>);
 
 private:
-  void renderRessources () const;
   std::shared_ptr<GameDataSynchronizer> gData;
+  void renderRessources () const;
+  void renderBuildings () const;
+  void renderJobs () const;
 };
