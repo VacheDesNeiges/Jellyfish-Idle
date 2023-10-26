@@ -129,33 +129,6 @@ UIManager::renderBuildings () const
     }
 }
 
-void
-UIManager::renderJobs () const
-{
-  if (ImGui::BeginTabItem ("Jobs"))
-    {
-      using enum JellyJobs;
-      ImGui::Text ("Available Jellies : %ld", gData->getNumJellies (None));
-
-      ImGui::Text ("Gather Sand");
-      ImGui::SameLine ();
-      ImGui::PushButtonRepeat (true);
-      if (ImGui::ArrowButton ("##left", ImGuiDir_Left))
-        {
-          gData->unassignJelly (GatherSand);
-        }
-      ImGui::SameLine ();
-      ImGui::Text ("%ld", gData->getNumJellies (GatherSand));
-      ImGui::SameLine (0.0f);
-      if (ImGui::ArrowButton ("##right", ImGuiDir_Right))
-        {
-          gData->assignJelly (GatherSand);
-        }
-      ImGui::PopButtonRepeat ();
-      ImGui::EndTabItem ();
-    }
-}
-
 bool
 UIManager::renderBuildingButton (BuildingType building) const
 {
@@ -181,4 +154,59 @@ UIManager::renderBuildingButton (BuildingType building) const
       return true;
     }
   return false;
+}
+
+void
+UIManager::renderJobs () const
+{
+  if (ImGui::BeginTabItem ("Jobs"))
+    {
+      using enum JellyJobs;
+
+      ImGui::Text ("Available Jellies : %ld", gData->getNumJellies (None));
+
+      for (auto job = static_cast<int> (GatherSand);
+           job != static_cast<int> (Last); job++)
+        {
+          renderJobsControls (static_cast<JellyJobs> (job));
+        }
+
+      ImGui::Text ("Gather Sand");
+      ImGui::SameLine ();
+      ImGui::PushButtonRepeat (true);
+      if (ImGui::ArrowButton ("##left", ImGuiDir_Left))
+        {
+          gData->unassignJelly (GatherSand);
+        }
+      ImGui::SameLine ();
+      ImGui::Text ("%ld", gData->getNumJellies (GatherSand));
+      ImGui::SameLine (0.0f);
+      if (ImGui::ArrowButton ("##right", ImGuiDir_Right))
+        {
+          gData->assignJelly (GatherSand);
+        }
+      ImGui::PopButtonRepeat ();
+      ImGui::EndTabItem ();
+    }
+}
+
+void
+UIManager::renderJobsControls (JellyJobs job) const
+{
+  // TODO create job to string function and implements achievements.
+  ImGui::Text ("Gather Sand");
+  ImGui::SameLine ();
+  ImGui::PushButtonRepeat (true);
+  if (ImGui::ArrowButton ("##left", ImGuiDir_Left))
+    {
+      gData->unassignJelly (job);
+    }
+  ImGui::SameLine ();
+  ImGui::Text ("%ld", gData->getNumJellies (job));
+  ImGui::SameLine (0.0f);
+  if (ImGui::ArrowButton ("##right", ImGuiDir_Right))
+    {
+      gData->assignJelly (job);
+    }
+  ImGui::PopButtonRepeat ();
 }

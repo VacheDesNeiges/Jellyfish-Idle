@@ -1,4 +1,5 @@
 #include "Building.hpp"
+#include "Jellyfish.hpp"
 #include "imgui.h"
 #include <memory>
 #include <src/GameData/GameDataSynchronizer.hpp>
@@ -17,4 +18,5 @@ private:
   bool renderBuildingButton (BuildingType) const;
 
   void renderJobs () const;
+  void renderJobsControls (JellyJobs) const;
 };

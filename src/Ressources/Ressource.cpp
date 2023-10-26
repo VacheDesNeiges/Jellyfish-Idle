@@ -9,14 +9,14 @@ Ressource::Ressource (RessourceType rType)
     {
     case RessourceType::Food:
       name = "Food";
-      max_quantity = 200;
+      max_quantity = 800;
       quantity = 0;
       base_production = 0.005f;
       break;
 
     case RessourceType::Sand:
       name = "Sand";
-      max_quantity = 400;
+      max_quantity = 250;
       quantity = 0;
       base_production = 0;
       break;

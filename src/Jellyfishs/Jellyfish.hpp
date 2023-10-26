@@ -5,7 +5,7 @@ enum class JellyJobs
   None,
   GatherFood,
   GatherSand,
-  Mining,
+  ExploreTheSea,
   Last
 };
 
@@ -26,6 +26,6 @@ private:
   unsigned GatheringSandLevel = 0;
   unsigned long GatheringSandExp = 0;
 
-  unsigned MiningLvl = 0;
-  unsigned long MiningExp = 0;
+  unsigned exploreTheSeaLvl = 0;
+  unsigned long exploreTheSeaExp = 0;
 };

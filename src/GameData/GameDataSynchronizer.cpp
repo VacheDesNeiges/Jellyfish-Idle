@@ -47,6 +47,9 @@ GameDataSynchronizer::buy (BuildingType t)
       ressources.add (rType, -quant);
     }
   buildings.buy (t);
+
+  if (buildings.doesIncreasesMaxJellies (t))
+    updateMaxNumJellies ();
 }
 
 unsigned
@@ -172,7 +175,9 @@ GameDataSynchronizer::checkJellyfishArrival ()
     {
       gameTicksInterval++;
       if (gameTicksInterval == 8
-          && ressources.getNetProduction (RessourceType::Food) >= 1)
+          && ressources.getNetProduction (RessourceType::Food) >= 0.5)
+        // TODO refactor this 0.5 value to use the consumption rate of a
+        // singular jelly instead
         {
           gameTicksInterval = 0;
           jellies.createJellyfish ();
@@ -224,4 +229,17 @@ GameDataSynchronizer::addMaps (
       result[key] += value;
     }
   return result;
+}
+
+void
+GameDataSynchronizer::updateMaxNumJellies ()
+{
+  using enum BuildingType;
+  unsigned n = 0;
+  for (auto b = static_cast<int> (PlanktonField); b < static_cast<int> (Last);
+       b++)
+    {
+      n += buildings.getIncreaseToMaxJfish (static_cast<BuildingType> (b));
+    }
+  jellies.setBonusMaxJellies (n);
 }

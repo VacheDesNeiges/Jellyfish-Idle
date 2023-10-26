@@ -54,4 +54,5 @@ private:
   std::map<RessourceType, double>
   addMaps (const std::map<RessourceType, double> &,
            const std::map<RessourceType, double> &) const;
+  void updateMaxNumJellies ();
 };

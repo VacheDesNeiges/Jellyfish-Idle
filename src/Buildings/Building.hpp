@@ -22,6 +22,7 @@ public:
   unsigned getCurrentQuantity () const;
   virtual void update () = 0;
   virtual std::list<std::pair<RessourceType, double> > getProdPerTick () = 0;
+  unsigned getIncreaseToMaxJfish () const;
   std::list<std::pair<RessourceType, double> > getNextBuyCost ();
   std::string getBuildingName () const;
   virtual std::string getDescription ();
@@ -35,6 +36,7 @@ private:
   double priceMultiplier;
 
   std::list<std::pair<RessourceType, double> > prodPerTick;
+  unsigned increaseToMaxJfish = 0;
 
   // Building classes ----------------------
   friend class PlanktonField;

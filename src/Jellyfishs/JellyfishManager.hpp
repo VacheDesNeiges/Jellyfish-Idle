@@ -10,6 +10,7 @@ class JellyfishManager
 public:
   unsigned long getNumJellies () const;
   unsigned long getMaxNumJellies () const;
+  void setBonusMaxJellies (unsigned);
   long getNum (JellyJobs);
   bool assign (JellyJobs);
   bool unasign (JellyJobs);
@@ -20,11 +21,13 @@ public:
 
 private:
   std::vector<Jellyfish> jellies;
+  unsigned maxNumJellies = 1;
 
-  void updateNumJobs ();
   bool numJobsUpToDate = false;
   unsigned numJobNone = 0;
-  unsigned numJobMining = 0;
+  unsigned numJobExploreTheSea = 0;
   unsigned numJobGatheringSand = 0;
   unsigned numJobGatheringFood = 0;
+
+  void updateNumJobs ();
 };

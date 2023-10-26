@@ -43,3 +43,13 @@ faire trucs à la surface à un moment ?
 lovecraft, mythologie grècque (médusa (gorgones), poseidon & amphitrite) sirènes
 cancer (carcinus); thalassa; Leviathan; Déluge; Styx ; nessie; moby dick; kappa
 hydres;
+
+
+
+ocean exploration -> choose type of territory to control ->
+
+Hydrothermal vents -> Molten glass -> jar of glass to improve max of ressources
+
+refine glass into crystal glass ? will require lead
+
+Depth formula : log_n(t) with n being the number of the depth in order of unlock (starts at log 2) ?

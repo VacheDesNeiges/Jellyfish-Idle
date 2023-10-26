@@ -72,3 +72,9 @@ Building::getAdvancedDescription ()
     }
   return s;
 }
+
+unsigned
+Building::getIncreaseToMaxJfish () const
+{
+  return increaseToMaxJfish;
+}

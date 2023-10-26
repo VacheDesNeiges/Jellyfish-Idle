@@ -10,6 +10,8 @@ public:
   BuildingManager ();
   void updateRessources ();
   unsigned getCurrentQuantity (BuildingType);
+  bool doesIncreasesMaxJellies (BuildingType);
+  unsigned getIncreaseToMaxJfish (BuildingType);
   void buy (BuildingType);
   std::list<std::pair<RessourceType, double> > nextBuyCost (BuildingType);
 

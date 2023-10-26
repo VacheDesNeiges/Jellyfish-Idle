@@ -9,6 +9,7 @@ SandNest::SandNest ()
   basePrice.push_back (std::make_pair (RessourceType::Sand, 10));
   priceMultiplier = 2;
   name = "Sand Nest";
+  increaseToMaxJfish = 1;
 }
 
 std::list<std::pair<RessourceType, double> >

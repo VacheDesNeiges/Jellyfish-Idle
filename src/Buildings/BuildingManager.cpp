@@ -70,3 +70,16 @@ BuildingManager::getProductionRates () const
     }
   return result;
 }
+
+bool
+BuildingManager::doesIncreasesMaxJellies (BuildingType t)
+{
+  return buildings[t]->getIncreaseToMaxJfish () > 0;
+}
+
+unsigned
+BuildingManager::getIncreaseToMaxJfish (BuildingType t)
+{
+  return buildings[t]->getIncreaseToMaxJfish ()
+         * buildings[t]->getCurrentQuantity ();
+}

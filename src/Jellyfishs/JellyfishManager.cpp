@@ -22,8 +22,8 @@ JellyfishManager::getNum (JellyJobs job)
       return numJobGatheringFood;
     case GatherSand:
       return numJobGatheringSand;
-    case Mining:
-      return numJobMining;
+    case ExploreTheSea:
+      return numJobExploreTheSea;
     case Last:
       throw std::invalid_argument (
           "Last should not be an allowed jellyfish job");
@@ -34,7 +34,7 @@ void
 JellyfishManager::updateNumJobs ()
 {
   numJobNone = 0;
-  numJobMining = 0;
+  numJobExploreTheSea = 0;
   numJobGatheringSand = 0;
   numJobGatheringFood = 0;
   for (const auto &jfish : jellies)
@@ -51,8 +51,8 @@ JellyfishManager::updateNumJobs ()
         case GatherSand:
           numJobGatheringSand++;
           break;
-        case Mining:
-          numJobMining++;
+        case ExploreTheSea:
+          numJobExploreTheSea++;
           break;
         default:
           break;
@@ -83,8 +83,8 @@ JellyfishManager::assign (JellyJobs j)
     case JellyJobs::GatherSand:
       numJobGatheringSand++;
       break;
-    case JellyJobs::Mining:
-      numJobMining++;
+    case JellyJobs::ExploreTheSea:
+      numJobExploreTheSea++;
       break;
     default:
       return false;
@@ -112,11 +112,11 @@ JellyfishManager::unasign (JellyJobs j)
       numJobGatheringSand--;
       break;
 
-    case JellyJobs::Mining:
-      if (numJobMining == 0)
+    case JellyJobs::ExploreTheSea:
+      if (numJobExploreTheSea == 0)
         return false;
 
-      numJobMining--;
+      numJobExploreTheSea--;
       break;
 
     default:
@@ -150,7 +150,13 @@ JellyfishManager::getNumJellies () const
 unsigned long
 JellyfishManager::getMaxNumJellies () const
 {
-  return 1;
+  return maxNumJellies;
+}
+
+void
+JellyfishManager::setBonusMaxJellies (unsigned n)
+{
+  maxNumJellies = n + 1;
 }
 
 std::vector<std::pair<RessourceType, double> >
@@ -176,6 +182,6 @@ JellyfishManager::getConsumptionRates () const
 {
   std::map<RessourceType, double> result;
   using enum RessourceType;
-  result[Food] = static_cast<double> (getNumJellies ()) * 1;
+  result[Food] = static_cast<double> (getNumJellies ()) * 0.5;
   return result;
 }
