@@ -31,6 +31,7 @@ public:
   std::string getBuildingName (BuildingType);
   std::string getBuildingDescription (BuildingType);
   std::string getAdvancedBuildingDescription (BuildingType);
+  std::string getJobDescription (JellyJobs);
 
   unsigned long getNumJellies () const;
   long getNumJellies (JellyJobs);
@@ -39,6 +40,7 @@ public:
   bool assignJelly (JellyJobs);
 
   bool isUnlocked (BuildingType);
+  bool isUnlocked (JellyJobs);
   bool isUnlocked (AchievementIDs);
   void unlock (AchievementIDs);
 

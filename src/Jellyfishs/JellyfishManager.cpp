@@ -6,6 +6,7 @@
 #include <iterator>
 #include <src/Jellyfishs/Jellyfish.hpp>
 #include <stdexcept>
+#include <string>
 
 long
 JellyfishManager::getNum (JellyJobs job)
@@ -184,4 +185,21 @@ JellyfishManager::getConsumptionRates () const
   using enum RessourceType;
   result[Food] = static_cast<double> (getNumJellies ()) * 0.5;
   return result;
+}
+
+std::string
+JellyfishManager::getJobDescription (JellyJobs j) const
+{
+  using enum JellyJobs;
+  switch (j)
+    {
+    case GatherSand:
+      return "Gather Sand";
+
+    case ExploreTheSea:
+      return "Explore the sea";
+
+    default:
+      return "";
+    }
 }

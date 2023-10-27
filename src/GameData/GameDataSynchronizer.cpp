@@ -123,6 +123,24 @@ GameDataSynchronizer::isUnlocked (BuildingType t)
     }
 }
 
+bool
+GameDataSynchronizer::isUnlocked (JellyJobs j)
+{
+  using enum JellyJobs;
+
+  switch (j)
+    {
+
+    case GatherSand:
+      return achievements.isUnlocked (AchievementIDs::JobGatherSand);
+
+    case ExploreTheSea:
+      return achievements.isUnlocked (AchievementIDs::JobExploreTheSea);
+    default:
+      return false;
+    }
+}
+
 void
 GameDataSynchronizer::unlock (AchievementIDs id)
 {
@@ -242,4 +260,10 @@ GameDataSynchronizer::updateMaxNumJellies ()
       n += buildings.getIncreaseToMaxJfish (static_cast<BuildingType> (b));
     }
   jellies.setBonusMaxJellies (n);
+}
+
+std::string
+GameDataSynchronizer::getJobDescription (JellyJobs j)
+{
+  return jellies.getJobDescription (j);
 }

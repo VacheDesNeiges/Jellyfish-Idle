@@ -194,7 +194,7 @@ void
 UIManager::renderJobsControls (JellyJobs job) const
 {
   // TODO create job to string function and implements achievements.
-  ImGui::Text ("Gather Sand");
+  ImGui::Text ("%s", gData->getJobDescription (job).c_str ());
   ImGui::SameLine ();
   ImGui::PushButtonRepeat (true);
   if (ImGui::ArrowButton ("##left", ImGuiDir_Left))

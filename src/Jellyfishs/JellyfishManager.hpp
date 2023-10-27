@@ -18,6 +18,7 @@ public:
   std::vector<std::pair<RessourceType, double> > getProduction () const;
   std::map<RessourceType, double> getProductionRates () const;
   std::map<RessourceType, double> getConsumptionRates () const;
+  std::string getJobDescription (JellyJobs) const;
 
 private:
   std::vector<Jellyfish> jellies;
