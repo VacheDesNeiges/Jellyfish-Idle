@@ -25,13 +25,7 @@ PlanktonField::update ()
 {
   for (auto &[ressource, production] : prodPerTick)
     {
-      switch (ressource)
-        {
-        case RessourceType::Food:
-          production = baseFoodProduction * quantity;
-          break;
-        default:
-          continue;
-        }
+      if (ressource == RessourceType::Food)
+        production = baseFoodProduction * quantity;
     }
 }

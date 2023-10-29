@@ -31,7 +31,7 @@ public:
   std::string getBuildingName (BuildingType);
   std::string getBuildingDescription (BuildingType);
   std::string getAdvancedBuildingDescription (BuildingType);
-  std::string getJobDescription (JellyJobs);
+  std::string getJobDescription (JellyJobs) const;
 
   unsigned long getNumJellies () const;
   long getNumJellies (JellyJobs);

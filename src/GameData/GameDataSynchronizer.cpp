@@ -127,15 +127,14 @@ bool
 GameDataSynchronizer::isUnlocked (JellyJobs j)
 {
   using enum JellyJobs;
-
   switch (j)
     {
-
     case GatherSand:
       return achievements.isUnlocked (AchievementIDs::JobGatherSand);
 
     case ExploreTheSea:
       return achievements.isUnlocked (AchievementIDs::JobExploreTheSea);
+
     default:
       return false;
     }
@@ -263,7 +262,7 @@ GameDataSynchronizer::updateMaxNumJellies ()
 }
 
 std::string
-GameDataSynchronizer::getJobDescription (JellyJobs j)
+GameDataSynchronizer::getJobDescription (JellyJobs j) const
 {
   return jellies.getJobDescription (j);
 }
