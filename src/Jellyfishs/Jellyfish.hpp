@@ -3,9 +3,9 @@
 enum class JellyJobs
 {
   None,
-  GatherFood,
   GatherSand,
   ExploreTheSea,
+  FocusForInsight,
   Last
 };
 

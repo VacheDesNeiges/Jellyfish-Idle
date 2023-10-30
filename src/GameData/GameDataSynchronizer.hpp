@@ -7,12 +7,15 @@
 #include "JellyfishManager.hpp"
 #include "Ressource.hpp"
 #include "RessourceManager.hpp"
+#include <functional>
 #include <map>
 
 class GameDataSynchronizer
 {
 
 public:
+  GameDataSynchronizer ();
+
   void loadSave ();
   void gameTick ();
 
@@ -49,6 +52,7 @@ private:
   BuildingManager buildings;
   JellyfishManager jellies;
   AchievementSystem achievements;
+  std::map<AchievementIDs, std::function<bool ()> > achievementConditions;
 
   void checkAchievements ();
   void checkJellyfishArrival ();

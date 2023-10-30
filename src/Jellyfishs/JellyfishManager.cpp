@@ -19,8 +19,8 @@ JellyfishManager::getNum (JellyJobs job)
       using enum JellyJobs;
     case None:
       return numJobNone;
-    case GatherFood:
-      return numJobGatheringFood;
+    case FocusForInsight:
+      return numJobFocusing;
     case GatherSand:
       return numJobGatheringSand;
     case ExploreTheSea:
@@ -37,7 +37,7 @@ JellyfishManager::updateNumJobs ()
   numJobNone = 0;
   numJobExploreTheSea = 0;
   numJobGatheringSand = 0;
-  numJobGatheringFood = 0;
+  numJobFocusing = 0;
   for (const auto &jfish : jellies)
     {
       switch (jfish.getJob ())
@@ -46,8 +46,8 @@ JellyfishManager::updateNumJobs ()
         case None:
           numJobNone++;
           break;
-        case GatherFood:
-          numJobGatheringFood++;
+        case FocusForInsight:
+          numJobFocusing++;
           break;
         case GatherSand:
           numJobGatheringSand++;
@@ -78,8 +78,8 @@ JellyfishManager::assign (JellyJobs j)
 
   switch (j)
     {
-    case JellyJobs::GatherFood:
-      numJobGatheringFood++;
+    case JellyJobs::FocusForInsight:
+      numJobFocusing++;
       break;
     case JellyJobs::GatherSand:
       numJobGatheringSand++;
@@ -98,25 +98,22 @@ JellyfishManager::unasign (JellyJobs j)
 {
   switch (j)
     {
-    case JellyJobs::GatherFood:
-      if (numJobGatheringFood == 0)
+    case JellyJobs::FocusForInsight:
+      if (numJobFocusing == 0)
         return false;
-
-      numJobGatheringFood--;
+      numJobFocusing--;
 
       break;
 
     case JellyJobs::GatherSand:
       if (numJobGatheringSand == 0)
         return false;
-
       numJobGatheringSand--;
       break;
 
     case JellyJobs::ExploreTheSea:
       if (numJobExploreTheSea == 0)
         return false;
-
       numJobExploreTheSea--;
       break;
 

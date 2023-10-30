@@ -15,7 +15,7 @@ enum class AchievementIDs
   PlanktonField,
   FirstSandNest,
   JobGatherSand,
+  JobFocusing,
   JobExploreTheSea,
-
   Last
 };

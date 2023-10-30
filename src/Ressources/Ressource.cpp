@@ -21,16 +21,9 @@ Ressource::Ressource (RessourceType rType)
       base_production = 0;
       break;
 
-    case RessourceType::Minerals:
-      name = "Minerals";
+    case RessourceType::Insight:
+      name = "Insight";
       max_quantity = 300;
-      quantity = 0;
-      base_production = 0;
-      break;
-
-    case RessourceType::SeaShells:
-      name = "Sea Shells";
-      max_quantity = 500;
       quantity = 0;
       base_production = 0;
       break;

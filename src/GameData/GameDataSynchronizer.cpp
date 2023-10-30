@@ -6,6 +6,30 @@
 #include "Ressource.hpp"
 #include <string>
 
+GameDataSynchronizer::GameDataSynchronizer ()
+{
+  using enum AchievementIDs;
+  achievementConditions = {
+    { PlanktonField,
+      [this] () {
+        return ressources.getCurrentQuantity (RessourceType::Food) >= 5;
+      } },
+
+    { FirstSandNest,
+      [this] () {
+        return ressources.getCurrentQuantity (RessourceType::Sand) >= 1;
+      } },
+
+    { JobGatherSand, [this] () { return jellies.getNumJellies () >= 1; } },
+
+    { JobFocusing,
+      [this] () {
+        return buildings.getCurrentQuantity (BuildingType::SandNest) >= 1;
+      } },
+    { JobExploreTheSea, [] () { return false; } }
+  };
+}
+
 void
 GameDataSynchronizer::gameTick ()
 {
@@ -158,25 +182,8 @@ GameDataSynchronizer::checkAchievements ()
       if (achievements.isUnlocked (id))
         continue;
 
-      switch (id)
-        {
-        case PlanktonField:
-          if (ressources.getCurrentQuantity (RessourceType::Food) >= 5)
-            {
-              achievements.unlock (id);
-            }
-          break;
-
-        case FirstSandNest:
-          if (ressources.getCurrentQuantity (RessourceType::Sand) >= 1)
-            {
-              achievements.unlock (id);
-            }
-          break;
-
-        default:
-          break;
-        }
+      if (achievementConditions[id]())
+        achievements.unlock (id);
     }
 }
 

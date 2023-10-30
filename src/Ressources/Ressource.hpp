@@ -7,8 +7,7 @@ enum class RessourceType
 {
   Food,
   Sand,
-  SeaShells,
-  Minerals,
+  Insight,
   Last
 };
 // Contains Last as a workaround to allow iteration over the enum

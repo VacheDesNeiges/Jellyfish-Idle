@@ -28,7 +28,7 @@ private:
   unsigned numJobNone = 0;
   unsigned numJobExploreTheSea = 0;
   unsigned numJobGatheringSand = 0;
-  unsigned numJobGatheringFood = 0;
+  unsigned numJobFocusing = 0;
 
   void updateNumJobs ();
 };
