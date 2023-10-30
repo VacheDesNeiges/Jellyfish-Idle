@@ -12,6 +12,7 @@ Building::buy ()
 {
   quantity++;
   update ();
+  std::cout << "Bought new building, quantity : " << quantity << "\n";
 }
 
 unsigned

@@ -26,6 +26,7 @@ GameDataSynchronizer::GameDataSynchronizer ()
       [this] () {
         return buildings.getCurrentQuantity (BuildingType::SandNest) >= 1;
       } },
+
     { JobExploreTheSea, [] () { return false; } }
   };
 }
@@ -158,6 +159,9 @@ GameDataSynchronizer::isUnlocked (JellyJobs j)
 
     case ExploreTheSea:
       return achievements.isUnlocked (AchievementIDs::JobExploreTheSea);
+
+    case FocusForInsight:
+      return achievements.isUnlocked (AchievementIDs::JobFocusing);
 
     default:
       return false;

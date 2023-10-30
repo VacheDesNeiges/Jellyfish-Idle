@@ -7,7 +7,7 @@ public:
   void unlock ();
 
 private:
-  bool unlocked;
+  bool unlocked = false;
 };
 
 enum class AchievementIDs

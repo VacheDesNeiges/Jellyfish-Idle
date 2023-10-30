@@ -163,6 +163,7 @@ JellyfishManager::getProduction () const
   std::vector<std::pair<RessourceType, double> > production;
   using enum RessourceType;
   production.emplace_back (Sand, numJobGatheringSand * 0.04);
+  production.emplace_back (Insight, numJobFocusing * 0.16);
   return production;
 }
 
@@ -172,6 +173,7 @@ JellyfishManager::getProductionRates () const
   std::map<RessourceType, double> result;
   using enum RessourceType;
   result[Sand] = numJobGatheringSand * 0.04;
+  result[Insight] = numJobFocusing * 0.16;
   return result;
 }
 
@@ -195,6 +197,9 @@ JellyfishManager::getJobDescription (JellyJobs j) const
 
     case ExploreTheSea:
       return "Explore the sea";
+
+    case FocusForInsight:
+      return "Focusing for Insight";
 
     default:
       return "";
