@@ -2,6 +2,7 @@
 #include "Achievement.hpp"
 #include "Building.hpp"
 #include "GameDataSynchronizer.hpp"
+#include "InsightAbility.hpp"
 #include "Jellyfish.hpp"
 #include "Ressource.hpp"
 #include "imgui.h"
@@ -215,6 +216,11 @@ UIManager::renderInsightAbilities () const
 {
   if (ImGui::BeginTabItem ("Insight"))
     {
+      if (ImGui::Button (
+              gData->getAbilityDescription (AbilityType::CallThunder)
+                  .c_str ()))
+        {
+        }
       ImGui::Text ("Insight Tab");
       ImGui::EndTabItem ();
     }

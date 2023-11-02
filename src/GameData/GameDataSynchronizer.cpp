@@ -2,6 +2,7 @@
 #include "Achievement.hpp"
 #include "Building.hpp"
 #include "BuildingManager.hpp"
+#include "InsightAbility.hpp"
 #include "Jellyfish.hpp"
 #include "Ressource.hpp"
 #include <string>
@@ -283,4 +284,10 @@ std::string
 GameDataSynchronizer::getJobDescription (JellyJobs j) const
 {
   return jellies.getJobDescription (j);
+}
+
+std::string
+GameDataSynchronizer::getAbilityDescription (AbilityType t)
+{
+  return abilities.getAbilityDescription (t);
 }

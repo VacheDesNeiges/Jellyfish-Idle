@@ -1,8 +1,10 @@
 #pragma once
+#include "AbilityManager.hpp"
 #include "Achievement.hpp"
 #include "AchievementSystem.hpp"
 #include "Building.hpp"
 #include "BuildingManager.hpp"
+#include "InsightAbility.hpp"
 #include "Jellyfish.hpp"
 #include "JellyfishManager.hpp"
 #include "Ressource.hpp"
@@ -35,6 +37,7 @@ public:
   std::string getBuildingDescription (BuildingType);
   std::string getAdvancedBuildingDescription (BuildingType);
   std::string getJobDescription (JellyJobs) const;
+  std::string getAbilityDescription (AbilityType);
 
   unsigned long getNumJellies () const;
   long getNumJellies (JellyJobs);
@@ -52,6 +55,7 @@ private:
   BuildingManager buildings;
   JellyfishManager jellies;
   AchievementSystem achievements;
+  AbilityManager abilities;
   std::map<AchievementIDs, std::function<bool ()> > achievementConditions;
 
   void checkAchievements ();
