@@ -28,6 +28,13 @@ Ressource::Ressource (RessourceType rType)
       base_production = 0;
       break;
 
+    case RessourceType::Glass:
+      name = "Glass";
+      max_quantity = 75;
+      quantity = 0;
+      base_production = 0;
+      break;
+
     default:
       break;
     }

@@ -5,6 +5,7 @@
 #include "Jellyfish.hpp"
 #include "Ressource.hpp"
 #include "imgui.h"
+#include "imgui_internal.h"
 #include <iomanip>
 #include <ios>
 #include <iostream>
@@ -26,18 +27,32 @@ UIManager::renderUI () const
   if (ImGui::BeginTabBar ("Tabs", ImGuiTabBarFlags_None))
     {
       renderBuildings ();
-      renderJobs ();
 
-      if (ImGui::BeginTabItem ("Territory"))
+      if (gData->isUnlocked (AchievementIDs::FirstJelly))
+        renderJobs ();
+
+      if (ImGui::BeginTabItem ("Insight"))
         {
-          ImGui::Text ("This is the Territory tab!\nblah blah blah blah blah");
+          ImGui::Text ("Insight Tab");
           ImGui::EndTabItem ();
         }
-      if (ImGui::BeginTabItem ("Upgrades"))
+
+      if (ImGui::BeginTabItem ("Research"))
         {
           ImGui::Text ("This is the upgrade tab");
           ImGui::EndTabItem ();
         }
+
+      if (gData->isUnlocked (AchievementIDs::JobExploreTheSea))
+        {
+          if (ImGui::BeginTabItem ("Territory"))
+            {
+              ImGui::Text (
+                  "This is the Territory tab!\nblah blah blah blah blah");
+              ImGui::EndTabItem ();
+            }
+        }
+
       ImGui::EndTabBar ();
     }
 

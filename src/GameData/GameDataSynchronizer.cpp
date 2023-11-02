@@ -9,26 +9,26 @@
 GameDataSynchronizer::GameDataSynchronizer ()
 {
   using enum AchievementIDs;
-  achievementConditions = {
-    { PlanktonField,
-      [this] () {
-        return ressources.getCurrentQuantity (RessourceType::Food) >= 5;
-      } },
+  achievementConditions
+      = { { PlanktonField,
+            [this] () {
+              return ressources.getCurrentQuantity (RessourceType::Food) >= 5;
+            } },
 
-    { FirstSandNest,
-      [this] () {
-        return ressources.getCurrentQuantity (RessourceType::Sand) >= 1;
-      } },
+          { FirstSandNest,
+            [this] () {
+              return ressources.getCurrentQuantity (RessourceType::Sand) >= 1;
+            } },
 
-    { JobGatherSand, [this] () { return jellies.getNumJellies () >= 1; } },
+          { FirstJelly, [this] () { return jellies.getNumJellies () >= 1; } },
 
-    { JobFocusing,
-      [this] () {
-        return buildings.getCurrentQuantity (BuildingType::SandNest) >= 1;
-      } },
+          { JobFocusing,
+            [this] () {
+              return buildings.getCurrentQuantity (BuildingType::SandNest)
+                     >= 1;
+            } },
 
-    { JobExploreTheSea, [] () { return false; } }
-  };
+          { JobExploreTheSea, [] () { return false; } } };
 }
 
 void
@@ -155,7 +155,7 @@ GameDataSynchronizer::isUnlocked (JellyJobs j)
   switch (j)
     {
     case GatherSand:
-      return achievements.isUnlocked (AchievementIDs::JobGatherSand);
+      return achievements.isUnlocked (AchievementIDs::FirstJelly);
 
     case ExploreTheSea:
       return achievements.isUnlocked (AchievementIDs::JobExploreTheSea);

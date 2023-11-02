@@ -7,6 +7,7 @@ enum class RessourceType
 {
   Food,
   Sand,
+  Glass,
   Insight,
   Last
 };

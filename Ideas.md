@@ -53,3 +53,8 @@ Hydrothermal vents -> Molten glass -> jar of glass to improve max of ressources
 refine glass into crystal glass ? will require lead
 
 Depth formula : log_n(t) with n being the number of the depth in order of unlock (starts at log 2) ?
+
+
+Focus -> Insight -> Menu with "spells" -> Thunder Strike that turns sand to glass -> Glass tower that increases max Insight and rate + glass nest
+
+ -> Metalic nodes to get lead. Manifying Glass to melt things
