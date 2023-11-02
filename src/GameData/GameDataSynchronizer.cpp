@@ -9,26 +9,33 @@
 GameDataSynchronizer::GameDataSynchronizer ()
 {
   using enum AchievementIDs;
-  achievementConditions
-      = { { PlanktonField,
-            [this] () {
-              return ressources.getCurrentQuantity (RessourceType::Food) >= 5;
-            } },
+  achievementConditions = {
+    { PlanktonField,
+      [this] () {
+        return ressources.getCurrentQuantity (RessourceType::Food) >= 5;
+      } },
 
-          { FirstSandNest,
-            [this] () {
-              return ressources.getCurrentQuantity (RessourceType::Sand) >= 1;
-            } },
+    { FirstSandNest,
+      [this] () {
+        return ressources.getCurrentQuantity (RessourceType::Sand) >= 1;
+      } },
 
-          { FirstJelly, [this] () { return jellies.getNumJellies () >= 1; } },
+    { FirstJelly, [this] () { return jellies.getNumJellies () >= 1; } },
 
-          { JobFocusing,
-            [this] () {
-              return buildings.getCurrentQuantity (BuildingType::SandNest)
-                     >= 1;
-            } },
+    { JobFocusing,
+      [this] () {
+        return buildings.getCurrentQuantity (BuildingType::SandNest) >= 1;
+      } },
 
-          { JobExploreTheSea, [] () { return false; } } };
+    { JobExploreTheSea, [] () { return false; } },
+
+    { FirstInsightAbility,
+      [this] () {
+        return ressources.getCurrentQuantity (RessourceType::Insight) >= 1;
+      } },
+
+    { ResearchTabUnlocked, [] () { return false; } }
+  };
 }
 
 void

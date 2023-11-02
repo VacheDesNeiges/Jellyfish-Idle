@@ -4,7 +4,7 @@
 #include <exception>
 #include <iostream>
 #include <iterator>
-#include <src/Jellyfishs/Jellyfish.hpp>
+#include "Jellyfish.hpp"
 #include <stdexcept>
 #include <string>
 

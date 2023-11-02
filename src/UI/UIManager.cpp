@@ -31,16 +31,14 @@ UIManager::renderUI () const
       if (gData->isUnlocked (AchievementIDs::FirstJelly))
         renderJobs ();
 
-      if (ImGui::BeginTabItem ("Insight"))
+      if (gData->isUnlocked (AchievementIDs::FirstInsightAbility))
         {
-          ImGui::Text ("Insight Tab");
-          ImGui::EndTabItem ();
+          renderInsightAbilities ();
         }
 
-      if (ImGui::BeginTabItem ("Research"))
+      if (gData->isUnlocked (AchievementIDs::ResearchTabUnlocked))
         {
-          ImGui::Text ("This is the upgrade tab");
-          ImGui::EndTabItem ();
+          renderResearch ();
         }
 
       if (gData->isUnlocked (AchievementIDs::JobExploreTheSea))
@@ -70,7 +68,8 @@ UIManager::renderRessources () const
   ImGui::Begin ("Ressources");
   ImGui::Text ("Jellyfish");
   ImGui::SameLine ();
-  std::string jfishtxt = std::to_string (gData->getNumJellies ()) + "/"
+  std::string jfishtxt = std::to_string (gData->getNumJellies ())
+                         + "/" // TODO : use fmt here instead
                          + std::to_string (gData->getMaxNumJellies ());
 
   auto x = (ImGui::GetCursorPosX () + ImGui::GetColumnWidth ()
@@ -118,8 +117,7 @@ UIManager::renderBuildings () const
   if (ImGui::BeginTabItem ("Buildings"))
     {
       ImGui::Text ("This is the Buildings tab!\n wiiiii");
-      auto sz = ImVec2 (300.f, 20.0f);
-      if (ImGui::Button ("GatherFood", sz))
+      if (auto sz = ImVec2 (300.f, 20.0f); ImGui::Button ("GatherFood", sz))
         {
           gData->gatherFood ();
         }
@@ -210,4 +208,24 @@ UIManager::renderJobsControls (JellyJobs job) const
       gData->assignJelly (job);
     }
   ImGui::PopButtonRepeat ();
+}
+
+void
+UIManager::renderInsightAbilities () const
+{
+  if (ImGui::BeginTabItem ("Insight"))
+    {
+      ImGui::Text ("Insight Tab");
+      ImGui::EndTabItem ();
+    }
+}
+
+void
+UIManager::renderResearch () const
+{
+  if (ImGui::BeginTabItem ("Research"))
+    {
+      ImGui::Text ("This is the upgrade tab");
+      ImGui::EndTabItem ();
+    }
 }

@@ -1,8 +1,8 @@
 #include "Building.hpp"
+#include "GameDataSynchronizer.hpp"
 #include "Jellyfish.hpp"
 #include "imgui.h"
 #include <memory>
-#include <src/GameData/GameDataSynchronizer.hpp>
 
 class UIManager
 {
@@ -19,4 +19,8 @@ private:
 
   void renderJobs () const;
   void renderJobsControls (JellyJobs) const;
+
+  void renderInsightAbilities () const;
+
+  void renderResearch () const;
 };

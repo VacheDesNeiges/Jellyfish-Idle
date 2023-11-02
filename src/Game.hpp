@@ -5,7 +5,7 @@
 #include "imgui_impl_sdl2.h"
 #include <chrono>
 #include <memory>
-#include <src/GameData/GameDataSynchronizer.hpp>
+#include "GameDataSynchronizer.hpp"
 
 class Game
 
