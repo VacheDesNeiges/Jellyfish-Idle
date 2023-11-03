@@ -95,6 +95,7 @@ Game::run ()
           ImGui_ImplSDL2_ProcessEvent (&event);
           if (event.type == SDL_QUIT)
             done = true;
+
           if (event.type == SDL_WINDOWEVENT
               && event.window.event == SDL_WINDOWEVENT_CLOSE
               && event.window.windowID == SDL_GetWindowID (window))
@@ -104,7 +105,8 @@ Game::run ()
       auto currentTime = std::chrono::high_resolution_clock::now ();
       if (currentTime >= nextTick)
         {
-          gameData->gameTick ();
+          gameData->gameTick (); // TODO : Rename the gameData variable to
+                                 // something less confusing
           nextTick += interval;
         }
 
@@ -121,4 +123,5 @@ Game::run ()
       ImGui_ImplSDLRenderer2_RenderDrawData (ImGui::GetDrawData ());
       SDL_RenderPresent (renderer);
     }
+  gameData->save ();
 }

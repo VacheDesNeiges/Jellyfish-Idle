@@ -5,6 +5,7 @@
 #include "InsightAbility.hpp"
 #include "Jellyfish.hpp"
 #include "Ressource.hpp"
+#include "SaveSystem.hpp"
 #include <string>
 
 GameDataSynchronizer::GameDataSynchronizer ()
@@ -290,4 +291,10 @@ std::string
 GameDataSynchronizer::getAbilityDescription (AbilityType t)
 {
   return abilities.getAbilityDescription (t);
+}
+
+void
+GameDataSynchronizer::save ()
+{
+  SaveSystem::save (buildings.getData ());
 }

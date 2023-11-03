@@ -18,6 +18,7 @@ class GameDataSynchronizer
 public:
   GameDataSynchronizer ();
 
+  void save ();
   void loadSave ();
   void gameTick ();
 

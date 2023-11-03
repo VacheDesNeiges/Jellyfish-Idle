@@ -3,6 +3,7 @@
 #include "Ressource.hpp"
 #include <iostream>
 #include <string>
+#include <utility>
 
 BuildingManager::BuildingManager ()
 {
@@ -82,4 +83,17 @@ BuildingManager::getIncreaseToMaxJfish (BuildingType t)
 {
   return buildings[t]->getIncreaseToMaxJfish ()
          * buildings[t]->getCurrentQuantity ();
+}
+
+std::vector<std::pair<BuildingType, unsigned> >
+BuildingManager::getData () const
+{
+  std::vector<std::pair<BuildingType, unsigned> > result;
+  for (const auto &[type, building] : buildings)
+    {
+      result.push_back (
+          std::make_pair (type, building->getCurrentQuantity ()));
+    }
+
+  return result;
 }
