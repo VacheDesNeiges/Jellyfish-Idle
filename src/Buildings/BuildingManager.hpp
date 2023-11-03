@@ -25,6 +25,7 @@ public:
   std::map<RessourceType, double> getConsumptionRates () const;
 
   std::vector<std::pair<BuildingType, unsigned> > getData () const;
+  void loadData ();
 
 private:
   std::map<BuildingType, std::unique_ptr<Building> > buildings;
