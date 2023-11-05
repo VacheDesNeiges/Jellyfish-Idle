@@ -64,7 +64,7 @@ SaveSystem::loadFromFile ()
     {
       result.ressources.push_back (std::make_pair (
           static_cast<RessourceType> (d["id"].get<unsigned> ()),
-          d["Quantity"].get<bool> ()));
+          d["Quantity"].get<double> ()));
     }
 
   return result;

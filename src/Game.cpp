@@ -87,6 +87,7 @@ Game::run ()
   const std::chrono::milliseconds interval (500);
   auto nextTick = std::chrono::high_resolution_clock::now () + interval;
   bool done = false;
+  gameData->loadSave ();
   while (!done)
     {
       SDL_Event event;
