@@ -1,6 +1,7 @@
 #pragma once
 #include "Ressource.hpp"
 #include "map"
+#include <utility>
 
 class RessourceManager
 {
@@ -22,6 +23,7 @@ public:
 
   void consume (const std::map<RessourceType, double> &);
   void produce (const std::map<RessourceType, double> &);
+  std::vector<std::pair<RessourceType, double> > getData () const;
 
 private:
   std::map<RessourceType, Ressource> ressources;

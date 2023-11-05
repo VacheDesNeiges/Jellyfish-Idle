@@ -1,5 +1,7 @@
 #include "AchievementSystem.hpp"
 #include "Achievement.hpp"
+#include <utility>
+#include <vector>
 
 AchievementSystem::AchievementSystem ()
 {
@@ -21,4 +23,16 @@ void
 AchievementSystem::unlock (AchievementIDs id)
 {
   achievements[id].unlock ();
+}
+
+std::vector<std::pair<AchievementIDs, bool> >
+AchievementSystem::getData () const
+{
+  std::vector<std::pair<AchievementIDs, bool> > result;
+
+  for (const auto &[id, val] : achievements)
+    {
+      result.push_back ({ id, val.isUnlocked () });
+    }
+  return result;
 }

@@ -1,5 +1,6 @@
 #include "RessourceManager.hpp"
 #include "Ressource.hpp"
+#include <vector>
 
 RessourceManager::RessourceManager () { init (); }
 
@@ -89,4 +90,16 @@ RessourceManager::produce (const std::map<RessourceType, double> &rates)
       ressources[type].add (rate);
       ressources[type].addToProdPerTick (rate);
     }
+}
+
+std::vector<std::pair<RessourceType, double> >
+RessourceManager::getData () const
+{
+  std::vector<std::pair<RessourceType, double> > result;
+  for (const auto &[rtype, res] : ressources)
+    {
+      result.push_back ({ rtype, res.getCurrentQuantity () });
+    }
+
+  return result;
 }

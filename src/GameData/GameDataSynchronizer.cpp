@@ -296,5 +296,8 @@ GameDataSynchronizer::getAbilityDescription (AbilityType t)
 void
 GameDataSynchronizer::save ()
 {
-  SaveSystem::save (buildings.getData ());
+  SaveSystem::save (
+      buildings.getData (), achievements.getData (),
+      ressources
+          .getData ()); // TODO : refactor to use a SaveData object instead ?
 }
