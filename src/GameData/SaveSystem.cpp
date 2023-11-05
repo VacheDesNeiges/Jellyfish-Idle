@@ -1,5 +1,6 @@
 #include "SaveSystem.hpp"
 #include "Building.hpp"
+#include "Ressource.hpp"
 #include <fstream>
 #include <nlohmann/json.hpp>
 #include <nlohmann/json_fwd.hpp>
@@ -32,6 +33,8 @@ SaveSystem::loadFromFile ()
 
   for (const auto &d : data["Building"])
     {
-      //    result.push_back (std::make_pair (d.));
+      result.push_back (
+          std::make_pair (static_cast<BuildingType> (d["id"].get<int> ()),
+                          d["Quantity"].get<unsigned> ()));
     }
 }
