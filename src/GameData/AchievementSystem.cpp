@@ -36,3 +36,13 @@ AchievementSystem::getData () const
     }
   return result;
 }
+
+void
+AchievementSystem::loadData (
+    const std::vector<std::pair<AchievementIDs, bool> > &data)
+{
+  for (const auto &[id, unlockedState] : data)
+    {
+      achievements[id].setState (unlockedState);
+    }
+}

@@ -79,3 +79,9 @@ Building::getIncreaseToMaxJfish () const
 {
   return increaseToMaxJfish;
 }
+
+void
+Building::setQuantity (unsigned quant)
+{
+  quantity = quant;
+}

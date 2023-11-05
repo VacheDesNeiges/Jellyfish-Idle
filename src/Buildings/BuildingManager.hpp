@@ -3,6 +3,8 @@
 #include "Ressource.hpp"
 #include <map>
 #include <memory>
+#include <utility>
+#include <vector>
 
 class BuildingManager
 {
@@ -25,7 +27,7 @@ public:
   std::map<RessourceType, double> getConsumptionRates () const;
 
   std::vector<std::pair<BuildingType, unsigned> > getData () const;
-  void loadData ();
+  void loadData (const std::vector<std::pair<BuildingType, unsigned> > &);
 
 private:
   std::map<BuildingType, std::unique_ptr<Building> > buildings;

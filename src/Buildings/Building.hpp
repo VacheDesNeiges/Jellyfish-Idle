@@ -27,6 +27,7 @@ public:
   std::string getBuildingName () const;
   virtual std::string getDescription ();
   virtual std::string getAdvancedDescription ();
+  void setQuantity (unsigned);
 
 private:
   std::string name;

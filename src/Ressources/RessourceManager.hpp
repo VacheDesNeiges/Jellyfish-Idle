@@ -24,6 +24,7 @@ public:
   void consume (const std::map<RessourceType, double> &);
   void produce (const std::map<RessourceType, double> &);
   std::vector<std::pair<RessourceType, double> > getData () const;
+  void loadData (const std::vector<std::pair<RessourceType, double> > &);
 
 private:
   std::map<RessourceType, Ressource> ressources;

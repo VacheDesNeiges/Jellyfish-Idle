@@ -34,7 +34,7 @@ SaveSystem::save (
                           { "Quantity", quant } };
     }
 
-  std::ofstream file ("save.json");
+  std::ofstream file (fileName);
   file << j;
 }
 
@@ -43,7 +43,7 @@ SaveSystem::loadFromFile ()
 {
   SaveData result;
 
-  std::ifstream f ("save.json");
+  std::ifstream f (fileName);
   nlohmann::json data = nlohmann::json::parse (f);
 
   for (const auto &d : data["Building"])

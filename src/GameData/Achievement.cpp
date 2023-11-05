@@ -11,3 +11,9 @@ Achievement::unlock ()
 {
   unlocked = true;
 }
+
+void
+Achievement::setState (bool b)
+{
+  unlocked = b;
+}

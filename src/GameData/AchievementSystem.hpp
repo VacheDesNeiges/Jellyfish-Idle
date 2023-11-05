@@ -11,6 +11,7 @@ public:
   bool isUnlocked (AchievementIDs);
   void unlock (AchievementIDs);
   std::vector<std::pair<AchievementIDs, bool> > getData () const;
+  void loadData (const std::vector<std::pair<AchievementIDs, bool> > &);
 
 private:
   std::map<AchievementIDs, Achievement> achievements;

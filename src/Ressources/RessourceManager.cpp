@@ -103,3 +103,13 @@ RessourceManager::getData () const
 
   return result;
 }
+
+void
+RessourceManager::loadData (
+    const std::vector<std::pair<RessourceType, double> > &data)
+{
+  for (const auto &[rType, quant] : data)
+    {
+      ressources[rType].setQuantity (quant);
+    }
+}

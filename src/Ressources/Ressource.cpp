@@ -103,3 +103,9 @@ Ressource::getNetProduction () const
 {
   return prodPerTick - consumptionPerTick;
 }
+
+void
+Ressource::setQuantity (double quant)
+{
+  quantity = quant;
+}

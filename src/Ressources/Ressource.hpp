@@ -29,6 +29,7 @@ public:
   void resetValuesPerTick ();
   void addToConsumptionPerTick (double);
   void addToProdPerTick (double);
+  void setQuantity (double);
 
 private:
   std::string name;

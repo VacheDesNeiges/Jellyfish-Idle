@@ -97,3 +97,13 @@ BuildingManager::getData () const
 
   return result;
 }
+
+void
+BuildingManager::loadData (
+    const std::vector<std::pair<BuildingType, unsigned> > &data)
+{
+  for (const auto &[type, quant] : data)
+    {
+      buildings[type]->setQuantity (quant);
+    }
+}

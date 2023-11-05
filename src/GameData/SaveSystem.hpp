@@ -3,6 +3,7 @@
 #include "Achievement.hpp"
 #include "Building.hpp"
 #include "Ressource.hpp"
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -20,4 +21,7 @@ public:
                     const std::vector<std::pair<AchievementIDs, bool> > &,
                     const std::vector<std::pair<RessourceType, double> > &);
   static SaveData loadFromFile ();
+
+private:
+  static constexpr std::string fileName = "save.json";
 };
