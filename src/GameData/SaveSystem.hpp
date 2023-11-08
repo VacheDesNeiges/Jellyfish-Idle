@@ -2,6 +2,7 @@
 
 #include "Achievement.hpp"
 #include "Building.hpp"
+#include "JellyfishManager.hpp"
 #include "Ressource.hpp"
 #include <string>
 #include <utility>
@@ -19,9 +20,9 @@ class SaveSystem
 public:
   static void save (const std::vector<std::pair<BuildingType, unsigned> > &,
                     const std::vector<std::pair<AchievementIDs, bool> > &,
-                    const std::vector<std::pair<RessourceType, double> > &);
+                    const std::vector<std::pair<RessourceType, double> > &,
+                    const JellyFishData &);
   static SaveData loadFromFile ();
 
-private:
-  static constexpr std::string fileName = "save.json";
+  static constexpr std::string saveFileName = "save.json";
 };

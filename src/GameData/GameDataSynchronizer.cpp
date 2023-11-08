@@ -296,10 +296,9 @@ GameDataSynchronizer::getAbilityDescription (AbilityType t)
 void
 GameDataSynchronizer::save () const
 {
-  SaveSystem::save (
-      buildings.getData (), achievements.getData (),
-      ressources
-          .getData ()); // TODO : refactor to use a SaveData object instead ?
+  SaveSystem::save (buildings.getData (), achievements.getData (),
+                    ressources.getData (), jellies.getData ());
+  // TODO : refactor to use a SaveData object instead ?
 }
 
 void
@@ -308,4 +307,7 @@ GameDataSynchronizer::loadSave ()
   auto loadedData = SaveSystem::loadFromFile ();
   buildings.loadData (loadedData.buildings);
   achievements.loadData (loadedData.achievements);
+  ressources.loadData (loadedData.ressources);
+
+  updateMaxNumJellies ();
 }

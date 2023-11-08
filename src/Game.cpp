@@ -1,5 +1,6 @@
 #include "Game.hpp"
 #include "GameDataSynchronizer.hpp"
+#include "SaveSystem.hpp"
 #include "imgui.h"
 #include "imgui_impl_sdl2.h"
 #include "imgui_impl_sdlrenderer2.h"
@@ -7,6 +8,7 @@
 #include <SDL2/SDL_events.h>
 #include <chrono>
 #include <exception>
+#include <filesystem>
 #include <memory>
 #include <stdexcept>
 #include <stdio.h>
@@ -87,7 +89,9 @@ Game::run ()
   const std::chrono::milliseconds interval (500);
   auto nextTick = std::chrono::high_resolution_clock::now () + interval;
   bool done = false;
-  gameData->loadSave ();
+  if (std::filesystem::exists (SaveSystem::saveFileName))
+    gameData->loadSave ();
+
   while (!done)
     {
       SDL_Event event;

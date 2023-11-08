@@ -1,10 +1,10 @@
 #include "JellyfishManager.hpp"
+#include "Jellyfish.hpp"
 #include "Ressource.hpp"
 #include <algorithm>
 #include <exception>
 #include <iostream>
 #include <iterator>
-#include "Jellyfish.hpp"
 #include <stdexcept>
 #include <string>
 
@@ -204,4 +204,18 @@ JellyfishManager::getJobDescription (JellyJobs j) const
     default:
       return "";
     }
+}
+
+JellyFishData
+JellyfishManager::getData () const
+{
+  JellyFishData result;
+  result.maxNumJellies = maxNumJellies;
+  result.numJobExploreTheSea = numJobExploreTheSea;
+  result.numJobFocusing = numJobFocusing;
+  result.numJobGatheringSand = numJobGatheringSand;
+  result.numJobNone = numJobNone;
+  result.numJellies = static_cast<unsigned> (jellies.size ());
+
+  return result;
 }

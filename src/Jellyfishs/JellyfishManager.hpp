@@ -5,6 +5,16 @@
 #include <map>
 #include <vector>
 
+struct JellyFishData
+{
+  unsigned maxNumJellies;
+  unsigned numJobNone;
+  unsigned numJobExploreTheSea;
+  unsigned numJobGatheringSand;
+  unsigned numJobFocusing;
+  unsigned numJellies;
+};
+
 class JellyfishManager
 {
 public:
@@ -19,6 +29,7 @@ public:
   std::map<RessourceType, double> getProductionRates () const;
   std::map<RessourceType, double> getConsumptionRates () const;
   std::string getJobDescription (JellyJobs) const;
+  JellyFishData getData () const;
 
 private:
   std::vector<Jellyfish> jellies;

@@ -105,5 +105,6 @@ BuildingManager::loadData (
   for (const auto &[type, quant] : data)
     {
       buildings[type]->setQuantity (quant);
+      buildings[type]->update ();
     }
 }

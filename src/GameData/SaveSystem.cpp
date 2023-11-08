@@ -1,6 +1,7 @@
 #include "SaveSystem.hpp"
 #include "Achievement.hpp"
 #include "Building.hpp"
+#include "JellyfishManager.hpp"
 #include "Ressource.hpp"
 #include <fstream>
 #include <nlohmann/json.hpp>
@@ -13,7 +14,8 @@ void
 SaveSystem::save (
     const std::vector<std::pair<BuildingType, unsigned> > &buildingsData,
     const std::vector<std::pair<AchievementIDs, bool> > &achievementsData,
-    const std::vector<std::pair<RessourceType, double> > &ressourcesData)
+    const std::vector<std::pair<RessourceType, double> > &ressourcesData,
+    const JellyFishData &jfishData)
 {
   nlohmann::json j;
   for (const auto &[type, quant] : buildingsData)
@@ -34,7 +36,15 @@ SaveSystem::save (
                           { "Quantity", quant } };
     }
 
-  std::ofstream file (fileName);
+  j["Jellies"] += { { "num" },
+                    { jfishData.numJellies },
+                    { "numMax", jfishData.maxNumJellies },
+                    { "numJobNone", jfishData.numJobNone },
+                    { "numJobExplore", jfishData.numJobExploreTheSea },
+                    { "numJobGatherSand", jfishData.numJobGatheringSand },
+                    { "numJobFocusing", jfishData.numJobFocusing } };
+
+  std::ofstream file (saveFileName);
   file << j;
 }
 
@@ -43,7 +53,7 @@ SaveSystem::loadFromFile ()
 {
   SaveData result;
 
-  std::ifstream f (fileName);
+  std::ifstream f (saveFileName);
   nlohmann::json data = nlohmann::json::parse (f);
 
   for (const auto &d : data["Building"])
