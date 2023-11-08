@@ -13,6 +13,7 @@ struct SaveData
   std::vector<std::pair<BuildingType, unsigned> > buildings;
   std::vector<std::pair<AchievementIDs, bool> > achievements;
   std::vector<std::pair<RessourceType, double> > ressources;
+  JellyFishData jellies;
 };
 
 class SaveSystem

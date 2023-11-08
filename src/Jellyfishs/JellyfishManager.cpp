@@ -219,3 +219,34 @@ JellyfishManager::getData () const
 
   return result;
 }
+
+void
+JellyfishManager::loadData (JellyFishData data)
+{
+  if (data.numJellies > 0)
+    {
+      for (unsigned i = 0; i < data.numJellies; i++)
+        {
+          createJellyfish ();
+        }
+
+      for (unsigned i = 0; i < data.numJobFocusing; i++)
+        {
+          assign (JellyJobs::FocusForInsight);
+        }
+
+      for (unsigned i = 0; i < data.numJobExploreTheSea; i++)
+        {
+          assign (JellyJobs::ExploreTheSea);
+        }
+      for (unsigned i = 0; i < data.numJobGatheringSand; i++)
+        {
+          assign (JellyJobs::GatherSand);
+        }
+    }
+  maxNumJellies = data.maxNumJellies;
+  numJobNone = data.numJobNone;
+  numJobExploreTheSea = data.numJobExploreTheSea;
+  numJobGatheringSand = data.numJobGatheringSand;
+  numJobFocusing = data.numJobFocusing;
+}

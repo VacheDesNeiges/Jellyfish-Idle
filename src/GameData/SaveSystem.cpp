@@ -36,8 +36,7 @@ SaveSystem::save (
                           { "Quantity", quant } };
     }
 
-  j["Jellies"] += { { "num" },
-                    { jfishData.numJellies },
+  j["Jellies"] += { { "num", jfishData.numJellies },
                     { "numMax", jfishData.maxNumJellies },
                     { "numJobNone", jfishData.numJobNone },
                     { "numJobExplore", jfishData.numJobExploreTheSea },
@@ -76,6 +75,17 @@ SaveSystem::loadFromFile ()
           static_cast<RessourceType> (d["id"].get<unsigned> ()),
           d["Quantity"].get<double> ()));
     }
+
+  result.jellies.numJellies = data["Jellies"][0]["num"].get<unsigned> ();
+  result.jellies.maxNumJellies = data["Jellies"][0]["numMax"].get<unsigned> ();
+  result.jellies.numJobNone
+      = data["Jellies"][0]["numJobNone"].get<unsigned> ();
+  result.jellies.numJobExploreTheSea
+      = data["Jellies"][0]["numJobExplore"].get<unsigned> ();
+  result.jellies.numJobGatheringSand
+      = data["Jellies"][0]["numJobGatherSand"].get<unsigned> ();
+  result.jellies.numJobFocusing
+      = data["Jellies"][0]["numJobFocusing"].get<unsigned> ();
 
   return result;
 }

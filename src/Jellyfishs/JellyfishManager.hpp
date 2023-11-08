@@ -30,6 +30,7 @@ public:
   std::map<RessourceType, double> getConsumptionRates () const;
   std::string getJobDescription (JellyJobs) const;
   JellyFishData getData () const;
+  void loadData (JellyFishData);
 
 private:
   std::vector<Jellyfish> jellies;

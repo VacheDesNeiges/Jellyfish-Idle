@@ -308,6 +308,6 @@ GameDataSynchronizer::loadSave ()
   buildings.loadData (loadedData.buildings);
   achievements.loadData (loadedData.achievements);
   ressources.loadData (loadedData.ressources);
-
+  jellies.loadData (loadedData.jellies);
   updateMaxNumJellies ();
 }
