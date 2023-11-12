@@ -39,7 +39,7 @@ SaveSystem::save (
   j["Jellies"] += { { "num", jfishData.numJellies },
                     { "numMax", jfishData.maxNumJellies },
                     { "numJobNone", jfishData.numJobNone },
-                    { "numJobExplore", jfishData.numJobExploreTheSea },
+                    { "numJobExplore", jfishData.numJobExploreTheDepths },
                     { "numJobGatherSand", jfishData.numJobGatheringSand },
                     { "numJobFocusing", jfishData.numJobFocusing } };
 
@@ -80,7 +80,7 @@ SaveSystem::loadFromFile ()
   result.jellies.maxNumJellies = data["Jellies"][0]["numMax"].get<unsigned> ();
   result.jellies.numJobNone
       = data["Jellies"][0]["numJobNone"].get<unsigned> ();
-  result.jellies.numJobExploreTheSea
+  result.jellies.numJobExploreTheDepths
       = data["Jellies"][0]["numJobExplore"].get<unsigned> ();
   result.jellies.numJobGatheringSand
       = data["Jellies"][0]["numJobGatherSand"].get<unsigned> ();

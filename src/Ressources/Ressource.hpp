@@ -1,4 +1,5 @@
 #pragma once
+#include <array>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -8,9 +9,10 @@ enum class RessourceType
   Food,
   Sand,
   Glass,
-  Insight,
-  Last
+  Depth,
+  Insight
 };
+
 // Contains Last as a workaround to allow iteration over the enum
 // See CreateRessources for an exemple
 
@@ -31,7 +33,15 @@ public:
   void addToProdPerTick (double);
   void setQuantity (double);
 
+  static constexpr std::array<RessourceType, 4> RessourceTypes
+      = { RessourceType::Food, RessourceType::Sand, RessourceType::Glass,
+          RessourceType::Insight };
+
+  static constexpr std::array<RessourceType, 3> SpecialRessourcesTypes
+      = { RessourceType::Depth };
+
 private:
+  bool specialRessource = false;
   std::string name;
   double quantity = 0;
   double max_quantity;

@@ -4,7 +4,7 @@ enum class JellyJobs
 {
   None,
   GatherSand,
-  ExploreTheSea,
+  ExploreTheDepths,
   FocusForInsight,
   Last
 };
@@ -26,6 +26,6 @@ private:
   unsigned GatheringSandLevel = 0;
   unsigned long GatheringSandExp = 0;
 
-  unsigned exploreTheSeaLvl = 0;
-  unsigned long exploreTheSeaExp = 0;
+  unsigned exploreTheDepthsLvl = 0;
+  unsigned long exploreTheDepthsExp = 0;
 };

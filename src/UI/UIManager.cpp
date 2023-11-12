@@ -80,10 +80,8 @@ UIManager::renderRessources () const
     ImGui::SetCursorPosX (x);
   ImGui::Text ("%s", jfishtxt.c_str ());
 
-  for (auto r = static_cast<int> (RessourceType::Food);
-       r != static_cast<int> (RessourceType::Last); r++)
+  for (const auto &ressource : Ressource::RessourceTypes)
     {
-      auto ressource = static_cast<RessourceType> (r);
       ImGui::Begin ("Ressources");
 
       ImGui::Text ("%s", gData->getRessourceName (ressource).data ());
@@ -128,10 +126,9 @@ UIManager::renderBuildings () const
 
       {
         using enum BuildingType;
-        for (auto building = static_cast<int> (PlanktonField);
-             building != static_cast<int> (Last); building++)
+        for (const auto &building : Building::BuildingTypes)
           {
-            if (renderBuildingButton (static_cast<BuildingType> (building)))
+            if (renderBuildingButton (building))
               odd = !odd;
 
             if (odd)

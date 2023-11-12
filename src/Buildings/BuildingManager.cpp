@@ -7,12 +7,9 @@
 
 BuildingManager::BuildingManager ()
 {
-  for (auto b = static_cast<int> (BuildingType::PlanktonField);
-       b != static_cast<int> (BuildingType::Last); b++)
+  for (const auto &b : Building::BuildingTypes)
     {
-      buildings[static_cast<BuildingType> (b)]
-          = BuildingFactory::createBuildingInstance (
-              static_cast<BuildingType> (b));
+      buildings[b] = BuildingFactory::createBuildingInstance (b);
     }
 }
 

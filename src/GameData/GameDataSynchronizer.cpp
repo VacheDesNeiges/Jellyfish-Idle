@@ -29,7 +29,7 @@ GameDataSynchronizer::GameDataSynchronizer ()
         return buildings.getCurrentQuantity (BuildingType::SandNest) >= 1;
       } },
 
-    { JobExploreTheSea, [] () { return false; } },
+    { JobExploreTheSea, [this] () { return jellies.getNumJellies () >= 1; } },
 
     { FirstInsightAbility,
       [this] () {
@@ -166,7 +166,7 @@ GameDataSynchronizer::isUnlocked (JellyJobs j)
     case GatherSand:
       return achievements.isUnlocked (AchievementIDs::FirstJelly);
 
-    case ExploreTheSea:
+    case ExploreTheDepths:
       return achievements.isUnlocked (AchievementIDs::JobExploreTheSea);
 
     case FocusForInsight:
@@ -273,10 +273,9 @@ GameDataSynchronizer::updateMaxNumJellies ()
 {
   using enum BuildingType;
   unsigned n = 0;
-  for (auto b = static_cast<int> (PlanktonField); b < static_cast<int> (Last);
-       b++)
+  for (const auto &b : Building::BuildingTypes)
     {
-      n += buildings.getIncreaseToMaxJfish (static_cast<BuildingType> (b));
+      n += buildings.getIncreaseToMaxJfish (b);
     }
   jellies.setBonusMaxJellies (n);
 }

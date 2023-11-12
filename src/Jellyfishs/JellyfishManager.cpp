@@ -23,8 +23,8 @@ JellyfishManager::getNum (JellyJobs job)
       return numJobFocusing;
     case GatherSand:
       return numJobGatheringSand;
-    case ExploreTheSea:
-      return numJobExploreTheSea;
+    case ExploreTheDepths:
+      return numJobExploreTheDepths;
     case Last:
       throw std::invalid_argument (
           "Last should not be an allowed jellyfish job");
@@ -35,7 +35,7 @@ void
 JellyfishManager::updateNumJobs ()
 {
   numJobNone = 0;
-  numJobExploreTheSea = 0;
+  numJobExploreTheDepths = 0;
   numJobGatheringSand = 0;
   numJobFocusing = 0;
   for (const auto &jfish : jellies)
@@ -52,8 +52,8 @@ JellyfishManager::updateNumJobs ()
         case GatherSand:
           numJobGatheringSand++;
           break;
-        case ExploreTheSea:
-          numJobExploreTheSea++;
+        case ExploreTheDepths:
+          numJobExploreTheDepths++;
           break;
         default:
           break;
@@ -84,8 +84,8 @@ JellyfishManager::assign (JellyJobs j)
     case JellyJobs::GatherSand:
       numJobGatheringSand++;
       break;
-    case JellyJobs::ExploreTheSea:
-      numJobExploreTheSea++;
+    case JellyJobs::ExploreTheDepths:
+      numJobExploreTheDepths++;
       break;
     default:
       return false;
@@ -111,10 +111,10 @@ JellyfishManager::unasign (JellyJobs j)
       numJobGatheringSand--;
       break;
 
-    case JellyJobs::ExploreTheSea:
-      if (numJobExploreTheSea == 0)
+    case JellyJobs::ExploreTheDepths:
+      if (numJobExploreTheDepths == 0)
         return false;
-      numJobExploreTheSea--;
+      numJobExploreTheDepths--;
       break;
 
     default:
@@ -195,7 +195,7 @@ JellyfishManager::getJobDescription (JellyJobs j) const
     case GatherSand:
       return "Gather Sand";
 
-    case ExploreTheSea:
+    case ExploreTheDepths:
       return "Explore the sea";
 
     case FocusForInsight:
@@ -211,7 +211,7 @@ JellyfishManager::getData () const
 {
   JellyFishData result;
   result.maxNumJellies = maxNumJellies;
-  result.numJobExploreTheSea = numJobExploreTheSea;
+  result.numJobExploreTheDepths = numJobExploreTheDepths;
   result.numJobFocusing = numJobFocusing;
   result.numJobGatheringSand = numJobGatheringSand;
   result.numJobNone = numJobNone;
@@ -235,9 +235,9 @@ JellyfishManager::loadData (JellyFishData data)
           assign (JellyJobs::FocusForInsight);
         }
 
-      for (unsigned i = 0; i < data.numJobExploreTheSea; i++)
+      for (unsigned i = 0; i < data.numJobExploreTheDepths; i++)
         {
-          assign (JellyJobs::ExploreTheSea);
+          assign (JellyJobs::ExploreTheDepths);
         }
       for (unsigned i = 0; i < data.numJobGatheringSand; i++)
         {
@@ -246,7 +246,7 @@ JellyfishManager::loadData (JellyFishData data)
     }
   maxNumJellies = data.maxNumJellies;
   numJobNone = data.numJobNone;
-  numJobExploreTheSea = data.numJobExploreTheSea;
+  numJobExploreTheDepths = data.numJobExploreTheDepths;
   numJobGatheringSand = data.numJobGatheringSand;
   numJobFocusing = data.numJobFocusing;
 }

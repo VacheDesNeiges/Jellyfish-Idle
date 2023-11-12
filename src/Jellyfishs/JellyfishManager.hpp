@@ -9,7 +9,7 @@ struct JellyFishData
 {
   unsigned maxNumJellies;
   unsigned numJobNone;
-  unsigned numJobExploreTheSea;
+  unsigned numJobExploreTheDepths;
   unsigned numJobGatheringSand;
   unsigned numJobFocusing;
   unsigned numJellies;
@@ -38,7 +38,7 @@ private:
 
   bool numJobsUpToDate = false;
   unsigned numJobNone = 0;
-  unsigned numJobExploreTheSea = 0;
+  unsigned numJobExploreTheDepths = 0;
   unsigned numJobGatheringSand = 0;
   unsigned numJobFocusing = 0;
 
