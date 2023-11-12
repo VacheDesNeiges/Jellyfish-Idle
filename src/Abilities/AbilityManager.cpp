@@ -9,15 +9,22 @@ AbilityManager::AbilityManager ()
       = AbilityFactory::createAbilityInstance (AbilityType::CallThunder);
 }
 
-void
-AbilityManager::useAbility (AbilityType t)
+std::vector<std::pair<RessourceType, double> >
+AbilityManager::getAbilityCost (AbilityType t)
 {
+  return abilities[t]->getCost ();
 }
 
 std::vector<std::pair<RessourceType, double> >
-AbilityManager::getAbilityCost ()
+AbilityManager::getProduction (AbilityType t)
 {
-  return { {} };
+  return abilities[t]->getProduction ();
+}
+
+std::string
+AbilityManager::getAbilityName (AbilityType t)
+{
+  return abilities[t]->getName ();
 }
 
 std::string

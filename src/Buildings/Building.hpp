@@ -9,6 +9,7 @@ enum class BuildingType
 {
   PlanktonField,
   SandNest,
+  GlassTower,
   Last
 };
 
@@ -42,6 +43,7 @@ private:
   // Building classes ----------------------
   friend class PlanktonField;
   friend class SandNest;
+  friend class GlassTower;
 };
 
 class BuildingFactory

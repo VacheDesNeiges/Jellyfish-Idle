@@ -220,6 +220,7 @@ UIManager::renderInsightAbilities () const
               gData->getAbilityDescription (AbilityType::CallThunder)
                   .c_str ()))
         {
+          gData->useAbility (AbilityType::CallThunder);
         }
       ImGui::Text ("Insight Tab");
       ImGui::EndTabItem ();

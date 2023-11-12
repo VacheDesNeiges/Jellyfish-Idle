@@ -8,9 +8,10 @@ class AbilityManager
 {
 public:
   AbilityManager ();
-  void useAbility (AbilityType);
-  std::vector<std::pair<RessourceType, double> > getAbilityCost ();
+  std::vector<std::pair<RessourceType, double> > getAbilityCost (AbilityType);
+  std::vector<std::pair<RessourceType, double> > getProduction (AbilityType);
   std::string getAbilityDescription (AbilityType);
+  std::string getAbilityName (AbilityType);
 
 private:
   std::map<AbilityType, std::unique_ptr<InsightAbility> > abilities;

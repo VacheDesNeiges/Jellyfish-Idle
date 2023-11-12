@@ -288,6 +288,12 @@ GameDataSynchronizer::getJobDescription (JellyJobs j) const
 }
 
 std::string
+GameDataSynchronizer::getAbilityName (AbilityType t)
+{
+  return abilities.getAbilityName (t);
+}
+
+std::string
 GameDataSynchronizer::getAbilityDescription (AbilityType t)
 {
   return abilities.getAbilityDescription (t);
@@ -310,4 +316,18 @@ GameDataSynchronizer::loadSave ()
   ressources.loadData (loadedData.ressources);
   jellies.loadData (loadedData.jellies);
   updateMaxNumJellies ();
+}
+
+void
+GameDataSynchronizer::useAbility (AbilityType t)
+{
+  for (const auto &[rType, quant] : abilities.getAbilityCost (t))
+    {
+      ressources.add (rType, -quant);
+    }
+
+  for (const auto &[rType, quant] : abilities.getProduction (t))
+    {
+      ressources.add (rType, quant);
+    }
 }

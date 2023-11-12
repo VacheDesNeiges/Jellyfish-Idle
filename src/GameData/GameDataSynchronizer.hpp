@@ -38,6 +38,7 @@ public:
   std::string getBuildingDescription (BuildingType);
   std::string getAdvancedBuildingDescription (BuildingType);
   std::string getJobDescription (JellyJobs) const;
+  std::string getAbilityName (AbilityType);
   std::string getAbilityDescription (AbilityType);
 
   unsigned long getNumJellies () const;
@@ -50,6 +51,9 @@ public:
   bool isUnlocked (JellyJobs);
   bool isUnlocked (AchievementIDs);
   void unlock (AchievementIDs);
+
+  void useAbility (AbilityType);
+  bool isUsable (AbilityType);
 
 private:
   RessourceManager ressources;

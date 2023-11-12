@@ -107,11 +107,9 @@ Game::run ()
             done = true;
         }
 
-      auto currentTime = std::chrono::high_resolution_clock::now ();
-      if (currentTime >= nextTick)
+      if (std::chrono::high_resolution_clock::now () >= nextTick)
         {
-          gameData->gameTick (); // TODO : Rename the gameData variable to
-                                 // something less confusing
+          gameData->gameTick ();
           nextTick += interval;
         }
 

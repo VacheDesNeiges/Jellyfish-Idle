@@ -14,6 +14,9 @@ public:
   InsightAbility () = default;
   virtual ~InsightAbility () = default;
   virtual std::string getDescription () = 0;
+  std::string getName () const;
+  std::vector<std::pair<RessourceType, double> > getCost () const;
+  std::vector<std::pair<RessourceType, double> > getProduction () const;
 
 private:
   std::string name;
