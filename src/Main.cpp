@@ -10,6 +10,7 @@ main ()
   return 0;
 }
 
+// TODO : Catchup on load
 // TODO : Replace string returns to string_view
 // TODO : Insight Tab
 // TODO : QoL consumption/production per sec next to ressources numbers

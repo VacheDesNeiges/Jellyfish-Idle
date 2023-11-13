@@ -113,3 +113,15 @@ RessourceManager::loadData (
       ressources[rType].setQuantity (quant);
     }
 }
+
+double
+RessourceManager::getProduction (RessourceType r)
+{
+  return ressources[r].getProduction ();
+}
+
+double
+RessourceManager::getConsumption (RessourceType r)
+{
+  return ressources[r].getConsumption ();
+}

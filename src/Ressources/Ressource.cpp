@@ -109,3 +109,15 @@ Ressource::setQuantity (double quant)
 {
   quantity = quant;
 }
+
+double
+Ressource::getProduction () const
+{
+  return prodPerTick;
+}
+
+double
+Ressource::getConsumption () const
+{
+  return consumptionPerTick;
+}

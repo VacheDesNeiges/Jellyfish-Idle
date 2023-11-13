@@ -14,6 +14,8 @@ public:
   double getCurrentQuantity (RessourceType);
   double getMaxQuantity (RessourceType);
   double getNetProduction (RessourceType);
+  double getProduction (RessourceType);
+  double getConsumption (RessourceType);
   std::string_view getName (RessourceType);
 
   void zerosValuePerTick ();

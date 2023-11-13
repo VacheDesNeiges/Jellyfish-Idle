@@ -196,10 +196,10 @@ JellyfishManager::getJobDescription (JellyJobs j) const
       return "Gather Sand";
 
     case ExploreTheDepths:
-      return "Explore the sea";
+      return "Explore the Depths";
 
     case FocusForInsight:
-      return "Focusing for Insight";
+      return "Focus for Insight";
 
     default:
       return "";

@@ -29,6 +29,8 @@ public:
   double getRessourceQuantity (RessourceType);
   double getRessourceMaxQuantity (RessourceType);
   std::string_view getRessourceName (RessourceType);
+  double getRessourceProduction (RessourceType);
+  double getRessourceConsumption (RessourceType);
 
   unsigned getBuildingQuantity (BuildingType);
   std::list<std::pair<RessourceType, double> >

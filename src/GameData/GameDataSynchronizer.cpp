@@ -330,3 +330,15 @@ GameDataSynchronizer::useAbility (AbilityType t)
       ressources.add (rType, quant);
     }
 }
+
+double
+GameDataSynchronizer::getRessourceProduction (RessourceType r)
+{
+  return ressources.getProduction (r);
+}
+
+double
+GameDataSynchronizer::getRessourceConsumption (RessourceType r)
+{
+  return ressources.getConsumption (r);
+}

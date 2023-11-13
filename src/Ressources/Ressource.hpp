@@ -9,7 +9,6 @@ enum class RessourceType
   Food,
   Sand,
   Glass,
-  Depth,
   Insight
 };
 
@@ -27,6 +26,8 @@ public:
   double getCurrentQuantity () const;
   double getMaxQuantity () const;
   double getNetProduction () const;
+  double getProduction () const;
+  double getConsumption () const;
   std::string_view getName () const;
   void resetValuesPerTick ();
   void addToConsumptionPerTick (double);
@@ -36,9 +37,6 @@ public:
   static constexpr std::array<RessourceType, 4> RessourceTypes
       = { RessourceType::Food, RessourceType::Sand, RessourceType::Glass,
           RessourceType::Insight };
-
-  static constexpr std::array<RessourceType, 3> SpecialRessourcesTypes
-      = { RessourceType::Depth };
 
 private:
   bool specialRessource = false;
