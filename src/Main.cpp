@@ -10,6 +10,7 @@ main ()
   return 0;
 }
 
+// TODO : take care of negative ressources
 // TODO : Catchup on load
 // TODO : Replace string returns to string_view
 // TODO : Insight Tab

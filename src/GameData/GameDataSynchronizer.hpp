@@ -52,6 +52,7 @@ public:
   bool isUnlocked (BuildingType);
   bool isUnlocked (JellyJobs);
   bool isUnlocked (AchievementIDs);
+  bool isUnlocked (RessourceType);
   void unlock (AchievementIDs);
 
   void useAbility (AbilityType);

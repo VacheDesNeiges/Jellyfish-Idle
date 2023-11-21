@@ -177,6 +177,27 @@ GameDataSynchronizer::isUnlocked (JellyJobs j)
     }
 }
 
+bool
+GameDataSynchronizer::isUnlocked (RessourceType r)
+{
+  using enum RessourceType;
+
+  switch (r)
+    {
+    case Food:
+      return true;
+
+    case Sand:
+      return achievements.isUnlocked (AchievementIDs::FirstJelly);
+
+    case Insight:
+      return achievements.isUnlocked (AchievementIDs::JobFocusing);
+
+    case Glass:
+      return achievements.isUnlocked (AchievementIDs::FirstInsightAbility);
+    }
+}
+
 void
 GameDataSynchronizer::unlock (AchievementIDs id)
 {
@@ -317,17 +338,34 @@ GameDataSynchronizer::loadSave ()
   updateMaxNumJellies ();
 }
 
+bool
+GameDataSynchronizer::isUsable (AbilityType t)
+{
+  bool result = true;
+  for (const auto &[rType, quant] : abilities.getAbilityCost (t))
+    {
+      if (ressources.getCurrentQuantity (rType) < quant)
+        result = false;
+    }
+
+  return result;
+}
+
 void
 GameDataSynchronizer::useAbility (AbilityType t)
 {
-  for (const auto &[rType, quant] : abilities.getAbilityCost (t))
+  if (isUsable (t))
     {
-      ressources.add (rType, -quant);
-    }
 
-  for (const auto &[rType, quant] : abilities.getProduction (t))
-    {
-      ressources.add (rType, quant);
+      for (const auto &[rType, quant] : abilities.getAbilityCost (t))
+        {
+          ressources.add (rType, -quant);
+        }
+
+      for (const auto &[rType, quant] : abilities.getProduction (t))
+        {
+          ressources.add (rType, quant);
+        }
     }
 }
 

@@ -89,6 +89,8 @@ UIManager::renderRessources () const
   ImGui::SetColumnWidth (2, ImGui::GetWindowWidth () / 3);
   for (const auto &resource : Ressource::RessourceTypes)
     {
+      if (!gData->isUnlocked (resource))
+        continue;
       ImGui::SetCursorPosX (ImGui::GetCursorPosX ()
                             + ImGui::GetStyle ().ItemSpacing.x);
       ImGui::Text ("%s", gData->getRessourceName (resource).data ());
