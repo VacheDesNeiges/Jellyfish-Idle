@@ -8,7 +8,7 @@
 #include <stdexcept>
 #include <string>
 
-long
+unsigned int
 JellyfishManager::getNum (JellyJobs job)
 {
   if (!numJobsUpToDate)

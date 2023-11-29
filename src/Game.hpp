@@ -1,11 +1,11 @@
 #pragma once
 
+#include "GameDataSynchronizer.hpp"
 #include "UIManager.hpp"
 #include "imgui.h"
 #include "imgui_impl_sdl2.h"
 #include <chrono>
 #include <memory>
-#include "GameDataSynchronizer.hpp"
 
 class Game
 

@@ -2,6 +2,7 @@
 #include "Achievement.hpp"
 #include "Building.hpp"
 #include "BuildingManager.hpp"
+#include "DepthSystem.hpp"
 #include "InsightAbility.hpp"
 #include "Jellyfish.hpp"
 #include "Ressource.hpp"
@@ -29,7 +30,8 @@ GameDataSynchronizer::GameDataSynchronizer ()
         return buildings.getCurrentQuantity (BuildingType::SandNest) >= 1;
       } },
 
-    { JobExploreTheSea, [this] () { return jellies.getNumJellies () >= 1; } },
+    { JobExploreTheDepths,
+      [this] () { return jellies.getNumJellies () >= 1; } },
 
     { FirstInsightAbility,
       [this] () {
@@ -50,6 +52,8 @@ GameDataSynchronizer::gameTick ()
   // Ressource production
   ressources.produce (addMaps (buildings.getProductionRates (),
                                jellies.getProductionRates ()));
+
+  depth.ExploreDepth (jellies.getNum (JellyJobs::ExploreTheDepths));
 
   checkAchievements ();
   checkJellyfishArrival ();
@@ -167,7 +171,7 @@ GameDataSynchronizer::isUnlocked (JellyJobs j)
       return achievements.isUnlocked (AchievementIDs::FirstJelly);
 
     case ExploreTheDepths:
-      return achievements.isUnlocked (AchievementIDs::JobExploreTheSea);
+      return achievements.isUnlocked (AchievementIDs::JobExploreTheDepths);
 
     case FocusForInsight:
       return achievements.isUnlocked (AchievementIDs::JobFocusing);
@@ -194,6 +198,17 @@ GameDataSynchronizer::isUnlocked (RessourceType r)
       return achievements.isUnlocked (AchievementIDs::JobFocusing);
 
     case Glass:
+      return achievements.isUnlocked (AchievementIDs::FirstInsightAbility);
+    }
+}
+
+bool
+GameDataSynchronizer::isUnlocked (AbilityType t)
+{
+  using enum AbilityType;
+  switch (t)
+    {
+    case CallThunder:
       return achievements.isUnlocked (AchievementIDs::FirstInsightAbility);
     }
 }

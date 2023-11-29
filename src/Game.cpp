@@ -67,10 +67,6 @@ Game::initialize ()
   ImGui_ImplSDL2_InitForSDLRenderer (window, renderer);
   ImGui_ImplSDLRenderer2_Init (renderer);
 
-  UI = std::make_unique<UIManager> ();
-  gameData = std::make_shared<GameDataSynchronizer> ();
-  UI->bindGameData (gameData);
-
   ImGuiStyle &style = ImGui::GetStyle ();
   style.FrameRounding = 12.f;
   style.FramePadding = { 20.f, 3.f };
@@ -81,6 +77,12 @@ Game::initialize ()
   colors[ImGuiCol_PopupBg] = ImVec4 (0.13f, 0.19f, 0.26f, 0.94f);
   colors[ImGuiCol_Button] = ImVec4 (0.31f, 0.76f, 0.83f, 0.41f);
   colors[ImGuiCol_ButtonHovered] = ImVec4 (0.20f, 0.49f, 0.50f, 1.00f);
+
+  // Game systems part below -------------------
+
+  UI = std::make_unique<UIManager> ();
+  gameData = std::make_shared<GameDataSynchronizer> ();
+  UI->bindGameData (gameData);
 }
 
 void

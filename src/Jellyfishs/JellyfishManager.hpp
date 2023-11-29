@@ -21,7 +21,7 @@ public:
   unsigned long getNumJellies () const;
   unsigned long getMaxNumJellies () const;
   void setBonusMaxJellies (unsigned);
-  long getNum (JellyJobs);
+  unsigned int getNum (JellyJobs);
   bool assign (JellyJobs);
   bool unasign (JellyJobs);
   void createJellyfish ();

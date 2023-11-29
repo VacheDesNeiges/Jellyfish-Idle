@@ -17,7 +17,7 @@ enum class AchievementIDs
   FirstSandNest,
   FirstJelly,
   JobFocusing,
-  JobExploreTheSea,
+  JobExploreTheDepths,
   FirstInsightAbility,
   ResearchTabUnlocked,
   Last

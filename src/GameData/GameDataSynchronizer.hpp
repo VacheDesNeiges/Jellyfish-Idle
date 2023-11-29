@@ -12,6 +12,8 @@
 #include <functional>
 #include <map>
 
+#include "DepthSystem.hpp"
+
 class GameDataSynchronizer
 {
 
@@ -39,6 +41,7 @@ public:
   std::string getBuildingName (BuildingType);
   std::string getBuildingDescription (BuildingType);
   std::string getAdvancedBuildingDescription (BuildingType);
+
   std::string getJobDescription (JellyJobs) const;
   std::string getAbilityName (AbilityType);
   std::string getAbilityDescription (AbilityType);
@@ -53,6 +56,7 @@ public:
   bool isUnlocked (JellyJobs);
   bool isUnlocked (AchievementIDs);
   bool isUnlocked (RessourceType);
+  bool isUnlocked (AbilityType);
   void unlock (AchievementIDs);
 
   void useAbility (AbilityType);
@@ -65,6 +69,7 @@ private:
   AchievementSystem achievements;
   AbilityManager abilities;
   std::map<AchievementIDs, std::function<bool ()> > achievementConditions;
+  DepthSystem depth;
 
   void checkAchievements ();
   void checkJellyfishArrival ();

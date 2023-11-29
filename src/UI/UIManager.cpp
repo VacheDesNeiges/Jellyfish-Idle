@@ -43,14 +43,11 @@ UIManager::renderUI () const
           renderResearch ();
         }
 
-      if (gData->isUnlocked (AchievementIDs::JobExploreTheSea))
+      if (gData->isUnlocked (AchievementIDs::JobExploreTheDepths)
+          && ImGui::BeginTabItem ("Depths"))
         {
-          if (ImGui::BeginTabItem ("Territory"))
-            {
-              ImGui::Text (
-                  "This is the Territory tab!\nblah blah blah blah blah");
-              ImGui::EndTabItem ();
-            }
+          ImGui::Text ("Wiiiiii");
+          ImGui::EndTabItem ();
         }
 
       ImGui::EndTabBar ();
@@ -234,11 +231,19 @@ UIManager::renderInsightAbilities () const
   if (ImGui::BeginTabItem ("Insight"))
     {
       if (ImGui::Button (
-              gData->getAbilityDescription (AbilityType::CallThunder)
-                  .c_str ()))
+              gData->getAbilityName (AbilityType::CallThunder).c_str ()))
         {
           gData->useAbility (AbilityType::CallThunder);
         }
+
+      if (ImGui::IsItemHovered (ImGuiHoveredFlags_DelayNone
+                                | ImGuiHoveredFlags_AllowWhenDisabled))
+        {
+          ImGui::SetTooltip (
+              "%s", gData->getAbilityDescription (AbilityType::CallThunder)
+                        .c_str ());
+        }
+
       ImGui::Text ("Insight Tab");
       ImGui::EndTabItem ();
     }
