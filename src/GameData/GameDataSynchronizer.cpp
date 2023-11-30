@@ -38,7 +38,8 @@ GameDataSynchronizer::GameDataSynchronizer ()
         return ressources.getCurrentQuantity (RessourceType::Insight) >= 1;
       } },
 
-    { ResearchTabUnlocked, [] () { return false; } }
+    { ResearchTabUnlocked, [] () { return false; } },
+    { ReachedDepth100, [this] () { return depth.getCurrentDepth () >= 100; } }
   };
 }
 
@@ -199,6 +200,9 @@ GameDataSynchronizer::isUnlocked (RessourceType r)
 
     case Glass:
       return achievements.isUnlocked (AchievementIDs::FirstInsightAbility);
+
+    default:
+      return false;
     }
 }
 
@@ -394,4 +398,17 @@ double
 GameDataSynchronizer::getRessourceConsumption (RessourceType r)
 {
   return ressources.getConsumption (r);
+}
+
+unsigned
+GameDataSynchronizer::getCurrentDepth () const
+{
+  return depth.getCurrentDepth ();
+}
+
+float
+GameDataSynchronizer::getDepthProgress () const
+{
+  return depth.getCurrentProgress ()
+         / depth.getProgressNeededForNextIncrease ();
 }

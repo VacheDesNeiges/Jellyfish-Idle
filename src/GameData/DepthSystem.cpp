@@ -2,25 +2,25 @@
 #include <cmath>
 #include <math.h>
 
-double
+unsigned
 DepthSystem::getCurrentDepth () const
 {
   return currentDepth;
 }
 
-double
+unsigned
 DepthSystem::getMaximumDepth () const
 {
   return maxDepth;
 }
 
-double
+float
 DepthSystem::getCurrentProgress () const
 {
   return currentProgress;
 }
 
-double
+float
 DepthSystem::getProgressNeededForNextIncrease () const
 {
   return progressNeeded;

@@ -62,6 +62,9 @@ public:
   void useAbility (AbilityType);
   bool isUsable (AbilityType);
 
+  unsigned getCurrentDepth () const;
+  float getDepthProgress () const;
+
 private:
   RessourceManager ressources;
   BuildingManager buildings;

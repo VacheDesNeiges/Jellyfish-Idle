@@ -71,12 +71,17 @@ Game::initialize ()
   style.FrameRounding = 12.f;
   style.FramePadding = { 20.f, 3.f };
   style.WindowRounding = 12.f;
+  style.WindowMenuButtonPosition = ImGuiDir_None;
 
   ImVec4 *colors = ImGui::GetStyle ().Colors;
   colors[ImGuiCol_WindowBg] = ImVec4 (0.01f, 0.02f, 0.06f, 0.94f);
   colors[ImGuiCol_PopupBg] = ImVec4 (0.13f, 0.19f, 0.26f, 0.94f);
   colors[ImGuiCol_Button] = ImVec4 (0.31f, 0.76f, 0.83f, 0.41f);
   colors[ImGuiCol_ButtonHovered] = ImVec4 (0.20f, 0.49f, 0.50f, 1.00f);
+  // TODO : customize in a function
+
+  // TODO : Load font in a function
+  io->Fonts->AddFontFromFileTTF ("assets/font/OpenSans-Bold.ttf", 17);
 
   // Game systems part below -------------------
 

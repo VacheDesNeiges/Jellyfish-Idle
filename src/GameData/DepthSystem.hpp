@@ -3,16 +3,16 @@
 class DepthSystem
 {
 public:
-  double getCurrentProgress () const;
-  double getProgressNeededForNextIncrease () const;
-  double getCurrentDepth () const;
-  double getMaximumDepth () const;
+  float getCurrentProgress () const;
+  float getProgressNeededForNextIncrease () const;
+  unsigned getCurrentDepth () const;
+  unsigned getMaximumDepth () const;
   void ExploreDepth (unsigned nJellies);
 
 private:
-  double const baseProgressNeeded = 10;
-  double currentProgress = 0;
-  double progressNeeded = 10;
-  double currentDepth = 5;
-  double maxDepth = 1000;
+  unsigned const baseProgressNeeded = 10;
+  float currentProgress = 0;
+  float progressNeeded = 10;
+  unsigned currentDepth = 5;
+  unsigned maxDepth = 1000;
 };
