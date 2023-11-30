@@ -1,6 +1,5 @@
 #pragma once
 
-#include <concepts>
 struct DepthData
 {
   float currentProg;
