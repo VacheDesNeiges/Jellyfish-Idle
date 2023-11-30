@@ -1,7 +1,10 @@
 #include "Building.hpp"
 #include "GameDataSynchronizer.hpp"
 #include "Jellyfish.hpp"
+#include "UIAbilitiesPanel.hpp"
 #include "UIBuildingsPanel.hpp"
+#include "UIJobsPanel.hpp"
+#include "UIResearchPanel.hpp"
 #include "UIRessourcesPanel.hpp"
 #include "imgui.h"
 #include <memory>
@@ -16,11 +19,9 @@ private:
   std::shared_ptr<GameDataSynchronizer> gData;
   UIRessourcesPanel ressourcesPanel;
   UIBuildingPanel buildingsPanel;
-  void renderRessources () const;
-  void renderBuildings () const;
-  bool renderBuildingButton (BuildingType) const;
-  void renderJobs () const;
-  void renderJobsControls (JellyJobs) const;
+  UIJobsPanel jobsPanel;
+  UIAbilitiesPanel abilitiesPanel;
+  UIResearchPanel researchPanel;
   void renderInsightAbilities () const;
   void renderResearch () const;
 };

@@ -20,6 +20,9 @@ UIManager::bindGameData (std::shared_ptr<GameDataSynchronizer> ptr)
   gData = ptr;
   ressourcesPanel.bindGameData (ptr);
   buildingsPanel.bindGameData (ptr);
+  jobsPanel.bindGameData (ptr);
+  abilitiesPanel.bindGameData (ptr);
+  ressourcesPanel.bindGameData (ptr);
 }
 
 void
@@ -33,17 +36,13 @@ UIManager::renderUI () const
       buildingsPanel.render ();
 
       if (gData->isUnlocked (AchievementIDs::FirstJelly))
-        renderJobs ();
+        jobsPanel.render ();
 
       if (gData->isUnlocked (AchievementIDs::FirstInsightAbility))
-        {
-          renderInsightAbilities ();
-        }
+        abilitiesPanel.render ();
 
       if (gData->isUnlocked (AchievementIDs::ResearchTabUnlocked))
-        {
-          renderResearch ();
-        }
+        researchPanel.render ();
 
       if (gData->isUnlocked (AchievementIDs::JobExploreTheDepths)
           && ImGui::BeginTabItem ("Depths"))
@@ -65,78 +64,4 @@ UIManager::renderUI () const
 
   ImGui::ShowDemoWindow ();
   ImGui::ShowStyleEditor ();
-}
-
-void
-UIManager::renderJobs () const
-{
-  if (ImGui::BeginTabItem ("Jobs"))
-    {
-      using enum JellyJobs;
-
-      ImGui::Text ("Available Jellies : %ld", gData->getNumJellies (None));
-
-      for (auto job = static_cast<int> (GatherSand);
-           job != static_cast<int> (Last); job++)
-        {
-          if (gData->isUnlocked (static_cast<JellyJobs> (job)))
-            renderJobsControls (static_cast<JellyJobs> (job));
-        }
-
-      ImGui::EndTabItem ();
-    }
-}
-
-void
-UIManager::renderJobsControls (JellyJobs job) const
-{
-  ImGui::Text ("%s", gData->getJobDescription (job).c_str ());
-  ImGui::SameLine ();
-  ImGui::PushButtonRepeat (true);
-  auto s = gData->getJobDescription (job);
-  if (ImGui::ArrowButton ((s + "##left").c_str (), ImGuiDir_Left))
-    {
-      gData->unassignJelly (job);
-    }
-  ImGui::SameLine ();
-  ImGui::Text ("%ld", gData->getNumJellies (job));
-  ImGui::SameLine (0.0f);
-  if (ImGui::ArrowButton ((s + "##right").c_str (), ImGuiDir_Right))
-    {
-      gData->assignJelly (job);
-    }
-  ImGui::PopButtonRepeat ();
-}
-
-void
-UIManager::renderInsightAbilities () const
-{
-  if (ImGui::BeginTabItem ("Insight"))
-    {
-      using enum AbilityType;
-      if (ImGui::Button (gData->getAbilityName (CallThunder).c_str ()))
-        {
-          gData->useAbility (CallThunder);
-        }
-
-      if (ImGui::IsItemHovered (ImGuiHoveredFlags_DelayNone
-                                | ImGuiHoveredFlags_AllowWhenDisabled))
-        {
-          ImGui::SetTooltip (
-              "%s", gData->getAbilityDescription (CallThunder).c_str ());
-        }
-
-      ImGui::Text ("Insight Tab");
-      ImGui::EndTabItem ();
-    }
-}
-
-void
-UIManager::renderResearch () const
-{
-  if (ImGui::BeginTabItem ("Research"))
-    {
-      ImGui::Text ("This is the upgrade tab");
-      ImGui::EndTabItem ();
-    }
 }
