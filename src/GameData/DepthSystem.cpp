@@ -32,12 +32,28 @@ DepthSystem::ExploreDepth (unsigned nJellies)
   if (currentDepth < maxDepth)
     {
       double progressGained = nJellies * 0.5;
-      currentProgress += progressGained;
+      currentProgress += static_cast<float> (progressGained);
       while (currentProgress >= progressNeeded)
         {
           currentDepth += 1;
           currentProgress -= progressNeeded;
-          progressNeeded = currentDepth * (currentDepth / log (currentDepth));
+          progressNeeded = static_cast<float> (
+              currentDepth * (currentDepth / log (currentDepth)));
         }
     }
+}
+
+DepthData
+DepthSystem::getData () const
+{
+  return { currentProgress, currentDepth };
+}
+
+void
+DepthSystem::loadData (DepthData data)
+{
+  currentProgress = data.currentProg;
+  currentDepth = data.currentDepth;
+  progressNeeded = static_cast<float> (currentDepth
+                                       * (currentDepth / log (currentDepth)));
 }

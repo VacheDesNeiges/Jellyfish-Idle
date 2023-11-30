@@ -1,6 +1,7 @@
 #include "SaveSystem.hpp"
 #include "Achievement.hpp"
 #include "Building.hpp"
+#include "DepthSystem.hpp"
 #include "JellyfishManager.hpp"
 #include "Ressource.hpp"
 #include <fstream>
@@ -15,7 +16,7 @@ SaveSystem::save (
     const std::vector<std::pair<BuildingType, unsigned> > &buildingsData,
     const std::vector<std::pair<AchievementIDs, bool> > &achievementsData,
     const std::vector<std::pair<RessourceType, double> > &ressourcesData,
-    const JellyFishData &jfishData)
+    const JellyFishData &jfishData, const DepthData &depthData)
 {
   nlohmann::json j;
   for (const auto &[type, quant] : buildingsData)
@@ -42,6 +43,9 @@ SaveSystem::save (
                     { "numJobExplore", jfishData.numJobExploreTheDepths },
                     { "numJobGatherSand", jfishData.numJobGatheringSand },
                     { "numJobFocusing", jfishData.numJobFocusing } };
+
+  j["Depth"] += { { "currentDepth", depthData.currentDepth },
+                  { "currentProg", depthData.currentProg } };
 
   std::ofstream file (saveFileName);
   file << j;
@@ -86,6 +90,10 @@ SaveSystem::loadFromFile ()
       = data["Jellies"][0]["numJobGatherSand"].get<unsigned> ();
   result.jellies.numJobFocusing
       = data["Jellies"][0]["numJobFocusing"].get<unsigned> ();
+
+  result.depth.currentDepth
+      = data["Depth"][0]["currentDepth"].get<unsigned> ();
+  result.depth.currentProg = data["Depth"][0]["currentProg"].get<float> ();
 
   return result;
 }

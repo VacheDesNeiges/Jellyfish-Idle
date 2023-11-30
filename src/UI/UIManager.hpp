@@ -22,6 +22,4 @@ private:
   UIJobsPanel jobsPanel;
   UIAbilitiesPanel abilitiesPanel;
   UIResearchPanel researchPanel;
-  void renderInsightAbilities () const;
-  void renderResearch () const;
 };

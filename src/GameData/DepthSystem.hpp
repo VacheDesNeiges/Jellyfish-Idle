@@ -1,5 +1,12 @@
 #pragma once
 
+#include <concepts>
+struct DepthData
+{
+  float currentProg;
+  unsigned currentDepth;
+};
+
 class DepthSystem
 {
 public:
@@ -8,6 +15,9 @@ public:
   unsigned getCurrentDepth () const;
   unsigned getMaximumDepth () const;
   void ExploreDepth (unsigned nJellies);
+
+  DepthData getData () const;
+  void loadData (DepthData);
 
 private:
   unsigned const baseProgressNeeded = 10;

@@ -342,7 +342,8 @@ void
 GameDataSynchronizer::save () const
 {
   SaveSystem::save (buildings.getData (), achievements.getData (),
-                    ressources.getData (), jellies.getData ());
+                    ressources.getData (), jellies.getData (),
+                    depth.getData ());
   // TODO : refactor to use a SaveData object instead ?
 }
 
@@ -354,6 +355,7 @@ GameDataSynchronizer::loadSave ()
   achievements.loadData (loadedData.achievements);
   ressources.loadData (loadedData.ressources);
   jellies.loadData (loadedData.jellies);
+  depth.loadData (loadedData.depth);
   updateMaxNumJellies ();
 }
 

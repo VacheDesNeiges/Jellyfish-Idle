@@ -47,9 +47,8 @@ UIManager::renderUI () const
       if (gData->isUnlocked (AchievementIDs::JobExploreTheDepths)
           && ImGui::BeginTabItem ("Depths"))
         {
-          ImGui::Text ("Wiiiiii");
-          std::string depthString
-              = fmt::format ("Current Depth : {}", gData->getCurrentDepth ());
+          std::string depthString = fmt::format ("Current Depth : {} meters",
+                                                 gData->getCurrentDepth ());
           ImGui::Text ("%s", depthString.c_str ());
           ImGui::ProgressBar (gData->getDepthProgress ());
           ImGui::EndTabItem ();
