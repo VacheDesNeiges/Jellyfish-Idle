@@ -10,6 +10,7 @@ main ()
   return 0;
 }
 
+// TODO : Unlock Mines at depth 25 ?
 // TODO : take care of negative ressources
 // TODO : Catchup on load
 // TODO : Replace string returns to string_view

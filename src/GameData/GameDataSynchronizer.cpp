@@ -348,9 +348,9 @@ GameDataSynchronizer::save () const
 }
 
 void
-GameDataSynchronizer::loadSave ()
+GameDataSynchronizer::loadSave (std::string path)
 {
-  auto loadedData = SaveSystem::loadFromFile ();
+  auto loadedData = SaveSystem::loadFromFile (path);
   buildings.loadData (loadedData.buildings);
   achievements.loadData (loadedData.achievements);
   ressources.loadData (loadedData.ressources);

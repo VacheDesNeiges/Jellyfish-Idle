@@ -30,8 +30,8 @@ UIManager::renderUI () const
 {
   ImGui::DockSpaceOverViewport (ImGui::GetMainViewport ());
 
-  ImGui::Begin ("Tabs");
-  if (ImGui::BeginTabBar ("Tabs", ImGuiTabBarFlags_None))
+  ImGui::Begin ("Tab", nullptr, ImGuiDockNodeFlags_NoTabBar);
+  if (ImGui::BeginTabBar ("Fish", ImGuiTabBarFlags_None))
     {
       buildingsPanel.render ();
 

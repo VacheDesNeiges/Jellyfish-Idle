@@ -63,15 +63,10 @@ set_target_properties(test PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${TEST_BUILD_DIR}
 )
     
-    # Custom target for cleaning
-    add_custom_target(cleanFiles COMMAND ${CMAKE_COMMAND} -P ${CMAKE_SOURCE_DIR}/CleanAll.cmake)
-    
-    # Custom target for generating compile commands
-    add_custom_target(genCompileCommands COMMAND ${CMAKE_COMMAND} -E remove -f compile_commands.json COMMAND bear -- make -j)
     
     # Custom target for coverage
-    add_custom_target(coverage
-        COMMAND llvm-profdata merge -o build/default.profdata build/default.profraw
-        COMMAND llvm-cov show --show-branches=count --instr-profile=build/default.profdata $<TARGET_FILE:test> > build/coverage.txt
-        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-    )
+add_custom_target(coverage
+    COMMAND llvm-profdata merge -o build/default.profdata build/default.profraw
+    COMMAND llvm-cov show --show-branches=count --instr-profile=build/default.profdata $<TARGET_FILE:test> > build/coverage.txt
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+)

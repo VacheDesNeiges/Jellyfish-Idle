@@ -21,7 +21,7 @@ public:
   GameDataSynchronizer ();
 
   void save () const;
-  void loadSave ();
+  void loadSave (std::string);
   void gameTick ();
 
   void gatherFood ();

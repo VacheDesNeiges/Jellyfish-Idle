@@ -17,6 +17,7 @@ public:
 
 private:
   void initialize ();
+  std::string getPath () const;
 
   SDL_Window *window;
   SDL_Renderer *renderer;

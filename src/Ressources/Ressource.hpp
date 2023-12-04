@@ -21,7 +21,6 @@ public:
   Ressource () = default;
   explicit Ressource (RessourceType);
   ~Ressource () = default;
-  void update (unsigned int ticks);
   void add (double n);
   double getCurrentQuantity () const;
   double getMaxQuantity () const;
@@ -46,7 +45,6 @@ private:
   // std::vector<float> production_multipliers;
   //? maybe use upgrades as boolean somewhere else ? Like in GameData
 
-  double base_production; // per sec ?
   double prodPerTick;
   double consumptionPerTick;
 };

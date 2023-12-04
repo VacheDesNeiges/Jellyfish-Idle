@@ -52,11 +52,12 @@ SaveSystem::save (
 }
 
 SaveData
-SaveSystem::loadFromFile ()
+SaveSystem::loadFromFile (std::string path)
 {
   SaveData result;
+  path += "/" + saveFileName;
 
-  std::ifstream f (saveFileName);
+  std::ifstream f (path);
   nlohmann::json data = nlohmann::json::parse (f);
 
   for (const auto &d : data["Building"])

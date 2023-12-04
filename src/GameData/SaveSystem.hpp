@@ -25,7 +25,7 @@ public:
                     const std::vector<std::pair<AchievementIDs, bool> > &,
                     const std::vector<std::pair<RessourceType, double> > &,
                     const JellyFishData &, const DepthData &);
-  static SaveData loadFromFile ();
+  static SaveData loadFromFile (std::string);
 
   static constexpr std::string saveFileName = "save.json";
 };

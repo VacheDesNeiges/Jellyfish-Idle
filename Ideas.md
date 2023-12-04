@@ -62,3 +62,7 @@ Focus -> Insight -> Menu with "spells" -> Thunder Strike that turns sand to glas
  # Deities 
 
  Mix of farming in melvor idle and slime rancher for the ressources and price
+ Mining tab, multiple minable things
+ furnace tab, select what to melt
+
+./

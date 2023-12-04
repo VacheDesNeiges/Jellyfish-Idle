@@ -9,6 +9,7 @@
 #include <chrono>
 #include <exception>
 #include <filesystem>
+#include <linux/limits.h>
 #include <memory>
 #include <stdexcept>
 #include <stdio.h>
@@ -81,7 +82,10 @@ Game::initialize ()
   // TODO : customize in a function
 
   // TODO : Load font in a function
-  io->Fonts->AddFontFromFileTTF ("assets/font/OpenSans-Bold.ttf", 17);
+  std::string path = getPath ();
+  std::cout << path << "\n";
+  path += "/assets/font/OpenSans-Bold.ttf";
+  io->Fonts->AddFontFromFileTTF (path.c_str (), 17);
 
   // Game systems part below -------------------
 
@@ -97,7 +101,7 @@ Game::run ()
   auto nextTick = std::chrono::high_resolution_clock::now () + interval;
   bool done = false;
   if (std::filesystem::exists (SaveSystem::saveFileName))
-    gameData->loadSave ();
+    gameData->loadSave (getPath ());
 
   while (!done)
     {
@@ -134,4 +138,21 @@ Game::run ()
       SDL_RenderPresent (renderer);
     }
   gameData->save ();
+}
+
+std::string
+Game::getPath () const
+{
+  char buff[PATH_MAX];
+  ssize_t len = ::readlink ("/proc/self/exe", buff, PATH_MAX - 1);
+  if (len != -1)
+    {
+      buff[len] = '\0';
+      std::string ret (buff);
+      std::size_t found = ret.rfind ('/');
+      if (found != std::string::npos)
+        ret = ret.substr (0, found);
+      return ret;
+    }
+  assert (false);
 }

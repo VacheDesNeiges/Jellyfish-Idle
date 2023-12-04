@@ -11,41 +11,29 @@ Ressource::Ressource (RessourceType rType)
       name = "Food";
       max_quantity = 2000;
       quantity = 0;
-      base_production = 0.005f;
       break;
 
     case RessourceType::Sand:
       name = "Sand";
       max_quantity = 250;
       quantity = 0;
-      base_production = 0;
       break;
 
     case RessourceType::Insight:
       name = "Insight";
       max_quantity = 300;
       quantity = 0;
-      base_production = 0;
       break;
 
     case RessourceType::Glass:
       name = "Glass";
       max_quantity = 75;
       quantity = 0;
-      base_production = 0;
       break;
 
     default:
       break;
     }
-}
-
-void
-Ressource::update (unsigned int nbTicks)
-{
-  quantity += (base_production * static_cast<float> (nbTicks));
-  if (quantity > static_cast<float> (max_quantity))
-    quantity = static_cast<float> (max_quantity);
 }
 
 void
