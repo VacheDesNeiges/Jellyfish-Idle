@@ -8,8 +8,8 @@
 
 PlanktonField::PlanktonField ()
 {
-  prodPerTick.push_back (std::make_pair (RessourceType::Food, 0));
-  basePrice.push_back (std::make_pair (RessourceType::Food, 5));
+  prodPerTick.emplace_back (RessourceType::Food, 0);
+  basePrice.emplace_back (RessourceType::Food, 5);
   priceMultiplier = 1.20;
   name = "Plankton Field";
 }

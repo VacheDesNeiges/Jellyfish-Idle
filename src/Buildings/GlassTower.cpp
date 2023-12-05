@@ -4,7 +4,7 @@
 
 GlassTower::GlassTower ()
 {
-  basePrice.push_back ({ RessourceType::Glass, 15 });
+  basePrice.emplace_back (RessourceType::Glass, 15);
   priceMultiplier = 1.30;
   name = "Glass Tower";
 }

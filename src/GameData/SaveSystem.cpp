@@ -62,23 +62,23 @@ SaveSystem::loadFromFile (std::string path)
 
   for (const auto &d : data["Building"])
     {
-      result.buildings.push_back (
-          std::make_pair (static_cast<BuildingType> (d["id"].get<unsigned> ()),
-                          d["Quantity"].get<unsigned> ()));
+      result.buildings.emplace_back (
+          static_cast<BuildingType> (d["id"].get<unsigned> ()),
+          d["Quantity"].get<unsigned> ());
     }
 
   for (const auto &d : data["Achievement"])
     {
-      result.achievements.push_back (std::make_pair (
+      result.achievements.emplace_back (
           static_cast<AchievementIDs> (d["id"].get<unsigned> ()),
-          d["Unlocked"].get<bool> ()));
+          d["Unlocked"].get<bool> ());
     }
 
   for (const auto &d : data["Ressource"])
     {
-      result.ressources.push_back (std::make_pair (
+      result.ressources.emplace_back (
           static_cast<RessourceType> (d["id"].get<unsigned> ()),
-          d["Quantity"].get<double> ()));
+          d["Quantity"].get<double> ());
     }
 
   result.jellies.numJellies = data["Jellies"][0]["num"].get<unsigned> ();

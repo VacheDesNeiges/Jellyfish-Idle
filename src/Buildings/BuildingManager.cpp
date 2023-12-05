@@ -88,8 +88,7 @@ BuildingManager::getData () const
   std::vector<std::pair<BuildingType, unsigned> > result;
   for (const auto &[type, building] : buildings)
     {
-      result.push_back (
-          std::make_pair (type, building->getCurrentQuantity ()));
+      result.emplace_back (type, building->getCurrentQuantity ());
     }
 
   return result;

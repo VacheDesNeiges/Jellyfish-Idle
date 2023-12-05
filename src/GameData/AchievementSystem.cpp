@@ -32,7 +32,7 @@ AchievementSystem::getData () const
 
   for (const auto &[id, val] : achievements)
     {
-      result.push_back ({ id, val.isUnlocked () });
+      result.emplace_back (id, val.isUnlocked ());
     }
   return result;
 }

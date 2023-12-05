@@ -98,7 +98,7 @@ RessourceManager::getData () const
   std::vector<std::pair<RessourceType, double> > result;
   for (const auto &[rtype, res] : ressources)
     {
-      result.push_back ({ rtype, res.getCurrentQuantity () });
+      result.emplace_back (rtype, res.getCurrentQuantity ());
     }
 
   return result;
