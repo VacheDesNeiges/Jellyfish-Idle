@@ -4,7 +4,7 @@
 #include <memory>
 
 void
-GameDataAcess::init (std::shared_ptr<GameDataView> v)
+GameDataAcess::bindDataView (std::shared_ptr<GameDataView> v)
 {
   assert (view == nullptr);
   view = v;

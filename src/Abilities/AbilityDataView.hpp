@@ -1,7 +1,9 @@
 #pragma once
 #include "AbilityManager.hpp"
+#include "GameDataAccess.hpp"
 #include "RessourceManager.hpp"
 #include <memory>
+
 class AbilityDataView
 {
 public:

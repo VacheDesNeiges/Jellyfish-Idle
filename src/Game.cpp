@@ -91,8 +91,10 @@ Game::initialize ()
 
   UI = std::make_unique<UIManager> ();
   gameSystems = std::make_shared<GameSystems> ();
+
   UI->bindGameData (gameSystems->getDataView (),
                     gameSystems->getInputHandler ());
+  std::cout << "UI Binding complete\n";
 }
 
 void

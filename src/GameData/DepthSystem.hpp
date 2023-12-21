@@ -1,12 +1,13 @@
 #pragma once
 
+#include "GameDataAccess.hpp"
 struct DepthData
 {
   float currentProg;
   unsigned currentDepth;
 };
 
-class DepthSystem
+class DepthSystem : public GameDataAcess
 {
 public:
   float getCurrentProgress () const;

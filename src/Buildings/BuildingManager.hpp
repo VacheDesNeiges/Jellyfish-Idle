@@ -1,12 +1,13 @@
 #pragma once
 #include "Building.hpp"
+#include "GameDataAccess.hpp"
 #include "Ressource.hpp"
 #include <map>
 #include <memory>
 #include <utility>
 #include <vector>
 
-class BuildingManager
+class BuildingManager : public GameDataAcess
 {
 public:
   BuildingManager ();

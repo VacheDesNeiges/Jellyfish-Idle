@@ -5,7 +5,7 @@ class GameDataView;
 class GameDataAcess
 {
 public:
-  void init (std::shared_ptr<GameDataView>);
+  void bindDataView (std::shared_ptr<GameDataView>);
 
 protected:
   std::shared_ptr<GameDataView> getDataView () const;

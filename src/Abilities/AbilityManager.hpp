@@ -1,10 +1,11 @@
 #pragma once
 
+#include "GameDataAccess.hpp"
 #include "InsightAbility.hpp"
 #include "Ressource.hpp"
 #include <map>
 
-class AbilityManager
+class AbilityManager : public GameDataAcess
 {
 public:
   AbilityManager ();

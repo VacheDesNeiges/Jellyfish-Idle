@@ -1,9 +1,11 @@
 #pragma once
+#include "GameDataAccess.hpp"
+#include "GameDataView.hpp"
 #include "Ressource.hpp"
 #include "map"
 #include <utility>
 
-class RessourceManager
+class RessourceManager : public GameDataAcess
 {
 public:
   RessourceManager ();

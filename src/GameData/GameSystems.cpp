@@ -16,13 +16,27 @@ GameSystems::GameSystems ()
   abilities = std::make_shared<AbilityManager> ();
   depth = std::make_shared<DepthSystem> ();
 
+  std::cout << "Managers building complete\n";
+
   dataView = std::make_shared<GameDataView> (ressources, buildings, jellies,
                                              achievements, abilities, depth);
+
+  ressources->bindDataView (dataView);
+  buildings->bindDataView (dataView);
+  jellies->bindDataView (dataView);
+  achievements->bindDataView (dataView);
+  abilities->bindDataView (dataView);
+  depth->bindDataView (dataView);
+
+  std::cout << "DataView building complete\n";
+
   inputHandler = std::make_shared<InputHandler> (ressources, buildings,
                                                  jellies, abilities);
+  std::cout << "InputHandler Building complete\n";
 
   synchronizer = std::make_unique<GameSynchronizer> (
       ressources, buildings, jellies, achievements, abilities, depth);
+  std::cout << "Synchronizer building complete\n";
 }
 
 void
@@ -49,13 +63,13 @@ GameSystems::loadSave (std::string path)
 std::shared_ptr<GameDataView>
 GameSystems::getDataView ()
 {
-  return std::make_shared<GameDataView> (*dataView);
+  return dataView;
 }
 
 std::shared_ptr<InputHandler>
 GameSystems::getInputHandler ()
 {
-  return std::make_shared<InputHandler> (*inputHandler);
+  return inputHandler;
 }
 
 void
