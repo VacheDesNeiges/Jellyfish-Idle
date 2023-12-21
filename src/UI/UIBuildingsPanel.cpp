@@ -1,5 +1,8 @@
 #include "UIBuildingsPanel.hpp"
+#include "AchievementDataView.hpp"
 #include "Building.hpp"
+#include "BuildingDataView.hpp"
+#include "InputHandler.hpp"
 #include "imgui.h"
 
 void
@@ -10,7 +13,7 @@ UIBuildingPanel::render () const
       ImGui::Text ("This is the Buildings tab!\n wiiiii");
       if (auto sz = ImVec2 (300.f, 20.0f); ImGui::Button ("GatherFood", sz))
         {
-          gData->gatherFood ();
+          inputHandler->gatherFood ();
         }
 
       ImGui::SameLine ();
@@ -35,21 +38,25 @@ UIBuildingPanel::renderBuildingButton (BuildingType building) const
 {
   auto sz = ImVec2 (300.f, 20.0f);
 
-  if (gData->isUnlocked (building))
+  if (gData->getAchievementsView ()->isUnlocked (building))
     {
 
-      ImGui::BeginDisabled (!gData->isBuyable (building));
-      if (ImGui::Button (gData->getBuildingDescription (building).c_str (),
+      ImGui::BeginDisabled (!gData->getBuildingsView ()->isBuyable (building));
+      if (ImGui::Button (gData->getBuildingsView ()
+                             ->getBuildingDescription (building)
+                             .c_str (),
                          sz))
         {
-          gData->buy (building);
+          inputHandler->buy (building);
         }
       ImGui::EndDisabled ();
       if (ImGui::IsItemHovered (ImGuiHoveredFlags_DelayNone
                                 | ImGuiHoveredFlags_AllowWhenDisabled))
         {
-          ImGui::SetTooltip (
-              "%s", gData->getAdvancedBuildingDescription (building).c_str ());
+          ImGui::SetTooltip ("%s",
+                             gData->getBuildingsView ()
+                                 ->getAdvancedBuildingDescription (building)
+                                 .c_str ());
         }
 
       return true;

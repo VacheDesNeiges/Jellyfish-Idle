@@ -1,5 +1,5 @@
 #include "Game.hpp"
-#include "GameDataSynchronizer.hpp"
+#include "GameSystems.hpp"
 #include "SaveSystem.hpp"
 #include "imgui.h"
 #include "imgui_impl_sdl2.h"
@@ -90,8 +90,9 @@ Game::initialize ()
   // Game systems part below -------------------
 
   UI = std::make_unique<UIManager> ();
-  gameData = std::make_shared<GameDataSynchronizer> ();
-  UI->bindGameData (gameData);
+  gameSystems = std::make_shared<GameSystems> ();
+  UI->bindGameData (gameSystems->getDataView (),
+                    gameSystems->getInputHandler ());
 }
 
 void
@@ -101,7 +102,7 @@ Game::run ()
   auto nextTick = std::chrono::high_resolution_clock::now () + interval;
   bool done = false;
   if (std::filesystem::exists (SaveSystem::saveFileName))
-    gameData->loadSave (getPath ());
+    gameSystems->loadSave (getPath ());
 
   while (!done)
     {
@@ -120,7 +121,7 @@ Game::run ()
 
       if (std::chrono::high_resolution_clock::now () >= nextTick)
         {
-          gameData->gameTick ();
+          gameSystems->gameTick ();
           nextTick += interval;
         }
 
@@ -137,7 +138,7 @@ Game::run ()
       ImGui_ImplSDLRenderer2_RenderDrawData (ImGui::GetDrawData ());
       SDL_RenderPresent (renderer);
     }
-  gameData->save ();
+  gameSystems->save ();
 }
 
 std::string

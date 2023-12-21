@@ -1,6 +1,6 @@
 #pragma once
 
-#include "GameDataSynchronizer.hpp"
+#include "GameSystems.hpp"
 #include "UIManager.hpp"
 #include "imgui.h"
 #include "imgui_impl_sdl2.h"
@@ -24,5 +24,5 @@ private:
   ImGuiIO *io;
 
   std::unique_ptr<UIManager> UI;
-  std::shared_ptr<GameDataSynchronizer> gameData;
+  std::shared_ptr<GameSystems> gameSystems;
 };

@@ -1,5 +1,7 @@
 #pragma once
-#include "GameDataSynchronizer.hpp"
+#include "GameDataView.hpp"
+#include "GameSystems.hpp"
+#include "InputHandler.hpp"
 #include <memory>
 
 class UIElement
@@ -12,10 +14,13 @@ public:
   virtual void render () const = 0;
 
   void
-  bindGameData (std::shared_ptr<GameDataSynchronizer> ptr)
+  bindGameData (std::shared_ptr<GameDataView> viewPtr,
+                std::shared_ptr<InputHandler> inputPtr)
   {
-    this->gData = ptr;
+    this->gData = viewPtr;
+    this->inputHandler = inputPtr;
   }
 
-  std::shared_ptr<GameDataSynchronizer> gData;
+  std::shared_ptr<GameDataView> gData;
+  std::shared_ptr<InputHandler> inputHandler;
 };

@@ -16,7 +16,7 @@ SaveSystem::save (
     const std::vector<std::pair<BuildingType, unsigned> > &buildingsData,
     const std::vector<std::pair<AchievementIDs, bool> > &achievementsData,
     const std::vector<std::pair<RessourceType, double> > &ressourcesData,
-    const JellyFishData &jfishData, const DepthData &depthData)
+    const JellyfishData &jfishData, const DepthData &depthData)
 {
   nlohmann::json j;
   for (const auto &[type, quant] : buildingsData)

@@ -1,11 +1,13 @@
 #pragma once
+#include "GameDataAccess.hpp"
+#include "GameSystems.hpp"
 #include "Jellyfish.hpp"
 #include "Ressource.hpp"
 #include <iostream>
 #include <map>
 #include <vector>
 
-struct JellyFishData
+struct JellyfishData
 {
   unsigned maxNumJellies;
   unsigned numJobNone;
@@ -15,7 +17,9 @@ struct JellyFishData
   unsigned numJellies;
 };
 
-class JellyfishManager
+class GameDataView;
+
+class JellyfishManager : public GameDataAcess
 {
 public:
   unsigned long getNumJellies () const;
@@ -29,8 +33,8 @@ public:
   std::map<RessourceType, double> getProductionRates () const;
   std::map<RessourceType, double> getConsumptionRates () const;
   std::string getJobDescription (JellyJobs) const;
-  JellyFishData getData () const;
-  void loadData (JellyFishData);
+  JellyfishData getData () const;
+  void loadData (JellyfishData);
 
 private:
   std::vector<Jellyfish> jellies;

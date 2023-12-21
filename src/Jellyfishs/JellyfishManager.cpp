@@ -206,10 +206,10 @@ JellyfishManager::getJobDescription (JellyJobs j) const
     }
 }
 
-JellyFishData
+JellyfishData
 JellyfishManager::getData () const
 {
-  JellyFishData result;
+  JellyfishData result;
   result.maxNumJellies = maxNumJellies;
   result.numJobExploreTheDepths = numJobExploreTheDepths;
   result.numJobFocusing = numJobFocusing;
@@ -221,7 +221,7 @@ JellyfishManager::getData () const
 }
 
 void
-JellyfishManager::loadData (JellyFishData data)
+JellyfishManager::loadData (JellyfishData data)
 {
   if (data.numJellies > 0)
     {

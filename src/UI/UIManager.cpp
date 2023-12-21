@@ -1,7 +1,10 @@
 #include "UIManager.hpp"
-#include "Achievement.hpp"
+#include "AchievementDataView.hpp"
+#include "AchievementSystem.hpp"
 #include "Building.hpp"
-#include "GameDataSynchronizer.hpp"
+#include "DepthDataView.hpp"
+#include "GameDataView.hpp"
+#include "GameSystems.hpp"
 #include "InsightAbility.hpp"
 #include "Jellyfish.hpp"
 #include "Ressource.hpp"
@@ -11,18 +14,21 @@
 #include <iomanip>
 #include <ios>
 #include <iostream>
+#include <memory>
 #include <sstream>
 #include <string>
 
 void
-UIManager::bindGameData (std::shared_ptr<GameDataSynchronizer> ptr)
+UIManager::bindGameData (std::shared_ptr<GameDataView> viewPtr,
+                         std::shared_ptr<InputHandler> inputPtr)
 {
-  gData = ptr;
-  ressourcesPanel.bindGameData (ptr);
-  buildingsPanel.bindGameData (ptr);
-  jobsPanel.bindGameData (ptr);
-  abilitiesPanel.bindGameData (ptr);
-  ressourcesPanel.bindGameData (ptr);
+  gData = viewPtr;
+  inputHandler = inputPtr;
+  ressourcesPanel.bindGameData (viewPtr, inputPtr);
+  buildingsPanel.bindGameData (viewPtr, inputPtr);
+  jobsPanel.bindGameData (viewPtr, inputPtr);
+  abilitiesPanel.bindGameData (viewPtr, inputPtr);
+  ressourcesPanel.bindGameData (viewPtr, inputPtr);
 }
 
 void
@@ -35,22 +41,29 @@ UIManager::renderUI () const
     {
       buildingsPanel.render ();
 
-      if (gData->isUnlocked (AchievementIDs::FirstJelly))
+      if (gData->getAchievementsView ()->isUnlocked (
+              AchievementIDs::FirstJelly))
         jobsPanel.render ();
 
-      if (gData->isUnlocked (AchievementIDs::FirstInsightAbility))
+      if (gData->getAchievementsView ()->isUnlocked (
+              AchievementIDs::FirstInsightAbility))
         abilitiesPanel.render ();
 
-      if (gData->isUnlocked (AchievementIDs::ResearchTabUnlocked))
+      if (gData->getAchievementsView ()->isUnlocked (
+              AchievementIDs::ResearchTabUnlocked))
         researchPanel.render ();
 
-      if (gData->isUnlocked (AchievementIDs::JobExploreTheDepths)
+      if (gData->getAchievementsView ()->isUnlocked (
+              AchievementIDs::JobExploreTheDepths)
           && ImGui::BeginTabItem ("Depths"))
         {
-          std::string depthString = fmt::format ("Current Depth : {} meters",
-                                                 gData->getCurrentDepth ());
+          std::string depthString
+              = fmt::format ("Current Depth : {} meters",
+                             gData->getDepthView ()->getCurrentDepth ());
           ImGui::Text ("%s", depthString.c_str ());
-          ImGui::ProgressBar (gData->getDepthProgress ());
+          ImGui::ProgressBar (
+              gData->getDepthView ()->getCurrentProgress ()
+              / gData->getDepthView ()->getProgressNeededForNextIncrease ());
           ImGui::EndTabItem ();
         }
 

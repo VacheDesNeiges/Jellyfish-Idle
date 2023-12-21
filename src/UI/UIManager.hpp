@@ -1,5 +1,7 @@
 #include "Building.hpp"
-#include "GameDataSynchronizer.hpp"
+#include "GameDataView.hpp"
+#include "GameSystems.hpp"
+#include "InputHandler.hpp"
 #include "Jellyfish.hpp"
 #include "UIAbilitiesPanel.hpp"
 #include "UIBuildingsPanel.hpp"
@@ -13,10 +15,13 @@ class UIManager
 {
 public:
   void renderUI () const;
-  void bindGameData (std::shared_ptr<GameDataSynchronizer>);
+  void bindGameData (std::shared_ptr<GameDataView>,
+                     std::shared_ptr<InputHandler>);
 
 private:
-  std::shared_ptr<GameDataSynchronizer> gData;
+  std::shared_ptr<GameDataView> gData = nullptr;
+  std::shared_ptr<InputHandler> inputHandler = nullptr;
+
   UIRessourcesPanel ressourcesPanel;
   UIBuildingPanel buildingsPanel;
   UIJobsPanel jobsPanel;
