@@ -10,7 +10,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}\
 -Wshadow \
 -Wconversion \
 -O3 \
--fPIC \
+-fPIE \
 -g \
 -fprofile-instr-generate=build/default.profraw \
 -fcoverage-mapping")

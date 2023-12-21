@@ -47,6 +47,7 @@ private:
   friend class PlanktonField;
   friend class SandNest;
   friend class GlassTower;
+  friend class Mine;
 };
 
 class BuildingFactory

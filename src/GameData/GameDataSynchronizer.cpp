@@ -185,10 +185,11 @@ GameDataSynchronizer::isUnlocked (JellyJobs j)
 bool
 GameDataSynchronizer::isUnlocked (RessourceType r)
 {
-  using enum RessourceType;
 
   switch (r)
     {
+      using enum RessourceType;
+
     case Food:
       return true;
 

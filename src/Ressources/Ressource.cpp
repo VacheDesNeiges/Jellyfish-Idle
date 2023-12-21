@@ -19,6 +19,12 @@ Ressource::Ressource (RessourceType rType)
       quantity = 0;
       break;
 
+    case RessourceType::Stone:
+      name = "Stone";
+      max_quantity = 200;
+      quantity = 0;
+      break;
+
     case RessourceType::Insight:
       name = "Insight";
       max_quantity = 300;

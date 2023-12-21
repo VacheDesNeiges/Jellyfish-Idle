@@ -10,6 +10,7 @@ RessourceManager::init ()
   using enum RessourceType;
   ressources[Food] = Ressource (Food);
   ressources[Sand] = Ressource (Sand);
+  ressources[Stone] = Ressource (Stone);
   ressources[Glass] = Ressource (Glass);
   ressources[Insight] = Ressource (Insight);
 }
