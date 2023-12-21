@@ -1,5 +1,6 @@
 #include "Building.hpp"
 #include "GlassTower.hpp"
+#include "Mine.hpp"
 #include "PlanktonField.hpp"
 #include "Ressource.hpp"
 #include "SandNest.hpp"
@@ -32,6 +33,9 @@ BuildingFactory::createBuildingInstance (BuildingType t)
 
     case BuildingType::SandNest:
       return std::make_unique<SandNest> ();
+
+    case BuildingType::Mine:
+      return std::make_unique<Mine> ();
 
     case BuildingType::GlassTower:
       return std::make_unique<GlassTower> ();

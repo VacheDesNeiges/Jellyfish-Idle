@@ -9,6 +9,7 @@ enum class BuildingType
 {
   PlanktonField,
   SandNest,
+  Mine,
   GlassTower
 };
 
@@ -29,9 +30,9 @@ public:
   virtual std::string getAdvancedDescription ();
   void setQuantity (unsigned);
 
-  static constexpr std::array<BuildingType, 3> BuildingTypes
+  static constexpr std::array<BuildingType, 4> BuildingTypes
       = { BuildingType::PlanktonField, BuildingType::SandNest,
-          BuildingType::GlassTower };
+          BuildingType::Mine, BuildingType::GlassTower };
 
 private:
   std::string name;

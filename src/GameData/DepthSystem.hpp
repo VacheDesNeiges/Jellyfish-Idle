@@ -20,7 +20,6 @@ public:
   void loadData (DepthData);
 
 private:
-  unsigned const baseProgressNeeded = 10;
   float currentProgress = 0;
   float progressNeeded = 10;
   unsigned currentDepth = 5;

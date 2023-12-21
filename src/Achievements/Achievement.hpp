@@ -20,6 +20,7 @@ enum class AchievementIDs
   JobExploreTheDepths,
   FirstInsightAbility,
   ResearchTabUnlocked,
+  ReachedDepth35,
   ReachedDepth100,
   Last
 };

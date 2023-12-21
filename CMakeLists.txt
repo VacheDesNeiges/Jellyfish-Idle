@@ -33,6 +33,8 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}\
         ${CMAKE_SOURCE_DIR}/src/Buildings
         ${CMAKE_SOURCE_DIR}/src/Jellyfishs
         ${CMAKE_SOURCE_DIR}/src/Abilities
+        ${CMAKE_SOURCE_DIR}/src/Achievements
+
     )
     
 # Source files for your main application

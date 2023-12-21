@@ -58,6 +58,12 @@ AchievementSystem::AchievementSystem ()
       } },
 
     { ResearchTabUnlocked, [] () { return false; } },
+
+    { ReachedDepth35,
+      [this] () {
+        return getDataView ()->getDepthView ()->getCurrentDepth () >= 35;
+      } },
+
     { ReachedDepth100,
       [this] () {
         return getDataView ()->getDepthView ()->getCurrentDepth () >= 100;

@@ -104,42 +104,42 @@ Game::run ()
   auto nextTick = std::chrono::high_resolution_clock::now () + interval;
   bool done = false;
   if (std::filesystem::exists (SaveSystem::saveFileName))
-    gameSystems->loadSave (getPath ());
+    //  gameSystems->loadSave (getPath ());
 
-  while (!done)
-    {
-      SDL_Event event;
-      while (SDL_PollEvent (&event))
-        {
-          ImGui_ImplSDL2_ProcessEvent (&event);
-          if (event.type == SDL_QUIT)
-            done = true;
+    while (!done)
+      {
+        SDL_Event event;
+        while (SDL_PollEvent (&event))
+          {
+            ImGui_ImplSDL2_ProcessEvent (&event);
+            if (event.type == SDL_QUIT)
+              done = true;
 
-          if (event.type == SDL_WINDOWEVENT
-              && event.window.event == SDL_WINDOWEVENT_CLOSE
-              && event.window.windowID == SDL_GetWindowID (window))
-            done = true;
-        }
+            if (event.type == SDL_WINDOWEVENT
+                && event.window.event == SDL_WINDOWEVENT_CLOSE
+                && event.window.windowID == SDL_GetWindowID (window))
+              done = true;
+          }
 
-      if (std::chrono::high_resolution_clock::now () >= nextTick)
-        {
-          gameSystems->gameTick ();
-          nextTick += interval;
-        }
+        if (std::chrono::high_resolution_clock::now () >= nextTick)
+          {
+            gameSystems->gameTick ();
+            nextTick += interval;
+          }
 
-      ImGui_ImplSDLRenderer2_NewFrame ();
-      ImGui_ImplSDL2_NewFrame ();
-      ImGui::NewFrame ();
+        ImGui_ImplSDLRenderer2_NewFrame ();
+        ImGui_ImplSDL2_NewFrame ();
+        ImGui::NewFrame ();
 
-      UI->renderUI ();
+        UI->renderUI ();
 
-      ImGui::Render ();
-      SDL_RenderSetScale (renderer, io->DisplayFramebufferScale.x,
-                          io->DisplayFramebufferScale.y);
-      SDL_RenderClear (renderer);
-      ImGui_ImplSDLRenderer2_RenderDrawData (ImGui::GetDrawData ());
-      SDL_RenderPresent (renderer);
-    }
+        ImGui::Render ();
+        SDL_RenderSetScale (renderer, io->DisplayFramebufferScale.x,
+                            io->DisplayFramebufferScale.y);
+        SDL_RenderClear (renderer);
+        ImGui_ImplSDLRenderer2_RenderDrawData (ImGui::GetDrawData ());
+        SDL_RenderPresent (renderer);
+      }
   gameSystems->save ();
 }
 
