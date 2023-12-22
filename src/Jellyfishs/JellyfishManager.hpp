@@ -13,6 +13,7 @@ struct JellyfishData
   unsigned numJobNone;
   unsigned numJobExploreTheDepths;
   unsigned numJobGatheringSand;
+  unsigned numJobMining;
   unsigned numJobFocusing;
   unsigned numJellies;
 };
@@ -44,6 +45,7 @@ private:
   unsigned numJobNone = 0;
   unsigned numJobExploreTheDepths = 0;
   unsigned numJobGatheringSand = 0;
+  unsigned numJobMining = 0;
   unsigned numJobFocusing = 0;
 
   void updateNumJobs ();

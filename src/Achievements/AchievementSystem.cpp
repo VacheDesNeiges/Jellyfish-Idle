@@ -30,7 +30,7 @@ AchievementSystem::AchievementSystem ()
       [this] () {
         return getDataView ()->getRessourcesView ()->getRessourceQuantity (
                    RessourceType::Sand)
-               >= 1;
+               >= 3;
       } },
 
     { FirstJelly,
@@ -40,14 +40,12 @@ AchievementSystem::AchievementSystem ()
 
     { JobFocusing,
       [this] () {
-        return getDataView ()->getBuildingsView ()->getBuildingQuantity (
-                   BuildingType::SandNest)
-               >= 1;
+        return getDataView ()->getDepthView ()->getCurrentDepth () >= 20;
       } },
 
     { JobExploreTheDepths,
       [this] () {
-        return getDataView ()->getJelliesView ()->getNumJellies () >= 1;
+        return getDataView ()->getJelliesView ()->getNumJellies () >= 2;
       } },
 
     { FirstInsightAbility,
@@ -59,14 +57,14 @@ AchievementSystem::AchievementSystem ()
 
     { ResearchTabUnlocked, [] () { return false; } },
 
-    { ReachedDepth35,
+    { Mining,
       [this] () {
         return getDataView ()->getDepthView ()->getCurrentDepth () >= 35;
       } },
 
-    { ReachedDepth100,
+    { AncientOctopus,
       [this] () {
-        return getDataView ()->getDepthView ()->getCurrentDepth () >= 100;
+        return getDataView ()->getDepthView ()->getCurrentDepth () >= 50;
       } }
   };
 }

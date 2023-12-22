@@ -24,5 +24,5 @@ private:
   ImGuiIO *io;
 
   std::unique_ptr<UIManager> UI;
-  std::shared_ptr<GameSystems> gameSystems;
+  std::unique_ptr<GameSystems> gameSystems;
 };

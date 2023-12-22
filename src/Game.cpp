@@ -90,7 +90,7 @@ Game::initialize ()
   // Game systems part below -------------------
 
   UI = std::make_unique<UIManager> ();
-  gameSystems = std::make_shared<GameSystems> ();
+  gameSystems = std::make_unique<GameSystems> ();
 
   UI->bindGameData (gameSystems->getDataView (),
                     gameSystems->getInputHandler ());

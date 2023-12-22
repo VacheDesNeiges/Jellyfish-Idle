@@ -25,6 +25,8 @@ JellyfishManager::getNum (JellyJobs job)
       return numJobGatheringSand;
     case ExploreTheDepths:
       return numJobExploreTheDepths;
+    case Mining:
+      return numJobMining;
     case Last:
       throw std::invalid_argument (
           "Last should not be an allowed jellyfish job");
@@ -54,6 +56,9 @@ JellyfishManager::updateNumJobs ()
           break;
         case ExploreTheDepths:
           numJobExploreTheDepths++;
+          break;
+        case Mining:
+          numJobMining++;
           break;
         default:
           break;

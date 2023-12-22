@@ -2,13 +2,13 @@
 #include "gtest/gtest.h"
 #include <cassert>
 
-TEST (TestRessources, initialization)
+TEST (TestsRessources, initialization)
 {
   Ressource r (RessourceType::Food);
   ASSERT_EQ (r.getCurrentQuantity (), 0);
 }
 
-TEST (TestRessources, addAndSubstract)
+TEST (TestsRessources, addAndSubstract)
 {
   Ressource r (RessourceType::Food);
   ASSERT_GT (r.getMaxQuantity (), 10);
@@ -18,7 +18,7 @@ TEST (TestRessources, addAndSubstract)
   ASSERT_EQ (r.getCurrentQuantity (), 5);
 }
 
-TEST (TestRessources, overflow)
+TEST (TestsRessources, overflow)
 {
   Ressource r (RessourceType::Food);
   auto max = r.getMaxQuantity ();
@@ -26,7 +26,7 @@ TEST (TestRessources, overflow)
   ASSERT_EQ (r.getCurrentQuantity (), max);
 }
 
-TEST (TestRessources, underflow)
+TEST (TestsRessources, underflow)
 {
   Ressource r (RessourceType::Food);
   r.add (-5);
