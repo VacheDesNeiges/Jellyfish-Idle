@@ -9,7 +9,11 @@
 void
 UIRessourcesPanel::render () const
 {
-  ImGui::Begin ("Ressources");
+  if (!ImGui::Begin ("Ressources"))
+    {
+      ImGui::End ();
+      return;
+    }
 
   ImGui::Text ("Jellyfish");
   ImGui::SameLine ();

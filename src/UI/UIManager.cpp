@@ -29,6 +29,7 @@ UIManager::bindGameData (std::shared_ptr<GameDataView> viewPtr,
   jobsPanel.bindGameData (viewPtr, inputPtr);
   abilitiesPanel.bindGameData (viewPtr, inputPtr);
   ressourcesPanel.bindGameData (viewPtr, inputPtr);
+  depthPanel.bindGameData (viewPtr, inputPtr);
 }
 
 void
@@ -36,41 +37,22 @@ UIManager::renderUI () const
 {
   ImGui::DockSpaceOverViewport (ImGui::GetMainViewport ());
 
-  ImGui::Begin ("Tab", nullptr, ImGuiDockNodeFlags_NoTabBar);
-  if (ImGui::BeginTabBar ("Fish", ImGuiTabBarFlags_None))
-    {
-      buildingsPanel.render ();
+  buildingsPanel.render ();
 
-      if (gData->getAchievementsView ()->isUnlocked (
-              AchievementIDs::FirstJelly))
-        jobsPanel.render ();
+  if (gData->getAchievementsView ()->isUnlocked (AchievementIDs::FirstJelly))
+    jobsPanel.render ();
 
-      if (gData->getAchievementsView ()->isUnlocked (
-              AchievementIDs::FirstInsightAbility))
-        abilitiesPanel.render ();
+  if (gData->getAchievementsView ()->isUnlocked (
+          AchievementIDs::FirstInsightAbility))
+    abilitiesPanel.render ();
 
-      if (gData->getAchievementsView ()->isUnlocked (
-              AchievementIDs::ResearchTabUnlocked))
-        researchPanel.render ();
+  if (gData->getAchievementsView ()->isUnlocked (
+          AchievementIDs::ResearchTabUnlocked))
+    researchPanel.render ();
 
-      if (gData->getAchievementsView ()->isUnlocked (
-              AchievementIDs::JobExploreTheDepths)
-          && ImGui::BeginTabItem ("Depths"))
-        {
-          std::string depthString
-              = fmt::format ("Current Depth : {} meters",
-                             gData->getDepthView ()->getCurrentDepth ());
-          ImGui::Text ("%s", depthString.c_str ());
-          ImGui::ProgressBar (
-              gData->getDepthView ()->getCurrentProgress ()
-              / gData->getDepthView ()->getProgressNeededForNextIncrease ());
-          ImGui::EndTabItem ();
-        }
-
-      ImGui::EndTabBar ();
-    }
-
-  ImGui::End ();
+  if (gData->getAchievementsView ()->isUnlocked (
+          AchievementIDs::JobExploreTheDepths))
+    depthPanel.render ();
 
   ressourcesPanel.render ();
 

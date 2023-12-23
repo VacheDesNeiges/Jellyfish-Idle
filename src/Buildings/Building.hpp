@@ -9,7 +9,7 @@ enum class BuildingType
 {
   PlanktonField,
   SandNest,
-  Mine,
+  Mines,
   GlassTower
 };
 
@@ -32,7 +32,7 @@ public:
 
   static constexpr std::array<BuildingType, 4> BuildingTypes
       = { BuildingType::PlanktonField, BuildingType::SandNest,
-          BuildingType::Mine, BuildingType::GlassTower };
+          BuildingType::Mines, BuildingType::GlassTower };
 
 private:
   std::string name;

@@ -8,23 +8,26 @@
 void
 UIJobsPanel::render () const
 {
-  if (ImGui::BeginTabItem ("Jobs"))
+  if (!ImGui::Begin ("Jobs"))
     {
-      using enum JellyJobs;
-
-      ImGui::Text ("Available Jellies : %ld",
-                   gData->getJelliesView ()->getNumJellies (None));
-
-      for (auto job = static_cast<int> (GatherSand);
-           job != static_cast<int> (Last); job++)
-        {
-          if (gData->getAchievementsView ()->isUnlocked (
-                  static_cast<JellyJobs> (job)))
-            renderJobsControls (static_cast<JellyJobs> (job));
-        }
-
-      ImGui::EndTabItem ();
+      ImGui::End ();
+      return;
     }
+
+  using enum JellyJobs;
+
+  ImGui::Text ("Available Jellies : %ld",
+               gData->getJelliesView ()->getNumJellies (None));
+
+  for (auto job = static_cast<int> (GatherSand);
+       job != static_cast<int> (Last); job++)
+    {
+      if (gData->getAchievementsView ()->isUnlocked (
+              static_cast<JellyJobs> (job)))
+        renderJobsControls (static_cast<JellyJobs> (job));
+    }
+
+  ImGui::End ();
 }
 
 void

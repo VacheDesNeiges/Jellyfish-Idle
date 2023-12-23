@@ -24,6 +24,9 @@ AchievementDataView::isUnlocked (BuildingType t) const
     case SandNest:
       return achievements->isUnlocked (AchievementIDs::FirstSandNest);
 
+    case Mines:
+      return achievements->isUnlocked (AchievementIDs::Mines);
+
     default:
       return false;
     }
@@ -44,6 +47,9 @@ AchievementDataView::isUnlocked (JellyJobs j) const
     case FocusForInsight:
       return achievements->isUnlocked (AchievementIDs::JobFocusing);
 
+    case Mining:
+      return achievements->isUnlocked (AchievementIDs::JobMining);
+
     default:
       return false;
     }
@@ -55,19 +61,23 @@ AchievementDataView::isUnlocked (RessourceType r) const
 
   switch (r)
     {
+      using enum AchievementIDs;
       using enum RessourceType;
 
     case Food:
       return true;
 
     case Sand:
-      return achievements->isUnlocked (AchievementIDs::FirstJelly);
+      return achievements->isUnlocked (FirstJelly);
+
+    case Stone:
+      return achievements->isUnlocked (JobMining);
 
     case Insight:
-      return achievements->isUnlocked (AchievementIDs::JobFocusing);
+      return achievements->isUnlocked (JobFocusing);
 
     case Glass:
-      return achievements->isUnlocked (AchievementIDs::FirstInsightAbility);
+      return achievements->isUnlocked (FirstInsightAbility);
 
     default:
       return false;

@@ -5,6 +5,7 @@
 #include "Jellyfish.hpp"
 #include "UIAbilitiesPanel.hpp"
 #include "UIBuildingsPanel.hpp"
+#include "UIDepthPanel.hpp"
 #include "UIJobsPanel.hpp"
 #include "UIResearchPanel.hpp"
 #include "UIRessourcesPanel.hpp"
@@ -27,4 +28,5 @@ private:
   UIJobsPanel jobsPanel;
   UIAbilitiesPanel abilitiesPanel;
   UIResearchPanel researchPanel;
+  UIDepthPanel depthPanel;
 };

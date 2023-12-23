@@ -34,7 +34,7 @@ BuildingFactory::createBuildingInstance (BuildingType t)
     case BuildingType::SandNest:
       return std::make_unique<SandNest> ();
 
-    case BuildingType::Mine:
+    case BuildingType::Mines:
       return std::make_unique<Mine> ();
 
     case BuildingType::GlassTower:

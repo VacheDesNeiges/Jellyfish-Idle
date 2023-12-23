@@ -1,4 +1,5 @@
 #pragma once
+#include "AchievementIDs.hpp"
 
 class Achievement
 {
@@ -9,18 +10,4 @@ public:
 
 private:
   bool unlocked = false;
-};
-
-enum class AchievementIDs
-{
-  PlanktonField,
-  FirstSandNest,
-  FirstJelly,
-  JobFocusing,
-  JobExploreTheDepths,
-  FirstInsightAbility,
-  ResearchTabUnlocked,
-  Mining,
-  AncientOctopus,
-  Last
 };

@@ -21,6 +21,7 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}\
 -lstdc++ \
 -lm \
 -lSDL2 \
+-lSDL2_image \
 -lfmt")
 
     include_directories(

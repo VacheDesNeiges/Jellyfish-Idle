@@ -2,7 +2,6 @@ build
 .vscode
 .cache
 compile_commands.json
-assets
 save.json
 game
 test

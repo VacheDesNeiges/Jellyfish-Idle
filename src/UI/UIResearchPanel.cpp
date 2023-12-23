@@ -4,9 +4,12 @@
 void
 UIResearchPanel::render () const
 {
-  if (ImGui::BeginTabItem ("Research"))
+  if (!ImGui::Begin ("Research"))
     {
-      ImGui::Text ("This is the upgrade tab");
-      ImGui::EndTabItem ();
+      ImGui::End ();
+      return;
     }
+
+  ImGui::Text ("This is the upgrade tab");
+  ImGui::End ();
 }

@@ -4,6 +4,7 @@
 #include "UIManager.hpp"
 #include "imgui.h"
 #include "imgui_impl_sdl2.h"
+#include <SDL2/SDL_render.h>
 #include <chrono>
 #include <memory>
 
@@ -17,10 +18,14 @@ public:
 
 private:
   void initialize ();
+  void loadFont ();
+  void loadBackgroundImage ();
+  void setImguiStyle ();
   std::string getPath () const;
 
   SDL_Window *window;
   SDL_Renderer *renderer;
+  SDL_Texture *backgroundPicture;
   ImGuiIO *io;
 
   std::unique_ptr<UIManager> UI;

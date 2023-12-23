@@ -6,9 +6,13 @@
 #include "imgui_impl_sdlrenderer2.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_events.h>
+#include <SDL2/SDL_render.h>
+#include <SDL2/SDL_surface.h>
+#include <cassert>
 #include <chrono>
 #include <exception>
 #include <filesystem>
+#include <gtest/gtest.h>
 #include <linux/limits.h>
 #include <memory>
 #include <stdexcept>
@@ -26,6 +30,57 @@ Game::~Game ()
   SDL_DestroyRenderer (renderer);
   SDL_DestroyWindow (window);
   SDL_Quit ();
+}
+
+void
+Game::run ()
+{
+  const std::chrono::milliseconds interval (500);
+  auto nextTick = std::chrono::high_resolution_clock::now () + interval;
+  bool done = false;
+  if (std::filesystem::exists (SaveSystem::saveFileName))
+    {
+      gameSystems->loadSave (getPath ());
+    }
+
+  while (!done)
+    {
+      SDL_Event event;
+      while (SDL_PollEvent (&event))
+        {
+          ImGui_ImplSDL2_ProcessEvent (&event);
+          if (event.type == SDL_QUIT)
+            done = true;
+
+          if (event.type == SDL_WINDOWEVENT
+              && event.window.event == SDL_WINDOWEVENT_CLOSE
+              && event.window.windowID == SDL_GetWindowID (window))
+            done = true;
+        }
+
+      if (std::chrono::high_resolution_clock::now () >= nextTick)
+        {
+          gameSystems->gameTick ();
+          nextTick += interval;
+        }
+
+      ImGui_ImplSDLRenderer2_NewFrame ();
+      ImGui_ImplSDL2_NewFrame ();
+      ImGui::NewFrame ();
+
+      UI->renderUI ();
+
+      ImGui::Render ();
+      SDL_RenderSetScale (renderer, io->DisplayFramebufferScale.x,
+                          io->DisplayFramebufferScale.y);
+      SDL_RenderClear (renderer);
+      SDL_RenderCopy (renderer, backgroundPicture, nullptr, nullptr);
+
+      ImGui_ImplSDLRenderer2_RenderDrawData (ImGui::GetDrawData ());
+
+      SDL_RenderPresent (renderer);
+    }
+  gameSystems->save ();
 }
 
 void
@@ -68,26 +123,10 @@ Game::initialize ()
   ImGui_ImplSDL2_InitForSDLRenderer (window, renderer);
   ImGui_ImplSDLRenderer2_Init (renderer);
 
-  ImGuiStyle &style = ImGui::GetStyle ();
-  style.FrameRounding = 12.f;
-  style.FramePadding = { 20.f, 3.f };
-  style.WindowRounding = 12.f;
-  style.WindowMenuButtonPosition = ImGuiDir_None;
-
-  ImVec4 *colors = ImGui::GetStyle ().Colors;
-  colors[ImGuiCol_WindowBg] = ImVec4 (0.01f, 0.02f, 0.06f, 0.94f);
-  colors[ImGuiCol_PopupBg] = ImVec4 (0.13f, 0.19f, 0.26f, 0.94f);
-  colors[ImGuiCol_Button] = ImVec4 (0.31f, 0.76f, 0.83f, 0.41f);
-  colors[ImGuiCol_ButtonHovered] = ImVec4 (0.20f, 0.49f, 0.50f, 1.00f);
-  // TODO : customize in a function
-
-  // TODO : Load font in a function
-  std::string path = getPath ();
-  std::cout << path << "\n";
-  path += "/assets/font/OpenSans-Bold.ttf";
-  io->Fonts->AddFontFromFileTTF (path.c_str (), 17);
-
-  // Game systems part below -------------------
+  // -------------------------
+  loadBackgroundImage ();
+  loadFont ();
+  setImguiStyle ();
 
   UI = std::make_unique<UIManager> ();
   gameSystems = std::make_unique<GameSystems> ();
@@ -95,52 +134,6 @@ Game::initialize ()
   UI->bindGameData (gameSystems->getDataView (),
                     gameSystems->getInputHandler ());
   std::cout << "UI Binding complete\n";
-}
-
-void
-Game::run ()
-{
-  const std::chrono::milliseconds interval (500);
-  auto nextTick = std::chrono::high_resolution_clock::now () + interval;
-  bool done = false;
-  if (std::filesystem::exists (SaveSystem::saveFileName))
-    gameSystems->loadSave (getPath ());
-
-  while (!done)
-    {
-      SDL_Event event;
-      while (SDL_PollEvent (&event))
-        {
-          ImGui_ImplSDL2_ProcessEvent (&event);
-          if (event.type == SDL_QUIT)
-            done = true;
-
-          if (event.type == SDL_WINDOWEVENT
-              && event.window.event == SDL_WINDOWEVENT_CLOSE
-              && event.window.windowID == SDL_GetWindowID (window))
-            done = true;
-        }
-
-      if (std::chrono::high_resolution_clock::now () >= nextTick)
-        {
-          gameSystems->gameTick ();
-          nextTick += interval;
-        }
-
-      ImGui_ImplSDLRenderer2_NewFrame ();
-      ImGui_ImplSDL2_NewFrame ();
-      ImGui::NewFrame ();
-
-      UI->renderUI ();
-
-      ImGui::Render ();
-      SDL_RenderSetScale (renderer, io->DisplayFramebufferScale.x,
-                          io->DisplayFramebufferScale.y);
-      SDL_RenderClear (renderer);
-      ImGui_ImplSDLRenderer2_RenderDrawData (ImGui::GetDrawData ());
-      SDL_RenderPresent (renderer);
-    }
-  gameSystems->save ();
 }
 
 std::string
@@ -158,4 +151,49 @@ Game::getPath () const
       return ret;
     }
   assert (false);
+}
+
+void
+Game::loadFont ()
+{
+  std::string path = getPath ();
+  std::cout << path << "\n";
+  path += "/assets/font/OpenSans-Bold.ttf";
+  io->Fonts->AddFontFromFileTTF (path.c_str (), 17);
+}
+
+void
+Game::setImguiStyle ()
+{
+  ImGuiStyle &style = ImGui::GetStyle ();
+  style.FrameRounding = 12.f;
+  style.FramePadding = { 20.f, 3.f };
+  style.WindowRounding = 12.f;
+  style.WindowMenuButtonPosition = ImGuiDir_None;
+
+  ImVec4 *colors = ImGui::GetStyle ().Colors;
+  colors[ImGuiCol_WindowBg] = ImVec4 (0.010f, 0.019f, 0.060f, 0.000f);
+  colors[ImGuiCol_PopupBg] = ImVec4 (0.13f, 0.19f, 0.26f, 0.94f);
+  colors[ImGuiCol_Button] = ImVec4 (0.31f, 0.76f, 0.83f, 0.41f);
+  colors[ImGuiCol_ButtonHovered] = ImVec4 (0.20f, 0.49f, 0.50f, 1.00f);
+
+  colors[ImGuiCol_TitleBg] = ImVec4 (0.040f, 0.040f, 0.040f, 1.000f);
+  colors[ImGuiCol_TitleBgActive] = ImVec4 (0.040f, 0.040f, 0.040f, 1.000f);
+
+  colors[ImGuiCol_TabUnfocused] = ImVec4 (0.011f, 0.017f, 0.774f, 0.972f);
+  colors[ImGuiCol_TabUnfocusedActive]
+      = ImVec4 (0.011f, 0.017f, 0.774f, 0.972f);
+  colors[ImGuiCol_TabActive] = ImVec4 (0.011f, 0.017f, 0.774f, 0.972f);
+  colors[ImGuiCol_Tab] = ImVec4 (0.011f, 0.017f, 0.774f, 0.972f);
+  colors[ImGuiCol_TabHovered] = ImVec4 (1.000f, 0.462f, 0.000f, 0.800f);
+}
+
+void
+Game::loadBackgroundImage ()
+{
+  SDL_Surface *surface = SDL_LoadBMP ("./assets/placeholder.bmp");
+  assert (surface != nullptr);
+  backgroundPicture = SDL_CreateTextureFromSurface (renderer, surface);
+  SDL_FreeSurface (surface);
+  assert (backgroundPicture != nullptr);
 }

@@ -52,7 +52,7 @@ AchievementSystem::AchievementSystem ()
 
     { ResearchTabUnlocked, [] () { return false; } },
 
-    { Mining,
+    { JobMining,
       [this] () {
         return getDataView ()->getDepthView ()->getCurrentDepth () >= 20;
       } },

@@ -8,29 +8,32 @@
 void
 UIBuildingPanel::render () const
 {
-  if (ImGui::BeginTabItem ("Buildings"))
+  if (!ImGui::Begin ("Buildings"))
     {
-      ImGui::Text ("This is the Buildings tab!\n wiiiii");
-      if (auto sz = ImVec2 (300.f, 20.0f); ImGui::Button ("GatherFood", sz))
-        {
-          inputHandler->gatherFood ();
-        }
-
-      ImGui::SameLine ();
-      bool odd = true;
-
-      using enum BuildingType;
-      for (const auto &building : Building::BuildingTypes)
-        {
-          if (renderBuildingButton (building))
-            odd = !odd;
-
-          if (odd)
-            ImGui::SameLine ();
-        }
-
-      ImGui::EndTabItem ();
+      ImGui::End ();
+      return;
     }
+
+  ImGui::Text ("This is the Buildings tab!\n wiiiii");
+  if (auto sz = ImVec2 (300.f, 20.0f); ImGui::Button ("GatherFood", sz))
+    {
+      inputHandler->gatherFood ();
+    }
+
+  ImGui::SameLine ();
+  bool odd = true;
+
+  using enum BuildingType;
+  for (const auto &building : Building::BuildingTypes)
+    {
+      if (renderBuildingButton (building))
+        odd = !odd;
+
+      if (odd)
+        ImGui::SameLine ();
+    }
+
+  ImGui::End ();
 }
 
 bool
