@@ -8,61 +8,39 @@
 #include <stdexcept>
 #include <string>
 
+JellyfishManager::JellyfishManager ()
+{
+  for (const auto &job : Jellyfish::JobsTypes)
+    {
+      jobNumbers.try_emplace (job, 0);
+    }
+}
+
 unsigned int
 JellyfishManager::getNum (JellyJobs job)
 {
   if (!numJobsUpToDate)
     updateNumJobs ();
 
-  switch (job)
-    {
-      using enum JellyJobs;
-    case None:
-      return numJobNone;
-    case FocusForInsight:
-      return numJobFocusing;
-    case GatherSand:
-      return numJobGatheringSand;
-    case ExploreTheDepths:
-      return numJobExploreTheDepths;
-    case Mining:
-      return numJobMining;
-    case Last:
-      throw std::invalid_argument (
-          "Last should not be an allowed jellyfish job");
-    }
+  return jobNumbers[job];
 };
+
+void
+JellyfishManager::zerosJobNumbersMap ()
+{
+  for (const auto &job : Jellyfish::JobsTypes)
+    {
+      jobNumbers[job] = 0;
+    }
+}
 
 void
 JellyfishManager::updateNumJobs ()
 {
-  numJobNone = 0;
-  numJobExploreTheDepths = 0;
-  numJobGatheringSand = 0;
-  numJobFocusing = 0;
+  zerosJobNumbersMap ();
   for (const auto &jfish : jellies)
     {
-      switch (jfish.getJob ())
-        {
-          using enum JellyJobs;
-        case None:
-          numJobNone++;
-          break;
-        case FocusForInsight:
-          numJobFocusing++;
-          break;
-        case GatherSand:
-          numJobGatheringSand++;
-          break;
-        case ExploreTheDepths:
-          numJobExploreTheDepths++;
-          break;
-        case Mining:
-          numJobMining++;
-          break;
-        default:
-          break;
-        }
+      jobNumbers[jfish.getJob ()] += 1;
     }
   numJobsUpToDate = true;
 }
@@ -70,7 +48,7 @@ JellyfishManager::updateNumJobs ()
 bool
 JellyfishManager::assign (JellyJobs j)
 {
-  if (numJobNone == 0)
+  if (jobNumbers[JellyJobs::None] == 0)
     return false;
   auto it = std::ranges::find_if (jellies, [] (const auto &jelly) {
     return (jelly.getJob () == JellyJobs::None);
@@ -79,60 +57,28 @@ JellyfishManager::assign (JellyJobs j)
     return false;
 
   it->setJob (j);
-  numJobNone--;
+  jobNumbers[JellyJobs::None] -= 1;
+  jobNumbers[j] += 1;
 
-  switch (j)
-    {
-    case JellyJobs::FocusForInsight:
-      numJobFocusing++;
-      break;
-    case JellyJobs::GatherSand:
-      numJobGatheringSand++;
-      break;
-    case JellyJobs::ExploreTheDepths:
-      numJobExploreTheDepths++;
-      break;
-    default:
-      return false;
-    }
   return true;
 }
 
 bool
 JellyfishManager::unasign (JellyJobs j)
 {
-  switch (j)
-    {
-    case JellyJobs::FocusForInsight:
-      if (numJobFocusing == 0)
-        return false;
-      numJobFocusing--;
+  if (jobNumbers[j] == 0)
+    return false;
 
-      break;
-
-    case JellyJobs::GatherSand:
-      if (numJobGatheringSand == 0)
-        return false;
-      numJobGatheringSand--;
-      break;
-
-    case JellyJobs::ExploreTheDepths:
-      if (numJobExploreTheDepths == 0)
-        return false;
-      numJobExploreTheDepths--;
-      break;
-
-    default:
-      return false;
-    }
+  jobNumbers[j] -= 1;
 
   auto it = std::ranges::find_if (
       jellies, [j] (const auto &jelly) { return (jelly.getJob () == j); });
 
   if (it == jellies.end ())
     return false;
+
   it->setJob (JellyJobs::None);
-  numJobNone++;
+  jobNumbers[JellyJobs::None] += 1;
 
   return true;
 }
@@ -141,7 +87,7 @@ void
 JellyfishManager::createJellyfish ()
 {
   jellies.emplace_back ();
-  numJobNone++;
+  jobNumbers[JellyJobs::None] += 1;
 }
 
 unsigned long
@@ -162,23 +108,19 @@ JellyfishManager::setBonusMaxJellies (unsigned n)
   maxNumJellies = n + 1;
 }
 
-std::vector<std::pair<RessourceType, double> >
-JellyfishManager::getProduction () const
-{
-  std::vector<std::pair<RessourceType, double> > production;
-  using enum RessourceType;
-  production.emplace_back (Sand, numJobGatheringSand * 0.04);
-  production.emplace_back (Insight, numJobFocusing * 0.16);
-  return production;
-}
-
 std::map<RessourceType, double>
 JellyfishManager::getProductionRates () const
 {
-  std::map<RessourceType, double> result;
+  using enum JellyJobs;
   using enum RessourceType;
-  result[Sand] = numJobGatheringSand * 0.04;
-  result[Insight] = numJobFocusing * 0.16;
+
+  std::map<RessourceType, double> result;
+
+  result[Food] = jobNumbers.at (GatherFood) * 3;
+  result[Sand] = jobNumbers.at (GatherSand) * 0.04;
+  result[Stone] = jobNumbers.at (Mining) * 0.1;
+  result[Insight] = jobNumbers.at (FocusForInsight) * 0.16;
+
   return result;
 }
 
@@ -197,8 +139,14 @@ JellyfishManager::getJobDescription (JellyJobs j) const
   using enum JellyJobs;
   switch (j)
     {
+    case GatherFood:
+      return "Gather some food";
+
     case GatherSand:
       return "Gather Sand";
+
+    case Mining:
+      return "Mining for stone";
 
     case ExploreTheDepths:
       return "Explore the Depths";
@@ -216,17 +164,22 @@ JellyfishManager::getData () const
 {
   JellyfishData result;
   result.maxNumJellies = maxNumJellies;
-  result.numJobExploreTheDepths = numJobExploreTheDepths;
-  result.numJobFocusing = numJobFocusing;
-  result.numJobGatheringSand = numJobGatheringSand;
-  result.numJobNone = numJobNone;
+
+  using enum JellyJobs;
+  result.numJobGatheringFood = jobNumbers.at (GatherFood);
+  result.numJobGatheringSand = jobNumbers.at (GatherSand);
+  result.numJobExploreTheDepths = jobNumbers.at (ExploreTheDepths);
+  result.numJobFocusing = jobNumbers.at (FocusForInsight);
+  result.numJobMining = jobNumbers.at (Mining);
+  result.numJobNone = jobNumbers.at (None);
+
   result.numJellies = static_cast<unsigned> (jellies.size ());
 
   return result;
 }
 
 void
-JellyfishManager::loadData (JellyfishData data)
+JellyfishManager::loadData (const JellyfishData &data)
 {
   if (data.numJellies > 0)
     {
@@ -250,8 +203,12 @@ JellyfishManager::loadData (JellyfishData data)
         }
     }
   maxNumJellies = data.maxNumJellies;
-  numJobNone = data.numJobNone;
-  numJobExploreTheDepths = data.numJobExploreTheDepths;
-  numJobGatheringSand = data.numJobGatheringSand;
-  numJobFocusing = data.numJobFocusing;
+
+  using enum JellyJobs;
+  jobNumbers[None] = data.numJobNone;
+  jobNumbers[GatherFood] = data.numJobGatheringFood;
+  jobNumbers[Mining] = data.numJobMining;
+  jobNumbers[ExploreTheDepths] = data.numJobExploreTheDepths;
+  jobNumbers[GatherSand] = data.numJobGatheringSand;
+  jobNumbers[FocusForInsight] = data.numJobFocusing;
 }

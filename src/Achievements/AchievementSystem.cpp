@@ -38,11 +38,6 @@ AchievementSystem::AchievementSystem ()
         return getDataView ()->getJelliesView ()->getNumJellies () >= 1;
       } },
 
-    { JobFocusing,
-      [this] () {
-        return getDataView ()->getDepthView ()->getCurrentDepth () >= 20;
-      } },
-
     { JobExploreTheDepths,
       [this] () {
         return getDataView ()->getJelliesView ()->getNumJellies () >= 2;
@@ -58,6 +53,11 @@ AchievementSystem::AchievementSystem ()
     { ResearchTabUnlocked, [] () { return false; } },
 
     { Mining,
+      [this] () {
+        return getDataView ()->getDepthView ()->getCurrentDepth () >= 20;
+      } },
+
+    { JobFocusing,
       [this] () {
         return getDataView ()->getDepthView ()->getCurrentDepth () >= 35;
       } },

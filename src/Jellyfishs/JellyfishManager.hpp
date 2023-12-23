@@ -13,6 +13,7 @@ struct JellyfishData
   unsigned numJobNone;
   unsigned numJobExploreTheDepths;
   unsigned numJobGatheringSand;
+  unsigned numJobGatheringFood;
   unsigned numJobMining;
   unsigned numJobFocusing;
   unsigned numJellies;
@@ -23,6 +24,7 @@ class GameDataView;
 class JellyfishManager : public GameDataAcess
 {
 public:
+  JellyfishManager ();
   unsigned long getNumJellies () const;
   unsigned long getMaxNumJellies () const;
   void setBonusMaxJellies (unsigned);
@@ -30,23 +32,19 @@ public:
   bool assign (JellyJobs);
   bool unasign (JellyJobs);
   void createJellyfish ();
-  std::vector<std::pair<RessourceType, double> > getProduction () const;
   std::map<RessourceType, double> getProductionRates () const;
   std::map<RessourceType, double> getConsumptionRates () const;
   std::string getJobDescription (JellyJobs) const;
   JellyfishData getData () const;
-  void loadData (JellyfishData);
+  void loadData (const JellyfishData &);
 
 private:
   std::vector<Jellyfish> jellies;
+  std::map<JellyJobs, unsigned> jobNumbers;
   unsigned maxNumJellies = 1;
 
   bool numJobsUpToDate = false;
-  unsigned numJobNone = 0;
-  unsigned numJobExploreTheDepths = 0;
-  unsigned numJobGatheringSand = 0;
-  unsigned numJobMining = 0;
-  unsigned numJobFocusing = 0;
 
   void updateNumJobs ();
+  void zerosJobNumbersMap ();
 };
