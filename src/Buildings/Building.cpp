@@ -67,7 +67,7 @@ std::string
 Building::getDescription ()
 {
   std::string s;
-  s = fmt::format ("{} ({})", name, quantity);
+  s = fmt::format ("{}, lvl {}", name, quantity);
 
   return s;
 }
@@ -78,6 +78,7 @@ Building::getAdvancedDescription ()
   std::string s = "price :";
   for (const auto &[ressource, price] : basePrice)
     {
+
       s += fmt::format ("\n{:.2f}", price * pow (priceMultiplier, quantity));
     }
   return s;

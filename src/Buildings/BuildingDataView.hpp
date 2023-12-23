@@ -1,4 +1,5 @@
 #pragma once
+#include "Building.hpp"
 #include "BuildingManager.hpp"
 #include "RessourceManager.hpp"
 #include <memory>
@@ -18,6 +19,8 @@ public:
   std::string getBuildingName (BuildingType) const;
   std::string getBuildingDescription (BuildingType) const;
   std::string getAdvancedBuildingDescription (BuildingType) const;
+  std::list<std::pair<RessourceType, double> >
+      getNextBuyCost (BuildingType) const;
 
 private:
   std::shared_ptr<BuildingManager> buildings;

@@ -50,3 +50,9 @@ BuildingDataView::getBuildingProduction (BuildingType t) const
 {
   return buildings->getProduction (t);
 }
+
+std::list<std::pair<RessourceType, double> >
+BuildingDataView::getNextBuyCost (BuildingType b) const
+{
+  return buildings->nextBuyCost (b);
+}
