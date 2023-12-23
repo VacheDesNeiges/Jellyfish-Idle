@@ -9,7 +9,7 @@
 void
 UIRessourcesPanel::render () const
 {
-  if (!ImGui::Begin ("Ressources"))
+  if (!ImGui::Begin ("Ressources", nullptr, ImGuiWindowFlags_NoMove))
     {
       ImGui::End ();
       return;

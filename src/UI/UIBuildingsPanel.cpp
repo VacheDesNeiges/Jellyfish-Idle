@@ -8,7 +8,7 @@
 void
 UIBuildingPanel::render () const
 {
-  if (!ImGui::Begin ("Buildings"))
+  if (!ImGui::Begin ("Buildings", nullptr, ImGuiWindowFlags_NoMove))
     {
       ImGui::End ();
       return;

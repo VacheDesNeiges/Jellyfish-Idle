@@ -8,7 +8,7 @@
 void
 UIJobsPanel::render () const
 {
-  if (!ImGui::Begin ("Jobs"))
+  if (!ImGui::Begin ("Jobs", nullptr, ImGuiWindowFlags_NoMove))
     {
       ImGui::End ();
       return;

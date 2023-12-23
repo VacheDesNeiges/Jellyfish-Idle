@@ -6,7 +6,7 @@
 void
 UIAbilitiesPanel::render () const
 {
-  if (!ImGui::Begin ("Insight"))
+  if (!ImGui::Begin ("Abilities", nullptr, ImGuiWindowFlags_NoMove))
     {
       ImGui::End ();
       return;
