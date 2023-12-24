@@ -170,6 +170,7 @@ Game::setImguiStyle ()
   style.FramePadding = { 20.f, 3.f };
   style.WindowRounding = 12.f;
   style.WindowMenuButtonPosition = ImGuiDir_None;
+  style.TabBarBorderSize = 0;
 
   ImVec4 *colors = ImGui::GetStyle ().Colors;
   colors[ImGuiCol_WindowBg] = ImVec4 (0.010f, 0.019f, 0.060f, 0.000f);

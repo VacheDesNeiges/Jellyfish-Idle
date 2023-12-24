@@ -1,6 +1,8 @@
 #include "UpgradeFactory.hpp"
 #include "Upgrade.hpp"
 #include "UpgradeId.hpp"
+#include "fmt/core.h"
+#include "fmt/format.h"
 
 Upgrade
 UpgradeFactory::createUpgrade (UpgradeID id)
@@ -12,7 +14,11 @@ UpgradeFactory::createUpgrade (UpgradeID id)
 
     case UpgradeID::FocusingForInsight:
       name = "Focus";
-      description = "Description for focusing";
+      description = "The Octopus teaches you how to focus\n"
+                    "to gather Insight. It also asks you \n"
+                    "to come back to exchange it for more\n"
+                    "secrets once you gather enough of it";
+
       break;
 
     case UpgradeID::Writing:

@@ -6,7 +6,7 @@
 #include "UpgradeId.hpp"
 #include <map>
 
-class UpgradeManager : public GameDataAcess
+class UpgradeManager : public GameDataAccess
 {
 public:
   UpgradeManager ();

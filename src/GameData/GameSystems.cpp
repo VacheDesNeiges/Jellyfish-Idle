@@ -1,5 +1,6 @@
 #include "GameSystems.hpp"
 #include "DepthSystem.hpp"
+#include "GameDataAccess.hpp"
 #include "GameDataView.hpp"
 #include "GameSynchronizer.hpp"
 #include "InputHandler.hpp"
@@ -23,16 +24,10 @@ GameSystems::GameSystems ()
   dataView = std::make_shared<GameDataView> (ressources, buildings, jellies,
                                              achievements, abilities, depth,
                                              upgrades);
-
-  ressources->bindDataView (dataView);
-  buildings->bindDataView (dataView);
-  jellies->bindDataView (dataView);
-  achievements->bindDataView (dataView);
-  abilities->bindDataView (dataView);
-  depth->bindDataView (dataView);
-  upgrades->bindDataView (dataView);
-
   std::cout << "DataView building complete\n";
+
+  GameDataAccess::bindDataView (dataView);
+  std::cout << "Data View bound to GameDataAccess\n";
 
   inputHandler = std::make_shared<InputHandler> (ressources, buildings,
                                                  jellies, abilities, upgrades);

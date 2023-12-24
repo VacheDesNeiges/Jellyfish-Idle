@@ -5,7 +5,7 @@
 #include "Ressource.hpp"
 #include <map>
 
-class AbilityManager : public GameDataAcess
+class AbilityManager : public GameDataAccess
 {
 public:
   AbilityManager ();

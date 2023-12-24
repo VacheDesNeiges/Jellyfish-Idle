@@ -12,11 +12,13 @@ enum class AchievementIDs
   JobExploreTheDepths,
   JobFocusing,
 
+  RessourceGlass,
+
   ResearchTabUnlocked,
 
   AncientOctopus,
   FocusForInsightUpgrade,
-  FirstInsightAbility,
+  LightningAbilityBuyable,
 
   Last
 };

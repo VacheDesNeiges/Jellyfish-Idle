@@ -12,6 +12,7 @@ public:
                             std::shared_ptr<RessourceManager>);
 
   bool isBuyable (UpgradeID) const;
+  bool isBought (UpgradeID) const;
   std::string_view getName (UpgradeID) const;
   std::string_view getDescription (UpgradeID) const;
   std::list<std::pair<RessourceType, double> > getCost (UpgradeID) const;

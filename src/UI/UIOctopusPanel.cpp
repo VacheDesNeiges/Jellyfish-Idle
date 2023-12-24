@@ -4,6 +4,7 @@
 #include "UpgradeDataView.hpp"
 #include "UpgradeId.hpp"
 #include "fmt/core.h"
+#include "fmt/format.h"
 #include "imgui.h"
 
 void
@@ -31,7 +32,7 @@ UIOctopusPanel::renderTradeButton (UpgradeID id) const
     {
       ImGui::BeginDisabled (!gData->getUpgradeView ()->isBuyable (id));
       std::string buttonText
-          = fmt::format ("{}\n {}", gData->getUpgradeView ()->getName (id),
+          = fmt::format ("{}\n{}", gData->getUpgradeView ()->getName (id),
                          gData->getUpgradeView ()->getDescription (id));
 
       if (ImGui::Button (buttonText.c_str (), size))

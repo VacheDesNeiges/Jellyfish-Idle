@@ -45,7 +45,7 @@ UIManager::renderUI () const
     jobsPanel.render ();
 
   if (gData->getAchievementsView ()->isUnlocked (
-          AchievementIDs::FirstInsightAbility))
+          AchievementIDs::LightningAbilityBuyable))
     abilitiesPanel.render ();
 
   if (gData->getAchievementsView ()->isUnlocked (

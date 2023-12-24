@@ -79,7 +79,7 @@ AchievementDataView::isUnlocked (RessourceType r) const
       return achievements->isUnlocked (JobFocusing);
 
     case Glass:
-      return achievements->isUnlocked (FirstInsightAbility);
+      return achievements->isUnlocked (LightningAbilityBuyable);
 
     default:
       return false;
@@ -93,7 +93,8 @@ AchievementDataView::isUnlocked (AbilityType t) const
   switch (t)
     {
     case CallThunder:
-      return achievements->isUnlocked (AchievementIDs::FirstInsightAbility);
+      return achievements->isUnlocked (
+          AchievementIDs::LightningAbilityBuyable);
     }
 }
 

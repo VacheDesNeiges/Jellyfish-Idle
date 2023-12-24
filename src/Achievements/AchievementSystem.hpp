@@ -7,7 +7,7 @@
 #include <map>
 #include <vector>
 
-class AchievementSystem : public GameDataAcess
+class AchievementSystem : public GameDataAccess
 {
 public:
   AchievementSystem ();

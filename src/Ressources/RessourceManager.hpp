@@ -5,7 +5,7 @@
 #include "map"
 #include <utility>
 
-class RessourceManager : public GameDataAcess
+class RessourceManager : public GameDataAccess
 {
 public:
   RessourceManager ();

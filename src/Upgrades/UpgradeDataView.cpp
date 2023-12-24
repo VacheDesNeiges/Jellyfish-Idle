@@ -42,3 +42,9 @@ UpgradeDataView::getCost (UpgradeID id) const
 {
   return upgrades->getCost (id);
 }
+
+bool
+UpgradeDataView::isBought (UpgradeID id) const
+{
+  return upgrades->isUnlocked (id);
+}

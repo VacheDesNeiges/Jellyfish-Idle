@@ -21,7 +21,7 @@ struct JellyfishData
 
 class GameDataView;
 
-class JellyfishManager : public GameDataAcess
+class JellyfishManager : public GameDataAccess
 {
 public:
   JellyfishManager ();

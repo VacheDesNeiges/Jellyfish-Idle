@@ -7,7 +7,7 @@ struct DepthData
   unsigned currentDepth;
 };
 
-class DepthSystem : public GameDataAcess
+class DepthSystem : public GameDataAccess
 {
 public:
   float getCurrentProgress () const;

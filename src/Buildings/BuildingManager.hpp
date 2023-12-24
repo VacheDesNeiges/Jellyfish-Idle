@@ -7,7 +7,7 @@
 #include <utility>
 #include <vector>
 
-class BuildingManager : public GameDataAcess
+class BuildingManager : public GameDataAccess
 {
 public:
   BuildingManager ();

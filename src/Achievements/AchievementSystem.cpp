@@ -6,6 +6,8 @@
 #include "JellyfishDataView.hpp"
 #include "Ressource.hpp"
 #include "RessourceDataView.hpp"
+#include "UpgradeDataView.hpp"
+#include "UpgradeId.hpp"
 #include <utility>
 #include <vector>
 
@@ -34,6 +36,13 @@ AchievementSystem::AchievementSystem ()
                >= 3;
       } },
 
+    { Mines,
+      [this] () {
+        return getDataView ()->getRessourcesView ()->getRessourceQuantity (
+                   RessourceType::Stone)
+               >= 5;
+      } },
+
     { FirstJelly,
       [this] () {
         return getDataView ()->getJelliesView ()->getNumJellies () >= 1;
@@ -44,7 +53,7 @@ AchievementSystem::AchievementSystem ()
         return getDataView ()->getJelliesView ()->getNumJellies () >= 2;
       } },
 
-    { FirstInsightAbility,
+    { LightningAbilityBuyable,
       [this] () {
         return getDataView ()->getRessourcesView ()->getRessourceQuantity (
                    RessourceType::Insight)
@@ -60,12 +69,25 @@ AchievementSystem::AchievementSystem ()
 
     { JobFocusing,
       [this] () {
-        return getDataView ()->getDepthView ()->getCurrentDepth () >= 35;
+        return getDataView ()->getUpgradeView ()->isBought (
+            UpgradeID::FocusingForInsight);
       } },
 
     { AncientOctopus,
       [this] () {
         return getDataView ()->getDepthView ()->getCurrentDepth () >= 50;
+      } },
+
+    { FocusForInsightUpgrade,
+      [this] () {
+        return getDataView ()->getUpgradeView ()->isBought (
+            UpgradeID::FocusingForInsight);
+      } },
+    { RessourceGlass,
+      [this] () {
+        return getDataView ()->getRessourcesView ()->getRessourceQuantity (
+                   RessourceType::Glass)
+               > 0;
       } }
   };
 }
