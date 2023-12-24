@@ -21,6 +21,9 @@ class AbilityDataView;
 class DepthSystem;
 class DepthDataView;
 
+class UpgradeManager;
+class UpgradeDataView;
+
 //-----------------------------------------------------------
 
 class GameDataView
@@ -30,7 +33,8 @@ public:
                 std::shared_ptr<BuildingManager>,
                 std::shared_ptr<JellyfishManager>,
                 std::shared_ptr<AchievementSystem>,
-                std::shared_ptr<AbilityManager>, std::shared_ptr<DepthSystem>);
+                std::shared_ptr<AbilityManager>, std::shared_ptr<DepthSystem>,
+                std::shared_ptr<UpgradeManager>);
 
   std::shared_ptr<RessourceDataView> getRessourcesView () const;
   std::shared_ptr<BuildingDataView> getBuildingsView () const;
@@ -38,6 +42,7 @@ public:
   std::shared_ptr<AchievementDataView> getAchievementsView () const;
   std::shared_ptr<AbilityDataView> getAbilitiesView () const;
   std::shared_ptr<DepthDataView> getDepthView () const;
+  std::shared_ptr<UpgradeDataView> getUpgradeView () const;
 
 private:
   std::shared_ptr<RessourceDataView> ressources;
@@ -46,4 +51,5 @@ private:
   std::shared_ptr<AchievementDataView> achievements;
   std::shared_ptr<AbilityDataView> abilities;
   std::shared_ptr<DepthDataView> depth;
+  std::shared_ptr<UpgradeDataView> upgrades;
 };

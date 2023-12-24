@@ -1,13 +1,16 @@
 #include "InputHandler.hpp"
 #include "JellyfishManager.hpp"
 #include "RessourceManager.hpp"
+#include "UpgradeManager.hpp"
+#include <memory>
 
 InputHandler::InputHandler (std::shared_ptr<RessourceManager> r,
                             std::shared_ptr<BuildingManager> b,
                             std::shared_ptr<JellyfishManager> j,
-                            std::shared_ptr<AbilityManager> abi)
+                            std::shared_ptr<AbilityManager> abi,
+                            std::shared_ptr<UpgradeManager> u)
 
-    : ressources (r), buildings (b), jellies (j), abilities (abi)
+    : ressources (r), buildings (b), jellies (j), abilities (abi), upgrades (u)
 {
 }
 

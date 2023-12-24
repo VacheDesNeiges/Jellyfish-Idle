@@ -4,6 +4,7 @@
 #include "GameSynchronizer.hpp"
 #include "InputHandler.hpp"
 #include "SaveSystem.hpp"
+#include "UpgradeManager.hpp"
 #include <memory>
 #include <string>
 
@@ -15,11 +16,13 @@ GameSystems::GameSystems ()
   achievements = std::make_shared<AchievementSystem> ();
   abilities = std::make_shared<AbilityManager> ();
   depth = std::make_shared<DepthSystem> ();
+  upgrades = std::make_shared<UpgradeManager> ();
 
   std::cout << "Managers building complete\n";
 
   dataView = std::make_shared<GameDataView> (ressources, buildings, jellies,
-                                             achievements, abilities, depth);
+                                             achievements, abilities, depth,
+                                             upgrades);
 
   ressources->bindDataView (dataView);
   buildings->bindDataView (dataView);
@@ -27,15 +30,17 @@ GameSystems::GameSystems ()
   achievements->bindDataView (dataView);
   abilities->bindDataView (dataView);
   depth->bindDataView (dataView);
+  upgrades->bindDataView (dataView);
 
   std::cout << "DataView building complete\n";
 
   inputHandler = std::make_shared<InputHandler> (ressources, buildings,
-                                                 jellies, abilities);
+                                                 jellies, abilities, upgrades);
   std::cout << "InputHandler Building complete\n";
 
   synchronizer = std::make_unique<GameSynchronizer> (
-      ressources, buildings, jellies, achievements, abilities, depth);
+      ressources, buildings, jellies, achievements, abilities, depth,
+      upgrades);
   std::cout << "Synchronizer building complete\n";
 }
 

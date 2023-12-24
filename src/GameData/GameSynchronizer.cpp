@@ -6,6 +6,7 @@
 #include "GameDataView.hpp"
 #include "JellyfishManager.hpp"
 #include "RessourceManager.hpp"
+#include "UpgradeManager.hpp"
 #include <memory>
 
 GameSynchronizer::GameSynchronizer (std::shared_ptr<RessourceManager> r,
@@ -13,10 +14,11 @@ GameSynchronizer::GameSynchronizer (std::shared_ptr<RessourceManager> r,
                                     std::shared_ptr<JellyfishManager> j,
                                     std::shared_ptr<AchievementSystem> ach,
                                     std::shared_ptr<AbilityManager> abi,
-                                    std::shared_ptr<DepthSystem> d)
+                                    std::shared_ptr<DepthSystem> d,
+                                    std::shared_ptr<UpgradeManager> u)
 
     : ressources (r), buildings (b), jellies (j), achievements (ach),
-      abilities (abi), depth (d)
+      abilities (abi), depth (d), upgrades (u)
 {
 }
 

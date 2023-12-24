@@ -11,6 +11,8 @@
 #include "JellyfishManager.hpp"
 #include "RessourceDataView.hpp"
 #include "RessourceManager.hpp"
+#include "UpgradeDataView.hpp"
+#include "UpgradeManager.hpp"
 #include <memory>
 
 GameDataView::GameDataView (std::shared_ptr<RessourceManager> r,
@@ -18,14 +20,16 @@ GameDataView::GameDataView (std::shared_ptr<RessourceManager> r,
                             std::shared_ptr<JellyfishManager> j,
                             std::shared_ptr<AchievementSystem> ach,
                             std::shared_ptr<AbilityManager> abi,
-                            std::shared_ptr<DepthSystem> d)
+                            std::shared_ptr<DepthSystem> d,
+                            std::shared_ptr<UpgradeManager> u)
 
     : ressources (std::make_shared<RessourceDataView> (r)),
       buildings (std::make_shared<BuildingDataView> (b, r)),
       jellies (std::make_shared<JellyFishDataView> (j)),
       achievements (std::make_shared<AchievementDataView> (ach)),
       abilities (std::make_shared<AbilityDataView> (abi, r)),
-      depth (std::make_shared<DepthDataView> (d))
+      depth (std::make_shared<DepthDataView> (d)),
+      upgrades (std::make_shared<UpgradeDataView> (u, r))
 {
 }
 
@@ -63,4 +67,10 @@ std::shared_ptr<DepthDataView>
 GameDataView::getDepthView () const
 {
   return depth;
+}
+
+std::shared_ptr<UpgradeDataView>
+GameDataView::getUpgradeView () const
+{
+  return upgrades;
 }

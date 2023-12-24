@@ -3,6 +3,8 @@
 #include "Building.hpp"
 #include "InsightAbility.hpp"
 #include "Jellyfish.hpp"
+#include "UpgradeManager.hpp"
+#include <memory>
 
 class RessourceManager;
 class JellyfishManager;
@@ -15,7 +17,8 @@ public:
   InputHandler (std::shared_ptr<RessourceManager>,
                 std::shared_ptr<BuildingManager>,
                 std::shared_ptr<JellyfishManager>,
-                std::shared_ptr<AbilityManager>);
+                std::shared_ptr<AbilityManager>,
+                std::shared_ptr<UpgradeManager>);
 
   void gatherFood ();
   void buy (BuildingType);
@@ -30,6 +33,7 @@ private:
   std::shared_ptr<BuildingManager> buildings;
   std::shared_ptr<JellyfishManager> jellies;
   std::shared_ptr<AbilityManager> abilities;
+  std::shared_ptr<UpgradeManager> upgrades;
 
   void updateMaxNumJellies ();
 };

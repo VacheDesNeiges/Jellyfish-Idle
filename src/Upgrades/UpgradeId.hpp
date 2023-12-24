@@ -2,7 +2,7 @@
 
 enum class UpgradeID
 {
-  CanalizingInsight,
+  FocusingForInsight,
   Manufacturing,
   Writing
 };

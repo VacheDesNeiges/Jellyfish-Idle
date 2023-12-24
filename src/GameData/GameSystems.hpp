@@ -17,6 +17,7 @@
 #include <memory>
 
 #include "DepthSystem.hpp"
+#include "UpgradeManager.hpp"
 
 class GameSystems
 {
@@ -39,6 +40,7 @@ private:
   std::shared_ptr<AchievementSystem> achievements;
   std::shared_ptr<AbilityManager> abilities;
   std::shared_ptr<DepthSystem> depth;
+  std::shared_ptr<UpgradeManager> upgrades;
 
   std::unique_ptr<GameSynchronizer> synchronizer;
   std::shared_ptr<GameDataView> dataView;

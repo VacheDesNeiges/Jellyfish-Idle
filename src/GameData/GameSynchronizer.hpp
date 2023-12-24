@@ -2,6 +2,7 @@
 #include "DepthSystem.hpp"
 #include "GameDataView.hpp"
 #include "Ressource.hpp"
+#include "UpgradeManager.hpp"
 #include <map>
 #include <memory>
 
@@ -18,7 +19,8 @@ public:
                     std::shared_ptr<JellyfishManager>,
                     std::shared_ptr<AchievementSystem>,
                     std::shared_ptr<AbilityManager>,
-                    std::shared_ptr<DepthSystem>);
+                    std::shared_ptr<DepthSystem>,
+                    std::shared_ptr<UpgradeManager>);
 
   void gameTick ();
   void update ();
@@ -30,6 +32,7 @@ private:
   std::shared_ptr<AchievementSystem> achievements;
   std::shared_ptr<AbilityManager> abilities;
   std::shared_ptr<DepthSystem> depth;
+  std::shared_ptr<UpgradeManager> upgrades;
 
   void checkAchievements ();
   void checkJellyfishArrival ();
