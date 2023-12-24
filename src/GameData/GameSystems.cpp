@@ -54,7 +54,7 @@ GameSystems::save () const
 }
 
 void
-GameSystems::loadSave (std::string path)
+GameSystems::loadSave (const std::string &path)
 {
   auto loadedData = SaveSystem::loadFromFile (path);
   buildings->loadData (loadedData.buildings);

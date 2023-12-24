@@ -1,6 +1,7 @@
 #include "UpgradeDataView.hpp"
 #include "GameDataView.hpp"
 #include "Ressource.hpp"
+#include "RessourceManager.hpp"
 #include "UpgradeId.hpp"
 #include "UpgradeManager.hpp"
 #include <memory>
@@ -15,7 +16,13 @@ UpgradeDataView::UpgradeDataView (std::shared_ptr<UpgradeManager> u,
 bool
 UpgradeDataView::isBuyable (UpgradeID id) const
 {
-  return false; // FIXME;
+  bool buyable = true;
+  for (const auto &[ressource, price] : upgrades->getCost (id))
+    {
+      if (price > ressources->getCurrentQuantity (ressource))
+        buyable = false;
+    }
+  return buyable;
 }
 
 std::string_view

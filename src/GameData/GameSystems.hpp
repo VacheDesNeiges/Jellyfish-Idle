@@ -26,7 +26,7 @@ public:
   GameSystems ();
 
   void save () const;
-  void loadSave (std::string);
+  void loadSave (const std::string &);
   void gameTick ();
 
   std::shared_ptr<GameDataView> getDataView ();
