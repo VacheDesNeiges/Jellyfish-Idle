@@ -2,11 +2,12 @@
 
 enum class AchievementIDs
 {
-  FirstJelly,
 
   PlanktonField,
   FirstSandNest,
   Mines,
+
+  FirstJelly,
 
   JobMining,
   JobExploreTheDepths,

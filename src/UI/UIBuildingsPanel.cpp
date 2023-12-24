@@ -10,14 +10,15 @@
 void
 UIBuildingPanel::render () const
 {
-  if (!ImGui::Begin ("Buildings", nullptr, ImGuiWindowFlags_NoMove))
+  if (!ImGui::Begin ("Buildings", nullptr,
+                     ImGuiWindowFlags_NoMove | ImGuiWindowFlags_Tooltip))
     {
       ImGui::End ();
       return;
     }
 
   ImGui::Text ("This is the Buildings tab!\n wiiiii");
-  if (auto sz = ImVec2 (300.f, 20.0f); ImGui::Button ("GatherFood", sz))
+  if (auto sz = ImVec2 (300.f, 45.0f); ImGui::Button ("GatherFood", sz))
     {
       inputHandler->gatherFood ();
     }
@@ -41,7 +42,7 @@ UIBuildingPanel::render () const
 bool
 UIBuildingPanel::renderBuildingButton (BuildingType building) const
 {
-  auto size = ImVec2 (300.f, 20.0f);
+  auto size = ImVec2 (300.f, 45.0f);
 
   if (gData->getAchievementsView ()->isUnlocked (building))
     {
@@ -55,11 +56,8 @@ UIBuildingPanel::renderBuildingButton (BuildingType building) const
         }
       ImGui::EndDisabled ();
 
-      if (ImGui::IsItemHovered (ImGuiHoveredFlags_DelayNone
-                                | ImGuiHoveredFlags_AllowWhenDisabled))
-        {
-          displayToolTip (building);
-        }
+      displayToolTip (building);
+
       return true;
     }
   return false;
@@ -68,18 +66,26 @@ UIBuildingPanel::renderBuildingButton (BuildingType building) const
 void
 UIBuildingPanel::displayToolTip (BuildingType building) const
 {
-  auto ressourcesNeeded
-      = gData->getBuildingsView ()->getNextBuyCost (building);
 
-  std::string tooltip = "Price :";
-
-  for (const auto &[ressource, cost] : ressourcesNeeded)
+  if (ImGui::IsItemHovered (ImGuiHoveredFlags_DelayNone
+                            | ImGuiHoveredFlags_AllowWhenDisabled)
+      && ImGui::BeginTooltip ())
     {
-      auto ressourceName
-          = gData->getRessourcesView ()->getRessourceName (ressource);
+      auto ressourcesNeeded
+          = gData->getBuildingsView ()->getNextBuyCost (building);
 
-      tooltip += fmt::format ("\n{} : {:.2f}", ressourceName, cost);
+      std::string tooltip = "Price :";
+
+      for (const auto &[ressource, cost] : ressourcesNeeded)
+        {
+          auto ressourceName
+              = gData->getRessourcesView ()->getRessourceName (ressource);
+
+          tooltip += fmt::format ("\n{} : {:.2f}", ressourceName, cost);
+        }
+
+      ImGui::TextColored (ImVec4 (1.0f, 1.0f, 0.0f, 1.0f), "%s",
+                          tooltip.c_str ());
+      ImGui::EndTooltip ();
     }
-
-  ImGui::SetTooltip ("%s", tooltip.c_str ());
 }

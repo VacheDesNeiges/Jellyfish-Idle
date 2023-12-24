@@ -174,7 +174,7 @@ Game::setImguiStyle ()
 
   ImVec4 *colors = ImGui::GetStyle ().Colors;
   colors[ImGuiCol_WindowBg] = ImVec4 (0.010f, 0.019f, 0.060f, 0.000f);
-  colors[ImGuiCol_PopupBg] = ImVec4 (0.13f, 0.19f, 0.26f, 0.94f);
+  colors[ImGuiCol_PopupBg] = ImVec4 (0.13f, 0.19f, 0.26f, 0.0f);
   colors[ImGuiCol_Button] = ImVec4 (0.31f, 0.76f, 0.83f, 0.41f);
   colors[ImGuiCol_ButtonHovered] = ImVec4 (0.20f, 0.49f, 0.50f, 1.00f);
 

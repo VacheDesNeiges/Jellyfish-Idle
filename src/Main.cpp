@@ -10,6 +10,9 @@ main ()
   return 0;
 }
 
+// TODO : implement manufacturing job
+// TODO : implement new octopus upgrades (canalizing and writing)
+// TODO : add a cooldown to abilities;
 // TODO : take care of negative ressources
 // TODO : Catchup on load
 // TODO : Replace string returns to string_view
