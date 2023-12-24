@@ -7,6 +7,7 @@
 #include "UIBuildingsPanel.hpp"
 #include "UIDepthPanel.hpp"
 #include "UIJobsPanel.hpp"
+#include "UIOctopusPanel.hpp"
 #include "UIResearchPanel.hpp"
 #include "UIRessourcesPanel.hpp"
 #include "imgui.h"
@@ -29,4 +30,5 @@ private:
   UIAbilitiesPanel abilitiesPanel;
   UIResearchPanel researchPanel;
   UIDepthPanel depthPanel;
+  UIOctopusPanel octopusPanel;
 };

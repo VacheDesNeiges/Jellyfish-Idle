@@ -3,6 +3,7 @@
 #include "Building.hpp"
 #include "InsightAbility.hpp"
 #include "Jellyfish.hpp"
+#include "UpgradeId.hpp"
 #include <memory>
 
 class AchievementDataView
@@ -15,6 +16,7 @@ public:
   bool isUnlocked (AchievementIDs) const;
   bool isUnlocked (RessourceType) const;
   bool isUnlocked (AbilityType) const;
+  bool isUnlocked (UpgradeID) const;
 
 private:
   std::shared_ptr<AchievementSystem> achievements;

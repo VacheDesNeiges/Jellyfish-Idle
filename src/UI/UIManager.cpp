@@ -1,5 +1,6 @@
 #include "UIManager.hpp"
 #include "AchievementDataView.hpp"
+#include "AchievementIDs.hpp"
 #include "AchievementSystem.hpp"
 #include "Building.hpp"
 #include "DepthDataView.hpp"
@@ -30,6 +31,7 @@ UIManager::bindGameData (std::shared_ptr<GameDataView> viewPtr,
   abilitiesPanel.bindGameData (viewPtr, inputPtr);
   ressourcesPanel.bindGameData (viewPtr, inputPtr);
   depthPanel.bindGameData (viewPtr, inputPtr);
+  octopusPanel.bindGameData (viewPtr, inputPtr);
 }
 
 void
@@ -53,6 +55,12 @@ UIManager::renderUI () const
   if (gData->getAchievementsView ()->isUnlocked (
           AchievementIDs::JobExploreTheDepths))
     depthPanel.render ();
+
+  if (gData->getAchievementsView ()->isUnlocked (
+          AchievementIDs::AncientOctopus))
+    {
+      octopusPanel.render ();
+    }
 
   ressourcesPanel.render ();
 

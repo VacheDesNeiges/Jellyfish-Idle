@@ -10,6 +10,7 @@ class UpgradeManager : public GameDataAcess
 {
 public:
   UpgradeManager ();
+  void buy (UpgradeID);
   bool isUnlocked (UpgradeID) const;
   std::string_view getName (UpgradeID) const;
   std::string_view getDescription (UpgradeID) const;

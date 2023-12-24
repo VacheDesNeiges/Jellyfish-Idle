@@ -1,7 +1,7 @@
 #include "Upgrade.hpp"
 #include <string_view>
 
-Upgrade::Upgrade (std::string_view n, std::string_view desc)
+Upgrade::Upgrade (const std::string &n, const std::string &desc)
     : name (n), description (desc)
 {
 }

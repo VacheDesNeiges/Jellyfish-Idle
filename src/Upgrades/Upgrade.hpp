@@ -8,7 +8,8 @@
 class Upgrade
 {
 public:
-  Upgrade (std::string_view name, std::string_view desc);
+  Upgrade () = default;
+  Upgrade (const std::string &name, const std::string &desc);
   bool isUnlocked () const;
   void unlock ();
   std::string_view getName () const;
@@ -21,7 +22,7 @@ public:
 
 private:
   bool bought = false;
-  const std::string_view name;
-  const std::string_view description;
+  const std::string name;
+  const std::string description;
   std::list<std::pair<RessourceType, double> > cost;
 };

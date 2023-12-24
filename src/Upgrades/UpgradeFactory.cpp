@@ -5,8 +5,8 @@
 Upgrade
 UpgradeFactory::createUpgrade (UpgradeID id)
 {
-  std::string_view name;
-  std::string_view description;
+  std::string name;
+  std::string description;
   switch (id)
     {
 

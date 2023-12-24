@@ -1,11 +1,12 @@
 #pragma once
 
 #include "UIElement.hpp"
+#include "UpgradeId.hpp"
 class UIOctopusPanel : public UIElement
 {
 public:
   void render () const override;
 
 private:
-  void renderTradeButton () const;
+  void renderTradeButton (UpgradeID) const;
 };

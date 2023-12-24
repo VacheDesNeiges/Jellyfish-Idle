@@ -3,6 +3,7 @@
 #include "Building.hpp"
 #include "InsightAbility.hpp"
 #include "Jellyfish.hpp"
+#include "UpgradeId.hpp"
 #include "UpgradeManager.hpp"
 #include <memory>
 
@@ -22,6 +23,7 @@ public:
 
   void gatherFood ();
   void buy (BuildingType);
+  void buy (UpgradeID);
 
   bool unassignJelly (JellyJobs);
   bool assignJelly (JellyJobs);

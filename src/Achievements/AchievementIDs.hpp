@@ -15,6 +15,7 @@ enum class AchievementIDs
   ResearchTabUnlocked,
 
   AncientOctopus,
+  FocusForInsightUpgrade,
   FirstInsightAbility,
 
   Last

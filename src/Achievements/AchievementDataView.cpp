@@ -1,5 +1,7 @@
 #include "AchievementDataView.hpp"
+#include "AchievementIDs.hpp"
 #include "AchievementSystem.hpp"
+#include "UpgradeId.hpp"
 
 AchievementDataView::AchievementDataView (std::shared_ptr<AchievementSystem> a)
     : achievements (a)
@@ -92,5 +94,19 @@ AchievementDataView::isUnlocked (AbilityType t) const
     {
     case CallThunder:
       return achievements->isUnlocked (AchievementIDs::FirstInsightAbility);
+    }
+}
+
+bool
+AchievementDataView::isUnlocked (UpgradeID id) const
+{
+  using enum UpgradeID;
+  switch (id)
+    {
+    case FocusingForInsight:
+      return achievements->isUnlocked (AchievementIDs::AncientOctopus);
+
+    default:
+      return false;
     }
 }

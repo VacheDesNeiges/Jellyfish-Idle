@@ -1,6 +1,7 @@
 #include "InputHandler.hpp"
 #include "JellyfishManager.hpp"
 #include "RessourceManager.hpp"
+#include "UpgradeId.hpp"
 #include "UpgradeManager.hpp"
 #include <memory>
 
@@ -57,6 +58,16 @@ InputHandler::buy (BuildingType t)
 
   if (buildings->doesIncreasesMaxJellies (t))
     updateMaxNumJellies ();
+}
+
+void
+InputHandler::buy (UpgradeID id)
+{
+  for (const auto &[rType, quant] : upgrades->getCost (id))
+    {
+      ressources->add (rType, -quant);
+    }
+  upgrades->buy (id);
 }
 
 void

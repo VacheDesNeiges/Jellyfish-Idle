@@ -1,5 +1,6 @@
 #include "UpgradeManager.hpp"
 #include "Ressource.hpp"
+#include "Upgrade.hpp"
 #include "UpgradeFactory.hpp"
 #include "UpgradeId.hpp"
 #include <string_view>
@@ -8,7 +9,7 @@ UpgradeManager::UpgradeManager ()
 {
   for (const auto &id : Upgrade::upgradeIDs)
     {
-      upgrades.try_emplace (id, UpgradeFactory::createUpgrade (id));
+      upgrades.emplace (id, UpgradeFactory::createUpgrade (id));
     }
 }
 
@@ -34,4 +35,10 @@ std::list<std::pair<RessourceType, double> >
 UpgradeManager::getCost (UpgradeID id) const
 {
   return upgrades.at (id).getCost ();
+}
+
+void
+UpgradeManager::buy (UpgradeID id)
+{
+  upgrades[id].unlock ();
 }

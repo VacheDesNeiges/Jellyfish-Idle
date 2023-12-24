@@ -1,5 +1,6 @@
 #include "AchievementSystem.hpp"
 #include "Achievement.hpp"
+#include "AchievementIDs.hpp"
 #include "BuildingDataView.hpp"
 #include "DepthDataView.hpp"
 #include "JellyfishDataView.hpp"

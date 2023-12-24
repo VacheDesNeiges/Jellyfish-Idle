@@ -41,16 +41,15 @@ UIBuildingPanel::render () const
 bool
 UIBuildingPanel::renderBuildingButton (BuildingType building) const
 {
-  auto sz = ImVec2 (300.f, 20.0f);
+  auto size = ImVec2 (300.f, 20.0f);
 
   if (gData->getAchievementsView ()->isUnlocked (building))
     {
-
       ImGui::BeginDisabled (!gData->getBuildingsView ()->isBuyable (building));
       if (ImGui::Button (gData->getBuildingsView ()
                              ->getBuildingDescription (building)
                              .c_str (),
-                         sz))
+                         size))
         {
           inputHandler->buy (building);
         }
