@@ -9,5 +9,5 @@ public:
 
 private:
   bool renderBuildingButton (BuildingType) const;
-  void displayToolTip (BuildingType) const;
+  void setToolTip (BuildingType) const;
 };

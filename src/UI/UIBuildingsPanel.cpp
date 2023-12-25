@@ -4,14 +4,14 @@
 #include "BuildingDataView.hpp"
 #include "InputHandler.hpp"
 #include "RessourceDataView.hpp"
+#include "UIColors.hpp"
 #include "fmt/core.h"
 #include "imgui.h"
 
 void
 UIBuildingPanel::render () const
 {
-  if (!ImGui::Begin ("Buildings", nullptr,
-                     ImGuiWindowFlags_NoMove | ImGuiWindowFlags_Tooltip))
+  if (!ImGui::Begin ("Buildings", nullptr, ImGuiWindowFlags_NoMove))
     {
       ImGui::End ();
       return;
@@ -56,7 +56,7 @@ UIBuildingPanel::renderBuildingButton (BuildingType building) const
         }
       ImGui::EndDisabled ();
 
-      displayToolTip (building);
+      setToolTip (building);
 
       return true;
     }
@@ -64,28 +64,45 @@ UIBuildingPanel::renderBuildingButton (BuildingType building) const
 }
 
 void
-UIBuildingPanel::displayToolTip (BuildingType building) const
+UIBuildingPanel::setToolTip (BuildingType building) const
 {
 
   if (ImGui::IsItemHovered (ImGuiHoveredFlags_DelayNone
                             | ImGuiHoveredFlags_AllowWhenDisabled)
       && ImGui::BeginTooltip ())
     {
+      ImVec4 textColor;
       auto ressourcesNeeded
           = gData->getBuildingsView ()->getNextBuyCost (building);
 
-      std::string tooltip = "Price :";
+      ImGui::Text ("Price :");
 
       for (const auto &[ressource, cost] : ressourcesNeeded)
         {
+          auto rquant
+              = gData->getRessourcesView ()->getRessourceQuantity (ressource);
           auto ressourceName
               = gData->getRessourcesView ()->getRessourceName (ressource);
 
-          tooltip += fmt::format ("\n{} : {:.2f}", ressourceName, cost);
+          if (cost > gData->getRessourcesView ()->getRessourceMaxQuantity (
+                  ressource))
+            {
+              textColor = UIColors::redText;
+            }
+          else if (cost < rquant)
+            {
+              textColor = UIColors::greenText;
+            }
+          else
+            {
+              textColor = UIColors::greyText;
+            }
+          ImGui::TextColored (
+              textColor, "%s",
+              fmt::format ("\n{} : {:.2f}/{:.2f}", ressourceName, rquant, cost)
+                  .c_str ());
         }
 
-      ImGui::TextColored (ImVec4 (1.0f, 1.0f, 0.0f, 1.0f), "%s",
-                          tooltip.c_str ());
       ImGui::EndTooltip ();
     }
 }

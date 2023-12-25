@@ -18,7 +18,13 @@ UpgradeFactory::createUpgrade (UpgradeID id)
                     "to gather Insight. It also asks you \n"
                     "to come back to exchange it for more\n"
                     "secrets once you gather enough of it";
+      break;
 
+    case UpgradeID::Telekinesis:
+      name = "Telekinesis";
+      description
+          = "The octopus teaches you how to use insight to move objects."
+            "This will allow you to do manual labour";
       break;
 
     case UpgradeID::Writing:

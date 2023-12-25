@@ -9,7 +9,7 @@ UpgradeManager::UpgradeManager ()
 {
   for (const auto &id : Upgrade::upgradeIDs)
     {
-      upgrades.emplace (id, UpgradeFactory::createUpgrade (id));
+      upgrades.try_emplace (id, UpgradeFactory::createUpgrade (id));
     }
 }
 

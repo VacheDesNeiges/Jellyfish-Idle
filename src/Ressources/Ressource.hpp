@@ -1,17 +1,9 @@
 #pragma once
+#include "RessourceType.hpp"
 #include <array>
 #include <string>
 #include <string_view>
 #include <vector>
-
-enum class RessourceType
-{
-  Food,
-  Sand,
-  Stone,
-  Glass,
-  Insight
-};
 
 // Contains Last as a workaround to allow iteration over the enum
 // See CreateRessources for an exemple
@@ -37,6 +29,9 @@ public:
   static constexpr std::array<RessourceType, 5> RessourceTypes
       = { RessourceType::Food, RessourceType::Sand, RessourceType::Stone,
           RessourceType::Glass, RessourceType::Insight };
+
+  static constexpr std::array<RessourceType, 1> CraftableRessourceTypes
+      = { RessourceType::StoneSlab };
 
 private:
   bool specialRessource = false;
