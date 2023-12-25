@@ -2,6 +2,7 @@
 #include "AchievementDataView.hpp"
 #include "Building.hpp"
 #include "BuildingDataView.hpp"
+#include "GameDataView.hpp"
 #include "InputHandler.hpp"
 #include "RessourceDataView.hpp"
 #include "UIColors.hpp"
@@ -55,7 +56,6 @@ UIBuildingPanel::renderBuildingButton (BuildingType building) const
           inputHandler->buy (building);
         }
       ImGui::EndDisabled ();
-
       setToolTip (building);
 
       return true;
@@ -102,7 +102,6 @@ UIBuildingPanel::setToolTip (BuildingType building) const
               fmt::format ("\n{} : {:.2f}/{:.2f}", ressourceName, rquant, cost)
                   .c_str ());
         }
-
       ImGui::EndTooltip ();
     }
 }

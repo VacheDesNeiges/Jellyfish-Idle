@@ -24,8 +24,7 @@ class DepthDataView;
 class UpgradeManager;
 class UpgradeDataView;
 
-//-----------------------------------------------------------
-
+// Gives a read only access to the variables of the game
 class GameDataView
 {
 public:
