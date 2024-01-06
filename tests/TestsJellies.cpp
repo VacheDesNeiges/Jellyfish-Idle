@@ -52,6 +52,7 @@ TEST (TestsJelliesManager, overflow)
 TEST (TestsJelliesManager, jobAssignement)
 {
   JellyfishManager manager;
+  manager.setBonusMaxJellies (Jellyfish::JobsTypes.size ());
 
   for (const auto &job : Jellyfish::JobsTypes)
     {
@@ -67,6 +68,8 @@ TEST (TestsJelliesManager, jobAssignement)
 TEST (TestsJelliesManager, jobUnasignement)
 {
   JellyfishManager manager;
+  manager.setBonusMaxJellies (Jellyfish::JobsTypes.size ());
+
   manager.createJellyfish ();
   ASSERT_EQ (1, manager.getNum (JellyJobs::None));
 

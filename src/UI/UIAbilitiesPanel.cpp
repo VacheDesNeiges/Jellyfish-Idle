@@ -27,6 +27,5 @@ UIAbilitiesPanel::render () const
                                    .c_str ());
     }
 
-  ImGui::Text ("Insight Tab");
   ImGui::End ();
 }

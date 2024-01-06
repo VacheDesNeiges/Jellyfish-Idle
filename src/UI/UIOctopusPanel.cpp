@@ -27,18 +27,27 @@ UIOctopusPanel::render () const
 void
 UIOctopusPanel::renderTradeButton (UpgradeID id) const
 {
-  auto size = ImVec2 (300.f, 150.f);
+  auto size = ImVec2 (300.f, 45.f);
   if (gData->getAchievementsView ()->isUnlocked (id))
     {
       ImGui::BeginDisabled (!gData->getUpgradeView ()->isBuyable (id));
       std::string buttonText
-          = fmt::format ("{}\n{}", gData->getUpgradeView ()->getName (id),
-                         gData->getUpgradeView ()->getDescription (id));
+          = fmt::format ("{}\n", gData->getUpgradeView ()->getName (id));
 
       if (ImGui::Button (buttonText.c_str (), size))
         {
           inputHandler->buy (id);
         }
+      if (ImGui::IsItemHovered (ImGuiHoveredFlags_DelayNone
+                                | ImGuiHoveredFlags_AllowWhenDisabled)
+          && ImGui::BeginTooltip ())
+        {
+          std::string tooltipText = fmt::format (
+              "{}", gData->getUpgradeView ()->getDescription (id));
+          ImGui::Text ("%s", tooltipText.c_str ());
+          ImGui::EndTooltip ();
+        }
+
       ImGui::EndDisabled ();
     }
 }

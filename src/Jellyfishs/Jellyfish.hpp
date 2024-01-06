@@ -22,7 +22,10 @@ public:
   static constexpr std::array<JellyJobs, 6> JobsTypes = {
     JellyJobs::None,   JellyJobs::GatherFood,       JellyJobs::GatherSand,
     JellyJobs::Mining, JellyJobs::ExploreTheDepths, JellyJobs::FocusForInsight
+
   };
+
+  static double constexpr necessaryFoodPerSec = 1;
 
 private:
   unsigned id = 0;

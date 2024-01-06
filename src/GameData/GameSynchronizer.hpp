@@ -22,8 +22,8 @@ public:
                     std::shared_ptr<DepthSystem>,
                     std::shared_ptr<UpgradeManager>);
 
-  void gameTick ();
-  void update ();
+  void gameTick () const;
+  void update () const;
 
 private:
   std::shared_ptr<RessourceManager> ressources;
@@ -34,8 +34,8 @@ private:
   std::shared_ptr<DepthSystem> depth;
   std::shared_ptr<UpgradeManager> upgrades;
 
-  void checkAchievements ();
-  void checkJellyfishArrival ();
+  void checkAchievements () const;
+  void checkJellyfishArrival () const;
 
   std::map<RessourceType, double>
   addMaps (const std::map<RessourceType, double> &,

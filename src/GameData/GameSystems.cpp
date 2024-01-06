@@ -19,24 +19,18 @@ GameSystems::GameSystems ()
   depth = std::make_shared<DepthSystem> ();
   upgrades = std::make_shared<UpgradeManager> ();
 
-  std::cout << "Managers building complete\n";
-
   dataView = std::make_shared<GameDataView> (ressources, buildings, jellies,
                                              achievements, abilities, depth,
                                              upgrades);
-  std::cout << "DataView building complete\n";
 
   GameDataAccess::bindDataView (dataView);
-  std::cout << "Data View bound to GameDataAccess\n";
 
   inputHandler = std::make_shared<InputHandler> (ressources, buildings,
                                                  jellies, abilities, upgrades);
-  std::cout << "InputHandler Building complete\n";
 
   synchronizer = std::make_unique<GameSynchronizer> (
       ressources, buildings, jellies, achievements, abilities, depth,
       upgrades);
-  std::cout << "Synchronizer building complete\n";
 }
 
 void
@@ -49,7 +43,7 @@ GameSystems::save () const
 }
 
 void
-GameSystems::loadSave (const std::string &path)
+GameSystems::loadSave (const std::string &path) const
 {
   auto loadedData = SaveSystem::loadFromFile (path);
   buildings->loadData (loadedData.buildings);
@@ -61,19 +55,19 @@ GameSystems::loadSave (const std::string &path)
 }
 
 std::shared_ptr<GameDataView>
-GameSystems::getDataView ()
+GameSystems::getDataView () const
 {
   return dataView;
 }
 
 std::shared_ptr<InputHandler>
-GameSystems::getInputHandler ()
+GameSystems::getInputHandler () const
 {
   return inputHandler;
 }
 
 void
-GameSystems::gameTick ()
+GameSystems::gameTick () const
 {
   synchronizer->gameTick ();
 }

@@ -79,7 +79,7 @@ UIBuildingPanel::setToolTip (BuildingType building) const
 
       for (const auto &[ressource, cost] : ressourcesNeeded)
         {
-          auto rquant
+          auto requestedQuantity
               = gData->getRessourcesView ()->getRessourceQuantity (ressource);
           auto ressourceName
               = gData->getRessourcesView ()->getRessourceName (ressource);
@@ -89,7 +89,7 @@ UIBuildingPanel::setToolTip (BuildingType building) const
             {
               textColor = UIColors::redText;
             }
-          else if (cost < rquant)
+          else if (cost < requestedQuantity)
             {
               textColor = UIColors::greenText;
             }
@@ -97,10 +97,11 @@ UIBuildingPanel::setToolTip (BuildingType building) const
             {
               textColor = UIColors::greyText;
             }
-          ImGui::TextColored (
-              textColor, "%s",
-              fmt::format ("\n{} : {:.2f}/{:.2f}", ressourceName, rquant, cost)
-                  .c_str ());
+          ImGui::TextColored (textColor, "%s",
+                              fmt::format ("\n{} : {:.2f}/{:.2f}",
+                                           ressourceName, requestedQuantity,
+                                           cost)
+                                  .c_str ());
         }
       ImGui::EndTooltip ();
     }

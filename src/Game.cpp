@@ -133,7 +133,6 @@ Game::initialize ()
 
   UI->bindGameData (gameSystems->getDataView (),
                     gameSystems->getInputHandler ());
-  std::cout << "UI Binding complete\n";
 }
 
 std::string
@@ -157,7 +156,6 @@ void
 Game::loadFont ()
 {
   std::string path = getPath ();
-  std::cout << path << "\n";
   path += "/assets/font/OpenSans-Bold.ttf";
   io->Fonts->AddFontFromFileTTF (path.c_str (), 17);
 }

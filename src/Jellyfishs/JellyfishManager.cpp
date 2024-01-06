@@ -86,8 +86,11 @@ JellyfishManager::unasign (JellyJobs j)
 void
 JellyfishManager::createJellyfish ()
 {
-  jellies.emplace_back ();
-  jobNumbers[JellyJobs::None] += 1;
+  if (jellies.size () < maxNumJellies)
+    {
+      jellies.emplace_back ();
+      jobNumbers[JellyJobs::None] += 1;
+    }
 }
 
 unsigned long
@@ -201,9 +204,14 @@ JellyfishManager::loadData (const JellyfishData &data)
         {
           assign (JellyJobs::GatherSand);
         }
-    }
-  maxNumJellies = data.maxNumJellies;
 
+      for (unsigned i = 0; i < data.numJobMining; i++)
+        {
+          assign (JellyJobs::Mining);
+        }
+    }
+
+  maxNumJellies = data.maxNumJellies;
   using enum JellyJobs;
   jobNumbers[None] = data.numJobNone;
   jobNumbers[GatherFood] = data.numJobGatheringFood;
@@ -211,4 +219,10 @@ JellyfishManager::loadData (const JellyfishData &data)
   jobNumbers[ExploreTheDepths] = data.numJobExploreTheDepths;
   jobNumbers[GatherSand] = data.numJobGatheringSand;
   jobNumbers[FocusForInsight] = data.numJobFocusing;
+}
+
+double
+JellyfishManager::getFoodRequiredPerJellyfishPerSec () const
+{
+  return Jellyfish::necessaryFoodPerSec;
 }

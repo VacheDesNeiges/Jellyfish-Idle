@@ -64,7 +64,7 @@ AchievementSystem::AchievementSystem ()
 
     { JobMining,
       [this] () {
-        return getDataView ()->getDepthView ()->getCurrentDepth () >= 20;
+        return getDataView ()->getDepthView ()->getCurrentDepth () >= 30;
       } },
 
     { JobFocusing,
@@ -75,7 +75,7 @@ AchievementSystem::AchievementSystem ()
 
     { AncientOctopus,
       [this] () {
-        return getDataView ()->getDepthView ()->getCurrentDepth () >= 50;
+        return getDataView ()->getDepthView ()->getCurrentDepth () >= 20;
       } },
 
     { FocusForInsightUpgrade,

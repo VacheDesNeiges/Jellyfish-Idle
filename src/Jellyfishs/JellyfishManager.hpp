@@ -32,6 +32,7 @@ public:
   bool assign (JellyJobs);
   bool unasign (JellyJobs);
   void createJellyfish ();
+  double getFoodRequiredPerJellyfishPerSec () const;
   std::map<RessourceType, double> getProductionRates () const;
   std::map<RessourceType, double> getConsumptionRates () const;
   std::string getJobDescription (JellyJobs) const;

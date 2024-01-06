@@ -10,7 +10,6 @@ class RessourceManager : public GameDataAccess
 public:
   RessourceManager ();
   void init ();
-  void updateRessources (int ticks);
 
   void gatherFood ();
   double getCurrentQuantity (RessourceType);

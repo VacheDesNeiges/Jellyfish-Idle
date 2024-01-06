@@ -6,10 +6,10 @@
 
 CallThunder::CallThunder ()
 {
+  using enum RessourceType;
   name = "Call Thunder";
-  castingCost
-      = { { RessourceType::Insight, 100 }, { RessourceType::Sand, 100 } };
-  ressourcesGained = { { RessourceType::Glass, 10 } };
+  castingCost = { { Insight, 100 }, { Sand, 100 } };
+  ressourcesGained = { { Glass, 10 } };
 }
 
 std::string

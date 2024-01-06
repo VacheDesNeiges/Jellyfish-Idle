@@ -18,14 +18,17 @@ InputHandler::InputHandler (std::shared_ptr<RessourceManager> r,
 void
 InputHandler::useAbility (AbilityType t)
 {
-  for (const auto &[rType, quant] : abilities->getAbilityCost (t))
+  if (abilities->isUsable (t))
     {
-      ressources->add (rType, -quant);
-    }
+      for (const auto &[rType, quant] : abilities->getAbilityCost (t))
+        {
+          ressources->add (rType, -quant);
+        }
 
-  for (const auto &[rType, quant] : abilities->getProduction (t))
-    {
-      ressources->add (rType, quant);
+      for (const auto &[rType, quant] : abilities->getProduction (t))
+        {
+          ressources->add (rType, quant);
+        }
     }
 }
 

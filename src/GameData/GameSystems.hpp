@@ -26,11 +26,11 @@ public:
   GameSystems ();
 
   void save () const;
-  void loadSave (const std::string &);
-  void gameTick ();
+  void loadSave (const std::string &) const;
+  void gameTick () const;
 
-  std::shared_ptr<GameDataView> getDataView ();
-  std::shared_ptr<InputHandler> getInputHandler ();
+  std::shared_ptr<GameDataView> getDataView () const;
+  std::shared_ptr<InputHandler> getInputHandler () const;
 
 private:
   // Game Systems

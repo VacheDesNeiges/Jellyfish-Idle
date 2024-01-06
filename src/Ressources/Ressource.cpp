@@ -45,13 +45,27 @@ Ressource::Ressource (RessourceType rType)
 void
 Ressource::add (double n)
 {
-  if (quantity + n <= max_quantity)
+  if (n >= 0)
     {
-      quantity += n;
+      if (quantity + n <= max_quantity)
+        {
+          quantity += n;
+        }
+      else
+        {
+          quantity = max_quantity;
+        }
     }
   else
     {
-      quantity = max_quantity;
+      if (quantity + n >= 0)
+        {
+          quantity += n;
+        }
+      else
+        {
+          quantity = 0;
+        }
     }
 }
 

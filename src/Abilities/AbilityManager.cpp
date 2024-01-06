@@ -1,12 +1,34 @@
 #include "AbilityManager.hpp"
 #include "CallThunder.hpp"
+#include "GameSystems.hpp"
 #include "InsightAbility.hpp"
 #include "Ressource.hpp"
+#include "RessourceDataView.hpp"
 
 AbilityManager::AbilityManager ()
 {
   abilities[AbilityType::CallThunder]
       = AbilityFactory::createAbilityInstance (AbilityType::CallThunder);
+}
+
+bool
+AbilityManager::isUsable (AbilityType t)
+{
+  bool buyable = true;
+  for (const auto &[ressource, cost] : abilities[t]->getCost ())
+    {
+
+      if (!buyable)
+        continue;
+
+      if (getDataView ()->getRessourcesView ()->getRessourceQuantity (
+              ressource)
+          < cost)
+        {
+          buyable = false;
+        }
+    }
+  return buyable;
 }
 
 std::vector<std::pair<RessourceType, double> >

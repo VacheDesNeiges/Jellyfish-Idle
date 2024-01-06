@@ -23,7 +23,7 @@ GameSynchronizer::GameSynchronizer (std::shared_ptr<RessourceManager> r,
 }
 
 void
-GameSynchronizer::gameTick ()
+GameSynchronizer::gameTick () const
 {
   ressources->zerosValuePerTick ();
   // Ressource consumption
@@ -40,7 +40,7 @@ GameSynchronizer::gameTick ()
 }
 
 void
-GameSynchronizer::checkJellyfishArrival ()
+GameSynchronizer::checkJellyfishArrival () const
 {
   static short gameTicksInterval = 0;
   if (jellies->getNumJellies () == jellies->getMaxNumJellies ())
@@ -51,9 +51,8 @@ GameSynchronizer::checkJellyfishArrival ()
     {
       gameTicksInterval++;
       if (gameTicksInterval == 8
-          && ressources->getNetProduction (RessourceType::Food) >= 0.5)
-        // TODO refactor this 0->5 value to use the consumption rate of a
-        // singular jelly instead
+          && ressources->getNetProduction (RessourceType::Food)
+                 >= jellies->getFoodRequiredPerJellyfishPerSec () / 2)
         {
           gameTicksInterval = 0;
           jellies->createJellyfish ();
@@ -64,7 +63,7 @@ GameSynchronizer::checkJellyfishArrival ()
 }
 
 void
-GameSynchronizer::checkAchievements ()
+GameSynchronizer::checkAchievements () const
 {
   achievements->checkAchievements ();
 }
@@ -83,6 +82,7 @@ GameSynchronizer::addMaps (const std::map<RessourceType, double> &map1,
 }
 
 void
-GameSynchronizer::update ()
+GameSynchronizer::update () const
 {
+  gameTick ();
 }
