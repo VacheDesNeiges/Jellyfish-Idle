@@ -184,6 +184,8 @@ JellyfishManager::getData () const
 void
 JellyfishManager::loadData (const JellyfishData &data)
 {
+  maxNumJellies = data.maxNumJellies;
+
   if (data.numJellies > 0)
     {
       for (unsigned i = 0; i < data.numJellies; i++)
@@ -211,7 +213,6 @@ JellyfishManager::loadData (const JellyfishData &data)
         }
     }
 
-  maxNumJellies = data.maxNumJellies;
   using enum JellyJobs;
   jobNumbers[None] = data.numJobNone;
   jobNumbers[GatherFood] = data.numJobGatheringFood;

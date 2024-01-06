@@ -65,11 +65,3 @@ target_link_libraries(test ${CMAKE_EXE_LINKER_FLAGS})
 set_target_properties(test PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${TEST_BUILD_DIR}
 )
-    
-    
-    # Custom target for coverage
-add_custom_target(coverage
-    COMMAND llvm-profdata merge -o build/default.profdata build/default.profraw
-    COMMAND llvm-cov show --show-branches=count --instr-profile=build/default.profdata $<TARGET_FILE:test> > build/coverage.txt
-    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-)
