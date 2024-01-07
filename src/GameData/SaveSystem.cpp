@@ -48,7 +48,8 @@ SaveSystem::save (SaveData data)
 
   for (const auto &[id, val] : data.upgrades)
     {
-      j["id"] += { { id, static_cast<unsigned> (id) }, { "Bought", val } };
+      j["Upgrade"]
+          += { { "id", static_cast<unsigned> (id) }, { "Bought", val } };
     }
 
   std::ofstream file (saveFileName);
