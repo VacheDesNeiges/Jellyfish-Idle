@@ -1,6 +1,5 @@
 #pragma once
 #include "GameDataAccess.hpp"
-#include "GameDataView.hpp"
 #include "Ressource.hpp"
 #include "map"
 #include <utility>

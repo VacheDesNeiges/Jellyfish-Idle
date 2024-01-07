@@ -1,8 +1,6 @@
 #include "UIJobsPanel.hpp"
-#include "AchievementDataView.hpp"
 #include "InputHandler.hpp"
 #include "Jellyfish.hpp"
-#include "JellyfishDataView.hpp"
 #include "imgui.h"
 
 void

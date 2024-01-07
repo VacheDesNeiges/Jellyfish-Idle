@@ -11,12 +11,30 @@ UpgradeManager::UpgradeManager ()
     {
       upgrades.try_emplace (id, UpgradeFactory::createUpgrade (id));
     }
+  using enum UpgradeID;
+  upgradesConditions
+      = { { FocusingForInsight, [] () { return true; } },
+
+          { AbilityLightning,
+            [this] () { return upgrades[FocusingForInsight].isUnlocked (); } },
+
+          { Telekinesis,
+            [this] () { return upgrades[FocusingForInsight].isUnlocked (); } },
+
+          { Manufacturing,
+            [this] () { return upgrades[Telekinesis].isUnlocked (); } } };
 }
 
 bool
-UpgradeManager::isUnlocked (UpgradeID id) const
+UpgradeManager::isBought (UpgradeID id) const
 {
   return upgrades.at (id).isUnlocked ();
+}
+
+bool
+UpgradeManager::isAvailableForBuying (UpgradeID id) const
+{
+  return (!(upgrades.at (id).isUnlocked ()) && upgradesConditions.at (id));
 }
 
 std::string_view

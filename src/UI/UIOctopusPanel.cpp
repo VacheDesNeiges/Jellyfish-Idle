@@ -1,7 +1,5 @@
 #include "UIOctopusPanel.hpp"
-#include "AchievementDataView.hpp"
 #include "InputHandler.hpp"
-#include "UpgradeDataView.hpp"
 #include "UpgradeId.hpp"
 #include "fmt/core.h"
 #include "fmt/format.h"

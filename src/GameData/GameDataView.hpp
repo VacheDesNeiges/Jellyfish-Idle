@@ -1,4 +1,13 @@
 #pragma once
+
+#include "AbilityDataView.hpp"
+#include "AchievementDataView.hpp"
+#include "BuildingDataView.hpp"
+#include "DepthDataView.hpp"
+#include "JellyfishDataView.hpp"
+#include "RessourceDataView.hpp"
+#include "UpgradeDataView.hpp"
+
 #include <memory>
 
 // --- Forward Declarations to avoid circular dependecies ---

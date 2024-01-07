@@ -1,8 +1,12 @@
 #pragma once
 
+#include "AbilityManager.hpp"
 #include "Building.hpp"
+#include "BuildingManager.hpp"
 #include "InsightAbility.hpp"
 #include "Jellyfish.hpp"
+#include "JellyfishManager.hpp"
+#include "RessourceManager.hpp"
 #include "UpgradeId.hpp"
 #include "UpgradeManager.hpp"
 #include <memory>

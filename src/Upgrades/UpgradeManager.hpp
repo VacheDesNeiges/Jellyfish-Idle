@@ -4,6 +4,7 @@
 #include "Ressource.hpp"
 #include "Upgrade.hpp"
 #include "UpgradeId.hpp"
+#include <functional>
 #include <map>
 
 class UpgradeManager : public GameDataAccess
@@ -11,12 +12,18 @@ class UpgradeManager : public GameDataAccess
 public:
   UpgradeManager ();
   void buy (UpgradeID);
-  bool isUnlocked (UpgradeID) const;
+  bool isAvailableForBuying (UpgradeID) const;
+  bool isBought (UpgradeID) const;
   std::string_view getName (UpgradeID) const;
   std::string_view getDescription (UpgradeID) const;
 
   std::list<std::pair<RessourceType, double> > getCost (UpgradeID) const;
 
+  static constexpr std::array<UpgradeID, 4> UpgradesTypes
+      = { UpgradeID::FocusingForInsight, UpgradeID::Telekinesis,
+          UpgradeID::AbilityLightning, UpgradeID::Manufacturing };
+
 private:
   std::map<UpgradeID, Upgrade> upgrades;
+  std::map<UpgradeID, std::function<bool ()> > upgradesConditions;
 };

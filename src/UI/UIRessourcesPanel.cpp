@@ -1,7 +1,4 @@
 #include "UIRessourcesPanel.hpp"
-#include "AchievementDataView.hpp"
-#include "JellyfishDataView.hpp"
-#include "RessourceDataView.hpp"
 #include "fmt/core.h"
 #include "imgui.h"
 #include <iomanip>

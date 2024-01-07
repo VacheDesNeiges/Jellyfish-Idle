@@ -1,5 +1,4 @@
 #include "UIDepthPanel.hpp"
-#include "DepthDataView.hpp"
 #include "fmt/core.h"
 #include "imgui.h"
 
