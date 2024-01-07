@@ -42,6 +42,7 @@ GameSystems::save () const
   data.ressources = ressources->getData ();
   data.jellies = jellies->getData ();
   data.depth = depth->getData ();
+  data.upgrades = upgrades->getData ();
 
   SaveSystem::save (data);
 }
@@ -55,6 +56,7 @@ GameSystems::loadSave (const std::string &path) const
   ressources->loadData (loadedData.ressources);
   jellies->loadData (loadedData.jellies);
   depth->loadData (loadedData.depth);
+  upgrades->loadData (loadedData.upgrades);
   synchronizer->update ();
 }
 

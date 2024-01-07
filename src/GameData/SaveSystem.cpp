@@ -4,6 +4,7 @@
 #include "DepthSystem.hpp"
 #include "JellyfishManager.hpp"
 #include "Ressource.hpp"
+#include "UpgradeId.hpp"
 #include <fstream>
 #include <nlohmann/json.hpp>
 #include <nlohmann/json_fwd.hpp>
@@ -44,6 +45,11 @@ SaveSystem::save (SaveData data)
 
   j["Depth"] += { { "currentDepth", data.depth.currentDepth },
                   { "currentProg", data.depth.currentProg } };
+
+  for (const auto &[id, val] : data.upgrades)
+    {
+      j["id"] += { { id, static_cast<unsigned> (id) }, { "Bought", val } };
+    }
 
   std::ofstream file (saveFileName);
   file << j;
@@ -98,6 +104,13 @@ SaveSystem::loadFromFile (std::string path)
   result.depth.currentDepth
       = data["Depth"][0]["currentDepth"].get<unsigned> ();
   result.depth.currentProg = data["Depth"][0]["currentProg"].get<float> ();
+
+  for (const auto &d : data["Upgrade"])
+    {
+      result.upgrades.emplace_back (
+          static_cast<UpgradeID> (d["id"].get<unsigned> ()),
+          d["Bought"].get<bool> ());
+    }
 
   return result;
 }

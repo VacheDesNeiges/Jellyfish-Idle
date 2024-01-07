@@ -4,6 +4,8 @@
 #include "UpgradeFactory.hpp"
 #include "UpgradeId.hpp"
 #include <string_view>
+#include <utility>
+#include <vector>
 
 UpgradeManager::UpgradeManager ()
 {
@@ -59,4 +61,27 @@ void
 UpgradeManager::buy (UpgradeID id)
 {
   upgrades[id].unlock ();
+}
+
+std::vector<std::pair<UpgradeID, bool> >
+UpgradeManager::getData () const
+{
+  std::vector<std::pair<UpgradeID, bool> > data;
+  for (const auto &[id, upgrade] : upgrades)
+    {
+      data.emplace_back (id, upgrade.isUnlocked ());
+    }
+  return data;
+}
+
+void
+UpgradeManager::loadData (const std::vector<std::pair<UpgradeID, bool> > &data)
+{
+  for (const auto &[id, val] : data)
+    {
+      if (val)
+        {
+          upgrades[id].unlock ();
+        }
+    }
 }

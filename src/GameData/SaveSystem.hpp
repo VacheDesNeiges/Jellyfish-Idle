@@ -5,6 +5,7 @@
 #include "DepthSystem.hpp"
 #include "JellyfishManager.hpp"
 #include "Ressource.hpp"
+#include "UpgradeId.hpp"
 #include <string>
 #include <utility>
 #include <vector>
@@ -16,6 +17,7 @@ struct SaveData
   std::vector<std::pair<RessourceType, double> > ressources;
   JellyfishData jellies;
   DepthData depth;
+  std::vector<std::pair<UpgradeID, bool> > upgrades;
 };
 
 class SaveSystem

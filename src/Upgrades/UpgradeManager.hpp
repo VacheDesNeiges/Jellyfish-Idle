@@ -2,12 +2,15 @@
 
 #include "GameDataAccess.hpp"
 #include "Ressource.hpp"
+#include "SaveAndLoadable.hpp"
 #include "Upgrade.hpp"
 #include "UpgradeId.hpp"
 #include <functional>
 #include <map>
 
-class UpgradeManager : public GameDataAccess
+class UpgradeManager
+    : public GameDataAccess,
+      public SaveAndLoadable<std::vector<std::pair<UpgradeID, bool> > >
 {
 public:
   UpgradeManager ();
@@ -16,8 +19,10 @@ public:
   bool isBought (UpgradeID) const;
   std::string_view getName (UpgradeID) const;
   std::string_view getDescription (UpgradeID) const;
-
   std::list<std::pair<RessourceType, double> > getCost (UpgradeID) const;
+
+  std::vector<std::pair<UpgradeID, bool> > getData () const override;
+  void loadData (const std::vector<std::pair<UpgradeID, bool> > &) override;
 
   static constexpr std::array<UpgradeID, 4> UpgradesTypes
       = { UpgradeID::FocusingForInsight, UpgradeID::Telekinesis,
