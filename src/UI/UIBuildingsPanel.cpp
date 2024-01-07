@@ -17,9 +17,8 @@ UIBuildingPanel::render () const
       ImGui::End ();
       return;
     }
-
-  ImGui::Text ("This is the Buildings tab!\n wiiiii");
-  if (auto sz = ImVec2 (300.f, 45.0f); ImGui::Button ("GatherFood", sz))
+  if (constexpr auto sz = ImVec2 (300.f, 45.0f);
+      ImGui::Button ("GatherFood", sz))
     {
       inputHandler->gatherFood ();
     }
@@ -43,7 +42,7 @@ UIBuildingPanel::render () const
 bool
 UIBuildingPanel::renderBuildingButton (BuildingType building) const
 {
-  auto size = ImVec2 (300.f, 45.0f);
+  constexpr auto size = ImVec2 (300.f, 45.0f);
 
   if (gData->getAchievementsView ()->isUnlocked (building))
     {

@@ -18,6 +18,9 @@ public:
   std::vector<std::pair<RessourceType, double> > getCost () const;
   std::vector<std::pair<RessourceType, double> > getProduction () const;
 
+  static constexpr std::array<AbilityType, 1> AbilitiesTypes
+      = { AbilityType::CallThunder };
+
 private:
   std::string name;
   std::vector<std::pair<RessourceType, double> > castingCost;

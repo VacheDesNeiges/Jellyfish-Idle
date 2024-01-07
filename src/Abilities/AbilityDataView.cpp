@@ -1,5 +1,6 @@
 #include "AbilityDataView.hpp"
 #include "AbilityManager.hpp"
+#include "InsightAbility.hpp"
 #include "RessourceManager.hpp"
 #include <memory>
 
@@ -32,4 +33,10 @@ std::string
 AbilityDataView::getAbilityDescription (AbilityType t) const
 {
   return abilities->getAbilityDescription (t);
+}
+
+std::vector<std::pair<RessourceType, double> >
+AbilityDataView::getCost (AbilityType t) const
+{
+  return abilities->getAbilityCost (t);
 }

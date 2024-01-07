@@ -1,8 +1,10 @@
 #pragma once
 #include "AbilityManager.hpp"
 #include "GameDataAccess.hpp"
+#include "InsightAbility.hpp"
 #include "RessourceManager.hpp"
 #include <memory>
+#include <vector>
 
 class AbilityDataView
 {
@@ -12,6 +14,7 @@ public:
 
   std::string getAbilityName (AbilityType) const;
   std::string getAbilityDescription (AbilityType) const;
+  std::vector<std::pair<RessourceType, double> > getCost (AbilityType) const;
   bool isUsable (AbilityType) const;
 
 private:
