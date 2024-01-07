@@ -36,10 +36,14 @@ GameSystems::GameSystems ()
 void
 GameSystems::save () const
 {
-  SaveSystem::save (buildings->getData (), achievements->getData (),
-                    ressources->getData (), jellies->getData (),
-                    depth->getData ());
-  // TODO : refactor to use a SaveData object instead ?
+  SaveData data;
+  data.buildings = buildings->getData ();
+  data.achievements = achievements->getData ();
+  data.ressources = ressources->getData ();
+  data.jellies = jellies->getData ();
+  data.depth = depth->getData ();
+
+  SaveSystem::save (data);
 }
 
 void

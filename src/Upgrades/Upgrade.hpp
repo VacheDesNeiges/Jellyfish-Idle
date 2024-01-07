@@ -16,10 +16,6 @@ public:
   std::string_view getDescription () const;
   std::list<std::pair<RessourceType, double> > getCost () const;
 
-  static constexpr std::array<UpgradeID, 3> upgradeIDs
-      = { UpgradeID::FocusingForInsight, UpgradeID::Manufacturing,
-          UpgradeID::Writing };
-
 private:
   bool bought = false;
   const std::string name;

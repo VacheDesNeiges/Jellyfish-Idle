@@ -25,14 +25,14 @@ public:
                 std::shared_ptr<AbilityManager>,
                 std::shared_ptr<UpgradeManager>);
 
-  void gatherFood ();
-  void buy (BuildingType);
-  void buy (UpgradeID);
+  void gatherFood () const;
+  void buy (BuildingType) const;
+  void buy (UpgradeID) const;
 
-  bool unassignJelly (JellyJobs);
-  bool assignJelly (JellyJobs);
+  bool unassignJelly (JellyJobs) const;
+  bool assignJelly (JellyJobs) const;
 
-  void useAbility (AbilityType);
+  void useAbility (AbilityType) const;
 
 private:
   std::shared_ptr<RessourceManager> ressources;
@@ -41,5 +41,5 @@ private:
   std::shared_ptr<AbilityManager> abilities;
   std::shared_ptr<UpgradeManager> upgrades;
 
-  void updateMaxNumJellies ();
+  void updateMaxNumJellies () const;
 };

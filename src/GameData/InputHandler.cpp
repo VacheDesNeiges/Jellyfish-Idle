@@ -16,7 +16,7 @@ InputHandler::InputHandler (std::shared_ptr<RessourceManager> r,
 }
 
 void
-InputHandler::useAbility (AbilityType t)
+InputHandler::useAbility (AbilityType t) const
 {
   if (abilities->isUsable (t))
     {
@@ -33,25 +33,25 @@ InputHandler::useAbility (AbilityType t)
 }
 
 bool
-InputHandler::assignJelly (JellyJobs j)
+InputHandler::assignJelly (JellyJobs j) const
 {
   return jellies->assign (j);
 }
 
 bool
-InputHandler::unassignJelly (JellyJobs j)
+InputHandler::unassignJelly (JellyJobs j) const
 {
   return jellies->unasign (j);
 }
 
 void
-InputHandler::gatherFood ()
+InputHandler::gatherFood () const
 {
   ressources->gatherFood ();
 }
 
 void
-InputHandler::buy (BuildingType t)
+InputHandler::buy (BuildingType t) const
 {
   for (const auto &[rType, quant] : buildings->nextBuyCost (t))
     {
@@ -64,7 +64,7 @@ InputHandler::buy (BuildingType t)
 }
 
 void
-InputHandler::buy (UpgradeID id)
+InputHandler::buy (UpgradeID id) const
 {
   for (const auto &[rType, quant] : upgrades->getCost (id))
     {
@@ -74,7 +74,7 @@ InputHandler::buy (UpgradeID id)
 }
 
 void
-InputHandler::updateMaxNumJellies ()
+InputHandler::updateMaxNumJellies () const
 {
   using enum BuildingType;
   unsigned n = 0;

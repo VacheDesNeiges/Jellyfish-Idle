@@ -12,42 +12,38 @@
 #include <vector>
 
 void
-SaveSystem::save (
-    const std::vector<std::pair<BuildingType, unsigned> > &buildingsData,
-    const std::vector<std::pair<AchievementIDs, bool> > &achievementsData,
-    const std::vector<std::pair<RessourceType, double> > &ressourcesData,
-    const JellyfishData &jfishData, const DepthData &depthData)
+SaveSystem::save (SaveData data)
 {
   nlohmann::json j;
-  for (const auto &[type, quant] : buildingsData)
+  for (const auto &[type, quant] : data.buildings)
     {
       j["Building"]
           += { { "id", static_cast<unsigned> (type) }, { "Quantity", quant } };
     }
 
-  for (const auto &[idAch, isUnlocked] : achievementsData)
+  for (const auto &[idAch, isUnlocked] : data.achievements)
     {
       j["Achievement"] += { { "id", static_cast<unsigned> (idAch) },
                             { "Unlocked", isUnlocked } };
     }
 
-  for (const auto &[idRes, quant] : ressourcesData)
+  for (const auto &[idRes, quant] : data.ressources)
     {
       j["Ressource"] += { { "id", static_cast<unsigned> (idRes) },
                           { "Quantity", quant } };
     }
 
-  j["Jellies"] += { { "num", jfishData.numJellies },
-                    { "numMax", jfishData.maxNumJellies },
-                    { "numJobNone", jfishData.numJobNone },
-                    { "numJobGatherFood", jfishData.numJobGatheringFood },
-                    { "numJobExplore", jfishData.numJobExploreTheDepths },
-                    { "numJobGatherSand", jfishData.numJobGatheringSand },
-                    { "numJobMining", jfishData.numJobMining },
-                    { "numJobFocusing", jfishData.numJobFocusing } };
+  j["Jellies"] += { { "num", data.jellies.numJellies },
+                    { "numMax", data.jellies.maxNumJellies },
+                    { "numJobNone", data.jellies.numJobNone },
+                    { "numJobGatherFood", data.jellies.numJobGatheringFood },
+                    { "numJobExplore", data.jellies.numJobExploreTheDepths },
+                    { "numJobGatherSand", data.jellies.numJobGatheringSand },
+                    { "numJobMining", data.jellies.numJobMining },
+                    { "numJobFocusing", data.jellies.numJobFocusing } };
 
-  j["Depth"] += { { "currentDepth", depthData.currentDepth },
-                  { "currentProg", depthData.currentProg } };
+  j["Depth"] += { { "currentDepth", data.depth.currentDepth },
+                  { "currentProg", data.depth.currentProg } };
 
   std::ofstream file (saveFileName);
   file << j;

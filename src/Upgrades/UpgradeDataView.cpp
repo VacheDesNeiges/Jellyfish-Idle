@@ -48,3 +48,9 @@ UpgradeDataView::isBought (UpgradeID id) const
 {
   return upgrades->isBought (id);
 }
+
+bool
+UpgradeDataView::isAvailableForBuying (UpgradeID id) const
+{
+  return upgrades->isAvailableForBuying (id);
+}

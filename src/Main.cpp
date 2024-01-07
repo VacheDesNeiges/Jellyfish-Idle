@@ -18,3 +18,5 @@ main ()
 // UISettings.hpp and create another namespace there
 // TODO : remove octopus upgrades once bought and display their price
 // TODO : add an option to see octopus upgrade that are already bought (greyed)
+// TODO : add upgrades to save system
+// TODO : add a time estimation for buyables tooltips

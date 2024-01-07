@@ -21,10 +21,7 @@ struct SaveData
 class SaveSystem
 {
 public:
-  static void save (const std::vector<std::pair<BuildingType, unsigned> > &,
-                    const std::vector<std::pair<AchievementIDs, bool> > &,
-                    const std::vector<std::pair<RessourceType, double> > &,
-                    const JellyfishData &, const DepthData &);
+  static void save (SaveData);
   static SaveData loadFromFile (std::string);
 
   static constexpr std::string saveFileName = "save.json";

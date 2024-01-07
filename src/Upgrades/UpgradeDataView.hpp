@@ -11,6 +11,7 @@ public:
   explicit UpgradeDataView (std::shared_ptr<UpgradeManager>,
                             std::shared_ptr<RessourceManager>);
 
+  bool isAvailableForBuying (UpgradeID) const;
   bool isBuyable (UpgradeID) const;
   bool isBought (UpgradeID) const;
   std::string_view getName (UpgradeID) const;

@@ -1,6 +1,7 @@
 #include "UIOctopusPanel.hpp"
 #include "InputHandler.hpp"
 #include "UpgradeId.hpp"
+#include "UpgradeManager.hpp"
 #include "fmt/core.h"
 #include "fmt/format.h"
 #include "imgui.h"
@@ -14,9 +15,16 @@ UIOctopusPanel::render () const
       return;
     }
 
-  for (const auto &upgradeID : Upgrade::upgradeIDs)
+  static bool showBoughtUpgrades = false;
+  ImGui::Checkbox ("Show bought upgrades", &showBoughtUpgrades);
+
+  for (const auto &upgradeID : UpgradeManager::UpgradesTypes)
     {
-      renderTradeButton (upgradeID);
+      if (showBoughtUpgrades
+          || gData->getUpgradeView ()->isAvailableForBuying (upgradeID))
+        {
+          renderTradeButton (upgradeID);
+        }
     }
 
   ImGui::End ();
