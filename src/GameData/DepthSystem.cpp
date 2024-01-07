@@ -50,7 +50,7 @@ DepthSystem::getData () const
 }
 
 void
-DepthSystem::loadData (DepthData data)
+DepthSystem::loadData (const DepthData &data)
 {
   currentProgress = data.currentProg;
   currentDepth = data.currentDepth;

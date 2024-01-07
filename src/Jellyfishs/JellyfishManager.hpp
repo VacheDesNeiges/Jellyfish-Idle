@@ -2,6 +2,7 @@
 #include "GameDataAccess.hpp"
 #include "Jellyfish.hpp"
 #include "Ressource.hpp"
+#include "SaveAndLoadable.hpp"
 #include <iostream>
 #include <map>
 #include <vector>
@@ -20,7 +21,8 @@ struct JellyfishData
 
 class GameDataView;
 
-class JellyfishManager : public GameDataAccess
+class JellyfishManager : public GameDataAccess,
+                         public SaveAndLoadable<JellyfishData>
 {
 public:
   JellyfishManager ();
@@ -35,8 +37,8 @@ public:
   std::map<RessourceType, double> getProductionRates () const;
   std::map<RessourceType, double> getConsumptionRates () const;
   std::string getJobDescription (JellyJobs) const;
-  JellyfishData getData () const;
-  void loadData (const JellyfishData &);
+  JellyfishData getData () const override;
+  void loadData (const JellyfishData &) override;
 
 private:
   std::vector<Jellyfish> jellies;

@@ -2,18 +2,24 @@
 
 #include "Achievement.hpp"
 #include "GameDataAccess.hpp"
+#include "SaveAndLoadable.hpp"
 #include <functional>
 #include <map>
+#include <utility>
 #include <vector>
 
-class AchievementSystem : public GameDataAccess
+class AchievementSystem
+    : public GameDataAccess,
+      public SaveAndLoadable<std::vector<std::pair<AchievementIDs, bool> > >
 {
 public:
   AchievementSystem ();
+  ~AchievementSystem () override = default;
   bool isUnlocked (AchievementIDs);
   void unlock (AchievementIDs);
-  std::vector<std::pair<AchievementIDs, bool> > getData () const;
-  void loadData (const std::vector<std::pair<AchievementIDs, bool> > &);
+  std::vector<std::pair<AchievementIDs, bool> > getData () const override;
+  void
+  loadData (const std::vector<std::pair<AchievementIDs, bool> > &) override;
   void checkAchievements ();
 
 private:

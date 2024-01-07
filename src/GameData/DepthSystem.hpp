@@ -1,13 +1,14 @@
 #pragma once
 
 #include "GameDataAccess.hpp"
+#include "SaveAndLoadable.hpp"
 struct DepthData
 {
   float currentProg;
   unsigned currentDepth;
 };
 
-class DepthSystem : public GameDataAccess
+class DepthSystem : public GameDataAccess, public SaveAndLoadable<DepthData>
 {
 public:
   float getCurrentProgress () const;
@@ -16,8 +17,8 @@ public:
   unsigned getMaximumDepth () const;
   void ExploreDepth (unsigned nJellies);
 
-  DepthData getData () const;
-  void loadData (DepthData);
+  DepthData getData () const override;
+  void loadData (const DepthData &) override;
 
 private:
   float currentProgress = 0;

@@ -2,12 +2,15 @@
 #include "Building.hpp"
 #include "GameDataAccess.hpp"
 #include "Ressource.hpp"
+#include "SaveAndLoadable.hpp"
 #include <map>
 #include <memory>
 #include <utility>
 #include <vector>
 
-class BuildingManager : public GameDataAccess
+class BuildingManager
+    : public GameDataAccess,
+      public SaveAndLoadable<std::vector<std::pair<BuildingType, unsigned> > >
 {
 public:
   BuildingManager ();
@@ -27,8 +30,9 @@ public:
   std::map<RessourceType, double> getProductionRates () const;
   std::map<RessourceType, double> getConsumptionRates () const;
 
-  std::vector<std::pair<BuildingType, unsigned> > getData () const;
-  void loadData (const std::vector<std::pair<BuildingType, unsigned> > &);
+  std::vector<std::pair<BuildingType, unsigned> > getData () const override;
+  void
+  loadData (const std::vector<std::pair<BuildingType, unsigned> > &) override;
 
 private:
   std::map<BuildingType, std::unique_ptr<Building> > buildings;

@@ -1,10 +1,14 @@
 #pragma once
 #include "GameDataAccess.hpp"
 #include "Ressource.hpp"
+#include "SaveAndLoadable.hpp"
 #include "map"
 #include <utility>
+#include <vector>
 
-class RessourceManager : public GameDataAccess
+class RessourceManager
+    : public GameDataAccess,
+      public SaveAndLoadable<std::vector<std::pair<RessourceType, double> > >
 {
 public:
   RessourceManager ();
@@ -25,8 +29,9 @@ public:
 
   void consume (const std::map<RessourceType, double> &);
   void produce (const std::map<RessourceType, double> &);
-  std::vector<std::pair<RessourceType, double> > getData () const;
-  void loadData (const std::vector<std::pair<RessourceType, double> > &);
+  std::vector<std::pair<RessourceType, double> > getData () const override;
+  void
+  loadData (const std::vector<std::pair<RessourceType, double> > &) override;
 
 private:
   std::map<RessourceType, Ressource> ressources;
