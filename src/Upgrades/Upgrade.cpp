@@ -30,7 +30,7 @@ Upgrade::getDescription () const
   return description;
 }
 
-std::list<std::pair<RessourceType, double> >
+std::vector<std::pair<RessourceType, double> >
 Upgrade::getCost () const
 {
   return cost;

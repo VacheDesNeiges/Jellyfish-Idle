@@ -19,7 +19,7 @@ public:
   bool doesIncreasesMaxJellies (BuildingType);
   unsigned getIncreaseToMaxJfish (BuildingType);
   void buy (BuildingType);
-  std::list<std::pair<RessourceType, double> > nextBuyCost (BuildingType);
+  std::vector<std::pair<RessourceType, double> > nextBuyCost (BuildingType);
 
   std::list<std::pair<RessourceType, double> > getProduction (BuildingType);
 

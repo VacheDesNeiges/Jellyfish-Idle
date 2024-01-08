@@ -2,7 +2,7 @@
 #include "AbilityManager.hpp"
 #include "InputHandler.hpp"
 #include "InsightAbility.hpp"
-#include "UIColors.hpp"
+#include "UIUtils.hpp"
 #include "fmt/core.h"
 #include "imgui.h"
 
@@ -53,37 +53,9 @@ UIAbilitiesPanel::setToolTip (AbilityType ability) const
                                ->getAbilityDescription (ability)
                                .c_str ());
 
-      ImGui::Text ("\nPrice : ");
-
       auto ressourcesNeeded = gData->getAbilitiesView ()->getCost (ability);
 
-      ImVec4 textColor;
-
-      for (const auto &[ressource, cost] : ressourcesNeeded)
-        {
-          auto requestedQuantity
-              = gData->getRessourcesView ()->getRessourceQuantity (ressource);
-          auto ressourceName
-              = gData->getRessourcesView ()->getRessourceName (ressource);
-
-          if (cost > gData->getRessourcesView ()->getRessourceMaxQuantity (
-                  ressource))
-            {
-              textColor = UIColors::redText;
-            }
-          else if (cost < requestedQuantity)
-            {
-              textColor = UIColors::greenText;
-            }
-          else
-            {
-              textColor = UIColors::greyText;
-            }
-          ImGui::TextColored (textColor, "%s",
-                              fmt::format ("{} : {:.2f}/{:.2f}", ressourceName,
-                                           requestedQuantity, cost)
-                                  .c_str ());
-        }
+      UIUtils::printCostsImGui (gData, ressourcesNeeded);
 
       ImGui::EndTooltip ();
     }

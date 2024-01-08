@@ -24,7 +24,7 @@ public:
   virtual void update () = 0;
   virtual std::list<std::pair<RessourceType, double> > getProdPerTick () = 0;
   unsigned getIncreaseToMaxJfish () const;
-  std::list<std::pair<RessourceType, double> > getNextBuyCost ();
+  std::vector<std::pair<RessourceType, double> > getNextBuyCost ();
   std::string getBuildingName () const;
   virtual std::string getDescription ();
   virtual std::string getAdvancedDescription ();

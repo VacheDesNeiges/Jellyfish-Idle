@@ -44,10 +44,10 @@ BuildingFactory::createBuildingInstance (BuildingType t)
     }
 }
 
-std::list<std::pair<RessourceType, double> >
+std::vector<std::pair<RessourceType, double> >
 Building::getNextBuyCost ()
 {
-  std::list<std::pair<RessourceType, double> > ret;
+  std::vector<std::pair<RessourceType, double> > ret;
   for (auto &[ressource, cost] : basePrice)
     {
       ret.emplace_back (

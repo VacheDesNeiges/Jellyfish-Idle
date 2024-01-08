@@ -37,7 +37,7 @@ UpgradeDataView::getDescription (UpgradeID id) const
   return upgrades->getDescription (id);
 }
 
-std::list<std::pair<RessourceType, double> >
+std::vector<std::pair<RessourceType, double> >
 UpgradeDataView::getCost (UpgradeID id) const
 {
   return upgrades->getCost (id);

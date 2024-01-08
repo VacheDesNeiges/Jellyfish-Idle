@@ -1,5 +1,6 @@
 #include "UIOctopusPanel.hpp"
 #include "InputHandler.hpp"
+#include "UIUtils.hpp"
 #include "UpgradeId.hpp"
 #include "UpgradeManager.hpp"
 #include "fmt/core.h"
@@ -51,6 +52,10 @@ UIOctopusPanel::renderTradeButton (UpgradeID id) const
           std::string tooltipText = fmt::format (
               "{}", gData->getUpgradeView ()->getDescription (id));
           ImGui::Text ("%s", tooltipText.c_str ());
+
+          auto cost = gData->getUpgradeView ()->getCost (id);
+          UIUtils::printCostsImGui (gData, cost);
+
           ImGui::EndTooltip ();
         }
 

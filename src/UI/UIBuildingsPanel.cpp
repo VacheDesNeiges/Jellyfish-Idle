@@ -2,7 +2,7 @@
 #include "Building.hpp"
 #include "GameDataView.hpp"
 #include "InputHandler.hpp"
-#include "UIColors.hpp"
+#include "UIUtils.hpp"
 #include "fmt/core.h"
 #include "imgui.h"
 
@@ -67,38 +67,11 @@ UIBuildingPanel::setToolTip (BuildingType building) const
                             | ImGuiHoveredFlags_AllowWhenDisabled)
       && ImGui::BeginTooltip ())
     {
-      ImVec4 textColor;
       auto ressourcesNeeded
           = gData->getBuildingsView ()->getNextBuyCost (building);
 
-      ImGui::Text ("Price :");
+      UIUtils::printCostsImGui (gData, ressourcesNeeded);
 
-      for (const auto &[ressource, cost] : ressourcesNeeded)
-        {
-          auto requestedQuantity
-              = gData->getRessourcesView ()->getRessourceQuantity (ressource);
-          auto ressourceName
-              = gData->getRessourcesView ()->getRessourceName (ressource);
-
-          if (cost > gData->getRessourcesView ()->getRessourceMaxQuantity (
-                  ressource))
-            {
-              textColor = UIColors::redText;
-            }
-          else if (cost < requestedQuantity)
-            {
-              textColor = UIColors::greenText;
-            }
-          else
-            {
-              textColor = UIColors::greyText;
-            }
-          ImGui::TextColored (textColor, "%s",
-                              fmt::format ("\n{} : {:.2f}/{:.2f}",
-                                           ressourceName, requestedQuantity,
-                                           cost)
-                                  .c_str ());
-        }
       ImGui::EndTooltip ();
     }
 }

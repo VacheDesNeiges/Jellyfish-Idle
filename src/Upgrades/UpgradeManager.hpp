@@ -19,7 +19,7 @@ public:
   bool isBought (UpgradeID) const;
   std::string_view getName (UpgradeID) const;
   std::string_view getDescription (UpgradeID) const;
-  std::list<std::pair<RessourceType, double> > getCost (UpgradeID) const;
+  std::vector<std::pair<RessourceType, double> > getCost (UpgradeID) const;
 
   std::vector<std::pair<UpgradeID, bool> > getData () const override;
   void loadData (const std::vector<std::pair<UpgradeID, bool> > &) override;

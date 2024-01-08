@@ -51,7 +51,7 @@ UpgradeManager::getDescription (UpgradeID id) const
   return upgrades.at (id).getDescription ();
 }
 
-std::list<std::pair<RessourceType, double> >
+std::vector<std::pair<RessourceType, double> >
 UpgradeManager::getCost (UpgradeID id) const
 {
   return upgrades.at (id).getCost ();

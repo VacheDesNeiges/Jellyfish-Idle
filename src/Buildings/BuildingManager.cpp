@@ -31,7 +31,7 @@ BuildingManager::getProduction (BuildingType t)
   return buildings[t]->getProdPerTick ();
 }
 
-std::list<std::pair<RessourceType, double> >
+std::vector<std::pair<RessourceType, double> >
 BuildingManager::nextBuyCost (BuildingType t)
 {
   return buildings[t]->getNextBuyCost ();
