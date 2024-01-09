@@ -9,13 +9,16 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}\
 -pedantic \
 -Wshadow \
 -Wconversion \
--O3 \
--fPIE \
--g \
--fprofile-instr-generate=build/default.profraw \
--fcoverage-mapping")
+-fPIE")
+
+if(DEBUG_MODE)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g3")
+else()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
+endif()
 
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}\
+-std=c++20 \
 -lgtest \
 -lpthread \
 -lstdc++ \
@@ -38,7 +41,7 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}\
         ${CMAKE_SOURCE_DIR}/src/Upgrades
     )
     
-# Source files for your main application
+# Source files for the main application
 file(GLOB_RECURSE SRCS ${CMAKE_SOURCE_DIR}/src/*.cpp ${CMAKE_SOURCE_DIR}/imgui/*.cpp)
 list(FILTER SRCS EXCLUDE REGEX "Main.cpp|TestsMain.cpp")
 
@@ -52,7 +55,7 @@ set_target_properties(game PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${BUILD_DIR}
 )
 
-# Source files for your tests
+# Source files for the tests
 file(GLOB_RECURSE TEST_SRCS ${CMAKE_SOURCE_DIR}/tests/*.cpp)
 list(FILTER TEST_SRCS EXCLUDE REGEX "Main.cpp|TestsMain.cpp")
 

@@ -14,6 +14,7 @@ class BuildingManager
 {
 public:
   BuildingManager ();
+  ~BuildingManager () override = default;
   void updateRessources ();
   unsigned getCurrentQuantity (BuildingType);
   bool doesIncreasesMaxJellies (BuildingType);

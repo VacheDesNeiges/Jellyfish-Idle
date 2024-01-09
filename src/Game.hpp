@@ -20,7 +20,7 @@ private:
   void initialize ();
   void loadFont ();
   void loadBackgroundImage ();
-  void setImguiStyle ();
+  void setImguiStyle () const;
   std::string getPath () const;
 
   SDL_Window *window;

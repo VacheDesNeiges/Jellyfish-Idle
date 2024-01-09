@@ -1,5 +1,6 @@
 #include "UIUtils.hpp"
 #include "fmt/core.h"
+#include <cmath>
 
 void
 UIUtils::printCostsImGui (
@@ -19,6 +20,7 @@ UIUtils::printCostsImGui (
           = gData->getRessourcesView ()->getRessourceQuantity (ressource);
       auto ressourceName
           = gData->getRessourcesView ()->getRessourceName (ressource);
+      std::string timeToBuyable = "";
 
       if (cost
           > gData->getRessourcesView ()->getRessourceMaxQuantity (ressource))
@@ -32,10 +34,43 @@ UIUtils::printCostsImGui (
       else
         {
           textColor = UIColors::greyText;
+
+          timeToBuyable += "( ";
+          // TODO move to a function somewhere
+          auto prodPerSec
+              = (gData->getRessourcesView ()->getRessourceProduction (
+                     ressource)
+                 - gData->getRessourcesView ()->getRessourceConsumption (
+                     ressource))
+                * 2;
+
+          auto missingRessources
+              = cost
+                - gData->getRessourcesView ()->getRessourceQuantity (
+                    ressource);
+
+          auto secondsToRequestedQuantity = missingRessources / prodPerSec;
+
+          if (secondsToRequestedQuantity >= 3600)
+            {
+              auto nbHours = std::floor (secondsToRequestedQuantity / 3600);
+              secondsToRequestedQuantity -= (nbHours * 3600);
+              timeToBuyable += fmt::format ("{} Hours ", nbHours);
+            }
+
+          if (secondsToRequestedQuantity >= 60)
+            {
+              auto nbMinutes = std::floor (secondsToRequestedQuantity / 60);
+              secondsToRequestedQuantity -= (nbMinutes * 60);
+              timeToBuyable += fmt::format ("{} Minutes ", nbMinutes);
+            }
+
+          timeToBuyable += fmt::format (
+              "{} Seconds )", std::ceil (secondsToRequestedQuantity));
         }
       ImGui::TextColored (textColor, "%s",
-                          fmt::format ("{} : {:.2f}/{:.2f}", ressourceName,
-                                       requestedQuantity, cost)
+                          fmt::format ("{} : {:.2f}/{:.2f}  {}", ressourceName,
+                                       requestedQuantity, cost, timeToBuyable)
                               .c_str ());
     }
 }

@@ -14,9 +14,6 @@ main ()
 // TODO : implement new octopus upgrades (canalizing and writing)
 // TODO : add a cooldown to abilities;
 // TODO : Catchup on load
-// TODO : unify the button size in a file. Maybe rename UIColors.hpp to
-// UISettings.hpp and create another namespace there
-// TODO : remove octopus upgrades once bought and display their price
-// TODO : add an option to see octopus upgrade that are already bought (greyed)
-// TODO : add upgrades to save system
+// TODO : unify the button size in a file.
 // TODO : add a time estimation for buyables tooltips
+// TODO : grey out upgrades once they are bought (when displayed optionaly)

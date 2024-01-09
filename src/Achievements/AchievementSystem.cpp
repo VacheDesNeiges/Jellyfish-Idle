@@ -130,7 +130,8 @@ void
 AchievementSystem::checkAchievements ()
 {
   using enum AchievementIDs;
-  for (auto a = static_cast<int> (PlanktonField); a != static_cast<int> (Last);
+  for (auto a = static_cast<int> (PlanktonField);
+       a != static_cast<int> (Last); // TODO change for a constexpr array
        a++)
     {
       auto id = static_cast<AchievementIDs> (a);

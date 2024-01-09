@@ -28,7 +28,7 @@ GameSynchronizer::gameTick () const
   ressources->zerosValuePerTick ();
   // Ressource consumption
   ressources->consume (jellies->getConsumptionRates ());
-  // Ressource conversion
+  // Ressource conversion here
   // Ressource production
   ressources->produce (addMaps (buildings->getProductionRates (),
                                 jellies->getProductionRates ()));

@@ -10,6 +10,7 @@
 #include <SDL2/SDL_surface.h>
 #include <cassert>
 #include <chrono>
+#include <cstdio>
 #include <exception>
 #include <filesystem>
 #include <gtest/gtest.h>
@@ -138,16 +139,18 @@ Game::initialize ()
 std::string
 Game::getPath () const
 {
-  char buff[PATH_MAX];
-  ssize_t len = ::readlink ("/proc/self/exe", buff, PATH_MAX - 1);
+  std::string path;
+  path.resize (PATH_MAX);
+
+  ssize_t len = ::readlink ("/proc/self/exe", &path[0], PATH_MAX - 1);
+
   if (len != -1)
     {
-      buff[len] = '\0';
-      std::string ret (buff);
-      std::size_t found = ret.rfind ('/');
+      path.resize (static_cast<unsigned long> (len));
+      std::size_t found = path.rfind ('/');
       if (found != std::string::npos)
-        ret = ret.substr (0, found);
-      return ret;
+        path = path.substr (0, found);
+      return path;
     }
   assert (false);
 }
@@ -161,7 +164,7 @@ Game::loadFont ()
 }
 
 void
-Game::setImguiStyle ()
+Game::setImguiStyle () const
 {
   ImGuiStyle &style = ImGui::GetStyle ();
   style.FrameRounding = 12.f;
