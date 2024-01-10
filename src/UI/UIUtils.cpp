@@ -36,7 +36,8 @@ UIUtils::printCostsImGui (
           textColor = UIColors::greyText;
 
           timeToBuyable += "( ";
-          // TODO move to a function somewhere
+          // TODO move to a function somewhere, also take care of the tick per
+          // sec value that might change
           auto prodPerSec
               = (gData->getRessourcesView ()->getRessourceProduction (
                      ressource)
@@ -65,8 +66,12 @@ UIUtils::printCostsImGui (
               timeToBuyable += fmt::format ("{} Minutes ", nbMinutes);
             }
 
-          timeToBuyable += fmt::format (
-              "{} Seconds )", std::ceil (secondsToRequestedQuantity));
+          if (secondsToRequestedQuantity >= 1)
+            {
+              timeToBuyable += fmt::format (
+                  "{} Seconds ", std::floor (secondsToRequestedQuantity));
+            }
+          timeToBuyable += fmt::format (")");
         }
       ImGui::TextColored (textColor, "%s",
                           fmt::format ("{} : {:.2f}/{:.2f}  {}", ressourceName,

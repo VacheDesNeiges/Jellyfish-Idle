@@ -111,13 +111,13 @@ JellyfishManager::setBonusMaxJellies (unsigned n)
   maxNumJellies = n + 1;
 }
 
-std::map<RessourceType, double>
+std::unordered_map<RessourceType, double>
 JellyfishManager::getProductionRates () const
 {
   using enum JellyJobs;
   using enum RessourceType;
 
-  std::map<RessourceType, double> result;
+  std::unordered_map<RessourceType, double> result;
 
   result[Food] = jobNumbers.at (GatherFood) * 3;
   result[Sand] = jobNumbers.at (GatherSand) * 0.04;
@@ -127,10 +127,10 @@ JellyfishManager::getProductionRates () const
   return result;
 }
 
-std::map<RessourceType, double>
+std::unordered_map<RessourceType, double>
 JellyfishManager::getConsumptionRates () const
 {
-  std::map<RessourceType, double> result;
+  std::unordered_map<RessourceType, double> result;
   using enum RessourceType;
   result[Food] = static_cast<double> (getNumJellies ()) * 0.5;
   return result;

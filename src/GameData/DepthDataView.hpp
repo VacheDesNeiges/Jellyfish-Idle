@@ -1,6 +1,7 @@
 #pragma once
-#include "DepthSystem.hpp"
 #include <memory>
+
+class DepthSystem;
 
 class DepthDataView
 {

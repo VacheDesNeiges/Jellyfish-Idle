@@ -3,8 +3,8 @@
 #include "GameDataAccess.hpp"
 #include "Ressource.hpp"
 #include "SaveAndLoadable.hpp"
-#include <map>
 #include <memory>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -28,13 +28,13 @@ public:
   std::string getDescription (BuildingType);
   std::string getAdvancedDescription (BuildingType);
 
-  std::map<RessourceType, double> getProductionRates () const;
-  std::map<RessourceType, double> getConsumptionRates () const;
+  std::unordered_map<RessourceType, double> getProductionRates () const;
+  std::unordered_map<RessourceType, double> getConsumptionRates () const;
 
   std::vector<std::pair<BuildingType, unsigned> > getData () const override;
   void
   loadData (const std::vector<std::pair<BuildingType, unsigned> > &) override;
 
 private:
-  std::map<BuildingType, std::unique_ptr<Building> > buildings;
+  std::unordered_map<BuildingType, std::unique_ptr<Building> > buildings;
 };

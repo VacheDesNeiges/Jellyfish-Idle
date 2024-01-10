@@ -35,6 +35,8 @@ GameSynchronizer::gameTick () const
 
   depth->ExploreDepth (jellies->getNum (JellyJobs::ExploreTheDepths));
 
+  // Jobs experience, with bool value return to update multipliers
+
   checkAchievements ();
   checkJellyfishArrival ();
 }
@@ -68,9 +70,10 @@ GameSynchronizer::checkAchievements () const
   achievements->checkAchievements ();
 }
 
-std::map<RessourceType, double>
-GameSynchronizer::addMaps (const std::map<RessourceType, double> &map1,
-                           const std::map<RessourceType, double> &map2) const
+std::unordered_map<RessourceType, double>
+GameSynchronizer::addMaps (
+    const std::unordered_map<RessourceType, double> &map1,
+    const std::unordered_map<RessourceType, double> &map2) const
 {
   auto result = map1;
 

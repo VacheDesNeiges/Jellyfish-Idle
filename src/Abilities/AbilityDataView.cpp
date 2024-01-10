@@ -1,4 +1,5 @@
 #include "AbilityDataView.hpp"
+
 #include "AbilityManager.hpp"
 #include "InsightAbility.hpp"
 #include "RessourceManager.hpp"

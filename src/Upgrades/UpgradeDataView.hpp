@@ -1,9 +1,11 @@
 #pragma once
-#include "GameDataView.hpp"
-#include "Ressource.hpp"
-#include "UpgradeId.hpp"
-#include "UpgradeManager.hpp"
 #include <memory>
+#include <vector>
+
+class UpgradeManager;
+class RessourceManager;
+enum class UpgradeID;
+enum class RessourceType;
 
 class UpgradeDataView
 {

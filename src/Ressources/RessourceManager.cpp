@@ -74,7 +74,8 @@ RessourceManager::getNetProduction (RessourceType t)
 }
 
 void
-RessourceManager::consume (const std::map<RessourceType, double> &rates)
+RessourceManager::consume (
+    const std::unordered_map<RessourceType, double> &rates)
 {
   for (const auto &[type, rate] : rates)
     {
@@ -84,7 +85,8 @@ RessourceManager::consume (const std::map<RessourceType, double> &rates)
 }
 
 void
-RessourceManager::produce (const std::map<RessourceType, double> &rates)
+RessourceManager::produce (
+    const std::unordered_map<RessourceType, double> &rates)
 {
   for (const auto &[type, rate] : rates)
     {

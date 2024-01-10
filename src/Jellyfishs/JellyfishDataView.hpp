@@ -1,6 +1,8 @@
 #pragma once
-#include "JellyfishManager.hpp"
 #include <memory>
+
+class JellyfishManager;
+enum class JellyJobs;
 
 class JellyFishDataView
 {

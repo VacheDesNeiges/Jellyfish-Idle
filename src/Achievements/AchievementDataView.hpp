@@ -1,10 +1,13 @@
 #pragma once
-#include "AchievementSystem.hpp"
-#include "Building.hpp"
-#include "InsightAbility.hpp"
-#include "Jellyfish.hpp"
-#include "UpgradeId.hpp"
 #include <memory>
+
+class AchievementSystem;
+enum class BuildingType;
+enum class JellyJobs;
+enum class AchievementIDs;
+enum class RessourceType;
+enum class AbilityType;
+enum class UpgradeID;
 
 class AchievementDataView
 {

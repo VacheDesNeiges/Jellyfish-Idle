@@ -1,5 +1,4 @@
 #pragma once
-
 #include "AbilityDataView.hpp"
 #include "AchievementDataView.hpp"
 #include "BuildingDataView.hpp"
@@ -10,28 +9,15 @@
 
 #include <memory>
 
-// --- Forward Declarations to avoid circular dependecies ---
+// --- Forward Declarations to avoid circular dependencies ---
 
 class RessourceManager;
-class RessourceDataView;
-
 class BuildingManager;
-class BuildingDataView;
-
 class JellyfishManager;
-class JellyFishDataView;
-
 class AchievementSystem;
-class AchievementDataView;
-
 class AbilityManager;
-class AbilityDataView;
-
 class DepthSystem;
-class DepthDataView;
-
 class UpgradeManager;
-class UpgradeDataView;
 
 // Gives a read only access to the variables of the game
 class GameDataView

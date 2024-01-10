@@ -2,7 +2,7 @@
 #include "GameDataAccess.hpp"
 #include "Ressource.hpp"
 #include "SaveAndLoadable.hpp"
-#include "map"
+#include "unordered_map"
 #include <utility>
 #include <vector>
 
@@ -27,12 +27,12 @@ public:
   void add (RessourceType, double);
   void addToProdPerTick (RessourceType, double);
 
-  void consume (const std::map<RessourceType, double> &);
-  void produce (const std::map<RessourceType, double> &);
+  void consume (const std::unordered_map<RessourceType, double> &);
+  void produce (const std::unordered_map<RessourceType, double> &);
   std::vector<std::pair<RessourceType, double> > getData () const override;
   void
   loadData (const std::vector<std::pair<RessourceType, double> > &) override;
 
 private:
-  std::map<RessourceType, Ressource> ressources;
+  std::unordered_map<RessourceType, Ressource> ressources;
 };

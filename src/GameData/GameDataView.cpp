@@ -1,18 +1,26 @@
 #include "GameDataView.hpp"
+
 #include "AbilityDataView.hpp"
 #include "AbilityManager.hpp"
+
 #include "AchievementDataView.hpp"
 #include "AchievementSystem.hpp"
+
 #include "BuildingDataView.hpp"
 #include "BuildingManager.hpp"
+
 #include "DepthDataView.hpp"
 #include "DepthSystem.hpp"
+
 #include "JellyfishDataView.hpp"
 #include "JellyfishManager.hpp"
+
 #include "RessourceDataView.hpp"
 #include "RessourceManager.hpp"
+
 #include "UpgradeDataView.hpp"
 #include "UpgradeManager.hpp"
+
 #include <memory>
 
 GameDataView::GameDataView (std::shared_ptr<RessourceManager> r,

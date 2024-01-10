@@ -6,7 +6,7 @@
 #include "Upgrade.hpp"
 #include "UpgradeId.hpp"
 #include <functional>
-#include <map>
+#include <unordered_map>
 
 class UpgradeManager
     : public GameDataAccess,
@@ -29,6 +29,6 @@ public:
           UpgradeID::AbilityLightning, UpgradeID::Manufacturing };
 
 private:
-  std::map<UpgradeID, Upgrade> upgrades;
-  std::map<UpgradeID, std::function<bool ()> > upgradesConditions;
+  std::unordered_map<UpgradeID, Upgrade> upgrades;
+  std::unordered_map<UpgradeID, std::function<bool ()> > upgradesConditions;
 };

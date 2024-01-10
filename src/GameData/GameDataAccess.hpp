@@ -1,6 +1,6 @@
 #pragma once
+#include "GameDataView.hpp"
 #include <memory>
-class GameDataView;
 
 class GameDataAccess
 {

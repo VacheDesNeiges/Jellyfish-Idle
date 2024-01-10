@@ -4,7 +4,7 @@
 #include "Ressource.hpp"
 #include "SaveAndLoadable.hpp"
 #include <iostream>
-#include <map>
+#include <unordered_map>
 #include <vector>
 
 struct JellyfishData
@@ -34,15 +34,15 @@ public:
   bool unasign (JellyJobs);
   void createJellyfish ();
   double getFoodRequiredPerJellyfishPerSec () const;
-  std::map<RessourceType, double> getProductionRates () const;
-  std::map<RessourceType, double> getConsumptionRates () const;
+  std::unordered_map<RessourceType, double> getProductionRates () const;
+  std::unordered_map<RessourceType, double> getConsumptionRates () const;
   std::string getJobDescription (JellyJobs) const;
   JellyfishData getData () const override;
   void loadData (const JellyfishData &) override;
 
 private:
   std::vector<Jellyfish> jellies;
-  std::map<JellyJobs, unsigned> jobNumbers;
+  std::unordered_map<JellyJobs, unsigned> jobNumbers;
   unsigned maxNumJellies = 1;
 
   bool numJobsUpToDate = false;

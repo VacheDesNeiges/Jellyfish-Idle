@@ -3,7 +3,7 @@
 #include "GameDataAccess.hpp"
 #include "InsightAbility.hpp"
 #include "Ressource.hpp"
-#include <map>
+#include <unordered_map>
 
 class AbilityManager : public GameDataAccess
 {
@@ -16,5 +16,5 @@ public:
   std::string getAbilityName (AbilityType);
 
 private:
-  std::map<AbilityType, std::unique_ptr<InsightAbility> > abilities;
+  std::unordered_map<AbilityType, std::unique_ptr<InsightAbility> > abilities;
 };

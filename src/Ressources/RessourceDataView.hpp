@@ -1,6 +1,9 @@
 #pragma once
-#include "RessourceManager.hpp"
 #include <memory>
+
+class RessourceManager;
+enum class RessourceType;
+
 class RessourceDataView
 {
 public:

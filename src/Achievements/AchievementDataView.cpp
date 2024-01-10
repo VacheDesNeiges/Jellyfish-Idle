@@ -1,6 +1,9 @@
 #include "AchievementDataView.hpp"
 #include "AchievementIDs.hpp"
 #include "AchievementSystem.hpp"
+#include "Building.hpp"
+#include "InsightAbility.hpp"
+#include "Jellyfish.hpp"
 #include "UpgradeId.hpp"
 
 AchievementDataView::AchievementDataView (std::shared_ptr<AchievementSystem> a)

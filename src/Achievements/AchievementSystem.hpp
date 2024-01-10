@@ -4,7 +4,7 @@
 #include "GameDataAccess.hpp"
 #include "SaveAndLoadable.hpp"
 #include <functional>
-#include <map>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -23,6 +23,7 @@ public:
   void checkAchievements ();
 
 private:
-  std::map<AchievementIDs, Achievement> achievements;
-  std::map<AchievementIDs, std::function<bool ()> > achievementConditions;
+  std::unordered_map<AchievementIDs, Achievement> achievements;
+  std::unordered_map<AchievementIDs, std::function<bool ()> >
+      achievementConditions;
 };

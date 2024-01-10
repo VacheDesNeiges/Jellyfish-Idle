@@ -55,10 +55,10 @@ BuildingManager::getAdvancedDescription (BuildingType t)
   return buildings[t]->getAdvancedDescription ();
 }
 
-std::map<RessourceType, double>
+std::unordered_map<RessourceType, double>
 BuildingManager::getProductionRates () const
 {
-  std::map<RessourceType, double> result;
+  std::unordered_map<RessourceType, double> result;
   for (const auto &[_, b] : buildings)
     {
       for (const auto &[rType, productionRate] : b->getProdPerTick ())

@@ -1,12 +1,8 @@
 #include "AchievementSystem.hpp"
+
 #include "Achievement.hpp"
 #include "AchievementIDs.hpp"
-#include "BuildingDataView.hpp"
-#include "DepthDataView.hpp"
-#include "JellyfishDataView.hpp"
 #include "Ressource.hpp"
-#include "RessourceDataView.hpp"
-#include "UpgradeDataView.hpp"
 #include "UpgradeId.hpp"
 #include <utility>
 #include <vector>

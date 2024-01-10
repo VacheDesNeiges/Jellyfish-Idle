@@ -3,8 +3,8 @@
 #include "GameDataView.hpp"
 #include "Ressource.hpp"
 #include "UpgradeManager.hpp"
-#include <map>
 #include <memory>
+#include <unordered_map>
 
 class RessourceManager;
 class BuildingManager;
@@ -37,7 +37,7 @@ private:
   void checkAchievements () const;
   void checkJellyfishArrival () const;
 
-  std::map<RessourceType, double>
-  addMaps (const std::map<RessourceType, double> &,
-           const std::map<RessourceType, double> &) const;
+  std::unordered_map<RessourceType, double>
+  addMaps (const std::unordered_map<RessourceType, double> &,
+           const std::unordered_map<RessourceType, double> &) const;
 };

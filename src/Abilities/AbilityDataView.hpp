@@ -1,10 +1,11 @@
 #pragma once
-#include "AbilityManager.hpp"
-#include "GameDataAccess.hpp"
-#include "InsightAbility.hpp"
-#include "RessourceManager.hpp"
 #include <memory>
 #include <vector>
+
+class AbilityManager;
+class RessourceManager;
+enum class AbilityType;
+enum class RessourceType;
 
 class AbilityDataView
 {
