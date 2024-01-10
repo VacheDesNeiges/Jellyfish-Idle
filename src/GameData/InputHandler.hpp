@@ -1,20 +1,16 @@
 #pragma once
-
-#include "AbilityManager.hpp"
-#include "Building.hpp"
-#include "BuildingManager.hpp"
-#include "InsightAbility.hpp"
-#include "Jellyfish.hpp"
-#include "JellyfishManager.hpp"
-#include "RessourceManager.hpp"
-#include "UpgradeId.hpp"
-#include "UpgradeManager.hpp"
+#include "GameSystems.hpp"
 #include <memory>
 
 class RessourceManager;
 class JellyfishManager;
 class BuildingManager;
 class AbilityManager;
+class UpgradeManager;
+enum class BuildingType;
+enum class JellyJobs;
+enum class AbilityType;
+enum class UpgradeID;
 
 class InputHandler
 {

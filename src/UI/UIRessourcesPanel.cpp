@@ -1,4 +1,5 @@
 #include "UIRessourcesPanel.hpp"
+#include "Ressource.hpp"
 #include "fmt/core.h"
 #include "imgui.h"
 #include <iomanip>

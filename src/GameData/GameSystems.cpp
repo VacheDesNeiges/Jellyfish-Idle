@@ -1,48 +1,56 @@
 #include "GameSystems.hpp"
+
+#include "AbilityManager.hpp"
+#include "AchievementSystem.hpp"
+#include "BuildingManager.hpp"
 #include "DepthSystem.hpp"
+#include "JellyfishManager.hpp"
+#include "MultipliersRegister.hpp"
+#include "RessourceManager.hpp"
+#include "UpgradeManager.hpp"
+
 #include "GameDataAccess.hpp"
 #include "GameDataView.hpp"
 #include "GameSynchronizer.hpp"
 #include "InputHandler.hpp"
+
 #include "SaveSystem.hpp"
-#include "UpgradeManager.hpp"
 #include <memory>
 #include <string>
 
 GameSystems::GameSystems ()
 {
-  ressources = std::make_shared<RessourceManager> ();
-  buildings = std::make_shared<BuildingManager> ();
-  jellies = std::make_shared<JellyfishManager> ();
-  achievements = std::make_shared<AchievementSystem> ();
-  abilities = std::make_shared<AbilityManager> ();
-  depth = std::make_shared<DepthSystem> ();
-  upgrades = std::make_shared<UpgradeManager> ();
+  systems = std::make_shared<SystemPtrs> ();
+  systems->ressources = std::make_shared<RessourceManager> ();
+  systems->buildings = std::make_shared<BuildingManager> ();
+  systems->jellies = std::make_shared<JellyfishManager> ();
+  systems->achievements = std::make_shared<AchievementSystem> ();
+  systems->abilities = std::make_shared<AbilityManager> ();
+  systems->depth = std::make_shared<DepthSystem> ();
+  systems->upgrades = std::make_shared<UpgradeManager> ();
+  systems->multipliers = std::make_shared<MultipliersRegister> ();
 
-  dataView = std::make_shared<GameDataView> (ressources, buildings, jellies,
-                                             achievements, abilities, depth,
-                                             upgrades);
+  dataView = std::make_shared<GameDataView> (systems);
 
   GameDataAccess::bindDataView (dataView);
 
-  inputHandler = std::make_shared<InputHandler> (ressources, buildings,
-                                                 jellies, abilities, upgrades);
+  inputHandler = std::make_shared<InputHandler> (
+      systems->ressources, systems->buildings, systems->jellies,
+      systems->abilities, systems->upgrades);
 
-  synchronizer = std::make_unique<GameSynchronizer> (
-      ressources, buildings, jellies, achievements, abilities, depth,
-      upgrades);
+  synchronizer = std::make_unique<GameSynchronizer> (systems);
 }
 
 void
 GameSystems::save () const
 {
   SaveData data;
-  data.buildings = buildings->getData ();
-  data.achievements = achievements->getData ();
-  data.ressources = ressources->getData ();
-  data.jellies = jellies->getData ();
-  data.depth = depth->getData ();
-  data.upgrades = upgrades->getData ();
+  data.buildings = systems->buildings->getData ();
+  data.achievements = systems->achievements->getData ();
+  data.ressources = systems->ressources->getData ();
+  data.jellies = systems->jellies->getData ();
+  data.depth = systems->depth->getData ();
+  data.upgrades = systems->upgrades->getData ();
 
   SaveSystem::save (data);
 }
@@ -51,12 +59,12 @@ void
 GameSystems::loadSave (const std::string &path) const
 {
   auto loadedData = SaveSystem::loadFromFile (path);
-  buildings->loadData (loadedData.buildings);
-  achievements->loadData (loadedData.achievements);
-  ressources->loadData (loadedData.ressources);
-  jellies->loadData (loadedData.jellies);
-  depth->loadData (loadedData.depth);
-  upgrades->loadData (loadedData.upgrades);
+  systems->buildings->loadData (loadedData.buildings);
+  systems->achievements->loadData (loadedData.achievements);
+  systems->ressources->loadData (loadedData.ressources);
+  systems->jellies->loadData (loadedData.jellies);
+  systems->depth->loadData (loadedData.depth);
+  systems->upgrades->loadData (loadedData.upgrades);
   synchronizer->update ();
 }
 

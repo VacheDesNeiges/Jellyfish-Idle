@@ -1,4 +1,6 @@
 #include "MultipliersRegister.hpp"
+#include "Building.hpp"
+#include "MultipliersConstants.hpp"
 #include "MultipliersIDs.hpp"
 
 MultipliersRegister::MultipliersRegister ()
@@ -31,10 +33,14 @@ MultipliersRegister::recomputeMultipliers ()
       switch (multi)
         {
         case MultiplierID::MiningProdPerMineMultiplier:
-          break;
+          auto minesQuant
+              = getDataView ()->getBuildingsView ()->getBuildingQuantity (
+                  BuildingType::Mines);
 
-        default:
-          continue;
+          multipliers[multi]
+              += MultipliersConstants::MiningProdPerMine * minesQuant;
+
+          break;
         }
     }
 }

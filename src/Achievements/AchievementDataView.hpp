@@ -2,10 +2,10 @@
 #include <memory>
 
 class AchievementSystem;
+enum class RessourceType;
 enum class BuildingType;
 enum class JellyJobs;
 enum class AchievementIDs;
-enum class RessourceType;
 enum class AbilityType;
 enum class UpgradeID;
 

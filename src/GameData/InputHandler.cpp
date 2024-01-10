@@ -1,4 +1,6 @@
 #include "InputHandler.hpp"
+#include "AbilityManager.hpp"
+#include "BuildingManager.hpp"
 #include "JellyfishManager.hpp"
 #include "RessourceManager.hpp"
 #include "UpgradeId.hpp"

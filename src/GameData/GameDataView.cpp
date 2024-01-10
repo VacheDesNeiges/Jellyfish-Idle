@@ -1,84 +1,80 @@
 #include "GameDataView.hpp"
 
 #include "AbilityDataView.hpp"
-#include "AbilityManager.hpp"
-
 #include "AchievementDataView.hpp"
-#include "AchievementSystem.hpp"
-
 #include "BuildingDataView.hpp"
-#include "BuildingManager.hpp"
-
 #include "DepthDataView.hpp"
-#include "DepthSystem.hpp"
-
 #include "JellyfishDataView.hpp"
-#include "JellyfishManager.hpp"
-
+#include "MultiplierDataView.hpp"
 #include "RessourceDataView.hpp"
-#include "RessourceManager.hpp"
-
 #include "UpgradeDataView.hpp"
-#include "UpgradeManager.hpp"
+
+#include "GameSystems.hpp"
 
 #include <memory>
 
-GameDataView::GameDataView (std::shared_ptr<RessourceManager> r,
-                            std::shared_ptr<BuildingManager> b,
-                            std::shared_ptr<JellyfishManager> j,
-                            std::shared_ptr<AchievementSystem> ach,
-                            std::shared_ptr<AbilityManager> abi,
-                            std::shared_ptr<DepthSystem> d,
-                            std::shared_ptr<UpgradeManager> u)
+GameDataView::GameDataView (std::shared_ptr<SystemPtrs> s) : systems (s)
 
-    : ressources (std::make_shared<RessourceDataView> (r)),
-      buildings (std::make_shared<BuildingDataView> (b, r)),
-      jellies (std::make_shared<JellyFishDataView> (j)),
-      achievements (std::make_shared<AchievementDataView> (ach)),
-      abilities (std::make_shared<AbilityDataView> (abi, r)),
-      depth (std::make_shared<DepthDataView> (d)),
-      upgrades (std::make_shared<UpgradeDataView> (u, r))
 {
+  ressourcesView = std::make_shared<RessourceDataView> (systems->ressources);
+  buildingsView = std::make_shared<BuildingDataView> (systems->buildings,
+                                                      systems->ressources);
+  jelliesView = std::make_shared<JellyFishDataView> (systems->jellies);
+  achievementsView
+      = std::make_shared<AchievementDataView> (systems->achievements);
+  abilitiesView = std::make_shared<AbilityDataView> (systems->abilities,
+                                                     systems->ressources);
+  depthView = std::make_shared<DepthDataView> (systems->depth);
+  upgradesView = std::make_shared<UpgradeDataView> (systems->upgrades,
+                                                    systems->ressources);
+  multipliersView
+      = std::make_shared<MultiplierDataView> (systems->multipliers);
 }
 
 std::shared_ptr<RessourceDataView>
 GameDataView::getRessourcesView () const
 {
-  return ressources;
+  return ressourcesView;
 }
 
 std::shared_ptr<BuildingDataView>
 GameDataView::getBuildingsView () const
 {
-  return buildings;
+  return buildingsView;
 }
 
 std::shared_ptr<JellyFishDataView>
 GameDataView::getJelliesView () const
 {
-  return jellies;
+  return jelliesView;
 }
 
 std::shared_ptr<AchievementDataView>
 GameDataView::getAchievementsView () const
 {
-  return achievements;
+  return achievementsView;
 }
 
 std::shared_ptr<AbilityDataView>
 GameDataView::getAbilitiesView () const
 {
-  return abilities;
+  return abilitiesView;
 }
 
 std::shared_ptr<DepthDataView>
 GameDataView::getDepthView () const
 {
-  return depth;
+  return depthView;
 }
 
 std::shared_ptr<UpgradeDataView>
 GameDataView::getUpgradeView () const
 {
-  return upgrades;
+  return upgradesView;
+}
+
+std::shared_ptr<MultiplierDataView>
+GameDataView::getMultiplierView () const
+{
+  return multipliersView;
 }
