@@ -1,4 +1,5 @@
 #include "Mine.hpp"
+#include "MultipliersIDs.hpp"
 #include "Ressource.hpp"
 
 Mine::Mine ()

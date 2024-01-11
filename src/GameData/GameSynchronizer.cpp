@@ -7,6 +7,7 @@
 #include "GameSystems.hpp"
 #include "JellyfishManager.hpp"
 #include "MultiplierDataView.hpp"
+#include "MultipliersRegister.hpp"
 #include "RessourceManager.hpp"
 #include "UpgradeManager.hpp"
 #include <memory>
@@ -84,5 +85,6 @@ GameSynchronizer::addMaps (
 void
 GameSynchronizer::update () const
 {
+  systems->multipliers->recomputeMultipliers ();
   gameTick ();
 }

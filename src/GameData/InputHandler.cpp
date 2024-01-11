@@ -2,6 +2,7 @@
 #include "AbilityManager.hpp"
 #include "BuildingManager.hpp"
 #include "JellyfishManager.hpp"
+#include "MultipliersRegister.hpp"
 #include "RessourceManager.hpp"
 #include "UpgradeId.hpp"
 #include "UpgradeManager.hpp"
@@ -11,9 +12,11 @@ InputHandler::InputHandler (std::shared_ptr<RessourceManager> r,
                             std::shared_ptr<BuildingManager> b,
                             std::shared_ptr<JellyfishManager> j,
                             std::shared_ptr<AbilityManager> abi,
-                            std::shared_ptr<UpgradeManager> u)
+                            std::shared_ptr<UpgradeManager> u,
+                            std::shared_ptr<MultipliersRegister> m)
 
-    : ressources (r), buildings (b), jellies (j), abilities (abi), upgrades (u)
+    : ressources (r), buildings (b), jellies (j), abilities (abi),
+      upgrades (u), multipliers (m)
 {
 }
 
@@ -63,6 +66,8 @@ InputHandler::buy (BuildingType t) const
 
   if (buildings->doesIncreasesMaxJellies (t))
     updateMaxNumJellies ();
+
+  multipliers->buildingBought (t);
 }
 
 void

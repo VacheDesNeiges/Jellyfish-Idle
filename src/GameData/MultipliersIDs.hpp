@@ -2,5 +2,6 @@
 
 enum class MultiplierID
 {
-  MiningProdPerMineMultiplier
+  StoneProdPerMineMultiplier,
+  JobMiningProduction
 };

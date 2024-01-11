@@ -1,4 +1,5 @@
 #pragma once
+#include "MultipliersIDs.hpp"
 #include "Ressource.hpp"
 #include <list>
 #include <memory>
@@ -29,6 +30,8 @@ public:
   virtual std::string getDescription ();
   virtual std::string getAdvancedDescription ();
   void setQuantity (unsigned);
+
+  const std::vector<MultiplierID> &getQuantityBoostedMultipliers () const;
 
   static constexpr std::array<BuildingType, 4> BuildingTypes
       = { BuildingType::PlanktonField, BuildingType::SandNest,

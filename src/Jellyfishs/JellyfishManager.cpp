@@ -1,5 +1,6 @@
 #include "JellyfishManager.hpp"
 #include "Jellyfish.hpp"
+#include "MultipliersIDs.hpp"
 #include "Ressource.hpp"
 #include <algorithm>
 #include <exception>
@@ -121,7 +122,10 @@ JellyfishManager::getProductionRates () const
 
   result[Food] = jobNumbers.at (GatherFood) * 3;
   result[Sand] = jobNumbers.at (GatherSand) * 0.04;
-  result[Stone] = jobNumbers.at (Mining) * 0.1;
+
+  result[Stone] = (jobNumbers.at (Mining) * 0.1)
+                  * multipliersView ()->getMultiplier (Stone);
+
   result[Insight] = jobNumbers.at (FocusForInsight) * 0.16;
 
   return result;

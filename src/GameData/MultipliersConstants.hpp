@@ -2,5 +2,5 @@
 
 namespace MultipliersConstants
 {
-constexpr double MiningProdPerMine = 0.10;
+constexpr double StoneProdPerMine = 0.10;
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "GameSystems.hpp"
+#include "MultiplierDataView.hpp"
 #include <memory>
 
 class RessourceManager;
@@ -7,6 +8,8 @@ class JellyfishManager;
 class BuildingManager;
 class AbilityManager;
 class UpgradeManager;
+class MultipliersRegister;
+
 enum class BuildingType;
 enum class JellyJobs;
 enum class AbilityType;
@@ -19,7 +22,8 @@ public:
                 std::shared_ptr<BuildingManager>,
                 std::shared_ptr<JellyfishManager>,
                 std::shared_ptr<AbilityManager>,
-                std::shared_ptr<UpgradeManager>);
+                std::shared_ptr<UpgradeManager>,
+                std::shared_ptr<MultipliersRegister>);
 
   void gatherFood () const;
   void buy (BuildingType) const;
@@ -36,6 +40,7 @@ private:
   std::shared_ptr<JellyfishManager> jellies;
   std::shared_ptr<AbilityManager> abilities;
   std::shared_ptr<UpgradeManager> upgrades;
+  std::shared_ptr<MultipliersRegister> multipliers;
 
   void updateMaxNumJellies () const;
 };

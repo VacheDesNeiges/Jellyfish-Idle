@@ -64,7 +64,7 @@ UIRessourcesPanel::render () const
       ImGui::NextColumn ();
 
       std::string production = fmt::format (
-          "+{}/sec",
+          "+{:.2f}/sec",
           (gData->getRessourcesView ()->getRessourceProduction (resource)
            - gData->getRessourcesView ()->getRessourceConsumption (resource))
               * 2);

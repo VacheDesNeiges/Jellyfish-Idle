@@ -14,3 +14,9 @@ MultiplierDataView::getMultiplier (MultiplierID id) const
 {
   return multipliers->getMultiplier (id);
 }
+
+double
+MultiplierDataView::getMultiplier (RessourceType rtype) const
+{
+  return multipliers->getMultiplierForRessourceProd (rtype);
+}

@@ -1,10 +1,10 @@
 #pragma once
-
-#include "GameSynchronizer.hpp"
-#include "InputHandler.hpp"
 #include <functional>
 #include <map>
 #include <memory>
+
+#include "GameSynchronizer.hpp"
+#include "InputHandler.hpp"
 
 class GameDataView;
 class GameSynchronizer;
@@ -49,7 +49,5 @@ private:
 
   std::unique_ptr<GameSynchronizer> synchronizer;
   std::shared_ptr<GameDataView> dataView;
-  std::shared_ptr<InputHandler>
-      inputHandler; // might not be used here, instead return a unique_ptr from
-                    // the function
+  std::shared_ptr<InputHandler> inputHandler;
 };

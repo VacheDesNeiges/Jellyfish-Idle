@@ -32,15 +32,49 @@ MultipliersRegister::recomputeMultipliers ()
 
       switch (multi)
         {
-        case MultiplierID::MiningProdPerMineMultiplier:
-          auto minesQuant
-              = getDataView ()->getBuildingsView ()->getBuildingQuantity (
-                  BuildingType::Mines);
+        case MultiplierID::StoneProdPerMineMultiplier:
+          {
+            auto minesQuant
+                = getDataView ()->getBuildingsView ()->getBuildingQuantity (
+                    BuildingType::Mines);
 
-          multipliers[multi]
-              += MultipliersConstants::MiningProdPerMine * minesQuant;
-
+            multipliers[multi]
+                += MultipliersConstants::StoneProdPerMine * minesQuant;
+          }
           break;
+
+        default:
+          continue;
         }
+    }
+}
+
+void
+MultipliersRegister::buildingBought (BuildingType t)
+{
+  switch (t)
+    {
+
+    case BuildingType::Mines:
+
+      multipliers.at (MultiplierID::StoneProdPerMineMultiplier)
+          += MultipliersConstants::StoneProdPerMine;
+      break;
+
+    default:
+      return;
+    }
+}
+
+double
+MultipliersRegister::getMultiplierForRessourceProd (RessourceType rtype) const
+{
+  switch (rtype)
+    {
+    case RessourceType::Stone:
+      return multipliers.at (MultiplierID::StoneProdPerMineMultiplier);
+
+    default:
+      return 1;
     }
 }

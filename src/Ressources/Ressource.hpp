@@ -38,8 +38,6 @@ private:
   std::string name;
   double quantity = 0;
   double max_quantity;
-  // std::vector<float> production_multipliers;
-  //? maybe use upgrades as boolean somewhere else ? Like in GameData
 
   double prodPerTick;
   double consumptionPerTick;

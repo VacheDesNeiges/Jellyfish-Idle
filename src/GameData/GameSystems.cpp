@@ -36,7 +36,7 @@ GameSystems::GameSystems ()
 
   inputHandler = std::make_shared<InputHandler> (
       systems->ressources, systems->buildings, systems->jellies,
-      systems->abilities, systems->upgrades);
+      systems->abilities, systems->upgrades, systems->multipliers);
 
   synchronizer = std::make_unique<GameSynchronizer> (systems);
 }
