@@ -17,7 +17,7 @@ public:
   bool isBuyable (BuildingType) const;
   unsigned getBuildingQuantity (BuildingType) const;
 
-  std::list<std::pair<RessourceType, double> >
+  std::vector<std::pair<RessourceType, double> >
       getBuildingProduction (BuildingType) const;
 
   std::string getBuildingName (BuildingType) const;

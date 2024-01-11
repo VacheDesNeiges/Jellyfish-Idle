@@ -26,7 +26,7 @@ AchievementDataView::isUnlocked (BuildingType t) const
     case PlanktonField:
       return achievements->isUnlocked (AchievementIDs::PlanktonField);
 
-    case SandNest:
+    case DuneShelter:
       return achievements->isUnlocked (AchievementIDs::FirstSandNest);
 
     case Mines:

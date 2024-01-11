@@ -21,3 +21,15 @@ main ()
 // this case, try boost's flat map, and then implement a short version of it
 // (vector of pair, sort by first element which is an enum (try concepts),
 // binary search for access, iterable)
+
+// ROADMAP :
+// Telekinesis upgrade for insight
+// -> Unlocks Mining job
+// -> Stone unlocks manufacturing job with stone Slabs. Slabs have a stock
+// limit
+// -> Slabs unlock stone shelves
+
+// Future buildings :
+// Marine Stockroom
+// Oceanic Vault
+// Abyssal Hoard

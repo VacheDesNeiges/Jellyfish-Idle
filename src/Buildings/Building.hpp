@@ -4,12 +4,13 @@
 #include <list>
 #include <memory>
 #include <string>
+#include <unordered_map>
 #include <utility>
 
 enum class BuildingType
 {
   PlanktonField,
-  SandNest,
+  DuneShelter,
   Mines,
   GlassTower
 };
@@ -18,44 +19,34 @@ class Building
 {
 public:
   Building () = default;
-  virtual ~Building () = default;
+  explicit Building (BuildingType);
+
+  ~Building () = default;
 
   void buy ();
-  unsigned getCurrentQuantity () const;
-  virtual void update () = 0;
-  virtual std::list<std::pair<RessourceType, double> > getProdPerTick () = 0;
-  unsigned getIncreaseToMaxJfish () const;
-  std::vector<std::pair<RessourceType, double> > getNextBuyCost ();
-  std::string getBuildingName () const;
-  virtual std::string getDescription ();
-  virtual std::string getAdvancedDescription ();
-  void setQuantity (unsigned);
+  void updateProdPerTick ();
 
-  const std::vector<MultiplierID> &getQuantityBoostedMultipliers () const;
+  void setQuantity (unsigned);
+  unsigned getCurrentQuantity () const;
+  unsigned getIncreaseToMaxJfish () const;
+  std::string getBuildingName () const;
+
+  std::vector<std::pair<RessourceType, double> > getProdPerTick () const;
+  std::vector<std::pair<RessourceType, double> > getNextBuyCost ();
+
+  std::string getDescription ();
+  std::string getAdvancedDescription ();
 
   static constexpr std::array<BuildingType, 4> BuildingTypes
-      = { BuildingType::PlanktonField, BuildingType::SandNest,
+      = { BuildingType::PlanktonField, BuildingType::DuneShelter,
           BuildingType::Mines, BuildingType::GlassTower };
 
 private:
   std::string name;
   unsigned quantity = 0;
-
-  std::list<std::pair<RessourceType, double> > basePrice;
-  double priceMultiplier;
-
-  std::list<std::pair<RessourceType, double> > prodPerTick;
   unsigned increaseToMaxJfish = 0;
-
-  // Building classes ----------------------
-  friend class PlanktonField;
-  friend class SandNest;
-  friend class GlassTower;
-  friend class Mine;
-};
-
-class BuildingFactory
-{
-public:
-  static std::unique_ptr<Building> createBuildingInstance (BuildingType);
+  double priceMultiplier;
+  std::vector<std::pair<RessourceType, double> > basePrice;
+  std::unordered_map<RessourceType, const double> baseProductionPerTick;
+  std::vector<std::pair<RessourceType, double> > prodPerTick;
 };

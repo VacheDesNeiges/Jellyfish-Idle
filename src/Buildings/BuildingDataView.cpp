@@ -45,7 +45,7 @@ BuildingDataView::getBuildingQuantity (BuildingType t) const
   return buildings->getCurrentQuantity (t);
 }
 
-std::list<std::pair<RessourceType, double> >
+std::vector<std::pair<RessourceType, double> >
 BuildingDataView::getBuildingProduction (BuildingType t) const
 {
   return buildings->getProduction (t);

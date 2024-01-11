@@ -22,7 +22,7 @@ public:
   void buy (BuildingType);
   std::vector<std::pair<RessourceType, double> > nextBuyCost (BuildingType);
 
-  std::list<std::pair<RessourceType, double> > getProduction (BuildingType);
+  std::vector<std::pair<RessourceType, double> > getProduction (BuildingType);
 
   std::string getBuildingName (BuildingType);
   std::string getDescription (BuildingType);
@@ -36,5 +36,5 @@ public:
   loadData (const std::vector<std::pair<BuildingType, unsigned> > &) override;
 
 private:
-  std::unordered_map<BuildingType, std::unique_ptr<Building> > buildings;
+  std::unordered_map<BuildingType, Building> buildings;
 };

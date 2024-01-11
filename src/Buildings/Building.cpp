@@ -1,47 +1,62 @@
 #include "Building.hpp"
-#include "GlassTower.hpp"
-#include "Mine.hpp"
-#include "PlanktonField.hpp"
 #include "Ressource.hpp"
-#include "SandNest.hpp"
+
 #include <cstddef>
 #include <fmt/core.h>
 #include <math.h>
 #include <memory>
+#include <utility>
+#include <vector>
+
+Building::Building (BuildingType bType)
+{
+  switch (bType)
+    {
+
+    case BuildingType::PlanktonField:
+      name = "Plankton Field";
+
+      priceMultiplier = 1.2;
+      basePrice.emplace_back (RessourceType::Food, 5);
+
+      baseProductionPerTick.try_emplace (RessourceType::Food, 0.125);
+      prodPerTick.emplace_back (RessourceType::Food, 0);
+      break;
+
+    case BuildingType::DuneShelter:
+      name = "Dune Shelter";
+      increaseToMaxJfish = 1;
+
+      priceMultiplier = 2;
+      basePrice.emplace_back (RessourceType::Sand, 10);
+      break;
+
+    case BuildingType::Mines:
+      name = "Mines";
+
+      priceMultiplier = 1.15;
+      basePrice.emplace_back (RessourceType::Stone, 25);
+      break;
+
+    case BuildingType::GlassTower:
+      name = "Glass Tower";
+
+      priceMultiplier = 1.3;
+      basePrice.emplace_back (RessourceType::Glass, 50);
+    }
+}
 
 void
 Building::buy ()
 {
   quantity++;
-  update ();
+  updateProdPerTick ();
 }
 
 unsigned
 Building::getCurrentQuantity () const
 {
   return quantity;
-}
-
-std::unique_ptr<Building>
-BuildingFactory::createBuildingInstance (BuildingType t)
-{
-  switch (t)
-    {
-    case BuildingType::PlanktonField:
-      return std::make_unique<PlanktonField> ();
-
-    case BuildingType::SandNest:
-      return std::make_unique<SandNest> ();
-
-    case BuildingType::Mines:
-      return std::make_unique<Mine> ();
-
-    case BuildingType::GlassTower:
-      return std::make_unique<GlassTower> ();
-
-    default:
-      return nullptr;
-    }
 }
 
 std::vector<std::pair<RessourceType, double> >
@@ -63,7 +78,7 @@ Building::getBuildingName () const
 }
 
 std::string
-Building::getDescription ()
+Building::getDescription () // TODO : Move to UI
 {
   std::string s;
   s = fmt::format ("{}, lvl {}", name, quantity);
@@ -72,7 +87,7 @@ Building::getDescription ()
 }
 
 std::string
-Building::getAdvancedDescription ()
+Building::getAdvancedDescription () // TODO : Move to UI
 {
   std::string s = "price :";
   for (const auto &[ressource, price] : basePrice)
@@ -93,4 +108,19 @@ void
 Building::setQuantity (unsigned quant)
 {
   quantity = quant;
+}
+
+void
+Building::updateProdPerTick ()
+{
+  for (auto &[ressource, prod] : prodPerTick)
+    {
+      prod = baseProductionPerTick.at (ressource) * quantity;
+    }
+}
+
+std::vector<std::pair<RessourceType, double> >
+Building::getProdPerTick () const
+{
+  return prodPerTick;
 }

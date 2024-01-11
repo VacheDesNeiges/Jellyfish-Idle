@@ -9,50 +9,50 @@ BuildingManager::BuildingManager ()
 {
   for (const auto &b : Building::BuildingTypes)
     {
-      buildings[b] = BuildingFactory::createBuildingInstance (b);
+      buildings[b] = Building (b);
     }
 }
 
 void
 BuildingManager::buy (BuildingType t)
 {
-  buildings[t]->buy ();
+  buildings[t].buy ();
 }
 
 unsigned
 BuildingManager::getCurrentQuantity (BuildingType t)
 {
-  return buildings[t]->getCurrentQuantity ();
+  return buildings[t].getCurrentQuantity ();
 }
 
-std::list<std::pair<RessourceType, double> >
+std::vector<std::pair<RessourceType, double> >
 BuildingManager::getProduction (BuildingType t)
 {
-  return buildings[t]->getProdPerTick ();
+  return buildings[t].getProdPerTick ();
 }
 
 std::vector<std::pair<RessourceType, double> >
 BuildingManager::nextBuyCost (BuildingType t)
 {
-  return buildings[t]->getNextBuyCost ();
+  return buildings[t].getNextBuyCost ();
 }
 
 std::string
 BuildingManager::getBuildingName (BuildingType t)
 {
-  return buildings[t]->getBuildingName ();
+  return buildings[t].getBuildingName ();
 }
 
 std::string
 BuildingManager::getDescription (BuildingType t)
 {
-  return buildings[t]->getDescription ();
+  return buildings[t].getDescription ();
 }
 
 std::string
 BuildingManager::getAdvancedDescription (BuildingType t)
 {
-  return buildings[t]->getAdvancedDescription ();
+  return buildings[t].getAdvancedDescription ();
 }
 
 std::unordered_map<RessourceType, double>
@@ -61,7 +61,7 @@ BuildingManager::getProductionRates () const
   std::unordered_map<RessourceType, double> result;
   for (const auto &[_, b] : buildings)
     {
-      for (const auto &[rType, productionRate] : b->getProdPerTick ())
+      for (const auto &[rType, productionRate] : b.getProdPerTick ())
         {
           result[rType] += productionRate;
         }
@@ -72,14 +72,14 @@ BuildingManager::getProductionRates () const
 bool
 BuildingManager::doesIncreasesMaxJellies (BuildingType t)
 {
-  return buildings[t]->getIncreaseToMaxJfish () > 0;
+  return buildings[t].getIncreaseToMaxJfish () > 0;
 }
 
 unsigned
 BuildingManager::getIncreaseToMaxJfish (BuildingType t)
 {
-  return buildings[t]->getIncreaseToMaxJfish ()
-         * buildings[t]->getCurrentQuantity ();
+  return buildings[t].getIncreaseToMaxJfish ()
+         * buildings[t].getCurrentQuantity ();
 }
 
 std::vector<std::pair<BuildingType, unsigned> >
@@ -88,7 +88,7 @@ BuildingManager::getData () const
   std::vector<std::pair<BuildingType, unsigned> > result;
   for (const auto &[type, building] : buildings)
     {
-      result.emplace_back (type, building->getCurrentQuantity ());
+      result.emplace_back (type, building.getCurrentQuantity ());
     }
 
   return result;
@@ -100,7 +100,7 @@ BuildingManager::loadData (
 {
   for (const auto &[type, quant] : data)
     {
-      buildings[type]->setQuantity (quant);
-      buildings[type]->update ();
+      buildings[type].setQuantity (quant);
+      buildings[type].updateProdPerTick ();
     }
 }
