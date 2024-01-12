@@ -25,9 +25,11 @@ main ()
 // ROADMAP :
 // Telekinesis upgrade for insight
 // -> Unlocks Mining job
-// -> Stone unlocks manufacturing job with stone Slabs. Slabs have a stock
+// Advanced Telekinesis
+// -> unlocks manufacturing job with stone Slabs. Slabs have a stock
 // limit
 // -> Slabs unlock stone shelves
+// TESTS !!!!
 
 // Future buildings :
 // Marine Stockroom

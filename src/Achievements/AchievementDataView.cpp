@@ -6,6 +6,9 @@
 #include "Jellyfish.hpp"
 #include "UpgradeId.hpp"
 
+// TODO : This file contains a mapping of some achievements to types, move the
+// functions to the class responsible for the achievements
+
 AchievementDataView::AchievementDataView (std::shared_ptr<AchievementSystem> a)
     : achievements (a)
 {
@@ -50,7 +53,7 @@ AchievementDataView::isUnlocked (JellyJobs j) const
       return achievements->isUnlocked (AchievementIDs::JobExploreTheDepths);
 
     case FocusForInsight:
-      return achievements->isUnlocked (AchievementIDs::JobFocusing);
+      return achievements->isUnlocked (AchievementIDs::FocusingUpgradeBought);
 
     case Mining:
       return achievements->isUnlocked (AchievementIDs::JobMining);
@@ -79,7 +82,7 @@ AchievementDataView::isUnlocked (RessourceType r) const
       return achievements->isUnlocked (JobMining);
 
     case Insight:
-      return achievements->isUnlocked (JobFocusing);
+      return achievements->isUnlocked (FocusingUpgradeBought);
 
     case Glass:
       return achievements->isUnlocked (LightningAbilityBuyable);
@@ -107,8 +110,19 @@ AchievementDataView::isUnlocked (UpgradeID id) const
   using enum UpgradeID;
   switch (id)
     {
-    case FocusingForInsight:
+    case Focusing:
       return achievements->isUnlocked (AchievementIDs::AncientOctopus);
+
+    case Telekinesis:
+      return achievements->isUnlocked (AchievementIDs::FocusingUpgradeBought);
+
+    case AdvancedTelekinesis:
+      return achievements->isUnlocked (
+          AchievementIDs::TelekinesisUpgradeBought);
+
+    case Writing:
+      return achievements->isUnlocked (
+          AchievementIDs::AdvancedTelekinesisUpgradeBought);
 
     default:
       return false;

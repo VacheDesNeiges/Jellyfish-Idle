@@ -22,7 +22,8 @@ UIOctopusPanel::render () const
   for (const auto &upgradeID : UpgradeManager::UpgradesTypes)
     {
       if (showBoughtUpgrades
-          || gData->getUpgradeView ()->isAvailableForBuying (upgradeID))
+          || (gData->getUpgradeView ()->isAvailableForBuying (upgradeID)
+              && gData->getAchievementsView ()->isUnlocked (upgradeID)))
         {
           renderTradeButton (upgradeID);
         }
@@ -35,30 +36,28 @@ void
 UIOctopusPanel::renderTradeButton (UpgradeID id) const
 {
   auto size = ImVec2 (300.f, 45.f);
-  if (gData->getAchievementsView ()->isUnlocked (id))
+
+  ImGui::BeginDisabled (!gData->getUpgradeView ()->isBuyable (id));
+  std::string buttonText
+      = fmt::format ("{}\n", gData->getUpgradeView ()->getName (id));
+
+  if (ImGui::Button (buttonText.c_str (), size))
     {
-      ImGui::BeginDisabled (!gData->getUpgradeView ()->isBuyable (id));
-      std::string buttonText
-          = fmt::format ("{}\n", gData->getUpgradeView ()->getName (id));
-
-      if (ImGui::Button (buttonText.c_str (), size))
-        {
-          inputHandler->buy (id);
-        }
-      if (ImGui::IsItemHovered (ImGuiHoveredFlags_DelayNone
-                                | ImGuiHoveredFlags_AllowWhenDisabled)
-          && ImGui::BeginTooltip ())
-        {
-          std::string tooltipText = fmt::format (
-              "{}", gData->getUpgradeView ()->getDescription (id));
-          ImGui::Text ("%s", tooltipText.c_str ());
-
-          auto cost = gData->getUpgradeView ()->getCost (id);
-          UIUtils::printCostsImGui (gData, cost);
-
-          ImGui::EndTooltip ();
-        }
-
-      ImGui::EndDisabled ();
+      inputHandler->buy (id);
     }
+  if (ImGui::IsItemHovered (ImGuiHoveredFlags_DelayNone
+                            | ImGuiHoveredFlags_AllowWhenDisabled)
+      && ImGui::BeginTooltip ())
+    {
+      std::string tooltipText
+          = fmt::format ("{}", gData->getUpgradeView ()->getDescription (id));
+      ImGui::Text ("%s", tooltipText.c_str ());
+
+      auto cost = gData->getUpgradeView ()->getCost (id);
+      UIUtils::printCostsImGui (gData, cost);
+
+      ImGui::EndTooltip ();
+    }
+
+  ImGui::EndDisabled ();
 }

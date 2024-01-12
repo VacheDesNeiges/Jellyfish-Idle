@@ -13,18 +13,22 @@ UpgradeManager::UpgradeManager ()
     {
       upgrades.try_emplace (id, UpgradeFactory::createUpgrade (id));
     }
+
   using enum UpgradeID;
-  upgradesConditions
-      = { { FocusingForInsight, [] () { return true; } },
+  upgradesConditions = {
+    { Focusing, [] () { return true; } },
 
-          { AbilityLightning,
-            [this] () { return upgrades[FocusingForInsight].isUnlocked (); } },
+    { AbilityLightning,
+      [this] () { return upgrades[Focusing].isUnlocked (); } },
 
-          { Telekinesis,
-            [this] () { return upgrades[FocusingForInsight].isUnlocked (); } },
+    { Telekinesis, [this] () { return upgrades[Focusing].isUnlocked (); } },
 
-          { Manufacturing,
-            [this] () { return upgrades[Telekinesis].isUnlocked (); } } };
+    { AdvancedTelekinesis,
+      [this] () { return upgrades[Telekinesis].isUnlocked (); } },
+
+    { Writing,
+      [this] () { return upgrades[AdvancedTelekinesis].isUnlocked (); } }
+  };
 }
 
 bool

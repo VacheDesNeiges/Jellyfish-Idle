@@ -1,8 +1,9 @@
 #include "Upgrade.hpp"
 #include <string_view>
 
-Upgrade::Upgrade (const std::string &n, const std::string &desc)
-    : name (n), description (desc)
+Upgrade::Upgrade (const std::string &n, const std::string &desc,
+                  const std::vector<std::pair<RessourceType, double> > &c)
+    : name (n), description (desc), cost (c)
 {
 }
 

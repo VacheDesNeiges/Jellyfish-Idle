@@ -11,14 +11,17 @@ enum class AchievementIDs
 
   JobMining,
   JobExploreTheDepths,
-  JobFocusing,
 
   RessourceGlass,
 
   ResearchTabUnlocked,
 
   AncientOctopus,
-  FocusForInsightUpgrade,
+
+  FocusingUpgradeBought,
+  TelekinesisUpgradeBought,
+  AdvancedTelekinesisUpgradeBought,
+
   LightningAbilityBuyable,
 
   Last

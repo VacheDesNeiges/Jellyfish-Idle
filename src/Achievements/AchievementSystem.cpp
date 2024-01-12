@@ -63,10 +63,10 @@ AchievementSystem::AchievementSystem ()
         return getDataView ()->getDepthView ()->getCurrentDepth () >= 30;
       } },
 
-    { JobFocusing,
+    { FocusingUpgradeBought,
       [this] () {
         return getDataView ()->getUpgradeView ()->isBought (
-            UpgradeID::FocusingForInsight);
+            UpgradeID::Focusing);
       } },
 
     { AncientOctopus,
@@ -74,11 +74,6 @@ AchievementSystem::AchievementSystem ()
         return getDataView ()->getDepthView ()->getCurrentDepth () >= 20;
       } },
 
-    { FocusForInsightUpgrade,
-      [this] () {
-        return getDataView ()->getUpgradeView ()->isBought (
-            UpgradeID::FocusingForInsight);
-      } },
     { RessourceGlass,
       [this] () {
         return getDataView ()->getRessourcesView ()->getRessourceQuantity (

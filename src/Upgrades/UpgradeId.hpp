@@ -2,9 +2,9 @@
 
 enum class UpgradeID
 {
-  FocusingForInsight,
-  Telekinesis,
+  Focusing,
+  Telekinesis,         // Mining Job
+  AdvancedTelekinesis, // Artisan Job
   AbilityLightning,
-  Manufacturing,
   Writing
 };
