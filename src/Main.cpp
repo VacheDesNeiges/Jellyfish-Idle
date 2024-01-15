@@ -16,6 +16,7 @@ main ()
 // TODO : Catchup on load
 // TODO : unify the button size in a file.
 // TODO : grey out upgrades once they are bought (when displayed optionaly)
+// TODO : use different colors for xp bar and progress bar
 
 // at some point, using std::map might end up causing performance issues, in
 // this case, try boost's flat map, and then implement a short version of it

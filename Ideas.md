@@ -66,3 +66,15 @@ Focus -> Insight -> Menu with "spells" -> Thunder Strike that turns sand to glas
  furnace tab, select what to melt ?
 
 ./
+
+
+# Crafting system :
+
+Crafting 
+Crafting cards, with number of jelly on the job, start and cancel button
+progression bars, loop settings 
+
+Farm && Potion making
+-> essences for rituals
+
+Rituals for boosts
