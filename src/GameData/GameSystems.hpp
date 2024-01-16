@@ -3,6 +3,7 @@
 #include <map>
 #include <memory>
 
+#include "CraftingManager.hpp"
 #include "GameSynchronizer.hpp"
 #include "InputHandler.hpp"
 
@@ -29,6 +30,7 @@ struct SystemPtrs
   std::shared_ptr<DepthSystem> depth;
   std::shared_ptr<UpgradeManager> upgrades;
   std::shared_ptr<MultipliersRegister> multipliers;
+  std::shared_ptr<CraftingManager> crafts;
 };
 
 class GameSystems

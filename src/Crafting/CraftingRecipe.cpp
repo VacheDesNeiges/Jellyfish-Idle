@@ -26,3 +26,50 @@ CraftingRecipe::CraftingRecipe (RecipeID id)
       assert (false);
     }
 }
+
+void
+CraftingRecipe::start ()
+{
+  crafting = false;
+  remainingTicksToCraft = baseTicksForCraft;
+}
+
+void
+CraftingRecipe::cancel ()
+{
+  crafting = true;
+  remainingTicksToCraft = baseTicksForCraft;
+}
+
+unsigned
+CraftingRecipe::getRemainingTicks () const
+{
+  return remainingTicksToCraft;
+}
+
+std::vector<std::pair<RessourceType, double> >
+CraftingRecipe::getRecipe () const
+{
+  return recipe;
+}
+
+std::vector<std::pair<RessourceType, double> >
+CraftingRecipe::getBaseResult () const
+{
+  return baseResult;
+}
+
+bool
+CraftingRecipe::tick ()
+{
+  if (crafting)
+    {
+      remainingTicksToCraft--;
+      if (remainingTicksToCraft == 0)
+        {
+          crafting = false;
+          done = true;
+        }
+    }
+  return done;
+}

@@ -15,9 +15,9 @@ CraftingManager::CraftingManager ()
 bool
 CraftingManager::assign (RecipeID id)
 {
-  if (assignedNumbers[RecipeID::NoneRecipe] > 0)
+  if (assignedNumbersOfJellies[RecipeID::NoneRecipe] > 0)
     {
-      assignedNumbers[id]++;
+      assignedNumbersOfJellies[id]++;
       return true;
     }
   return false;
@@ -26,10 +26,10 @@ CraftingManager::assign (RecipeID id)
 bool
 CraftingManager::unasign (RecipeID id)
 {
-  if (assignedNumbers[id] > 0)
+  if (assignedNumbersOfJellies[id] > 0)
     {
-      assignedNumbers[id]--;
-      assignedNumbers[RecipeID::NoneRecipe]++;
+      assignedNumbersOfJellies[id]--;
+      assignedNumbersOfJellies[RecipeID::NoneRecipe]++;
       return true;
     }
   return false;
@@ -57,4 +57,16 @@ std::vector<std::pair<RessourceType, double> >
 CraftingManager::getRecipe (RecipeID id)
 {
   return recipes[id].getRecipe ();
+}
+
+bool
+CraftingManager::tick ()
+{
+  bool ret = false;
+  for (auto &[id, recipe] : recipes)
+    {
+      if (recipe.tick ())
+        ret = true;
+    }
+  return ret;
 }

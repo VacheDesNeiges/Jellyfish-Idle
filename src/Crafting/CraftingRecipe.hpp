@@ -12,10 +12,11 @@ public:
   explicit CraftingRecipe (RecipeID);
   ~CraftingRecipe () = default;
 
-  unsigned getRemainingTicks () const;
   int getRecipelvl () const;
   void start ();
   void cancel ();
+  bool tick ();
+  unsigned getRemainingTicks () const;
 
   std::vector<std::pair<RessourceType, double> > getRecipe () const;
   std::vector<std::pair<RessourceType, double> > getBaseResult () const;
@@ -24,6 +25,8 @@ public:
       = { RecipeID::StoneSlabRecipe, RecipeID::GlassPanelRecipe };
 
 private:
+  bool crafting = false;
+  bool done = false;
   std::string recipeName;
   int recipeLvl = 0;
 

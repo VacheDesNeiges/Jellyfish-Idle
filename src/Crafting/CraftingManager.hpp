@@ -3,6 +3,7 @@
 #include "GameDataAccess.hpp"
 #include "RecipeID.hpp"
 #include <unordered_map>
+#include <utility>
 
 class CraftingManager : public GameDataAccess
 {
@@ -16,10 +17,12 @@ public:
   void cancelRecipe (RecipeID);
   unsigned getRemainingTicks (RecipeID);
 
+  bool tick ();
   std::vector<std::pair<RessourceType, double> > getRecipe (RecipeID);
   std::vector<std::pair<RessourceType, double> > getCraftResult (RecipeID);
+  std::vector<std::pair<RessourceType, double> > getCraftResults ();
 
 private:
-  std::unordered_map<RecipeID, unsigned> assignedNumbers;
+  std::unordered_map<RecipeID, unsigned> assignedNumbersOfJellies;
   std::unordered_map<RecipeID, CraftingRecipe> recipes;
 };

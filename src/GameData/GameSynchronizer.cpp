@@ -2,6 +2,7 @@
 #include "AbilityManager.hpp"
 #include "AchievementSystem.hpp"
 #include "BuildingManager.hpp"
+#include "CraftingManager.hpp"
 #include "DepthSystem.hpp"
 #include "GameDataView.hpp"
 #include "GameSystems.hpp"
@@ -21,19 +22,31 @@ void
 GameSynchronizer::gameTick () const
 {
   systems->ressources->zerosValuePerTick ();
+
   // Ressource consumption
   systems->ressources->consume (systems->jellies->getConsumptionRates ());
+
   // Ressource conversion here
+  // not yet implemented
+
   // Ressource production
   systems->ressources->produce (
       addMaps (systems->buildings->getProductionRates (),
                systems->jellies->getProductionRates ()));
 
+  if (systems->crafts->tick ())
+    {
+      for (const auto &[ressource, production] :
+           systems->crafts->getCraftResults ())
+        {
+          systems->ressources->add (ressource, production);
+        }
+    }
+
   systems->depth->ExploreDepth (
       systems->jellies->getNum (JellyJobs::ExploreTheDepths));
 
   // Jobs experience, with bool value return to update multipliers
-
   checkAchievements ();
   checkJellyfishArrival ();
 }

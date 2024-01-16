@@ -3,6 +3,7 @@
 #include "AbilityManager.hpp"
 #include "AchievementSystem.hpp"
 #include "BuildingManager.hpp"
+#include "CraftingManager.hpp"
 #include "DepthSystem.hpp"
 #include "JellyfishManager.hpp"
 #include "MultipliersRegister.hpp"
@@ -29,6 +30,7 @@ GameSystems::GameSystems ()
   systems->depth = std::make_shared<DepthSystem> ();
   systems->upgrades = std::make_shared<UpgradeManager> ();
   systems->multipliers = std::make_shared<MultipliersRegister> ();
+  systems->crafts = std::make_shared<CraftingManager> ();
 
   dataView = std::make_shared<GameDataView> (systems);
 
