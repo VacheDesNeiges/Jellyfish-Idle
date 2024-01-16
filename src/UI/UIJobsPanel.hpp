@@ -9,4 +9,5 @@ public:
 
 private:
   void renderJobsControls (JellyJobs) const;
+  void renderTestCraftCard () const;
 };

@@ -7,5 +7,6 @@ enum class RessourceType
   Insight,
 
   StoneSlab,
+  GlassPane,
   KnowledgeTablet
 };

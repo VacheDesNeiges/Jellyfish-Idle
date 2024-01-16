@@ -25,6 +25,8 @@ UIJobsPanel::render () const
         renderJobsControls (static_cast<JellyJobs> (job));
     }
 
+  renderTestCraftCard ();
+
   ImGui::End ();
 }
 
@@ -48,4 +50,15 @@ UIJobsPanel::renderJobsControls (JellyJobs job) const
       inputHandler->assignJelly (job);
     }
   ImGui::PopButtonRepeat ();
+}
+
+void
+UIJobsPanel ::renderTestCraftCard () const
+{
+  ImGui::PushStyleColor (ImGuiCol_ChildBg, IM_COL32 (20, 20, 20, 80));
+  ImGui::BeginChild ("blah", ImVec2 (200, 300));
+  ImGui::Text ("hi");
+  ImGui::ProgressBar (0.8f);
+  ImGui::EndChild ();
+  ImGui::PopStyleColor ();
 }
