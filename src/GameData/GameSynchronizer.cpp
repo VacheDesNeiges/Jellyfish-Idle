@@ -36,10 +36,9 @@ GameSynchronizer::gameTick () const
 
   if (systems->crafts->tick ())
     {
-      for (const auto &[ressource, production] :
-           systems->crafts->getCraftResults ())
+      for (const auto &[ressource, prod] : systems->crafts->getCraftResults ())
         {
-          systems->ressources->add (ressource, production);
+          systems->ressources->add (ressource, prod);
         }
     }
 

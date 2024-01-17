@@ -19,10 +19,10 @@ public:
 
   bool tick ();
   std::vector<std::pair<RessourceType, double> > getRecipe (RecipeID);
-  std::vector<std::pair<RessourceType, double> > getCraftResult (RecipeID);
   std::vector<std::pair<RessourceType, double> > getCraftResults ();
 
 private:
+  std::vector<std::pair<RessourceType, double> > getCraftResult (RecipeID);
   std::unordered_map<RecipeID, unsigned> assignedNumbersOfJellies;
   std::unordered_map<RecipeID, CraftingRecipe> recipes;
 };

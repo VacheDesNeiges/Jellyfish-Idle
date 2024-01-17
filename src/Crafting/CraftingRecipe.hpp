@@ -16,6 +16,7 @@ public:
   void start ();
   void cancel ();
   bool tick ();
+  bool isDone () const;
   unsigned getRemainingTicks () const;
 
   std::vector<std::pair<RessourceType, double> > getRecipe () const;

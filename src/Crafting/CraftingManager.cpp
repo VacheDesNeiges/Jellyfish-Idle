@@ -70,3 +70,24 @@ CraftingManager::tick ()
     }
   return ret;
 }
+
+std::vector<std::pair<RessourceType, double> >
+CraftingManager::getCraftResults ()
+{
+  std::vector<std::pair<RessourceType, double> > result;
+  for (const auto &[id, recipe] : recipes)
+    {
+      if (recipes.at (id).isDone ())
+        {
+          auto tmp = getCraftResult (id);
+          result.insert (result.end (), tmp.begin (), tmp.end ());
+        }
+    }
+  return result;
+}
+
+std::vector<std::pair<RessourceType, double> >
+CraftingManager::getCraftResult (RecipeID id)
+{
+  return recipes.at (id).getBaseResult ();
+}

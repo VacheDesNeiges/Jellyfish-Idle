@@ -36,9 +36,7 @@ GameSystems::GameSystems ()
 
   GameDataAccess::bindDataView (dataView);
 
-  inputHandler = std::make_shared<InputHandler> (
-      systems->ressources, systems->buildings, systems->jellies,
-      systems->abilities, systems->upgrades, systems->multipliers);
+  inputHandler = std::make_shared<InputHandler> (systems);
 
   synchronizer = std::make_unique<GameSynchronizer> (systems);
 }

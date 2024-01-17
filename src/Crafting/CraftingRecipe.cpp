@@ -73,3 +73,9 @@ CraftingRecipe::tick ()
     }
   return done;
 }
+
+bool
+CraftingRecipe::isDone () const
+{
+  return done;
+}

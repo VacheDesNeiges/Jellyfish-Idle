@@ -1,29 +1,17 @@
 #pragma once
 #include "GameSystems.hpp"
-#include "MultiplierDataView.hpp"
 #include <memory>
-
-class RessourceManager;
-class JellyfishManager;
-class BuildingManager;
-class AbilityManager;
-class UpgradeManager;
-class MultipliersRegister;
 
 enum class BuildingType;
 enum class JellyJobs;
 enum class AbilityType;
 enum class UpgradeID;
+enum class RecipeID;
 
 class InputHandler
 {
 public:
-  InputHandler (std::shared_ptr<RessourceManager>,
-                std::shared_ptr<BuildingManager>,
-                std::shared_ptr<JellyfishManager>,
-                std::shared_ptr<AbilityManager>,
-                std::shared_ptr<UpgradeManager>,
-                std::shared_ptr<MultipliersRegister>);
+  explicit InputHandler (std::shared_ptr<SystemPtrs>);
 
   void gatherFood () const;
   void buy (BuildingType) const;
@@ -34,13 +22,11 @@ public:
 
   void useAbility (AbilityType) const;
 
+  void startRecipe (RecipeID) const;
+  void cancelRecipe (RecipeID) const;
+
 private:
-  std::shared_ptr<RessourceManager> ressources;
-  std::shared_ptr<BuildingManager> buildings;
-  std::shared_ptr<JellyfishManager> jellies;
-  std::shared_ptr<AbilityManager> abilities;
-  std::shared_ptr<UpgradeManager> upgrades;
-  std::shared_ptr<MultipliersRegister> multipliers;
+  std::shared_ptr<SystemPtrs> systems;
 
   void updateMaxNumJellies () const;
 };

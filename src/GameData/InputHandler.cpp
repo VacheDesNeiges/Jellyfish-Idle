@@ -1,6 +1,7 @@
 #include "InputHandler.hpp"
 #include "AbilityManager.hpp"
 #include "BuildingManager.hpp"
+#include "GameSystems.hpp"
 #include "JellyfishManager.hpp"
 #include "MultipliersRegister.hpp"
 #include "RessourceManager.hpp"
@@ -8,31 +9,25 @@
 #include "UpgradeManager.hpp"
 #include <memory>
 
-InputHandler::InputHandler (std::shared_ptr<RessourceManager> r,
-                            std::shared_ptr<BuildingManager> b,
-                            std::shared_ptr<JellyfishManager> j,
-                            std::shared_ptr<AbilityManager> abi,
-                            std::shared_ptr<UpgradeManager> u,
-                            std::shared_ptr<MultipliersRegister> m)
+InputHandler::InputHandler (std::shared_ptr<SystemPtrs> sy)
 
-    : ressources (r), buildings (b), jellies (j), abilities (abi),
-      upgrades (u), multipliers (m)
+    : systems (sy)
 {
 }
 
 void
 InputHandler::useAbility (AbilityType t) const
 {
-  if (abilities->isUsable (t))
+  if (systems->abilities->isUsable (t))
     {
-      for (const auto &[rType, quant] : abilities->getAbilityCost (t))
+      for (const auto &[rType, quant] : systems->abilities->getAbilityCost (t))
         {
-          ressources->add (rType, -quant);
+          systems->ressources->add (rType, -quant);
         }
 
-      for (const auto &[rType, quant] : abilities->getProduction (t))
+      for (const auto &[rType, quant] : systems->abilities->getProduction (t))
         {
-          ressources->add (rType, quant);
+          systems->ressources->add (rType, quant);
         }
     }
 }
@@ -40,44 +35,44 @@ InputHandler::useAbility (AbilityType t) const
 bool
 InputHandler::assignJelly (JellyJobs j) const
 {
-  return jellies->assign (j);
+  return systems->jellies->assign (j);
 }
 
 bool
 InputHandler::unassignJelly (JellyJobs j) const
 {
-  return jellies->unasign (j);
+  return systems->jellies->unasign (j);
 }
 
 void
 InputHandler::gatherFood () const
 {
-  ressources->gatherFood ();
+  systems->ressources->gatherFood ();
 }
 
 void
 InputHandler::buy (BuildingType t) const
 {
-  for (const auto &[rType, quant] : buildings->nextBuyCost (t))
+  for (const auto &[rType, quant] : systems->buildings->nextBuyCost (t))
     {
-      ressources->add (rType, -quant);
+      systems->ressources->add (rType, -quant);
     }
-  buildings->buy (t);
+  systems->buildings->buy (t);
 
-  if (buildings->doesIncreasesMaxJellies (t))
+  if (systems->buildings->doesIncreasesMaxJellies (t))
     updateMaxNumJellies ();
 
-  multipliers->buildingBought (t);
+  systems->multipliers->buildingBought (t);
 }
 
 void
 InputHandler::buy (UpgradeID id) const
 {
-  for (const auto &[rType, quant] : upgrades->getCost (id))
+  for (const auto &[rType, quant] : systems->upgrades->getCost (id))
     {
-      ressources->add (rType, -quant);
+      systems->ressources->add (rType, -quant);
     }
-  upgrades->buy (id);
+  systems->upgrades->buy (id);
 }
 
 void
@@ -87,7 +82,7 @@ InputHandler::updateMaxNumJellies () const
   unsigned n = 0;
   for (const auto &b : Building::BuildingTypes)
     {
-      n += buildings->getIncreaseToMaxJfish (b);
+      n += systems->buildings->getIncreaseToMaxJfish (b);
     }
-  jellies->setBonusMaxJellies (n);
+  systems->jellies->setBonusMaxJellies (n);
 }
