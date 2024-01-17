@@ -18,6 +18,8 @@ public:
   bool tick ();
   bool isDone () const;
   unsigned getRemainingTicks () const;
+  unsigned getTotalRequiredTicks () const;
+  std::string getName () const;
 
   std::vector<std::pair<RessourceType, double> > getRecipe () const;
   std::vector<std::pair<RessourceType, double> > getBaseResult () const;

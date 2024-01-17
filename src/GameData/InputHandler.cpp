@@ -1,9 +1,11 @@
 #include "InputHandler.hpp"
 #include "AbilityManager.hpp"
 #include "BuildingManager.hpp"
+#include "CraftingRecipe.hpp"
 #include "GameSystems.hpp"
 #include "JellyfishManager.hpp"
 #include "MultipliersRegister.hpp"
+#include "RecipeID.hpp"
 #include "RessourceManager.hpp"
 #include "UpgradeId.hpp"
 #include "UpgradeManager.hpp"
@@ -85,4 +87,28 @@ InputHandler::updateMaxNumJellies () const
       n += systems->buildings->getIncreaseToMaxJfish (b);
     }
   systems->jellies->setBonusMaxJellies (n);
+}
+
+void
+InputHandler::startRecipe (RecipeID id) const
+{
+  systems->crafts->startRecipe (id);
+}
+
+void
+InputHandler::cancelRecipe (RecipeID id) const
+{
+  systems->crafts->cancelRecipe (id);
+}
+
+void
+InputHandler::assignToRecipe (RecipeID id) const
+{
+  systems->crafts->assign (id);
+}
+
+void
+InputHandler::unasignToRecipe (RecipeID id) const
+{
+  systems->crafts->unasign (id);
 }

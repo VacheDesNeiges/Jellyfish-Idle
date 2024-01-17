@@ -1,6 +1,7 @@
 #include "GameDataAccess.hpp"
 #include "AchievementDataView.hpp"
 #include "BuildingDataView.hpp"
+#include "CraftingDataView.hpp"
 #include "DepthDataView.hpp"
 #include "GameDataView.hpp"
 #include "JellyfishDataView.hpp"
@@ -72,4 +73,10 @@ GameDataAccess::upgradeView () const
 {
   assert (view != nullptr);
   return view->getUpgradeView ();
+}
+
+std::shared_ptr<CraftDataView>
+GameDataAccess::craftView () const
+{
+  return view->getCraftView ();
 }

@@ -24,6 +24,8 @@ main ()
 // binary search for access, iterable)
 
 // ROADMAP :
+// Crafting System -> Leveling System -> Tests
+
 // Telekinesis upgrade for insight
 // -> Unlocks Mining job
 // Advanced Telekinesis

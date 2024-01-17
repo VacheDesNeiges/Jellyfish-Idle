@@ -28,6 +28,7 @@ Game::~Game ()
   ImGui_ImplSDL2_Shutdown ();
   ImGui::DestroyContext ();
 
+  SDL_DestroyTexture (backgroundPicture);
   SDL_DestroyRenderer (renderer);
   SDL_DestroyWindow (window);
   SDL_Quit ();

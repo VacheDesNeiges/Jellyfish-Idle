@@ -15,7 +15,10 @@ public:
   bool unasign (RecipeID);
   void startRecipe (RecipeID);
   void cancelRecipe (RecipeID);
-  unsigned getRemainingTicks (RecipeID);
+  unsigned getRemainingTicks (RecipeID) const;
+  unsigned getTotalRequiredTicks (RecipeID) const;
+  unsigned getAssignedNumOfJellies (RecipeID) const;
+  std::string getName (RecipeID) const;
 
   bool tick ();
   std::vector<std::pair<RessourceType, double> > getRecipe (RecipeID);

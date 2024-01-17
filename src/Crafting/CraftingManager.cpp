@@ -48,9 +48,9 @@ CraftingManager::cancelRecipe (RecipeID id)
 }
 
 unsigned
-CraftingManager::getRemainingTicks (RecipeID id)
+CraftingManager::getRemainingTicks (RecipeID id) const
 {
-  return recipes[id].getRemainingTicks ();
+  return recipes.at (id).getRemainingTicks ();
 }
 
 std::vector<std::pair<RessourceType, double> >
@@ -90,4 +90,22 @@ std::vector<std::pair<RessourceType, double> >
 CraftingManager::getCraftResult (RecipeID id)
 {
   return recipes.at (id).getBaseResult ();
+}
+
+unsigned
+CraftingManager::getTotalRequiredTicks (RecipeID id) const
+{
+  return recipes.at (id).getTotalRequiredTicks ();
+}
+
+unsigned
+CraftingManager::getAssignedNumOfJellies (RecipeID id) const
+{
+  return assignedNumbersOfJellies.at (id);
+}
+
+std::string
+CraftingManager::getName (RecipeID id) const
+{
+  return recipes.at (id).getName ();
 }

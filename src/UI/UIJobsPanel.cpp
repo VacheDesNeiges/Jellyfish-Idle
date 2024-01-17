@@ -1,4 +1,7 @@
 #include "UIJobsPanel.hpp"
+#include "CraftingDataView.hpp"
+#include "CraftingRecipe.hpp"
+#include "GameDataView.hpp"
 #include "InputHandler.hpp"
 #include "Jellyfish.hpp"
 #include "imgui.h"
@@ -25,7 +28,7 @@ UIJobsPanel::render () const
         renderJobsControls (static_cast<JellyJobs> (job));
     }
 
-  renderTestCraftCard ();
+  renderRecipes ();
 
   ImGui::End ();
 }
@@ -53,12 +56,40 @@ UIJobsPanel::renderJobsControls (JellyJobs job) const
 }
 
 void
-UIJobsPanel ::renderTestCraftCard () const
+UIJobsPanel::renderRecipes () const
 {
   ImGui::PushStyleColor (ImGuiCol_ChildBg, IM_COL32 (20, 20, 20, 80));
-  ImGui::BeginChild ("blah", ImVec2 (200, 300));
-  ImGui::Text ("hi");
-  ImGui::ProgressBar (0.8f);
-  ImGui::EndChild ();
+  for (const auto &recipe : CraftingRecipe::RecipeTypes)
+    {
+      renderRecipe (recipe);
+      ImGui::SameLine ();
+    }
   ImGui::PopStyleColor ();
+}
+
+void
+UIJobsPanel::renderRecipe (RecipeID id) const
+{
+  constexpr auto size = ImVec2 (200, 300);
+  const auto &recipeName = gData->getCraftView ()->getName (id);
+  ImGui::BeginChild (recipeName.c_str (), size);
+  ImGui::Text ("%s", recipeName.c_str ());
+
+  ImGui::ProgressBar (
+      1
+      - static_cast<float> (gData->getCraftView ()->getRemainingTicks (id))
+            / static_cast<float> (
+                gData->getCraftView ()->getTotalRequiredTicks (id)));
+
+  if (ImGui::Button ("Start"))
+    {
+      inputHandler->startRecipe (id);
+    }
+  ImGui::SameLine ();
+  if (ImGui::Button ("cancel"))
+    {
+      inputHandler->cancelRecipe (id);
+    }
+
+  ImGui::EndChild ();
 }

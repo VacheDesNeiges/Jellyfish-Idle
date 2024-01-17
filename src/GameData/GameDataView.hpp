@@ -2,6 +2,7 @@
 #include "AbilityDataView.hpp"
 #include "AchievementDataView.hpp"
 #include "BuildingDataView.hpp"
+#include "CraftingDataView.hpp"
 #include "DepthDataView.hpp"
 #include "JellyfishDataView.hpp"
 #include "MultiplierDataView.hpp"
@@ -28,6 +29,7 @@ public:
   std::shared_ptr<DepthDataView> getDepthView () const;
   std::shared_ptr<UpgradeDataView> getUpgradeView () const;
   std::shared_ptr<MultiplierDataView> getMultiplierView () const;
+  std::shared_ptr<CraftDataView> getCraftView () const;
 
 private:
   std::shared_ptr<SystemPtrs> systems;
@@ -40,4 +42,5 @@ private:
   std::shared_ptr<DepthDataView> depthView;
   std::shared_ptr<UpgradeDataView> upgradesView;
   std::shared_ptr<MultiplierDataView> multipliersView;
+  std::shared_ptr<CraftDataView> craftView;
 };

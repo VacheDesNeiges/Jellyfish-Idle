@@ -1,5 +1,6 @@
 #pragma once
 #include "AchievementDataView.hpp"
+#include "CraftingDataView.hpp"
 #include "DepthDataView.hpp"
 #include "GameDataView.hpp"
 #include "UpgradeDataView.hpp"
@@ -18,6 +19,7 @@ protected:
   std::shared_ptr<BuildingDataView> buildingsView () const;
   std::shared_ptr<AchievementDataView> achievementsView () const;
   std::shared_ptr<DepthDataView> depthView () const;
+  std::shared_ptr<CraftDataView> craftView () const;
   std::shared_ptr<UpgradeDataView> upgradeView () const;
 
 private:

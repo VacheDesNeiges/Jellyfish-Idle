@@ -1,5 +1,6 @@
 #pragma once
 #include "Jellyfish.hpp"
+#include "RecipeID.hpp"
 #include "UIElement.hpp"
 
 class UIJobsPanel : public UIElement
@@ -9,5 +10,6 @@ public:
 
 private:
   void renderJobsControls (JellyJobs) const;
-  void renderTestCraftCard () const;
+  void renderRecipes () const;
+  void renderRecipe (RecipeID) const;
 };

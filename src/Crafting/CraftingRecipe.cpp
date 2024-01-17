@@ -79,3 +79,15 @@ CraftingRecipe::isDone () const
 {
   return done;
 }
+
+unsigned
+CraftingRecipe::getTotalRequiredTicks () const
+{
+  return baseTicksForCraft;
+}
+
+std::string
+CraftingRecipe::getName () const
+{
+  return recipeName;
+}
