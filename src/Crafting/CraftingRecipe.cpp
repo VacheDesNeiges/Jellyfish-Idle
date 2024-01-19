@@ -30,14 +30,14 @@ CraftingRecipe::CraftingRecipe (RecipeID id)
 void
 CraftingRecipe::start ()
 {
-  crafting = false;
+  crafting = true;
   remainingTicksToCraft = baseTicksForCraft;
 }
 
 void
 CraftingRecipe::cancel ()
 {
-  crafting = true;
+  crafting = false;
   remainingTicksToCraft = baseTicksForCraft;
 }
 

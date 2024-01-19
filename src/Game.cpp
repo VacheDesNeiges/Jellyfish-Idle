@@ -168,6 +168,7 @@ void
 Game::setImguiStyle () const
 {
   ImGuiStyle &style = ImGui::GetStyle ();
+  style.SeparatorTextAlign = { 0.5, 0.5 };
   style.FrameRounding = 12.f;
   style.FramePadding = { 20.f, 3.f };
   style.WindowRounding = 12.f;

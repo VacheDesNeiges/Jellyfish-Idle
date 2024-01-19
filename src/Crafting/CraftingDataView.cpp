@@ -30,3 +30,15 @@ CraftDataView::getName (RecipeID id) const
 {
   return crafts->getName (id);
 }
+
+std::vector<std::pair<RessourceType, double> >
+CraftDataView::getRecipe (RecipeID id) const
+{
+  return crafts->getRecipe (id);
+}
+
+std::vector<std::pair<RessourceType, double> >
+CraftDataView::getCraftResults (RecipeID id) const
+{
+  return crafts->getCraftResult (id);
+}

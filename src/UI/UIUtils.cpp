@@ -27,7 +27,7 @@ UIUtils::printCostsImGui (
         {
           textColor = UIColors::redText;
         }
-      else if (cost < requestedQuantity)
+      else if (cost <= requestedQuantity)
         {
           textColor = UIColors::greenText;
         }

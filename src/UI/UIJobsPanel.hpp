@@ -12,4 +12,5 @@ private:
   void renderJobsControls (JellyJobs) const;
   void renderRecipes () const;
   void renderRecipe (RecipeID) const;
+  void displayRecipeText (RecipeID) const;
 };

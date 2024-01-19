@@ -4,7 +4,10 @@
 #include "GameDataView.hpp"
 #include "InputHandler.hpp"
 #include "Jellyfish.hpp"
+#include "RecipeID.hpp"
+#include "UIUtils.hpp"
 #include "imgui.h"
+#include "imgui_internal.h"
 
 void
 UIJobsPanel::render () const
@@ -27,6 +30,8 @@ UIJobsPanel::render () const
               static_cast<JellyJobs> (job)))
         renderJobsControls (static_cast<JellyJobs> (job));
     }
+
+  ImGui::SeparatorText ("Recipes");
 
   renderRecipes ();
 
@@ -72,14 +77,13 @@ UIJobsPanel::renderRecipe (RecipeID id) const
 {
   constexpr auto size = ImVec2 (200, 300);
   const auto &recipeName = gData->getCraftView ()->getName (id);
+
   ImGui::BeginChild (recipeName.c_str (), size);
   ImGui::Text ("%s", recipeName.c_str ());
 
-  ImGui::ProgressBar (
-      1
-      - static_cast<float> (gData->getCraftView ()->getRemainingTicks (id))
-            / static_cast<float> (
-                gData->getCraftView ()->getTotalRequiredTicks (id)));
+  ImGui::Separator ();
+  displayRecipeText (id);
+  ImGui::Separator ();
 
   if (ImGui::Button ("Start"))
     {
@@ -90,6 +94,21 @@ UIJobsPanel::renderRecipe (RecipeID id) const
     {
       inputHandler->cancelRecipe (id);
     }
+  ImGui::ProgressBar (
+      1
+      - static_cast<float> (gData->getCraftView ()->getRemainingTicks (id))
+            / static_cast<float> (
+                gData->getCraftView ()->getTotalRequiredTicks (id)));
 
   ImGui::EndChild ();
+}
+
+void
+UIJobsPanel::displayRecipeText (RecipeID id) const
+{
+  const auto &craftResult = gData->getCraftView ()->getCraftResults (id);
+  const auto &craftRecipe = gData->getCraftView ()->getRecipe (id);
+  std::string craftResultString;
+
+  UIUtils::printCostsImGui (gData, craftRecipe);
 }
