@@ -6,9 +6,10 @@
 #include "Jellyfish.hpp"
 #include "RecipeID.hpp"
 #include "UIUtils.hpp"
+
+#include "fmt/core.h"
 #include "imgui.h"
 #include "imgui_internal.h"
-#include <fmt/core.h>
 
 void
 UIJobsPanel::render () const
@@ -89,46 +90,73 @@ UIJobsPanel::renderRecipe (RecipeID id) const
 
   ImGui::SeparatorText (recipeName.c_str ());
 
-  ImGui::Text ("%s", recipeName.c_str ());
+  ImGui::Text ("Produces :");
 
-  const std::string quantity = fmt::format (
-      "{:.2f}", gData->getCraftView ()->getCraftResults (id)[0].second);
+  const std::string quantity
+      = fmt::format ("{} x {:.2f}", recipeName,
+                     gData->getCraftView ()->getCraftResults (id)[0].second);
 
   ImGui::SameLine (ImGui::GetWindowWidth ()
                    - (ImGui::CalcTextSize (quantity.c_str ()).x + 10));
   ImGui::Text ("%s", quantity.c_str ());
 
   ImGui::SeparatorText ("Assigned Artisans");
+
+  ImGui::BeginDisabled (
+      gData->getCraftView ()->craftIsOngoing (id)
+      || (gData->getCraftView ()->getAssignedNumOfJellies (id) == 0));
   if (ImGui::ArrowButton ((recipeName + "##left").c_str (), ImGuiDir_Left))
     {
       inputHandler->unassignToRecipe (id);
     }
+  ImGui::EndDisabled ();
+
   ImGui::SameLine ();
   ImGui::Text ("%d", gData->getCraftView ()->getAssignedNumOfJellies (id));
   ImGui::SameLine ();
+
+  ImGui::BeginDisabled (gData->getCraftView ()->craftIsOngoing (id)
+                        || (gData->getCraftView ()->getAssignedNumOfJellies (
+                                RecipeID::NoneRecipe)
+                            == 0));
   if (ImGui::ArrowButton ((recipeName + "##right").c_str (), ImGuiDir_Right))
     {
       inputHandler->assignToRecipe (id);
     }
+  ImGui::EndDisabled ();
 
   ImGui::SeparatorText ("Recipe");
   displayRecipeText (id);
   ImGui::Separator ();
 
+  ImGui::BeginDisabled (gData->getCraftView ()->getAssignedNumOfJellies (id)
+                            == 0
+                        || (!gData->getCraftView ()->canAfford (id))
+                        || gData->getCraftView ()->craftIsOngoing (id));
   if (ImGui::Button ("Start"))
     {
       inputHandler->startRecipe (id);
     }
+  ImGui::EndDisabled ();
   ImGui::SameLine ();
+  ImGui::BeginDisabled (!gData->getCraftView ()->craftIsOngoing (id));
+
   if (ImGui::Button ("cancel"))
     {
       inputHandler->cancelRecipe (id);
     }
-  ImGui::ProgressBar (
-      1
-      - static_cast<float> (gData->getCraftView ()->getRemainingTicks (id))
-            / static_cast<float> (
-                gData->getCraftView ()->getTotalRequiredTicks (id)));
+  ImGui::EndDisabled ();
+
+  const auto progress
+      = 1.f
+        - (static_cast<float> (gData->getCraftView ()->getRemainingTicks (id))
+           / static_cast<float> (
+               gData->getCraftView ()->getTotalRequiredTicks (id)));
+
+  const auto &remainingTime = fmt::format (
+      "{} seconds", gData->getCraftView ()->getRemainingTicks (id) / 2);
+
+  ImGui::ProgressBar (progress, ImVec2 (-1.0f, 0.0f), remainingTime.c_str ());
 
   ImGui::EndChild ();
 }

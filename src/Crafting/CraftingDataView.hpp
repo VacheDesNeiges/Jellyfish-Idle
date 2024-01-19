@@ -14,6 +14,8 @@ public:
   unsigned getRemainingTicks (RecipeID) const;
   unsigned getTotalRequiredTicks (RecipeID) const;
   unsigned getAssignedNumOfJellies (RecipeID) const;
+  bool canAfford (RecipeID) const;
+  bool craftIsOngoing (RecipeID) const;
   std::string getName (RecipeID) const;
 
   std::vector<std::pair<RessourceType, double> > getRecipe (RecipeID) const;

@@ -2,6 +2,7 @@
 #include "Jellyfish.hpp"
 #include "MultipliersIDs.hpp"
 #include "Ressource.hpp"
+
 #include <algorithm>
 #include <exception>
 #include <iostream>

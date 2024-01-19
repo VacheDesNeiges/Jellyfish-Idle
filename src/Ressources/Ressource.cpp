@@ -37,6 +37,11 @@ Ressource::Ressource (RessourceType rType)
       quantity = 0;
       break;
 
+    case RessourceType::StoneSlab:
+      name = "Stone Slab";
+      max_quantity = 50;
+      quantity = 0;
+
     default:
       break;
     }

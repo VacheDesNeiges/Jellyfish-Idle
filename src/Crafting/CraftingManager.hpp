@@ -2,6 +2,7 @@
 #include "CraftingRecipe.hpp"
 #include "GameDataAccess.hpp"
 #include "RecipeID.hpp"
+
 #include <unordered_map>
 #include <utility>
 
@@ -13,6 +14,8 @@ public:
 
   bool assign (RecipeID);
   bool unasign (RecipeID);
+  bool canAfford (RecipeID) const;
+  bool craftIsOngoing (RecipeID) const;
   void startRecipe (RecipeID);
   void cancelRecipe (RecipeID);
   unsigned getRemainingTicks (RecipeID) const;
@@ -22,7 +25,7 @@ public:
   std::string getName (RecipeID) const;
 
   bool tick ();
-  std::vector<std::pair<RessourceType, double> > getRecipe (RecipeID);
+  std::vector<std::pair<RessourceType, double> > getRecipe (RecipeID) const;
   std::vector<std::pair<RessourceType, double> > getCraftResults ();
   std::vector<std::pair<RessourceType, double> > getCraftResult (RecipeID);
 

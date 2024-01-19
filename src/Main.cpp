@@ -1,4 +1,5 @@
 #include "Game.hpp"
+
 #include <memory>
 
 int
@@ -17,6 +18,7 @@ main ()
 // TODO : implement new octopus upgrades (canalizing and writing)
 // TODO : add a cooldown to abilities;
 // TODO : Catchup on load
+// TODO : add save and load function to crafting system
 
 // Polishing :
 
@@ -26,6 +28,8 @@ main ()
 // TODO : Try using columns for buildings and jobs ui rendering
 
 // Bugs :
+// TODO : Savefile format stores enums with integers, making the saves prone to
+// break when inserting a new value in an enum. Needs a more robust solution
 
 // Roadmap :
 

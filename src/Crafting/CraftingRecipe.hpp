@@ -16,7 +16,9 @@ public:
   void start ();
   void cancel ();
   bool tick ();
+  bool isOngoing () const;
   bool isDone () const;
+  void reset ();
   unsigned getRemainingTicks () const;
   unsigned getTotalRequiredTicks () const;
   std::string getName () const;
@@ -28,7 +30,7 @@ public:
       = { RecipeID::StoneSlabRecipe, RecipeID::GlassPanelRecipe };
 
 private:
-  bool crafting = false;
+  bool craftOngoing = false;
   bool done = false;
   std::string recipeName;
   int recipeLvl = 0;

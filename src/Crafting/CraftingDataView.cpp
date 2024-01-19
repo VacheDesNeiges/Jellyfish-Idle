@@ -1,6 +1,7 @@
 #include "CraftingDataView.hpp"
 #include "CraftingManager.hpp"
 #include "RecipeID.hpp"
+
 #include <memory>
 
 CraftDataView::CraftDataView (std::shared_ptr<CraftingManager> c) : crafts (c)
@@ -41,4 +42,16 @@ std::vector<std::pair<RessourceType, double> >
 CraftDataView::getCraftResults (RecipeID id) const
 {
   return crafts->getCraftResult (id);
+}
+
+bool
+CraftDataView::canAfford (RecipeID id) const
+{
+  return crafts->canAfford (id);
+}
+
+bool
+CraftDataView::craftIsOngoing (RecipeID id) const
+{
+  return crafts->craftIsOngoing (id);
 }

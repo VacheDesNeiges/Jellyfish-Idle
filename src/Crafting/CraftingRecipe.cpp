@@ -1,5 +1,6 @@
 #include "CraftingRecipe.hpp"
 #include "RecipeID.hpp"
+
 #include <cassert>
 
 CraftingRecipe::CraftingRecipe (RecipeID id)
@@ -10,14 +11,14 @@ CraftingRecipe::CraftingRecipe (RecipeID id)
 
     case RecipeID::StoneSlabRecipe:
       recipeName = "Stone Slab";
-      baseTicksForCraft = 600;
-      recipe.emplace_back (Stone, 200);
+      baseTicksForCraft = 120;
+      recipe.emplace_back (Stone, 5);
       baseResult.emplace_back (StoneSlab, 1);
       break;
 
     case RecipeID::GlassPanelRecipe:
       recipeName = "Glass Pane";
-      baseTicksForCraft = 600;
+      baseTicksForCraft = 300;
       recipe.emplace_back (Glass, 100);
       baseResult.emplace_back (GlassPane, 1);
       break;
@@ -25,19 +26,20 @@ CraftingRecipe::CraftingRecipe (RecipeID id)
     default:
       assert (false);
     }
+  remainingTicksToCraft = baseTicksForCraft;
 }
 
 void
 CraftingRecipe::start ()
 {
-  crafting = true;
+  craftOngoing = true;
   remainingTicksToCraft = baseTicksForCraft;
 }
 
 void
 CraftingRecipe::cancel ()
 {
-  crafting = false;
+  craftOngoing = false;
   remainingTicksToCraft = baseTicksForCraft;
 }
 
@@ -62,12 +64,12 @@ CraftingRecipe::getBaseResult () const
 bool
 CraftingRecipe::tick ()
 {
-  if (crafting)
+  if (craftOngoing)
     {
       remainingTicksToCraft--;
       if (remainingTicksToCraft == 0)
         {
-          crafting = false;
+          craftOngoing = false;
           done = true;
         }
     }
@@ -90,4 +92,18 @@ std::string
 CraftingRecipe::getName () const
 {
   return recipeName;
+}
+
+bool
+CraftingRecipe::isOngoing () const
+{
+  return craftOngoing;
+}
+
+void
+CraftingRecipe::reset ()
+{
+  done = false;
+  craftOngoing = false;
+  remainingTicksToCraft = baseTicksForCraft;
 }

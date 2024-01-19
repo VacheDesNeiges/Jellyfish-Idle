@@ -2,6 +2,7 @@
 #include "CraftingRecipe.hpp"
 #include "Jellyfish.hpp"
 #include "RecipeID.hpp"
+#include "Ressource.hpp"
 #include <utility>
 #include <vector>
 
@@ -58,9 +59,9 @@ CraftingManager::getRemainingTicks (RecipeID id) const
 }
 
 std::vector<std::pair<RessourceType, double> >
-CraftingManager::getRecipe (RecipeID id)
+CraftingManager::getRecipe (RecipeID id) const
 {
-  return recipes[id].getRecipe ();
+  return recipes.at (id).getRecipe ();
 }
 
 bool
@@ -84,7 +85,12 @@ CraftingManager::getCraftResults ()
       if (recipes.at (id).isDone ())
         {
           auto tmp = getCraftResult (id);
+          for (auto &[rType, quant] : tmp)
+            {
+              quant *= assignedJelliesToRecipes[id];
+            }
           result.insert (result.end (), tmp.begin (), tmp.end ());
+          recipes.at (id).reset ();
         }
     }
   return result;
@@ -135,4 +141,24 @@ CraftingManager::updateAssignments ()
       assignedJelliesToRecipes[RecipeID::NoneRecipe] -= dif;
       assignedJelliesToCrafting -= dif;
     }
+}
+
+bool
+CraftingManager::canAfford (RecipeID id) const
+{
+  bool ret = true;
+  const auto recipe = getRecipe (id);
+  for (const auto &[rType, quant] : recipe)
+    {
+      if (ressourcesView ()->getRessourceQuantity (rType)
+          < quant * assignedJelliesToRecipes.at (id))
+        ret = false;
+    }
+  return ret;
+}
+
+bool
+CraftingManager::craftIsOngoing (RecipeID id) const
+{
+  return recipes.at (id).isOngoing ();
 }

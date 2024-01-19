@@ -13,6 +13,7 @@ RessourceManager::init ()
   ressources[Stone] = Ressource (Stone);
   ressources[Glass] = Ressource (Glass);
   ressources[Insight] = Ressource (Insight);
+  ressources[StoneSlab] = Ressource (StoneSlab);
 }
 
 void

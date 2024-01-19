@@ -106,7 +106,15 @@ InputHandler::updateMaxNumJellies () const
 void
 InputHandler::startRecipe (RecipeID id) const
 {
-  systems->crafts->startRecipe (id);
+  if (systems->crafts->canAfford (id))
+    {
+      for (const auto &[rType, quant] : systems->crafts->getRecipe (id))
+        {
+          systems->ressources->add (
+              rType, -quant * systems->crafts->getAssignedNumOfJellies (id));
+        }
+      systems->crafts->startRecipe (id);
+    }
 }
 
 void
