@@ -58,6 +58,9 @@ AchievementDataView::isUnlocked (JellyJobs j) const
     case Mining:
       return achievements->isUnlocked (AchievementIDs::JobMining);
 
+    case Artisan:
+      return achievements->isUnlocked (AchievementIDs::JobArtisan);
+
     default:
       return false;
     }

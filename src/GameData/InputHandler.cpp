@@ -3,6 +3,7 @@
 #include "BuildingManager.hpp"
 #include "CraftingRecipe.hpp"
 #include "GameSystems.hpp"
+#include "Jellyfish.hpp"
 #include "JellyfishManager.hpp"
 #include "MultipliersRegister.hpp"
 #include "RecipeID.hpp"
@@ -37,13 +38,26 @@ InputHandler::useAbility (AbilityType t) const
 bool
 InputHandler::assignJelly (JellyJobs j) const
 {
-  return systems->jellies->assign (j);
+  bool ret = systems->jellies->assign (j);
+
+  if (j == JellyJobs::Artisan)
+    systems->crafts->updateAssignments ();
+
+  return ret;
 }
 
 bool
 InputHandler::unassignJelly (JellyJobs j) const
 {
-  return systems->jellies->unasign (j);
+  bool ret = systems->jellies->unasign (j);
+
+  if (j == JellyJobs::Artisan && ret)
+    {
+      systems->crafts->unasign (RecipeID::NoneRecipe);
+      systems->crafts->updateAssignments ();
+    }
+
+  return ret;
 }
 
 void
@@ -108,7 +122,7 @@ InputHandler::assignToRecipe (RecipeID id) const
 }
 
 void
-InputHandler::unasignToRecipe (RecipeID id) const
+InputHandler::unassignToRecipe (RecipeID id) const
 {
   systems->crafts->unasign (id);
 }

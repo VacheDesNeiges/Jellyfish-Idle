@@ -161,8 +161,11 @@ JellyfishManager::getJobDescription (JellyJobs j) const
     case FocusForInsight:
       return "Focus for Insight";
 
+    case Artisan:
+      return "Crafting Things";
+
     default:
-      return "";
+      return "Undefined Description";
     }
 }
 

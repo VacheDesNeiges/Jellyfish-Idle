@@ -1,5 +1,6 @@
 #include "CraftingManager.hpp"
 #include "CraftingRecipe.hpp"
+#include "Jellyfish.hpp"
 #include "RecipeID.hpp"
 #include <utility>
 #include <vector>
@@ -9,15 +10,18 @@ CraftingManager::CraftingManager ()
   for (const auto &c : CraftingRecipe::RecipeTypes)
     {
       recipes[c] = CraftingRecipe (c);
+      assignedJelliesToRecipes[c] = 0;
     }
+  assignedJelliesToRecipes[RecipeID::NoneRecipe] = 0;
 }
 
 bool
 CraftingManager::assign (RecipeID id)
 {
-  if (assignedNumbersOfJellies[RecipeID::NoneRecipe] > 0)
+  if (assignedJelliesToRecipes[RecipeID::NoneRecipe] > 0)
     {
-      assignedNumbersOfJellies[id]++;
+      assignedJelliesToRecipes[id]++;
+      assignedJelliesToRecipes[RecipeID::NoneRecipe]--;
       return true;
     }
   return false;
@@ -26,10 +30,10 @@ CraftingManager::assign (RecipeID id)
 bool
 CraftingManager::unasign (RecipeID id)
 {
-  if (assignedNumbersOfJellies[id] > 0)
+  if (assignedJelliesToRecipes[id] > 0)
     {
-      assignedNumbersOfJellies[id]--;
-      assignedNumbersOfJellies[RecipeID::NoneRecipe]++;
+      assignedJelliesToRecipes[id]--;
+      assignedJelliesToRecipes[RecipeID::NoneRecipe]++;
       return true;
     }
   return false;
@@ -101,11 +105,34 @@ CraftingManager::getTotalRequiredTicks (RecipeID id) const
 unsigned
 CraftingManager::getAssignedNumOfJellies (RecipeID id) const
 {
-  return assignedNumbersOfJellies.at (id);
+  return assignedJelliesToRecipes.at (id);
 }
 
 std::string
 CraftingManager::getName (RecipeID id) const
 {
   return recipes.at (id).getName ();
+}
+
+void
+CraftingManager::updateAssignments ()
+{
+  const auto asssignedToJob
+      = jelliesView ()->getNumJellies (JellyJobs::Artisan);
+  if (assignedJelliesToCrafting == asssignedToJob)
+    return;
+
+  if (asssignedToJob > assignedJelliesToCrafting)
+    {
+      const auto dif = asssignedToJob - assignedJelliesToCrafting;
+
+      assignedJelliesToRecipes[RecipeID::NoneRecipe] += dif;
+      assignedJelliesToCrafting += dif;
+    }
+  else
+    {
+      const auto dif = assignedJelliesToCrafting - asssignedToJob;
+      assignedJelliesToRecipes[RecipeID::NoneRecipe] -= dif;
+      assignedJelliesToCrafting -= dif;
+    }
 }

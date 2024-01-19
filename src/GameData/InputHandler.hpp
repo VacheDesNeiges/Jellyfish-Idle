@@ -25,7 +25,7 @@ public:
   void startRecipe (RecipeID) const;
   void cancelRecipe (RecipeID) const;
   void assignToRecipe (RecipeID) const;
-  void unasignToRecipe (RecipeID) const;
+  void unassignToRecipe (RecipeID) const;
 
 private:
   std::shared_ptr<SystemPtrs> systems;

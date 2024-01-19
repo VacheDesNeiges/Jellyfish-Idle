@@ -8,6 +8,7 @@
 #include "UIUtils.hpp"
 #include "imgui.h"
 #include "imgui_internal.h"
+#include <fmt/core.h>
 
 void
 UIJobsPanel::render () const
@@ -63,7 +64,13 @@ UIJobsPanel::renderJobsControls (JellyJobs job) const
 void
 UIJobsPanel::renderRecipes () const
 {
-  ImGui::PushStyleColor (ImGuiCol_ChildBg, IM_COL32 (20, 20, 20, 80));
+  ImGui::Text ("%s",
+               fmt::format ("Available Artisans : {}",
+                            gData->getCraftView ()->getAssignedNumOfJellies (
+                                RecipeID::NoneRecipe))
+                   .c_str ());
+
+  ImGui::PushStyleColor (ImGuiCol_ChildBg, IM_COL32 (0, 0, 0, 180));
   for (const auto &recipe : CraftingRecipe::RecipeTypes)
     {
       renderRecipe (recipe);
@@ -79,9 +86,32 @@ UIJobsPanel::renderRecipe (RecipeID id) const
   const auto &recipeName = gData->getCraftView ()->getName (id);
 
   ImGui::BeginChild (recipeName.c_str (), size);
+
+  ImGui::SeparatorText (recipeName.c_str ());
+
   ImGui::Text ("%s", recipeName.c_str ());
 
-  ImGui::Separator ();
+  const std::string quantity = fmt::format (
+      "{:.2f}", gData->getCraftView ()->getCraftResults (id)[0].second);
+
+  ImGui::SameLine (ImGui::GetWindowWidth ()
+                   - (ImGui::CalcTextSize (quantity.c_str ()).x + 10));
+  ImGui::Text ("%s", quantity.c_str ());
+
+  ImGui::SeparatorText ("Assigned Artisans");
+  if (ImGui::ArrowButton ((recipeName + "##left").c_str (), ImGuiDir_Left))
+    {
+      inputHandler->unassignToRecipe (id);
+    }
+  ImGui::SameLine ();
+  ImGui::Text ("%d", gData->getCraftView ()->getAssignedNumOfJellies (id));
+  ImGui::SameLine ();
+  if (ImGui::ArrowButton ((recipeName + "##right").c_str (), ImGuiDir_Right))
+    {
+      inputHandler->assignToRecipe (id);
+    }
+
+  ImGui::SeparatorText ("Recipe");
   displayRecipeText (id);
   ImGui::Separator ();
 
@@ -106,7 +136,6 @@ UIJobsPanel::renderRecipe (RecipeID id) const
 void
 UIJobsPanel::displayRecipeText (RecipeID id) const
 {
-  const auto &craftResult = gData->getCraftView ()->getCraftResults (id);
   const auto &craftRecipe = gData->getCraftView ()->getRecipe (id);
   std::string craftResultString;
 

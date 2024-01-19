@@ -10,20 +10,25 @@ main ()
   return 0;
 }
 
+// todolist ----------------
+// Features :
+
 // TODO : implement manufacturing job
 // TODO : implement new octopus upgrades (canalizing and writing)
 // TODO : add a cooldown to abilities;
 // TODO : Catchup on load
+
+// Polishing :
+
 // TODO : unify the button size in a file.
 // TODO : grey out upgrades once they are bought (when displayed optionaly)
 // TODO : use different colors for xp bar and progress bar
+// TODO : Try using columns for buildings and jobs ui rendering
 
-// at some point, using std::map might end up causing performance issues, in
-// this case, try boost's flat map, and then implement a short version of it
-// (vector of pair, sort by first element which is an enum (try concepts),
-// binary search for access, iterable)
+// Bugs :
 
-// ROADMAP :
+// Roadmap :
+
 // Crafting System -> Leveling System -> Tests
 
 // Telekinesis upgrade for insight
@@ -38,3 +43,8 @@ main ()
 // Marine Stockroom
 // Oceanic Vault
 // Abyssal Hoard
+
+// at some point, using std::map might end up causing performance issues, in
+// this case, try boost's flat map, and then implement a short version of it
+// (vector of pair, sort by first element which is an enum (try concepts),
+// binary search for access, iterable)

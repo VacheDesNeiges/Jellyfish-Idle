@@ -9,6 +9,7 @@ enum class JellyJobs
   ExploreTheDepths,
   Mining,
   FocusForInsight,
+  Artisan,
   Last
 };
 
@@ -19,9 +20,10 @@ public:
   void gainJobExp (unsigned);
   JellyJobs getJob () const;
 
-  static constexpr std::array<JellyJobs, 6> JobsTypes = {
+  static constexpr std::array<JellyJobs, 7> JobsTypes = {
     JellyJobs::None,   JellyJobs::GatherFood,       JellyJobs::GatherSand,
-    JellyJobs::Mining, JellyJobs::ExploreTheDepths, JellyJobs::FocusForInsight
+    JellyJobs::Mining, JellyJobs::ExploreTheDepths, JellyJobs::FocusForInsight,
+    JellyJobs::Artisan
 
   };
 

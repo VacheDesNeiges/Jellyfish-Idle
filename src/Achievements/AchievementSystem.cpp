@@ -49,6 +49,23 @@ AchievementSystem::AchievementSystem ()
         return getDataView ()->getJelliesView ()->getNumJellies () >= 2;
       } },
 
+    { JobMining,
+      [this] () {
+        return getDataView ()->getDepthView ()->getCurrentDepth () >= 30;
+      } },
+
+    { JobArtisan,
+      [this] () {
+        return getDataView ()->getUpgradeView ()->isBought (
+            UpgradeID::AdvancedTelekinesis);
+      } },
+
+    { FocusingUpgradeBought,
+      [this] () {
+        return getDataView ()->getUpgradeView ()->isBought (
+            UpgradeID::Focusing);
+      } },
+
     { LightningAbilityBuyable,
       [this] () {
         return getDataView ()->getRessourcesView ()->getRessourceQuantity (
@@ -57,17 +74,6 @@ AchievementSystem::AchievementSystem ()
       } },
 
     { ResearchTabUnlocked, [] () { return false; } },
-
-    { JobMining,
-      [this] () {
-        return getDataView ()->getDepthView ()->getCurrentDepth () >= 30;
-      } },
-
-    { FocusingUpgradeBought,
-      [this] () {
-        return getDataView ()->getUpgradeView ()->isBought (
-            UpgradeID::Focusing);
-      } },
 
     { AncientOctopus,
       [this] () {

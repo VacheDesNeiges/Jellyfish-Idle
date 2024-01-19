@@ -18,6 +18,7 @@ public:
   unsigned getRemainingTicks (RecipeID) const;
   unsigned getTotalRequiredTicks (RecipeID) const;
   unsigned getAssignedNumOfJellies (RecipeID) const;
+  void updateAssignments ();
   std::string getName (RecipeID) const;
 
   bool tick ();
@@ -26,6 +27,7 @@ public:
   std::vector<std::pair<RessourceType, double> > getCraftResult (RecipeID);
 
 private:
-  std::unordered_map<RecipeID, unsigned> assignedNumbersOfJellies;
+  unsigned assignedJelliesToCrafting = 0;
+  std::unordered_map<RecipeID, unsigned> assignedJelliesToRecipes;
   std::unordered_map<RecipeID, CraftingRecipe> recipes;
 };
