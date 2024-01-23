@@ -46,6 +46,8 @@ GameSynchronizer::gameTick () const
       systems->jellies->getNum (JellyJobs::ExploreTheDepths));
 
   // Jobs experience, with bool value return to update multipliers
+  distributeExp ();
+
   checkAchievements ();
   checkJellyfishArrival ();
 }
@@ -95,8 +97,20 @@ GameSynchronizer::addMaps (
 }
 
 void
-GameSynchronizer::update () const
+GameSynchronizer::update () const // TODO Give a better name for this function
 {
   systems->multipliers->recomputeMultipliers ();
   gameTick ();
+}
+
+void
+GameSynchronizer::distributeExp () const
+{
+  bool hasLeveledUp = systems->jellies->distributeJobExp ();
+
+  if (systems->crafts->distributeCraftsExp ())
+    hasLeveledUp = true;
+
+  if (hasLeveledUp)
+    systems->multipliers->recomputeMultipliers ();
 }

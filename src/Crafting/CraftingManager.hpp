@@ -16,6 +16,7 @@ public:
   bool unasign (RecipeID);
   bool canAfford (RecipeID) const;
   bool craftIsOngoing (RecipeID) const;
+  bool distributeCraftsExp ();
   void startRecipe (RecipeID);
   void cancelRecipe (RecipeID);
   unsigned getRemainingTicks (RecipeID) const;

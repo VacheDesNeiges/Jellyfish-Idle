@@ -107,3 +107,9 @@ CraftingRecipe::reset ()
   craftOngoing = false;
   remainingTicksToCraft = baseTicksForCraft;
 }
+
+int
+CraftingRecipe::getRecipelvl () const
+{
+  return recipeLvl;
+}

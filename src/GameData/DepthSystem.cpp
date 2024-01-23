@@ -38,7 +38,7 @@ DepthSystem::ExploreDepth (unsigned nJellies)
           currentDepth += 1;
           currentProgress -= progressNeeded;
           progressNeeded = static_cast<float> (
-              currentDepth * (currentDepth / log (currentDepth)));
+              currentDepth * (currentDepth / std::log (currentDepth)));
         }
     }
 }

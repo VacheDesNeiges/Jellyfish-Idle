@@ -5,6 +5,7 @@
 #include "SaveAndLoadable.hpp"
 #include <iostream>
 #include <unordered_map>
+#include <utility>
 #include <vector>
 
 struct JellyfishData
@@ -17,6 +18,13 @@ struct JellyfishData
   unsigned numJobMining;
   unsigned numJobFocusing;
   unsigned numJellies;
+};
+
+struct JobLevel
+{
+  unsigned lvl = 0;
+  double currentProgress;
+  double progressNeeded;
 };
 
 class GameDataView;
@@ -32,6 +40,7 @@ public:
   unsigned int getNum (JellyJobs);
   bool assign (JellyJobs);
   bool unasign (JellyJobs);
+  bool distributeJobExp ();
   void createJellyfish ();
   double getFoodRequiredPerJellyfishPerSec () const;
   std::unordered_map<RessourceType, double> getProductionRates () const;
@@ -43,8 +52,11 @@ public:
 private:
   std::vector<Jellyfish> jellies;
   std::unordered_map<JellyJobs, unsigned> jobNumbers;
-  unsigned maxNumJellies = 1;
 
+  std::unordered_map<JellyJobs, JobLevel>
+      jobExp; // pair of current progress, progress neeeded
+
+  unsigned maxNumJellies = 1;
   bool numJobsUpToDate = false;
 
   void updateNumJobs ();

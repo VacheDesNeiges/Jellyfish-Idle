@@ -162,3 +162,10 @@ CraftingManager::craftIsOngoing (RecipeID id) const
 {
   return recipes.at (id).isOngoing ();
 }
+
+bool
+CraftingManager::distributeCraftsExp ()
+{
+  // FIXME !!!
+  return false;
+}

@@ -4,6 +4,7 @@
 #include "Ressource.hpp"
 
 #include <algorithm>
+#include <cmath>
 #include <exception>
 #include <iostream>
 #include <iterator>
@@ -15,6 +16,7 @@ JellyfishManager::JellyfishManager ()
   for (const auto &job : Jellyfish::JobsTypes)
     {
       jobNumbers.try_emplace (job, 0);
+      jobExp.try_emplace (job, JobLevel{ 0, 0, 100 });
     }
 }
 
@@ -234,4 +236,26 @@ double
 JellyfishManager::getFoodRequiredPerJellyfishPerSec () const
 {
   return Jellyfish::necessaryFoodPerSec;
+}
+
+bool
+JellyfishManager::distributeJobExp ()
+{
+  bool hasLeveledUp = false;
+
+  for (auto &[key, lvlStruct] : jobExp)
+    {
+      double progressGained = jobNumbers.at (key) * 0.5;
+      lvlStruct.currentProgress += progressGained;
+      while (lvlStruct.currentProgress >= lvlStruct.progressNeeded)
+        {
+          hasLeveledUp = true;
+          lvlStruct.lvl += 1;
+          lvlStruct.currentProgress -= lvlStruct.progressNeeded;
+          lvlStruct.progressNeeded
+              = lvlStruct.lvl * (lvlStruct.lvl / std::log (lvlStruct.lvl));
+        }
+    }
+
+  return hasLeveledUp;
 }

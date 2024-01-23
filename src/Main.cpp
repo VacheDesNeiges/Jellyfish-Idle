@@ -16,9 +16,10 @@ main ()
 
 // TODO : implement manufacturing job
 // TODO : implement new octopus upgrades (canalizing and writing)
-// TODO : add a cooldown to abilities;
+// TODO : add a cooldown to abilities ?
 // TODO : Catchup on load
 // TODO : add save and load function to crafting system
+// TODO : add save and load to leveling system
 
 // Polishing :
 
@@ -26,6 +27,7 @@ main ()
 // TODO : grey out upgrades once they are bought (when displayed optionaly)
 // TODO : use different colors for xp bar and progress bar
 // TODO : Try using columns for buildings and jobs ui rendering
+// TODO : Map achievement functions in another file than achievementDataView
 
 // Bugs :
 // TODO : Savefile format stores enums with integers, making the saves prone to
