@@ -166,6 +166,11 @@ CraftingManager::craftIsOngoing (RecipeID id) const
 bool
 CraftingManager::distributeCraftsExp ()
 {
-  // FIXME !!!
-  return false;
+  bool hasLeveledUp = false;
+  for (auto &[id, recipe] : recipes)
+    {
+      if (recipe.applyExp ())
+        hasLeveledUp = true;
+    }
+  return hasLeveledUp;
 }

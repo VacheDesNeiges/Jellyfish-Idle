@@ -5,6 +5,13 @@
 #include "RecipeID.hpp"
 #include "Ressource.hpp"
 
+struct RecipeLevel
+{
+  unsigned lvl = 0;
+  double currentProgress;
+  double progressNeeded;
+};
+
 class CraftingRecipe
 {
 public:
@@ -12,12 +19,13 @@ public:
   explicit CraftingRecipe (RecipeID);
   ~CraftingRecipe () = default;
 
-  int getRecipelvl () const;
+  unsigned getRecipelvl () const;
   void start ();
   void cancel ();
   bool tick ();
   bool isOngoing () const;
   bool isDone () const;
+  bool applyExp ();
   void reset ();
   unsigned getRemainingTicks () const;
   unsigned getTotalRequiredTicks () const;
@@ -33,7 +41,7 @@ private:
   bool craftOngoing = false;
   bool done = false;
   std::string recipeName;
-  int recipeLvl = 0;
+  RecipeLevel level;
 
   unsigned baseTicksForCraft;
   unsigned remainingTicksToCraft;

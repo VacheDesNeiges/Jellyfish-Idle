@@ -16,8 +16,8 @@ JellyfishManager::JellyfishManager ()
   for (const auto &job : Jellyfish::JobsTypes)
     {
       jobNumbers.try_emplace (job, 0);
-      jobExp.try_emplace (job, JobLevel{ 0, 0, 100 });
-    }
+      jobExp.try_emplace (job, JobLevel{ 1, 0, 100 });
+    } // TODO : Move every level implementation to an interface ?
 }
 
 unsigned int
@@ -253,7 +253,8 @@ JellyfishManager::distributeJobExp ()
           lvlStruct.lvl += 1;
           lvlStruct.currentProgress -= lvlStruct.progressNeeded;
           lvlStruct.progressNeeded
-              = lvlStruct.lvl * (lvlStruct.lvl / std::log (lvlStruct.lvl));
+              = 10 * lvlStruct.lvl
+                * (lvlStruct.lvl / std::log (lvlStruct.lvl));
         }
     }
 

@@ -2,6 +2,7 @@
 #include "RecipeID.hpp"
 
 #include <cassert>
+#include <cmath>
 
 CraftingRecipe::CraftingRecipe (RecipeID id)
 {
@@ -27,6 +28,7 @@ CraftingRecipe::CraftingRecipe (RecipeID id)
       assert (false);
     }
   remainingTicksToCraft = baseTicksForCraft;
+  level = { 1, 0, 100 };
 }
 
 void
@@ -71,6 +73,8 @@ CraftingRecipe::tick ()
         {
           craftOngoing = false;
           done = true;
+          level.currentProgress += 10; // Have the base xp values be global
+                                       // constexpr in their own file
         }
     }
   return done;
@@ -108,8 +112,23 @@ CraftingRecipe::reset ()
   remainingTicksToCraft = baseTicksForCraft;
 }
 
-int
+unsigned
 CraftingRecipe::getRecipelvl () const
 {
-  return recipeLvl;
+  return level.lvl;
+}
+
+bool
+CraftingRecipe::applyExp ()
+{
+  bool hasLeveledUp = false;
+  while (level.currentProgress >= level.progressNeeded)
+    {
+      hasLeveledUp = true;
+      level.lvl += 1;
+      level.currentProgress -= level.progressNeeded;
+      level.progressNeeded
+          = 10 * level.lvl * (level.lvl / std::log (level.lvl));
+    }
+  return hasLeveledUp;
 }

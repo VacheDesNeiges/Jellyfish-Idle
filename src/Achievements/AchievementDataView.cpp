@@ -104,6 +104,8 @@ AchievementDataView::isUnlocked (AbilityType t) const
     case CallThunder:
       return achievements->isUnlocked (
           AchievementIDs::LightningAbilityBuyable);
+    default:
+      return false;
     }
 }
 
