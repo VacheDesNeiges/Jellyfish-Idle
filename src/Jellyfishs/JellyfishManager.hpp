@@ -46,6 +46,11 @@ public:
   std::unordered_map<RessourceType, double> getProductionRates () const;
   std::unordered_map<RessourceType, double> getConsumptionRates () const;
   std::string getJobDescription (JellyJobs) const;
+
+  unsigned getJobLevel (JellyJobs) const;
+  double getJobProgress (JellyJobs) const;
+  double getJobProgressNeeded (JellyJobs) const;
+
   JellyfishData getData () const override;
   void loadData (const JellyfishData &) override;
 

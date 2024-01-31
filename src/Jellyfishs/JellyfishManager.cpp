@@ -260,3 +260,21 @@ JellyfishManager::distributeJobExp ()
 
   return hasLeveledUp;
 }
+
+unsigned
+JellyfishManager::getJobLevel (JellyJobs j) const
+{
+  return jobExp.at (j).lvl;
+}
+
+double
+JellyfishManager::getJobProgress (JellyJobs j) const
+{
+  return jobExp.at (j).currentProgress;
+}
+
+double
+JellyfishManager::getJobProgressNeeded (JellyJobs j) const
+{
+  return jobExp.at (j).progressNeeded;
+}

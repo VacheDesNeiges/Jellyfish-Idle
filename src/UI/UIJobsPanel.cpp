@@ -10,6 +10,7 @@
 #include "fmt/core.h"
 #include "imgui.h"
 #include "imgui_internal.h"
+#include <string>
 
 void
 UIJobsPanel::render () const
@@ -60,6 +61,13 @@ UIJobsPanel::renderJobsControls (JellyJobs job) const
       inputHandler->assignJelly (job);
     }
   ImGui::PopButtonRepeat ();
+
+  ImGui::SameLine ();
+  ImGui::Text ("lvl %u", gData->getJelliesView ()->getJobLevel (job));
+  ImGui::SameLine ();
+  auto lvlProgress = gData->getJelliesView ()->getCurrentProgress (job)
+                     / gData->getJelliesView ()->getProgressNeeded (job);
+  ImGui::ProgressBar (static_cast<float> (lvlProgress));
 }
 
 void

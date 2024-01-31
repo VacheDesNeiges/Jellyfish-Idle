@@ -28,10 +28,15 @@ main ()
 // TODO : use different colors for xp bar and progress bar
 // TODO : Try using columns for buildings and jobs ui rendering
 // TODO : Map achievement functions in another file than achievementDataView
+// TODO : gate levels behind achievements
+// TODO : refactor the leveling system ?
+// TODO : create one or multiples files containing all the global constants of
+// the game
 
 // Bugs :
 // TODO : Savefile format stores enums with integers, making the saves prone to
 // break when inserting a new value in an enum. Needs a more robust solution
+// TODO : stop exp being attributed when no recipes are ongoing
 
 // Roadmap :
 
