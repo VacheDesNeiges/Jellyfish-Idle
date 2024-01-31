@@ -65,7 +65,7 @@ GameSystems::loadSave (const std::string &path) const
   systems->jellies->loadData (loadedData.jellies);
   systems->depth->loadData (loadedData.depth);
   systems->upgrades->loadData (loadedData.upgrades);
-  synchronizer->update ();
+  synchronizer->synchronizeSystems ();
 }
 
 std::shared_ptr<GameDataView>

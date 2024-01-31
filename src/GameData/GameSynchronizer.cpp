@@ -97,7 +97,7 @@ GameSynchronizer::addMaps (
 }
 
 void
-GameSynchronizer::update () const // TODO Give a better name for this function
+GameSynchronizer::synchronizeSystems () const
 {
   systems->multipliers->recomputeMultipliers ();
   gameTick ();

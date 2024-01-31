@@ -60,7 +60,7 @@ RessourceManager::addToProdPerTick (RessourceType t, double n)
 {
   if (n < 0)
     {
-      ressources[t].addToConsumptionPerTick (n);
+      ressources[t].addToConsumptionPerTick (-n);
     }
   else
     {

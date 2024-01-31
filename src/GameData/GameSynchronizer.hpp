@@ -11,7 +11,7 @@ public:
   explicit GameSynchronizer (std::shared_ptr<SystemPtrs>);
 
   void gameTick () const;
-  void update () const;
+  void synchronizeSystems () const;
 
 private:
   std::shared_ptr<SystemPtrs> systems;

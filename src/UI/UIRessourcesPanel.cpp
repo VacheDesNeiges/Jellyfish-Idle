@@ -73,7 +73,7 @@ UIRessourcesPanel::render () const
                             - productionWidth - 5);
       ImGui::Text ("%s", production.c_str ());
 
-      ImGui::NextColumn ();
+      ImGui::NextColumn (); // FIXME test if realy useful
     }
   ImGui::Columns (1);
 

@@ -7,7 +7,7 @@ TEST (CraftingRecipes, initialization)
   CraftingRecipe c (RecipeID::StoneSlabRecipe);
   ASSERT_FALSE (c.isDone ());
   ASSERT_FALSE (c.isOngoing ());
-  ASSERT_EQ (0, c.getRecipelvl ());
+  ASSERT_EQ (1, c.getRecipelvl ());
 }
 
 TEST (CraftingRecipes, duringCraft)

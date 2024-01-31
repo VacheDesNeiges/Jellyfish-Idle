@@ -40,6 +40,6 @@ private:
   double quantity = 0;
   double max_quantity;
 
-  double prodPerTick;
-  double consumptionPerTick;
+  double prodPerTick = 0;
+  double consumptionPerTick = 0;
 };

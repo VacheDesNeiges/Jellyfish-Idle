@@ -10,6 +10,7 @@
 #include "fmt/core.h"
 #include "imgui.h"
 #include "imgui_internal.h"
+#include <cstddef>
 #include <string>
 
 void
@@ -33,6 +34,8 @@ UIJobsPanel::render () const
               static_cast<JellyJobs> (job)))
         renderJobsControls (static_cast<JellyJobs> (job));
     }
+  ImGui::EndColumns (); // TODO handle columns of renderjobcontrols() more
+                        // cleanly
 
   ImGui::SeparatorText ("Recipes");
 
@@ -44,9 +47,16 @@ UIJobsPanel::render () const
 void
 UIJobsPanel::renderJobsControls (JellyJobs job) const
 {
+  ImGui::Columns (3, nullptr, false);
+  ImGui::SetColumnWidth (0, ImGui::GetWindowWidth () / 6);
+  ImGui::SetColumnWidth (1, ImGui::GetWindowWidth () / 6);
+  ImGui::SetColumnWidth (2, ImGui::GetWindowWidth () / 6);
+
   ImGui::Text ("%s",
                gData->getJelliesView ()->getJobDescription (job).c_str ());
   ImGui::SameLine ();
+  ImGui::NextColumn ();
+
   ImGui::PushButtonRepeat (true);
   auto s = gData->getJelliesView ()->getJobDescription (job);
   if (ImGui::ArrowButton ((s + "##left").c_str (), ImGuiDir_Left))
@@ -65,9 +75,12 @@ UIJobsPanel::renderJobsControls (JellyJobs job) const
   ImGui::SameLine ();
   ImGui::Text ("lvl %u", gData->getJelliesView ()->getJobLevel (job));
   ImGui::SameLine ();
+  ImGui::NextColumn ();
+
   auto lvlProgress = gData->getJelliesView ()->getCurrentProgress (job)
                      / gData->getJelliesView ()->getProgressNeeded (job);
   ImGui::ProgressBar (static_cast<float> (lvlProgress));
+  ImGui::NextColumn ();
 }
 
 void
