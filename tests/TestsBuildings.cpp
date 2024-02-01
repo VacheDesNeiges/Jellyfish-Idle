@@ -1,4 +1,5 @@
 #include "Building.hpp"
+#include "BuildingManager.hpp"
 #include "gtest/gtest.h"
 
 TEST (TestsBuildings, initialization)
@@ -23,4 +24,52 @@ TEST (TestsBuildings, setQuantity)
   ASSERT_EQ (50001, b.getCurrentQuantity ());
   b.setQuantity (5);
   ASSERT_EQ (5, b.getCurrentQuantity ());
+}
+
+TEST (TestsBuildingManager, initialization)
+{
+  BuildingManager bManager;
+  for (const auto &building : Building::BuildingTypes)
+    {
+      ASSERT_EQ (0, bManager.getCurrentQuantity (building));
+      for (const auto &[res, quant] : bManager.getProduction (building))
+        {
+          ASSERT_EQ (0, quant);
+        }
+    }
+
+  for (const auto &[res, quant] : bManager.getProductionRates ())
+    {
+      ASSERT_EQ (0, quant);
+    }
+}
+
+TEST (TestsBuildingManager, buy)
+{
+  BuildingManager bManager;
+  for (const auto &building : Building::BuildingTypes)
+    {
+      for (auto i = 0; i < 10; i++)
+        {
+          bManager.buy (building);
+          ASSERT_EQ (i + 1, bManager.getCurrentQuantity (building));
+        }
+    }
+}
+
+TEST (TestsBuildingManager, increaseToJfish)
+{
+  BuildingManager bManager;
+
+  for (const auto &building : Building::BuildingTypes)
+    {
+      if (building == BuildingType::DuneShelter)
+        {
+          ASSERT_EQ (true, bManager.doesIncreasesMaxJellies (building));
+        }
+      else
+        {
+          ASSERT_EQ (false, bManager.doesIncreasesMaxJellies (building));
+        }
+    }
 }

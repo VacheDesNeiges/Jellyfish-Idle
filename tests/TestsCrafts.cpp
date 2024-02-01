@@ -1,18 +1,23 @@
+#include "CraftingManager.hpp"
 #include "CraftingRecipe.hpp"
 #include "RecipeID.hpp"
 #include "gtest/gtest.h"
 
-TEST (CraftingRecipes, initialization)
+class CraftingRecipesFixture : public ::testing::Test
 {
-  CraftingRecipe c (RecipeID::StoneSlabRecipe);
+public:
+  CraftingRecipe c{ RecipeID::StoneSlabRecipe };
+};
+
+TEST_F (CraftingRecipesFixture, initialization)
+{
   ASSERT_FALSE (c.isDone ());
   ASSERT_FALSE (c.isOngoing ());
   ASSERT_EQ (1, c.getRecipelvl ());
 }
 
-TEST (CraftingRecipes, duringCraft)
+TEST_F (CraftingRecipesFixture, duringCraft)
 {
-  CraftingRecipe c (RecipeID::StoneSlabRecipe);
   const auto x = c.getTotalRequiredTicks ();
   ASSERT_LT (1, x);
   ASSERT_FALSE (c.isOngoing ());
@@ -22,9 +27,8 @@ TEST (CraftingRecipes, duringCraft)
   ASSERT_FALSE (c.isDone ());
 }
 
-TEST (CraftingRecipe, ticks)
+TEST_F (CraftingRecipesFixture, ticks)
 {
-  CraftingRecipe c (RecipeID::StoneSlabRecipe);
   const auto x = c.getTotalRequiredTicks ();
   c.start ();
 
@@ -41,7 +45,7 @@ TEST (CraftingRecipe, ticks)
   ASSERT_TRUE (c.isDone ());
 }
 
-TEST (CraftingRecipe, cancel)
+TEST_F (CraftingRecipesFixture, cancel)
 {
   CraftingRecipe c (RecipeID::StoneSlabRecipe);
   const auto x = c.getTotalRequiredTicks ();
@@ -51,4 +55,19 @@ TEST (CraftingRecipe, cancel)
   ASSERT_EQ (x, c.getRemainingTicks ());
   ASSERT_FALSE (c.isOngoing ());
   ASSERT_FALSE (c.isDone ());
+}
+
+class CraftingManagerFixture : public ::testing::Test
+{
+public:
+  CraftingManager cManager;
+};
+
+TEST_F (CraftingManagerFixture, initialization)
+{
+  for (const auto &recipeID : CraftingRecipe::RecipeTypes)
+    {
+      ASSERT_EQ (0, cManager.getAssignedNumOfJellies (recipeID));
+      ASSERT_EQ (false, cManager.craftIsOngoing (recipeID));
+    }
 }

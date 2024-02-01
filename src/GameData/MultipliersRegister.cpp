@@ -18,7 +18,7 @@ MultipliersRegister::getMultiplier (MultiplierID id) const
 }
 
 void
-MultipliersRegister::addToMultplier (MultiplierID id, double val)
+MultipliersRegister::addToMulitplier (MultiplierID id, double val)
 {
   multipliers[id] += val;
 }

@@ -29,7 +29,6 @@ public:
   std::string getAdvancedDescription (BuildingType);
 
   std::unordered_map<RessourceType, double> getProductionRates () const;
-  std::unordered_map<RessourceType, double> getConsumptionRates () const;
 
   std::vector<std::pair<BuildingType, unsigned> > getData () const override;
   void

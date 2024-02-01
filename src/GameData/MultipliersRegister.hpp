@@ -16,7 +16,7 @@ public:
   double getMultiplierForRessourceProd (RessourceType) const;
 
   void buildingBought (BuildingType);
-  void addToMultplier (MultiplierID, double);
+  void addToMulitplier (MultiplierID, double);
   void recomputeMultipliers ();
 
   static constexpr std::array<std::pair<JellyJobs, MultiplierID>, 1>
