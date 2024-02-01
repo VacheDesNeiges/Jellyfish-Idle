@@ -46,7 +46,7 @@ main ()
 // -> Unlocks Mining job
 // Advanced Telekinesis
 // -> unlocks manufacturing job with stone Slabs. Slabs have a stock
-// limit
+// limit ?
 // -> Slabs unlock stone shelves
 // TESTS !!!!
 

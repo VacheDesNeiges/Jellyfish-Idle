@@ -5,9 +5,6 @@
 #include <string_view>
 #include <vector>
 
-// Contains Last as a workaround to allow iteration over the enum
-// See CreateRessources for an exemple
-
 class Ressource
 {
 public:

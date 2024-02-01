@@ -30,10 +30,8 @@ TEST (TestsAchievementSystem, initialization)
   AchievementSystem aSys;
   using enum AchievementIDs;
 
-  for (auto a = static_cast<int> (PlanktonField); a != static_cast<int> (Last);
-       a++)
+  for (const auto ach : allAchievementsIDs)
     {
-      const auto ach = static_cast<AchievementIDs> (a);
       ASSERT_EQ (false, aSys.isUnlocked (ach));
     }
 }
@@ -43,10 +41,8 @@ TEST (TestsAchievementSystem, unlocking)
   AchievementSystem aSys;
   using enum AchievementIDs;
 
-  for (auto a = static_cast<int> (PlanktonField); a != static_cast<int> (Last);
-       a++)
+  for (const auto ach : allAchievementsIDs)
     {
-      const auto ach = static_cast<AchievementIDs> (a);
       aSys.unlock (ach);
       ASSERT_EQ (true, aSys.isUnlocked (ach));
     }

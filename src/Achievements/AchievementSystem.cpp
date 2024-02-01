@@ -11,10 +11,9 @@ AchievementSystem::AchievementSystem ()
 {
   using enum AchievementIDs;
 
-  for (auto a = static_cast<int> (PlanktonField); a != static_cast<int> (Last);
-       a++)
+  for (const auto a : allAchievementsIDs)
     {
-      achievements.emplace (static_cast<AchievementIDs> (a), Achievement ());
+      achievements.emplace (a, Achievement ());
     }
 
   achievementConditions = {
@@ -127,11 +126,8 @@ void
 AchievementSystem::checkAchievements ()
 {
   using enum AchievementIDs;
-  for (auto a = static_cast<int> (PlanktonField);
-       a != static_cast<int> (Last); // TODO change for a constexpr array
-       a++)
+  for (const auto &id : allAchievementsIDs)
     {
-      auto id = static_cast<AchievementIDs> (a);
       using enum AchievementIDs;
       if (isUnlocked (id))
         continue;

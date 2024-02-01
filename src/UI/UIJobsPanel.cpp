@@ -27,12 +27,10 @@ UIJobsPanel::render () const
   ImGui::Text ("Available Jellies : %ld",
                gData->getJelliesView ()->getNumJellies (None));
 
-  for (auto job = static_cast<int> (GatherSand);
-       job != static_cast<int> (Last); job++)
+  for (const auto job : Jellyfish::JobsTypes)
     {
-      if (gData->getAchievementsView ()->isUnlocked (
-              static_cast<JellyJobs> (job)))
-        renderJobsControls (static_cast<JellyJobs> (job));
+      if (gData->getAchievementsView ()->isUnlocked (job))
+        renderJobsControls (job);
     }
   ImGui::EndColumns (); // TODO handle columns of renderjobcontrols() more
                         // cleanly

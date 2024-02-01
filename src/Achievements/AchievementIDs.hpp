@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 enum class AchievementIDs
 {
 
@@ -24,6 +25,20 @@ enum class AchievementIDs
   AdvancedTelekinesisUpgradeBought,
 
   LightningAbilityBuyable,
-
-  Last
 };
+
+static constexpr std::array<AchievementIDs, 14> allAchievementsIDs
+    = { AchievementIDs::PlanktonField,
+        AchievementIDs::FirstSandNest,
+        AchievementIDs::Mines,
+        AchievementIDs::FirstJelly,
+        AchievementIDs::JobMining,
+        AchievementIDs::JobExploreTheDepths,
+        AchievementIDs::JobArtisan,
+        AchievementIDs::RessourceGlass,
+        AchievementIDs::ResearchTabUnlocked,
+        AchievementIDs::AncientOctopus,
+        AchievementIDs::FocusingUpgradeBought,
+        AchievementIDs::TelekinesisUpgradeBought,
+        AchievementIDs::AdvancedTelekinesisUpgradeBought,
+        AchievementIDs::LightningAbilityBuyable };

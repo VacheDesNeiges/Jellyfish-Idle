@@ -9,8 +9,7 @@ enum class JellyJobs
   ExploreTheDepths,
   Mining,
   FocusForInsight,
-  Artisan,
-  Last
+  Artisan
 };
 
 class Jellyfish
@@ -24,7 +23,6 @@ public:
     JellyJobs::None,   JellyJobs::GatherFood,       JellyJobs::GatherSand,
     JellyJobs::Mining, JellyJobs::ExploreTheDepths, JellyJobs::FocusForInsight,
     JellyJobs::Artisan
-
   };
 
   static double constexpr necessaryFoodPerSec = 1;
