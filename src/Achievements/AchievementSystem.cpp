@@ -33,9 +33,7 @@ AchievementSystem::AchievementSystem ()
 
     { Mines,
       [this] () {
-        return getDataView ()->getRessourcesView ()->getRessourceQuantity (
-                   RessourceType::Stone)
-               >= 5;
+        return getDataView ()->getDepthView ()->getCurrentDepth () >= 30;
       } },
 
     { FirstJelly,
@@ -50,7 +48,8 @@ AchievementSystem::AchievementSystem ()
 
     { JobMining,
       [this] () {
-        return getDataView ()->getDepthView ()->getCurrentDepth () >= 30;
+        return getDataView ()->getUpgradeView ()->isBought (
+            UpgradeID::Telekinesis);
       } },
 
     { JobArtisan,
