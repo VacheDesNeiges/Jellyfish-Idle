@@ -42,6 +42,16 @@ UpgradeFactory::createUpgrade (UpgradeID id)
         description = "Refine your control of Telekinesis, enabling you to "
                       "manufacture more complex items";
         cost.emplace_back (std::pair{ RessourceType::Insight, 200 });
+        break;
+      }
+
+    case UpgradeID::AbilityLightning:
+      {
+        name = "Lightning Ability";
+        description
+            = "Allows you to use your insight to call a lightning strike. "
+              "Useful to rapidly melt some sand into glass";
+        break;
       }
 
     default:

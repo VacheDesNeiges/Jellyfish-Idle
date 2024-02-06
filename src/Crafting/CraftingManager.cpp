@@ -8,6 +8,7 @@
 
 CraftingManager::CraftingManager ()
 {
+  recipes.reserve (CraftingRecipe::RecipeTypes.size ());
   for (const auto &c : CraftingRecipe::RecipeTypes)
     {
       recipes[c] = CraftingRecipe (c);

@@ -8,12 +8,15 @@ void
 RessourceManager::init ()
 {
   using enum RessourceType;
+  ressources.reserve (Ressource::RessourceTypes.size ()
+                      + Ressource::CraftableRessourceTypes.size ());
   ressources[Food] = Ressource (Food);
   ressources[Sand] = Ressource (Sand);
   ressources[Stone] = Ressource (Stone);
   ressources[Glass] = Ressource (Glass);
   ressources[Insight] = Ressource (Insight);
   ressources[StoneSlab] = Ressource (StoneSlab);
+  ressources[GlassPane] = Ressource (GlassPane);
 }
 
 void

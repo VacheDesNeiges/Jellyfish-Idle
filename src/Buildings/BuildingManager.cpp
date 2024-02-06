@@ -7,6 +7,7 @@
 
 BuildingManager::BuildingManager ()
 {
+  buildings.reserve (Building::BuildingTypes.size ());
   for (const auto &b : Building::BuildingTypes)
     {
       buildings[b] = Building (b);

@@ -195,6 +195,7 @@ void
 JellyfishManager::loadData (const JellyfishData &data)
 {
   maxNumJellies = data.maxNumJellies;
+  jellies.reserve (maxNumJellies);
 
   if (data.numJellies > 0)
     {

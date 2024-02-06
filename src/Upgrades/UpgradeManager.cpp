@@ -1,6 +1,7 @@
 #include "UpgradeManager.hpp"
 #include "Ressource.hpp"
 #include "Upgrade.hpp"
+#include "UpgradeDataView.hpp"
 #include "UpgradeFactory.hpp"
 #include "UpgradeId.hpp"
 #include <string_view>
@@ -9,6 +10,8 @@
 
 UpgradeManager::UpgradeManager ()
 {
+  upgrades.reserve (UpgradesTypes.size ());
+  upgradesConditions.reserve (UpgradesTypes.size ());
   for (const auto &id : UpgradesTypes)
     {
       upgrades.try_emplace (id, UpgradeFactory::createUpgrade (id));
@@ -71,6 +74,7 @@ std::vector<std::pair<UpgradeID, bool> >
 UpgradeManager::getData () const
 {
   std::vector<std::pair<UpgradeID, bool> > data;
+  data.reserve (UpgradesTypes.size ());
   for (const auto &[id, upgrade] : upgrades)
     {
       data.emplace_back (id, upgrade.isUnlocked ());

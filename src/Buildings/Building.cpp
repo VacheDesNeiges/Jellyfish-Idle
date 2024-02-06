@@ -78,7 +78,7 @@ Building::getBuildingName () const
 }
 
 std::string
-Building::getDescription () // TODO : Move to UI
+Building::getDescription () // TODO : Move to UI ?
 {
   std::string s;
   s = fmt::format ("{}, lvl {}", name, quantity);
@@ -87,7 +87,7 @@ Building::getDescription () // TODO : Move to UI
 }
 
 std::string
-Building::getAdvancedDescription () // TODO : Move to UI
+Building::getAdvancedDescription () // TODO : Move to UI ?
 {
   std::string s = "price :";
   for (const auto &[ressource, price] : basePrice)
