@@ -1,16 +1,13 @@
 #include "UIJobsPanel.hpp"
 #include "CraftingDataView.hpp"
 #include "CraftingRecipe.hpp"
-#include "GameDataView.hpp"
 #include "InputHandler.hpp"
 #include "Jellyfish.hpp"
 #include "RecipeID.hpp"
 #include "UIUtils.hpp"
-
 #include "fmt/core.h"
 #include "imgui.h"
 #include "imgui_internal.h"
-#include <cstddef>
 #include <string>
 
 void
@@ -24,7 +21,7 @@ UIJobsPanel::render () const
 
   using enum JellyJobs;
 
-  ImGui::Text ("Available Jellies : %ld",
+  ImGui::Text ("Available Jellies : %d",
                gData->getJelliesView ()->getNumJellies (None));
 
   for (const auto job : Jellyfish::JobsTypes)
@@ -62,7 +59,7 @@ UIJobsPanel::renderJobsControls (JellyJobs job) const
       inputHandler->unassignJelly (job);
     }
   ImGui::SameLine ();
-  ImGui::Text ("%ld", gData->getJelliesView ()->getNumJellies (job));
+  ImGui::Text ("%d", gData->getJelliesView ()->getNumJellies (job));
   ImGui::SameLine (0.0f);
   if (ImGui::ArrowButton ((s + "##right").c_str (), ImGuiDir_Right))
     {

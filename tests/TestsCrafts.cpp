@@ -47,7 +47,6 @@ TEST_F (CraftingRecipesFixture, ticks)
 
 TEST_F (CraftingRecipesFixture, cancel)
 {
-  CraftingRecipe c (RecipeID::StoneSlabRecipe);
   const auto x = c.getTotalRequiredTicks ();
   c.start ();
   c.tick ();

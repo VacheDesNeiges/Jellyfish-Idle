@@ -2,8 +2,9 @@
 
 # Dependencies : 
 
-C++ 20 compiler
-CMake 3.22+
-SDL2
-fmt
-gtest
+- C++ 20 compiler
+- CMake 3.22+
+- SDL2
+- fmt
+- gtest
+- nlohmann (json)

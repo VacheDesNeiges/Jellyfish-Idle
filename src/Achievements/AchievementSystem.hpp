@@ -3,6 +3,7 @@
 #include "Achievement.hpp"
 #include "GameDataAccess.hpp"
 #include "SaveAndLoadable.hpp"
+
 #include <functional>
 #include <unordered_map>
 #include <utility>
@@ -15,7 +16,7 @@ class AchievementSystem
 public:
   AchievementSystem ();
   ~AchievementSystem () override = default;
-  bool isUnlocked (AchievementIDs);
+  bool isUnlocked (AchievementIDs) const;
   void unlock (AchievementIDs);
   std::vector<std::pair<AchievementIDs, bool> > getData () const override;
   void
