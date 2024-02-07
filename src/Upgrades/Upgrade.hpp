@@ -1,7 +1,6 @@
 #pragma once
-#include "Building.hpp"
-#include "UpgradeId.hpp"
-#include <array>
+#include "Ressource.hpp"
+
 #include <string>
 #include <string_view>
 #include <utility>

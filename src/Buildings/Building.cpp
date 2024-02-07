@@ -1,10 +1,9 @@
 #include "Building.hpp"
+
 #include "Ressource.hpp"
 
-#include <cstddef>
 #include <fmt/core.h>
 #include <math.h>
-#include <memory>
 #include <utility>
 #include <vector>
 

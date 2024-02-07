@@ -1,12 +1,8 @@
 #pragma once
-#include "MultipliersIDs.hpp"
 #include "Ressource.hpp"
-#include <list>
-#include <memory>
 #include <string>
 #include <unordered_map>
-#include <utility>
-
+#include <vector>
 enum class BuildingType
 {
   PlanktonField,

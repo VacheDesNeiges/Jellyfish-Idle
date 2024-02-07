@@ -1,14 +1,9 @@
 #include "JellyfishManager.hpp"
 #include "Jellyfish.hpp"
-#include "MultipliersIDs.hpp"
 #include "Ressource.hpp"
 
 #include <algorithm>
 #include <cmath>
-#include <exception>
-#include <iostream>
-#include <iterator>
-#include <stdexcept>
 #include <string>
 
 JellyfishManager::JellyfishManager ()
@@ -16,7 +11,7 @@ JellyfishManager::JellyfishManager ()
   for (const auto &job : Jellyfish::JobsTypes)
     {
       jobNumbers.try_emplace (job, 0);
-      jobExp.try_emplace (job, JobLevel{ 1, 0, 100 });
+      jobExp.try_emplace (job, 1, 0, 100);
     } // TODO : Move every level implementation to an interface ?
 }
 

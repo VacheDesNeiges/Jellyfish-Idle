@@ -1,4 +1,5 @@
 #include "CraftingDataView.hpp"
+
 #include "CraftingManager.hpp"
 #include "RecipeID.hpp"
 

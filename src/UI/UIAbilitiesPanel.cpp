@@ -1,9 +1,7 @@
 #include "UIAbilitiesPanel.hpp"
-#include "AbilityManager.hpp"
 #include "InputHandler.hpp"
 #include "InsightAbility.hpp"
 #include "UIUtils.hpp"
-#include "fmt/core.h"
 #include "imgui.h"
 
 void

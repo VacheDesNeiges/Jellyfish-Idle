@@ -1,4 +1,5 @@
 #include "DepthDataView.hpp"
+
 #include "DepthSystem.hpp"
 
 DepthDataView::DepthDataView (std::shared_ptr<DepthSystem> d) : depth (d) {}

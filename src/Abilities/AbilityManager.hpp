@@ -3,6 +3,7 @@
 #include "GameDataAccess.hpp"
 #include "InsightAbility.hpp"
 #include "Ressource.hpp"
+
 #include <unordered_map>
 
 class AbilityManager : public GameDataAccess

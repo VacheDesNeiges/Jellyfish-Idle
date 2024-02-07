@@ -1,20 +1,10 @@
 #include "UIManager.hpp"
 #include "AchievementIDs.hpp"
-#include "AchievementSystem.hpp"
-#include "Building.hpp"
 #include "GameSystems.hpp"
-#include "InsightAbility.hpp"
-#include "Jellyfish.hpp"
-#include "Ressource.hpp"
 #include "imgui.h"
-#include "imgui_internal.h"
+
 #include <fmt/core.h>
-#include <iomanip>
-#include <ios>
-#include <iostream>
 #include <memory>
-#include <sstream>
-#include <string>
 
 void
 UIManager::bindGameData (std::shared_ptr<GameDataView> viewPtr,

@@ -1,7 +1,8 @@
 #include "BuildingManager.hpp"
+
 #include "Building.hpp"
 #include "Ressource.hpp"
-#include <iostream>
+
 #include <string>
 #include <utility>
 

@@ -1,8 +1,6 @@
-#include "Building.hpp"
 #include "GameDataView.hpp"
 #include "GameSystems.hpp"
 #include "InputHandler.hpp"
-#include "Jellyfish.hpp"
 #include "UIAbilitiesPanel.hpp"
 #include "UIBuildingsPanel.hpp"
 #include "UIDepthPanel.hpp"
@@ -10,7 +8,7 @@
 #include "UIOctopusPanel.hpp"
 #include "UIResearchPanel.hpp"
 #include "UIRessourcesPanel.hpp"
-#include "imgui.h"
+
 #include <memory>
 
 class UIManager

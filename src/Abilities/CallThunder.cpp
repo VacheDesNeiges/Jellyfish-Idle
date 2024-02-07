@@ -1,8 +1,9 @@
 #include "CallThunder.hpp"
+
 #include "InsightAbility.hpp"
 #include "Ressource.hpp"
+
 #include <string>
-#include <utility>
 
 CallThunder::CallThunder ()
 {

@@ -3,9 +3,8 @@
 #include "GameSystems.hpp"
 #include "UIManager.hpp"
 #include "imgui.h"
-#include "imgui_impl_sdl2.h"
+
 #include <SDL2/SDL_render.h>
-#include <chrono>
 #include <memory>
 
 class Game

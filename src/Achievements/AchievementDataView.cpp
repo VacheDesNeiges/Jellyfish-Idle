@@ -1,4 +1,5 @@
 #include "AchievementDataView.hpp"
+
 #include "AchievementIDs.hpp"
 #include "AchievementSystem.hpp"
 #include "Building.hpp"

@@ -1,8 +1,10 @@
 #include "CraftingManager.hpp"
+
 #include "CraftingRecipe.hpp"
 #include "Jellyfish.hpp"
 #include "RecipeID.hpp"
 #include "Ressource.hpp"
+
 #include <utility>
 #include <vector>
 

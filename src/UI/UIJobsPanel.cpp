@@ -1,4 +1,5 @@
 #include "UIJobsPanel.hpp"
+
 #include "CraftingDataView.hpp"
 #include "CraftingRecipe.hpp"
 #include "InputHandler.hpp"
@@ -9,6 +10,7 @@
 #include "fmt/core.h"
 #include "imgui.h"
 #include "imgui_internal.h"
+
 #include <string>
 
 void

@@ -3,7 +3,6 @@
 #include "GameDataAccess.hpp"
 #include "Ressource.hpp"
 #include "SaveAndLoadable.hpp"
-#include <memory>
 #include <unordered_map>
 #include <utility>
 #include <vector>

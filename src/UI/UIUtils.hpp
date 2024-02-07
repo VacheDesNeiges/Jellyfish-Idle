@@ -2,6 +2,7 @@
 
 #include "GameDataView.hpp"
 #include "imgui.h"
+
 #include <memory>
 
 namespace UIColors

@@ -1,5 +1,5 @@
 #include "AbilityManager.hpp"
-#include "CallThunder.hpp"
+
 #include "GameSystems.hpp"
 #include "InsightAbility.hpp"
 #include "Ressource.hpp"

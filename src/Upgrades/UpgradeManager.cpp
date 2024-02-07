@@ -1,9 +1,10 @@
 #include "UpgradeManager.hpp"
+
 #include "Ressource.hpp"
-#include "Upgrade.hpp"
 #include "UpgradeDataView.hpp"
 #include "UpgradeFactory.hpp"
 #include "UpgradeId.hpp"
+
 #include <string_view>
 #include <utility>
 #include <vector>

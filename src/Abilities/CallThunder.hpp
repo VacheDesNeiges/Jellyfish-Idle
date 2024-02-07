@@ -1,6 +1,7 @@
 #pragma once
 
 #include "InsightAbility.hpp"
+
 #include <string>
 
 class CallThunder : public InsightAbility

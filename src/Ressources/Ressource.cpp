@@ -1,5 +1,4 @@
 #include "Ressource.hpp"
-#include <iostream>
 #include <string_view>
 
 Ressource::Ressource (RessourceType rType)

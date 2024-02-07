@@ -1,8 +1,8 @@
 #include "UpgradeFactory.hpp"
+
 #include "Upgrade.hpp"
 #include "UpgradeId.hpp"
-#include "fmt/core.h"
-#include "fmt/format.h"
+
 #include <vector>
 
 Upgrade

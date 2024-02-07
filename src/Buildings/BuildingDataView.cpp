@@ -1,4 +1,5 @@
 #include "BuildingDataView.hpp"
+
 #include "Building.hpp"
 #include "BuildingManager.hpp"
 #include "RessourceManager.hpp"

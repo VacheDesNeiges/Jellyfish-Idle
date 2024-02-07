@@ -1,11 +1,11 @@
 #include "UpgradeDataView.hpp"
-#include "GameDataView.hpp"
+
 #include "Ressource.hpp"
 #include "RessourceManager.hpp"
 #include "UpgradeId.hpp"
 #include "UpgradeManager.hpp"
+
 #include <memory>
-#include <new>
 
 UpgradeDataView::UpgradeDataView (std::shared_ptr<UpgradeManager> u,
                                   std::shared_ptr<RessourceManager> r)
