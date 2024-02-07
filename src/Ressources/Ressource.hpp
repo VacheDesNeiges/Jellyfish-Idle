@@ -28,8 +28,8 @@ public:
           RessourceType::Stone,   RessourceType::Glass,
           RessourceType::Insight, RessourceType::StoneSlab };
 
-  static constexpr std::array<RessourceType, 1> CraftableRessourceTypes
-      = { RessourceType::StoneSlab };
+  static constexpr std::array<RessourceType, 2> CraftableRessourceTypes
+      = { RessourceType::StoneSlab, RessourceType::GlassPane };
 
 private:
   bool specialRessource = false;

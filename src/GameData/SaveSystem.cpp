@@ -1,10 +1,16 @@
 #include "SaveSystem.hpp"
 #include "Achievement.hpp"
+#include "AchievementIDs.hpp"
+#include "AchievementSystem.hpp"
 #include "Building.hpp"
 #include "DepthSystem.hpp"
 #include "JellyfishManager.hpp"
 #include "Ressource.hpp"
+#include "Upgrade.hpp"
+#include "UpgradeDataView.hpp"
 #include "UpgradeId.hpp"
+#include "UpgradeManager.hpp"
+
 #include <fstream>
 #include <nlohmann/json.hpp>
 #include <nlohmann/json_fwd.hpp>
@@ -65,6 +71,7 @@ SaveSystem::loadFromFile (std::string path)
   std::ifstream f (path);
   nlohmann::json data = nlohmann::json::parse (f);
 
+  result.buildings.reserve (Building::BuildingTypes.size ());
   for (const auto &d : data["Building"])
     {
       result.buildings.emplace_back (
@@ -72,6 +79,7 @@ SaveSystem::loadFromFile (std::string path)
           d["Quantity"].get<unsigned> ());
     }
 
+  result.achievements.reserve (allAchievementsIDs.size ());
   for (const auto &d : data["Achievement"])
     {
       result.achievements.emplace_back (
@@ -79,6 +87,8 @@ SaveSystem::loadFromFile (std::string path)
           d["Unlocked"].get<bool> ());
     }
 
+  result.ressources.reserve (Ressource::RessourceTypes.size ()
+                             + Ressource::CraftableRessourceTypes.size ());
   for (const auto &d : data["Ressource"])
     {
       result.ressources.emplace_back (
@@ -106,6 +116,7 @@ SaveSystem::loadFromFile (std::string path)
       = data["Depth"][0]["currentDepth"].get<unsigned> ();
   result.depth.currentProg = data["Depth"][0]["currentProg"].get<float> ();
 
+  result.upgrades.reserve (UpgradeManager::UpgradesTypes.size ());
   for (const auto &d : data["Upgrade"])
     {
       result.upgrades.emplace_back (

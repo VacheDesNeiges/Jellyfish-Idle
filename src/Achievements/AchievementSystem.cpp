@@ -12,7 +12,8 @@
 AchievementSystem::AchievementSystem ()
 {
   using enum AchievementIDs;
-
+  achievements.reserve (allAchievementsIDs.size ());
+  achievementConditions.reserve (allAchievementsIDs.size ());
   for (const auto a : allAchievementsIDs)
     {
       achievements.emplace (a, Achievement ());
@@ -117,7 +118,7 @@ std::vector<std::pair<AchievementIDs, bool> >
 AchievementSystem::getData () const
 {
   std::vector<std::pair<AchievementIDs, bool> > result;
-
+  result.reserve (allAchievementsIDs.size ());
   for (const auto &[id, val] : achievements)
     {
       result.emplace_back (id, val.isUnlocked ());

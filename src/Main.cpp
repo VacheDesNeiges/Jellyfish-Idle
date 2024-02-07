@@ -14,28 +14,28 @@ main ()
 // todolist ----------------
 // Features :
 
-// TODO : implement manufacturing job
-// TODO : implement new octopus upgrades (canalizing and writing)
 // TODO : add a cooldown to abilities ?
 // TODO : Catchup on load
 // TODO : add save and load function to crafting system
 // TODO : add save and load to leveling system
+// TODO : display crafted ressources
+// TODO : add a keep crafting functionality
 
 // Polishing :
 
 // TODO : unify the button size in a file.
 // TODO : grey out upgrades once they are bought (when displayed optionaly)
 // TODO : use different colors for xp bar and progress bar
-// TODO : Try using columns for buildings and jobs ui rendering
 // TODO : Map achievement functions in another file than achievementDataView
 // TODO : gate levels behind achievements
 // TODO : refactor the leveling system ?
 // TODO : create one or multiples files containing all the global constants of
 // the game
+// TODO : reserve for vectors in systems init and save system
 
 // Bugs :
 // TODO : Savefile format stores enums with integers, making the saves prone to
-// break when inserting a new value in an enum. Needs a more robust solution
+// break when inserting a new value in enums. Needs a more robust solution
 // TODO : stop exp being attributed when no recipes are ongoing
 
 // Roadmap :
