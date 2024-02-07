@@ -35,8 +35,7 @@ MultipliersRegister::recomputeMultipliers ()
         case MultiplierID::StoneProdPerMineMultiplier:
           {
             auto minesQuant
-                = getDataView ()->getBuildingsView ()->getBuildingQuantity (
-                    BuildingType::Mines);
+                = buildingsView ()->getBuildingQuantity (BuildingType::Mines);
 
             multipliers[multi]
                 += MultipliersConstants::StoneProdPerMine * minesQuant;

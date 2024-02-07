@@ -9,7 +9,6 @@
 #include "RessourceDataView.hpp"
 #include "UpgradeDataView.hpp"
 #include <cassert>
-#include <iostream>
 #include <memory>
 
 void

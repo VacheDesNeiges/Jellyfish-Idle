@@ -22,9 +22,7 @@ AbilityManager::isUsable (AbilityType t)
       if (!buyable)
         continue;
 
-      if (getDataView ()->getRessourcesView ()->getRessourceQuantity (
-              ressource)
-          < cost)
+      if (ressourcesView ()->getRessourceQuantity (ressource) < cost)
         {
           buyable = false;
         }

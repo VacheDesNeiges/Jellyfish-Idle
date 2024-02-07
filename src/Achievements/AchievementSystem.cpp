@@ -23,81 +23,61 @@ AchievementSystem::AchievementSystem ()
   achievementConditions = {
     { PlanktonField,
       [this] () {
-        return getDataView ()->getRessourcesView ()->getRessourceQuantity (
-                   RessourceType::Food)
+        return ressourcesView ()->getRessourceQuantity (RessourceType::Food)
                >= 5;
       } },
 
     { FirstSandNest,
       [this] () {
-        return getDataView ()->getRessourcesView ()->getRessourceQuantity (
-                   RessourceType::Sand)
+        return ressourcesView ()->getRessourceQuantity (RessourceType::Sand)
                >= 3;
       } },
 
-    { Mines,
-      [this] () {
-        return getDataView ()->getDepthView ()->getCurrentDepth () >= 30;
-      } },
+    { Mines, [this] () { return depthView ()->getCurrentDepth () >= 30; } },
 
     { FirstJelly,
-      [this] () {
-        return getDataView ()->getJelliesView ()->getNumJellies () >= 1;
-      } },
+      [this] () { return jelliesView ()->getNumJellies () >= 1; } },
 
     { JobExploreTheDepths,
-      [this] () {
-        return getDataView ()->getJelliesView ()->getNumJellies () >= 2;
-      } },
+      [this] () { return jelliesView ()->getNumJellies () >= 2; } },
 
     { JobMining,
       [this] () {
-        return getDataView ()->getUpgradeView ()->isBought (
-            UpgradeID::Telekinesis);
+        return upgradeView ()->isBought (UpgradeID::Telekinesis);
       } },
 
     { JobArtisan,
       [this] () {
-        return getDataView ()->getUpgradeView ()->isBought (
-            UpgradeID::AdvancedTelekinesis);
+        return upgradeView ()->isBought (UpgradeID::AdvancedTelekinesis);
       } },
 
     { FocusingUpgradeBought,
-      [this] () {
-        return getDataView ()->getUpgradeView ()->isBought (
-            UpgradeID::Focusing);
-      } },
+      [this] () { return upgradeView ()->isBought (UpgradeID::Focusing); } },
 
     { TelekinesisUpgradeBought,
       [this] () {
-        return getDataView ()->getUpgradeView ()->isBought (
-            UpgradeID::Telekinesis);
+        return upgradeView ()->isBought (UpgradeID::Telekinesis);
       } },
 
     { AdvancedTelekinesisUpgradeBought,
       [this] () {
-        return getDataView ()->getUpgradeView ()->isBought (
-            UpgradeID::AdvancedTelekinesis);
+        return upgradeView ()->isBought (UpgradeID::AdvancedTelekinesis);
       } },
 
     { LightningAbilityBuyable,
       [this] () {
-        return getDataView ()->getRessourcesView ()->getRessourceQuantity (
-                   RessourceType::Insight)
+        return ressourcesView ()->getRessourceQuantity (RessourceType::Insight)
                >= 1;
       } },
 
     { ResearchTabUnlocked, [] () { return false; } },
 
     { AncientOctopus,
-      [this] () {
-        return getDataView ()->getDepthView ()->getCurrentDepth () >= 20;
-      } },
+      [this] () { return depthView ()->getCurrentDepth () >= 20; } },
 
     { RessourceGlass,
       [this] () {
-        return getDataView ()->getRessourcesView ()->getRessourceQuantity (
-                   RessourceType::Glass)
+        return ressourcesView ()->getRessourceQuantity (RessourceType::Glass)
                > 0;
       } },
 
