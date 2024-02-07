@@ -4,6 +4,8 @@
 #include "AchievementIDs.hpp"
 #include "Ressource.hpp"
 #include "UpgradeId.hpp"
+#include <cassert>
+#include <iostream>
 #include <utility>
 #include <vector>
 
@@ -64,6 +66,10 @@ AchievementSystem::AchievementSystem ()
             UpgradeID::Focusing);
       } },
 
+    { TelekinesisUpgradeBought, [this] () { return false; } },
+
+    { AdvancedTelekinesisUpgradeBought, [this] () { return false; } },
+
     { LightningAbilityBuyable,
       [this] () {
         return getDataView ()->getRessourcesView ()->getRessourceQuantity (
@@ -83,20 +89,28 @@ AchievementSystem::AchievementSystem ()
         return getDataView ()->getRessourcesView ()->getRessourceQuantity (
                    RessourceType::Glass)
                > 0;
-      } }
+      } },
+
   };
+
+  for (const auto &id : allAchievementsIDs)
+    {
+      assert (achievementConditions.contains (id)
+              || std::cerr << "Missing achievement enum val : "
+                           << static_cast<int> (id) << "\n");
+    }
 }
 
 bool
-AchievementSystem::isUnlocked (AchievementIDs id)
+AchievementSystem::isUnlocked (AchievementIDs id) const
 {
-  return achievements[id].isUnlocked ();
+  return achievements.at (id).isUnlocked ();
 }
 
 void
 AchievementSystem::unlock (AchievementIDs id)
 {
-  achievements[id].unlock ();
+  achievements.at (id).unlock ();
 }
 
 std::vector<std::pair<AchievementIDs, bool> >

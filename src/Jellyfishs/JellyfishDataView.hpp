@@ -9,9 +9,9 @@ class JellyFishDataView
 public:
   explicit JellyFishDataView (std::shared_ptr<JellyfishManager>);
 
-  unsigned long getNumJellies () const;
-  long getNumJellies (JellyJobs) const;
-  unsigned long getMaxNumJellies () const;
+  unsigned int getNumJellies () const;
+  unsigned int getNumJellies (JellyJobs) const;
+  unsigned int getMaxNumJellies () const;
   std::string getJobDescription (JellyJobs) const;
   unsigned getJobLevel (JellyJobs) const;
   double getCurrentProgress (JellyJobs) const;

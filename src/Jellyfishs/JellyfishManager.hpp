@@ -3,9 +3,7 @@
 #include "Jellyfish.hpp"
 #include "Ressource.hpp"
 #include "SaveAndLoadable.hpp"
-#include <iostream>
 #include <unordered_map>
-#include <utility>
 #include <vector>
 
 struct JellyfishData
@@ -34,8 +32,8 @@ class JellyfishManager : public GameDataAccess,
 {
 public:
   JellyfishManager ();
-  unsigned long getNumJellies () const;
-  unsigned long getMaxNumJellies () const;
+  unsigned int getNumJellies () const;
+  unsigned int getMaxNumJellies () const;
   void setBonusMaxJellies (unsigned);
   unsigned int getNum (JellyJobs);
   bool assign (JellyJobs);

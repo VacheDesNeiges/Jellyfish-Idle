@@ -97,13 +97,13 @@ JellyfishManager::createJellyfish ()
     }
 }
 
-unsigned long
+unsigned int
 JellyfishManager::getNumJellies () const
 {
-  return jellies.size ();
+  return static_cast<unsigned int> (jellies.size ());
 }
 
-unsigned long
+unsigned int
 JellyfishManager::getMaxNumJellies () const
 {
   return maxNumJellies;

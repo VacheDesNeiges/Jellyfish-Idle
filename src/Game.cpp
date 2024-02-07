@@ -11,12 +11,10 @@
 #include <cassert>
 #include <chrono>
 #include <cstdio>
-#include <exception>
 #include <filesystem>
 #include <gtest/gtest.h>
 #include <linux/limits.h>
 #include <memory>
-#include <stdexcept>
 #include <stdio.h>
 #include <system_error>
 

@@ -7,19 +7,19 @@ JellyFishDataView::JellyFishDataView (std::shared_ptr<JellyfishManager> j)
 {
 }
 
-unsigned long
+unsigned int
 JellyFishDataView::getNumJellies () const
 {
   return jellies->getNumJellies ();
 }
 
-long
+unsigned int
 JellyFishDataView::getNumJellies (JellyJobs j) const
 {
   return jellies->getNum (j);
 }
 
-unsigned long
+unsigned int
 JellyFishDataView::getMaxNumJellies () const
 {
   return jellies->getMaxNumJellies ();
