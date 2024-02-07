@@ -4,6 +4,7 @@
 #include "AchievementIDs.hpp"
 #include "Ressource.hpp"
 #include "UpgradeId.hpp"
+
 #include <cassert>
 #include <iostream>
 #include <utility>
@@ -67,9 +68,17 @@ AchievementSystem::AchievementSystem ()
             UpgradeID::Focusing);
       } },
 
-    { TelekinesisUpgradeBought, [] () { return false; } },
+    { TelekinesisUpgradeBought,
+      [this] () {
+        return getDataView ()->getUpgradeView ()->isBought (
+            UpgradeID::Telekinesis);
+      } },
 
-    { AdvancedTelekinesisUpgradeBought, [] () { return false; } },
+    { AdvancedTelekinesisUpgradeBought,
+      [this] () {
+        return getDataView ()->getUpgradeView ()->isBought (
+            UpgradeID::AdvancedTelekinesis);
+      } },
 
     { LightningAbilityBuyable,
       [this] () {

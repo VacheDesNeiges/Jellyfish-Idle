@@ -5,6 +5,7 @@
 #include "Jellyfish.hpp"
 #include "RecipeID.hpp"
 #include "UIUtils.hpp"
+#include "UpgradeId.hpp"
 #include "fmt/core.h"
 #include "imgui.h"
 #include "imgui_internal.h"
@@ -32,10 +33,12 @@ UIJobsPanel::render () const
   ImGui::EndColumns (); // TODO handle columns of renderjobcontrols() more
                         // cleanly
 
-  ImGui::SeparatorText ("Recipes");
+  if (gData->getUpgradeView ()->isBought (UpgradeID::AdvancedTelekinesis))
+    {
+      ImGui::SeparatorText ("Recipes");
 
-  renderRecipes ();
-
+      renderRecipes ();
+    }
   ImGui::End ();
 }
 
