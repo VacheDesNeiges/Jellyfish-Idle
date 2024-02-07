@@ -66,9 +66,9 @@ AchievementSystem::AchievementSystem ()
             UpgradeID::Focusing);
       } },
 
-    { TelekinesisUpgradeBought, [this] () { return false; } },
+    { TelekinesisUpgradeBought, [] () { return false; } },
 
-    { AdvancedTelekinesisUpgradeBought, [this] () { return false; } },
+    { AdvancedTelekinesisUpgradeBought, [] () { return false; } },
 
     { LightningAbilityBuyable,
       [this] () {
