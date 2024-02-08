@@ -6,5 +6,6 @@ enum class UpgradeID
   Telekinesis,         // Mining Job
   AdvancedTelekinesis, // Artisan Job
   AbilityLightning,
-  Writing
+  Writing,
+  Leveling
 };

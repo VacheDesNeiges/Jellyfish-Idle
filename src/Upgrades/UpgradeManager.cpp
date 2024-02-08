@@ -23,15 +23,18 @@ UpgradeManager::UpgradeManager ()
     { Focusing, [] () { return true; } },
 
     { AbilityLightning,
-      [this] () { return upgrades[Focusing].isUnlocked (); } },
+      [this] () { return upgrades.at (Focusing).isUnlocked (); } },
 
-    { Telekinesis, [this] () { return upgrades[Focusing].isUnlocked (); } },
+    { Telekinesis,
+      [this] () { return upgrades.at (Focusing).isUnlocked (); } },
 
     { AdvancedTelekinesis,
-      [this] () { return upgrades[Telekinesis].isUnlocked (); } },
+      [this] () { return upgrades.at (Telekinesis).isUnlocked (); } },
 
     { Writing,
-      [this] () { return upgrades[AdvancedTelekinesis].isUnlocked (); } }
+      [this] () { return upgrades.at (AdvancedTelekinesis).isUnlocked (); } },
+
+    { Leveling, [this] () { return upgrades.at (Leveling).isUnlocked (); } }
   };
 }
 

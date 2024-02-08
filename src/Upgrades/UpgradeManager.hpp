@@ -24,10 +24,11 @@ public:
   std::vector<std::pair<UpgradeID, bool> > getData () const override;
   void loadData (const std::vector<std::pair<UpgradeID, bool> > &) override;
 
-  static constexpr std::array<UpgradeID, 5> UpgradesTypes
-      = { UpgradeID::Focusing, UpgradeID::Telekinesis,
-          UpgradeID::AbilityLightning, UpgradeID::AdvancedTelekinesis,
-          UpgradeID::Writing };
+  static constexpr std::array<UpgradeID, 6> UpgradesTypes = {
+    UpgradeID::Focusing,         UpgradeID::Telekinesis,
+    UpgradeID::AbilityLightning, UpgradeID::AdvancedTelekinesis,
+    UpgradeID::Writing,          UpgradeID::Leveling,
+  };
 
 private:
   std::unordered_map<UpgradeID, Upgrade> upgrades;

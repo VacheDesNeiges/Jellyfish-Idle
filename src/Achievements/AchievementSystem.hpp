@@ -1,8 +1,12 @@
 #pragma once
 
 #include "Achievement.hpp"
+#include "Building.hpp"
 #include "GameDataAccess.hpp"
+#include "InsightAbility.hpp"
+#include "Jellyfish.hpp"
 #include "SaveAndLoadable.hpp"
+#include "UpgradeId.hpp"
 
 #include <functional>
 #include <unordered_map>
@@ -16,7 +20,14 @@ class AchievementSystem
 public:
   AchievementSystem ();
   ~AchievementSystem () override = default;
+
   bool isUnlocked (AchievementIDs) const;
+  bool isUnlocked (BuildingType) const;
+  bool isUnlocked (JellyJobs) const;
+  bool isUnlocked (RessourceType) const;
+  bool isUnlocked (AbilityType) const;
+  bool isUnlocked (UpgradeID) const;
+
   void unlock (AchievementIDs);
   std::vector<std::pair<AchievementIDs, bool> > getData () const override;
   void

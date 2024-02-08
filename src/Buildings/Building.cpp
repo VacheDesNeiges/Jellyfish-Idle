@@ -42,6 +42,12 @@ Building::Building (BuildingType bType)
 
       priceMultiplier = 1.3;
       basePrice.emplace_back (RessourceType::Glass, 50);
+
+    case BuildingType::MarineStockRoom:
+      name = "Marine Stockroom";
+      priceMultiplier = 1.2;
+      basePrice.emplace_back (RessourceType::StoneSlab, 12);
+      basePrice.emplace_back (RessourceType::GlassPane, 10);
     }
 }
 

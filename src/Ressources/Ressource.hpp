@@ -23,13 +23,16 @@ public:
   void addToProdPerTick (double);
   void setQuantity (double);
 
-  static constexpr std::array<RessourceType, 6> RessourceTypes
-      = { RessourceType::Food,    RessourceType::Sand,
-          RessourceType::Stone,   RessourceType::Glass,
-          RessourceType::Insight, RessourceType::StoneSlab };
+  static constexpr std::array<RessourceType, 6> RessourceTypes = {
+    RessourceType::Food,  RessourceType::Sand,    RessourceType::Stone,
+    RessourceType::Glass, RessourceType::Insight, RessourceType::StoneSlab,
+  };
 
-  static constexpr std::array<RessourceType, 2> CraftableRessourceTypes
-      = { RessourceType::StoneSlab, RessourceType::GlassPane };
+  static constexpr std::array<RessourceType, 3> CraftableRessourceTypes = {
+    RessourceType::StoneSlab,
+    RessourceType::GlassPane,
+    RessourceType::KnowledgeTablet,
+  };
 
 private:
   bool specialRessource = false;

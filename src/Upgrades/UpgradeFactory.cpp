@@ -3,6 +3,7 @@
 #include "Upgrade.hpp"
 #include "UpgradeId.hpp"
 
+#include <utility>
 #include <vector>
 
 Upgrade
@@ -53,9 +54,14 @@ UpgradeFactory::createUpgrade (UpgradeID id)
               "Useful to rapidly melt some sand into glass";
         break;
       }
-
-    default:
-      break;
+    case UpgradeID::Leveling:
+      {
+        name = "Long Term Memory";
+        description = "Enhances your knowledge of things over time, making "
+                      "your jellyfishs more effective";
+        cost.emplace_back (std::pair{ RessourceType::KnowledgeTablet, 50 });
+        break;
+      }
     }
   return Upgrade (name, description, cost);
 }

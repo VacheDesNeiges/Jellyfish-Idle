@@ -1,7 +1,11 @@
 #include "AchievementSystem.hpp"
 
 #include "Achievement.hpp"
+#include "AchievementDataView.hpp"
 #include "AchievementIDs.hpp"
+#include "Building.hpp"
+#include "InsightAbility.hpp"
+#include "Jellyfish.hpp"
 #include "Ressource.hpp"
 #include "UpgradeId.hpp"
 
@@ -137,5 +141,117 @@ AchievementSystem::checkAchievements ()
 
       if (achievementConditions[id]())
         unlock (id);
+    }
+}
+
+bool
+AchievementSystem::isUnlocked (BuildingType t) const
+{
+  using enum BuildingType;
+  switch (t)
+    {
+    case PlanktonField:
+      return isUnlocked (AchievementIDs::PlanktonField);
+
+    case DuneShelter:
+      return isUnlocked (AchievementIDs::FirstSandNest);
+
+    case Mines:
+      return isUnlocked (AchievementIDs::Mines);
+
+    default:
+      return false;
+    }
+}
+
+bool
+AchievementSystem::isUnlocked (JellyJobs j) const
+{
+  using enum JellyJobs;
+  using enum AchievementIDs;
+  switch (j)
+    {
+    case GatherSand:
+      return isUnlocked (FirstJelly);
+
+    case ExploreTheDepths:
+      return isUnlocked (JobExploreTheDepths);
+
+    case FocusForInsight:
+      return isUnlocked (FocusingUpgradeBought);
+
+    case Mining:
+      return isUnlocked (JobMining);
+
+    case Artisan:
+      return isUnlocked (JobArtisan);
+
+    default:
+      return false;
+    }
+}
+
+bool
+AchievementSystem::isUnlocked (RessourceType r) const
+{
+
+  switch (r)
+    {
+      using enum AchievementIDs;
+      using enum RessourceType;
+
+    case Food:
+      return true;
+
+    case Sand:
+      return isUnlocked (FirstJelly);
+
+    case Stone:
+      return isUnlocked (JobMining);
+
+    case Insight:
+      return isUnlocked (FocusingUpgradeBought);
+
+    case Glass:
+      return isUnlocked (LightningAbilityBuyable);
+
+    default:
+      return false;
+    }
+}
+
+bool
+AchievementSystem::isUnlocked (AbilityType t) const
+{
+  using enum AbilityType;
+  switch (t)
+    {
+    case CallThunder:
+      return isUnlocked (AchievementIDs::LightningAbilityBuyable);
+    default:
+      return false;
+    }
+}
+
+bool
+AchievementSystem::isUnlocked (UpgradeID id) const
+{
+  using enum UpgradeID;
+  switch (id)
+    {
+    case Focusing:
+      return isUnlocked (AchievementIDs::AncientOctopus);
+
+    case Telekinesis:
+      return isUnlocked (AchievementIDs::FocusingUpgradeBought);
+
+    case AdvancedTelekinesis:
+      return isUnlocked (AchievementIDs::TelekinesisUpgradeBought);
+
+    case Writing:
+      return isUnlocked (AchievementIDs::AdvancedTelekinesisUpgradeBought);
+
+    default:
+      return false;
     }
 }
