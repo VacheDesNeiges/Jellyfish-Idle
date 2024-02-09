@@ -1,5 +1,6 @@
 #include "UIRessourcesPanel.hpp"
 
+#include "AchievementIDs.hpp"
 #include "Ressource.hpp"
 #include "fmt/core.h"
 #include "imgui.h"
@@ -11,7 +12,9 @@ void
 UIRessourcesPanel::render () const
 {
   renderRessources ();
-  renderManufacturedRessources ();
+  if (gData->getAchievementsView ()->isUnlocked (
+          AchievementIDs::AdvancedTelekinesisUpgradeBought))
+    renderManufacturedRessources ();
 }
 
 void

@@ -17,7 +17,7 @@ void
 UIJobsPanel::render () const
 {
   if (!ImGui::Begin ("Jobs", nullptr,
-                     ImGuiWindowFlags_None)) // FIXME change to noMove flag
+                     ImGuiWindowFlags_None)) //  change to noMove flag
                                              // once done with ui
     {
       ImGui::End ();
@@ -76,12 +76,15 @@ UIJobsPanel::renderJobsControls (JellyJobs job) const
 
   ImGui::SameLine ();
   ImGui::Text ("lvl %u", gData->getJelliesView ()->getJobLevel (job));
-  ImGui::SameLine ();
   ImGui::NextColumn ();
 
-  auto lvlProgress = gData->getJelliesView ()->getCurrentProgress (job)
-                     / gData->getJelliesView ()->getProgressNeeded (job);
-  ImGui::ProgressBar (static_cast<float> (lvlProgress));
+  if (gData->getAchievementsView ()->isUnlocked (UpgradeID::Leveling))
+    {
+      auto lvlProgress = gData->getJelliesView ()->getCurrentProgress (job)
+                         / gData->getJelliesView ()->getProgressNeeded (job);
+      ImGui::ProgressBar (static_cast<float> (lvlProgress));
+    }
+
   ImGui::NextColumn ();
 }
 

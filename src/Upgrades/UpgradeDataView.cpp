@@ -16,6 +16,9 @@ UpgradeDataView::UpgradeDataView (std::shared_ptr<UpgradeManager> u,
 bool
 UpgradeDataView::isBuyable (UpgradeID id) const
 {
+  if (isBought (id))
+    return false;
+
   bool buyable = true;
   for (const auto &[ressource, price] : upgrades->getCost (id))
     {

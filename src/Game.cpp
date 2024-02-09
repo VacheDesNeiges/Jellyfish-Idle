@@ -17,7 +17,9 @@
 #include <gtest/gtest.h>
 #include <linux/limits.h>
 #include <memory>
+#include <optional>
 #include <stdio.h>
+#include <string_view>
 #include <system_error>
 
 Game::Game () { initialize (); };
@@ -35,12 +37,13 @@ Game::~Game ()
 }
 
 void
-Game::run ()
+Game::run (std::optional<std::string_view> option)
 {
   const std::chrono::milliseconds interval (500);
   auto nextTick = std::chrono::high_resolution_clock::now () + interval;
   bool done = false;
-  if (std::filesystem::exists (SaveSystem::saveFileName))
+  if (std::filesystem::exists (SaveSystem::saveFileName)
+      && !(option.has_value () && option == "--noSave"))
     {
       gameSystems->loadSave (getPath ());
     }

@@ -21,11 +21,17 @@ UIOctopusPanel::render () const
 
   for (const auto &upgradeID : UpgradeManager::UpgradesTypes)
     {
-      if (showBoughtUpgrades
-          || (gData->getUpgradeView ()->isAvailableForBuying (upgradeID)
-              && gData->getAchievementsView ()->isUnlocked (upgradeID)))
+      if (showBoughtUpgrades)
         {
-          renderTradeButton (upgradeID);
+          if (gData->getUpgradeView ()->isBought (upgradeID))
+            renderTradeButton (upgradeID);
+        }
+      else
+        {
+          if (gData->getUpgradeView ()->isAvailableForBuying (upgradeID)
+              && gData->getAchievementsView ()->isUnlocked (upgradeID))
+
+            renderTradeButton (upgradeID);
         }
     }
 

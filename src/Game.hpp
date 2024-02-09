@@ -6,6 +6,8 @@
 
 #include <SDL2/SDL_render.h>
 #include <memory>
+#include <optional>
+#include <string>
 
 class Game
 
@@ -13,7 +15,7 @@ class Game
 public:
   Game ();
   ~Game ();
-  void run ();
+  void run (std::optional<std::string_view>);
 
 private:
   void initialize ();

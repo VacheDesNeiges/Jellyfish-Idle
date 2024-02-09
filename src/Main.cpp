@@ -1,12 +1,17 @@
 #include "Game.hpp"
 
 #include <memory>
+#include <optional>
 
 int
-main ()
+main (int argc, char *argv[])
 {
+  std::optional<std::string_view> option;
+  if (argc == 2)
+    option = argv[1];
+
   auto g = std::make_unique<Game> ();
-  g->run ();
+  g->run (option);
 
   return 0;
 }
@@ -14,24 +19,22 @@ main ()
 // todolist ----------------
 // Features :
 
+// TODO : add production in the description of buildings hover
+// TODO : add a little descriptive text in the decription of building hover
 // TODO : add a cooldown to abilities ?
 // TODO : Catchup on load
 // TODO : add save and load function to crafting system
 // TODO : add save and load to leveling system
-// TODO : display crafted ressources
 // TODO : add a keep crafting functionality
 
 // Polishing :
 
 // TODO : unify the button size in a file.
-// TODO : grey out upgrades once they are bought (when displayed optionaly)
 // TODO : use different colors for xp bar and progress bar
-// TODO : Map achievement functions in another file than achievementDataView
 // TODO : gate levels behind achievements
 // TODO : refactor the leveling system ?
 // TODO : create one or multiples files containing all the global constants of
 // the game
-// TODO : reserve for vectors in systems init and save system
 
 // Bugs :
 // TODO : Savefile format stores enums with integers, making the saves prone to
