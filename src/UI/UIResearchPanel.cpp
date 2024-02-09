@@ -4,7 +4,7 @@
 void
 UIResearchPanel::render () const
 {
-  if (!ImGui::Begin ("Research", nullptr, ImGuiWindowFlags_NoMove))
+  if (!ImGui::Begin ("Research", nullptr, ImGuiWindowFlags_None))
     {
       ImGui::End ();
       return;

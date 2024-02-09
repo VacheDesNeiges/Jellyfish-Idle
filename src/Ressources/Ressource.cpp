@@ -1,4 +1,5 @@
 #include "Ressource.hpp"
+#include <cfloat>
 #include <string_view>
 
 Ressource::Ressource (RessourceType rType)
@@ -38,8 +39,15 @@ Ressource::Ressource (RessourceType rType)
 
     case RessourceType::StoneSlab:
       name = "Stone Slab";
-      max_quantity = 50;
+      max_quantity = DBL_MAX;
       quantity = 0;
+      break;
+
+    case RessourceType::GlassPane:
+      name = "Glass Pane";
+      max_quantity = DBL_MAX;
+      quantity = 0;
+      break;
 
     default:
       break;

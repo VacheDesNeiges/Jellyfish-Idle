@@ -85,6 +85,19 @@ AchievementSystem::AchievementSystem ()
                > 0;
       } },
 
+    { RessourceStoneSlab,
+      [this] () {
+        return ressourcesView ()->getRessourceQuantity (
+                   RessourceType::StoneSlab)
+               > 0;
+      } },
+
+    { RessourceGlassPane,
+      [this] () {
+        return ressourcesView ()->getRessourceQuantity (
+                   RessourceType::GlassPane)
+               > 0;
+      } }
   };
 
   for (const auto &id : allAchievementsIDs)
@@ -215,6 +228,12 @@ AchievementSystem::isUnlocked (RessourceType r) const
     case Glass:
       return isUnlocked (LightningAbilityBuyable);
 
+    case StoneSlab:
+      return isUnlocked (RessourceStoneSlab);
+
+    case GlassPane:
+      return isUnlocked (RessourceGlassPane);
+
     default:
       return false;
     }
@@ -237,19 +256,20 @@ bool
 AchievementSystem::isUnlocked (UpgradeID id) const
 {
   using enum UpgradeID;
+  using IDs = AchievementIDs;
   switch (id)
     {
     case Focusing:
-      return isUnlocked (AchievementIDs::AncientOctopus);
+      return isUnlocked (IDs::AncientOctopus);
 
     case Telekinesis:
-      return isUnlocked (AchievementIDs::FocusingUpgradeBought);
+      return isUnlocked (IDs::FocusingUpgradeBought);
 
     case AdvancedTelekinesis:
-      return isUnlocked (AchievementIDs::TelekinesisUpgradeBought);
+      return isUnlocked (IDs::TelekinesisUpgradeBought);
 
     case Writing:
-      return isUnlocked (AchievementIDs::AdvancedTelekinesisUpgradeBought);
+      return isUnlocked (IDs::AdvancedTelekinesisUpgradeBought);
 
     default:
       return false;

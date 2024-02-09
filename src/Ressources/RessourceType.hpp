@@ -8,5 +8,5 @@ enum class RessourceType
 
   StoneSlab,
   GlassPane,
-  KnowledgeTablet
+  KnowledgeTablet,
 };

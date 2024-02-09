@@ -5,6 +5,7 @@
 #include "RecipeID.hpp"
 #include "Ressource.hpp"
 
+#include <iostream>
 #include <utility>
 #include <vector>
 
@@ -91,6 +92,7 @@ CraftingManager::getCraftResults ()
           for (auto &[rType, quant] : tmp)
             {
               quant *= assignedJelliesToRecipes[id];
+              std::cout << "quant =" << quant << "\n";
             }
           result.insert (result.end (), tmp.begin (), tmp.end ());
           recipes.at (id).reset ();

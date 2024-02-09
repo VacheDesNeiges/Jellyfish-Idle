@@ -17,6 +17,9 @@ enum class AchievementIDs
 
   RessourceGlass,
 
+  RessourceStoneSlab,
+  RessourceGlassPane,
+
   ResearchTabUnlocked,
 
   AncientOctopus,
@@ -28,7 +31,7 @@ enum class AchievementIDs
   LightningAbilityBuyable,
 };
 
-static constexpr std::array<AchievementIDs, 14> allAchievementsIDs
+static constexpr std::array<AchievementIDs, 16> allAchievementsIDs
     = { AchievementIDs::PlanktonField,
         AchievementIDs::FirstSandNest,
         AchievementIDs::Mines,
@@ -37,6 +40,8 @@ static constexpr std::array<AchievementIDs, 14> allAchievementsIDs
         AchievementIDs::JobExploreTheDepths,
         AchievementIDs::JobArtisan,
         AchievementIDs::RessourceGlass,
+        AchievementIDs::RessourceStoneSlab,
+        AchievementIDs::RessourceGlassPane,
         AchievementIDs::ResearchTabUnlocked,
         AchievementIDs::AncientOctopus,
         AchievementIDs::FocusingUpgradeBought,

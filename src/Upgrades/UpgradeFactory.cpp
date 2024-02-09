@@ -17,10 +17,10 @@ UpgradeFactory::createUpgrade (UpgradeID id)
 
     case UpgradeID::Focusing:
       name = "Focus";
-      description = "The Octopus teaches you how to focus\n"
-                    "to gather Insight. It also asks you \n"
-                    "to come back to exchange it for more\n"
-                    "secrets once you gather enough of it";
+      description
+          = "The Octopus tells you that you have a hidden potential, they "
+            "propose to teach you how to use it in exchange for some food.";
+      cost.emplace_back (std::pair{ RessourceType::Food, 300 });
       break;
 
     case UpgradeID::Telekinesis:
@@ -52,6 +52,7 @@ UpgradeFactory::createUpgrade (UpgradeID id)
         description
             = "Allows you to use your insight to call a lightning strike. "
               "Useful to rapidly melt some sand into glass";
+        cost.emplace_back (std::pair{ RessourceType::Insight, 100 });
         break;
       }
     case UpgradeID::Leveling:

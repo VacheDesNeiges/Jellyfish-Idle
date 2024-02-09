@@ -16,7 +16,9 @@
 void
 UIJobsPanel::render () const
 {
-  if (!ImGui::Begin ("Jobs", nullptr, ImGuiWindowFlags_NoMove))
+  if (!ImGui::Begin ("Jobs", nullptr,
+                     ImGuiWindowFlags_None)) // FIXME change to noMove flag
+                                             // once done with ui
     {
       ImGui::End ();
       return;
