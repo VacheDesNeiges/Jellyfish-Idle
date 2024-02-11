@@ -34,7 +34,7 @@ AchievementSystem::AchievementSystem ()
     { FirstSandNest,
       [this] () {
         return ressourcesView ()->getRessourceQuantity (RessourceType::Sand)
-               >= 3;
+               >= 0.3;
       } },
 
     { Mines, [this] () { return depthView ()->getCurrentDepth () >= 30; } },
@@ -165,6 +165,9 @@ AchievementSystem::isUnlocked (BuildingType t) const
     {
     case PlanktonField:
       return isUnlocked (AchievementIDs::PlanktonField);
+
+    case SandCurrentDucts:
+      return isUnlocked (AchievementIDs::FirstSandNest);
 
     case DuneShelter:
       return isUnlocked (AchievementIDs::FirstSandNest);

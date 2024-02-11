@@ -6,6 +6,7 @@
 enum class BuildingType
 {
   PlanktonField,
+  SandCurrentDucts,
   DuneShelter,
   Mines,
   GlassTower,
@@ -32,12 +33,12 @@ public:
   std::vector<std::pair<RessourceType, double> > getNextBuyCost ();
 
   std::string getDescription ();
-  std::string getAdvancedDescription ();
+  std::string getAdvancedDescription () const;
 
-  static constexpr std::array<BuildingType, 5> BuildingTypes = {
-    BuildingType::PlanktonField,   BuildingType::DuneShelter,
-    BuildingType::Mines,           BuildingType::GlassTower,
-    BuildingType::MarineStockRoom,
+  static constexpr std::array<BuildingType, 6> BuildingTypes = {
+    BuildingType::PlanktonField, BuildingType::SandCurrentDucts,
+    BuildingType::DuneShelter,   BuildingType::Mines,
+    BuildingType::GlassTower,    BuildingType::MarineStockRoom,
   };
 
 private:

@@ -12,14 +12,26 @@ Building::Building (BuildingType bType)
   switch (bType)
     {
 
+      using enum RessourceType;
+
     case BuildingType::PlanktonField:
       name = "Plankton Field";
 
-      priceMultiplier = 1.2;
-      basePrice.emplace_back (RessourceType::Food, 5);
+      priceMultiplier = 1.15;
+      basePrice.emplace_back (Food, 5);
 
-      baseProductionPerTick.try_emplace (RessourceType::Food, 0.125);
-      prodPerTick.emplace_back (RessourceType::Food, 0);
+      baseProductionPerTick.try_emplace (Food, 0.125);
+      prodPerTick.emplace_back (Food, 0);
+      break;
+
+    case BuildingType::SandCurrentDucts:
+      // Ducts that harness the currents,
+      // allowing more nutrients to reach
+      // the plankton field and increase its
+      // production
+      name = "Sand Current Ducts";
+      priceMultiplier = 1.3;
+      basePrice.emplace_back (Sand, 5);
       break;
 
     case BuildingType::DuneShelter:
@@ -27,28 +39,28 @@ Building::Building (BuildingType bType)
       increaseToMaxJfish = 1;
 
       priceMultiplier = 2;
-      basePrice.emplace_back (RessourceType::Sand, 10);
+      basePrice.emplace_back (Sand, 10);
       break;
 
     case BuildingType::Mines:
       name = "Mines";
 
-      priceMultiplier = 1.15;
-      basePrice.emplace_back (RessourceType::Stone, 25);
+      priceMultiplier = 1.2;
+      basePrice.emplace_back (Stone, 25);
       break;
 
     case BuildingType::GlassTower:
       name = "Glass Tower";
 
       priceMultiplier = 1.3;
-      basePrice.emplace_back (RessourceType::Glass, 50);
+      basePrice.emplace_back (Glass, 50);
       break;
 
     case BuildingType::MarineStockRoom:
       name = "Marine Stockroom";
       priceMultiplier = 1.2;
-      basePrice.emplace_back (RessourceType::StoneSlab, 12);
-      basePrice.emplace_back (RessourceType::GlassPane, 10);
+      basePrice.emplace_back (StoneSlab, 12);
+      basePrice.emplace_back (GlassPane, 10);
       break;
     }
 }
@@ -94,7 +106,7 @@ Building::getDescription () // TODO : Move to UI ?
 }
 
 std::string
-Building::getAdvancedDescription () // TODO : Move to UI ?
+Building::getAdvancedDescription () const // TODO : Move to UI ?
 {
   std::string s = "price :";
   for (const auto &[ressource, price] : basePrice)

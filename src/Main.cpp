@@ -40,6 +40,8 @@ main (int argc, char *argv[])
 // TODO : Savefile format stores enums with integers, making the saves prone to
 // break when inserting a new value in enums. Needs a more robust solution
 // TODO : stop exp being attributed when no recipes are ongoing
+// TODO : parenthesis still display next to the price at the last second in
+// button's hover
 
 // Roadmap :
 

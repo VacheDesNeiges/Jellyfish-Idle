@@ -39,6 +39,9 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}\
         ${CMAKE_SOURCE_DIR}/src/Achievements
         ${CMAKE_SOURCE_DIR}/src/Upgrades
         ${CMAKE_SOURCE_DIR}/src/Crafting
+        ${CMAKE_SOURCE_DIR}/src/Multipliers
+        ${CMAKE_SOURCE_DIR}/src/Depth
+
     )
     
 # Source files for the main application

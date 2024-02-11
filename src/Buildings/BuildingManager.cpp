@@ -5,6 +5,7 @@
 
 #include <string>
 #include <utility>
+#include <vector>
 
 BuildingManager::BuildingManager ()
 {
@@ -30,7 +31,12 @@ BuildingManager::getCurrentQuantity (BuildingType t)
 std::vector<std::pair<RessourceType, double> >
 BuildingManager::getProduction (BuildingType t)
 {
-  return buildings[t].getProdPerTick ();
+  auto result = buildings[t].getProdPerTick ();
+  for (auto &[rType, prod] : result)
+    {
+      prod *= multipliersView ()->getBuildingMultiplier (t);
+    }
+  return result;
 }
 
 std::vector<std::pair<RessourceType, double> >
@@ -61,11 +67,13 @@ std::unordered_map<RessourceType, double>
 BuildingManager::getProductionRates () const
 {
   std::unordered_map<RessourceType, double> result;
-  for (const auto &[_, b] : buildings)
+  for (const auto &[bType, b] : buildings)
     {
       for (const auto &[rType, productionRate] : b.getProdPerTick ())
         {
-          result[rType] += productionRate;
+          result[rType]
+              += (productionRate
+                  * multipliersView ()->getBuildingMultiplier (bType));
         }
     }
   return result;

@@ -78,3 +78,10 @@ Farm && Potion making
 -> essences for rituals
 
 Rituals for boosts
+
+
+
+# GARDEN
+
+Oysters -> Pearls
+Sandworms -> rich soil ?

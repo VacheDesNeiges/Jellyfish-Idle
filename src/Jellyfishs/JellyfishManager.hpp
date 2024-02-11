@@ -1,6 +1,7 @@
 #pragma once
 #include "GameDataAccess.hpp"
 #include "Jellyfish.hpp"
+#include "MultipliersIDs.hpp"
 #include "Ressource.hpp"
 #include "SaveAndLoadable.hpp"
 #include <unordered_map>
@@ -58,6 +59,8 @@ private:
 
   std::unordered_map<JellyJobs, JobLevel>
       jobExp; // pair of current progress, progress neeeded
+
+  std::unordered_map<MultiplierID, double> multipliers;
 
   unsigned maxNumJellies = 1;
   bool numJobsUpToDate = false;

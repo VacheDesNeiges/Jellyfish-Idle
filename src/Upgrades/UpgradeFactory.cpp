@@ -26,7 +26,7 @@ UpgradeFactory::createUpgrade (UpgradeID id)
     case UpgradeID::Telekinesis:
       name = "Telekinesis";
       description
-          = "The octopus teaches you how to use insight to move objects."
+          = "The octopus teaches you how to use insight to move heavy objects."
             "This will allow you to do basic manual labour such as mining";
       cost.emplace_back (std::pair{ RessourceType::Insight, 100 });
       break;
