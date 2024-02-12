@@ -66,7 +66,8 @@ TEST (TestsBuildingManager, increaseToJfish)
 
   for (const auto &building : Building::BuildingTypes)
     {
-      if (building == BuildingType::DuneShelter)
+      if (building == BuildingType::DuneShelter
+          || building == BuildingType::GlassNests)
         {
           ASSERT_EQ (true, bManager.doesIncreasesMaxJellies (building));
         }
