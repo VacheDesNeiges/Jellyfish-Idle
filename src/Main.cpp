@@ -23,10 +23,10 @@ main (int argc, char *argv[])
 // TODO : add a little descriptive text in the decription of building hover
 // TODO : add a cooldown to abilities ?
 // TODO : Catchup on load
-// TODO : add save and load function to crafting system
-// TODO : add save and load to leveling system
+// TODO : add save and load to leveling system // Done for crafts
 // TODO : add a keep crafting functionality
 // TODO : display unlocked things by depth + incitation to explore deeper on
+// TODO : gate leveling behind achievements
 // depth tab
 
 // Polishing :

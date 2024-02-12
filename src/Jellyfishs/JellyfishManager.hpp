@@ -16,6 +16,7 @@ struct JellyfishData
   unsigned numJobGatheringFood;
   unsigned numJobMining;
   unsigned numJobFocusing;
+  unsigned numJobCrafting;
   unsigned numJellies;
 };
 

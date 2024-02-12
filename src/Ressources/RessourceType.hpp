@@ -1,12 +1,12 @@
 enum class RessourceType
 {
-  Food,
-  Sand,
-  Stone,
-  Glass,
-  Insight,
+  Food = 1,
+  Sand = 2,
+  Stone = 3,
+  Glass = 4,
+  Insight = 5,
 
-  StoneSlab,
-  GlassPane,
-  KnowledgeTablet,
+  StoneSlab = 100,
+  GlassPane = 101,
+  KnowledgeTablet = 102,
 };

@@ -99,6 +99,7 @@ GameSynchronizer::addMaps (
 void
 GameSynchronizer::synchronizeSystems () const
 {
+  systems->crafts->updateAssignments ();
   systems->multipliers->recomputeMultipliers ();
   gameTick ();
 }

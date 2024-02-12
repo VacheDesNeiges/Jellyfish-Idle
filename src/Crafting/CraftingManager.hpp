@@ -2,15 +2,19 @@
 #include "CraftingRecipe.hpp"
 #include "GameDataAccess.hpp"
 #include "RecipeID.hpp"
+#include "SaveAndLoadable.hpp"
 
 #include <unordered_map>
 #include <utility>
 
-class CraftingManager : public GameDataAccess
+class CraftingManager final
+    : public GameDataAccess,
+      public SaveAndLoadable<
+          std::vector<std::pair<RecipeID, RecipeSaveData> > >
 {
 public:
   CraftingManager ();
-  ~CraftingManager () = default;
+  ~CraftingManager () override = default;
 
   bool assign (RecipeID);
   bool unasign (RecipeID);
@@ -29,6 +33,10 @@ public:
   std::vector<std::pair<RessourceType, double> > getRecipe (RecipeID) const;
   std::vector<std::pair<RessourceType, double> > getCraftResults ();
   std::vector<std::pair<RessourceType, double> > getCraftResult (RecipeID);
+
+  std::vector<std::pair<RecipeID, RecipeSaveData> > getData () const override;
+  void loadData (
+      const std::vector<std::pair<RecipeID, RecipeSaveData> > &) override;
 
 private:
   unsigned assignedJelliesToCrafting = 0;

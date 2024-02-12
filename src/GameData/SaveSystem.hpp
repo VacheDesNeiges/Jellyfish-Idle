@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Building.hpp"
+#include "CraftingRecipe.hpp"
 #include "DepthSystem.hpp"
 #include "JellyfishManager.hpp"
 #include "Ressource.hpp"
@@ -17,6 +18,7 @@ struct SaveData
   JellyfishData jellies;
   DepthData depth;
   std::vector<std::pair<UpgradeID, bool> > upgrades;
+  std::vector<std::pair<RecipeID, RecipeSaveData> > crafts;
 };
 
 class SaveSystem

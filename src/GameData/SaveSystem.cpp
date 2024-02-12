@@ -1,8 +1,11 @@
 #include "SaveSystem.hpp"
+
 #include "AchievementIDs.hpp"
 #include "Building.hpp"
+#include "CraftingRecipe.hpp"
 #include "DepthSystem.hpp"
 #include "JellyfishManager.hpp"
+#include "RecipeID.hpp"
 #include "Ressource.hpp"
 #include "UpgradeDataView.hpp"
 #include "UpgradeId.hpp"
@@ -36,22 +39,42 @@ SaveSystem::save (SaveData data)
                           { "Quantity", quant } };
     }
 
-  j["Jellies"] += { { "num", data.jellies.numJellies },
-                    { "numMax", data.jellies.maxNumJellies },
-                    { "numJobNone", data.jellies.numJobNone },
-                    { "numJobGatherFood", data.jellies.numJobGatheringFood },
-                    { "numJobExplore", data.jellies.numJobExploreTheDepths },
-                    { "numJobGatherSand", data.jellies.numJobGatheringSand },
-                    { "numJobMining", data.jellies.numJobMining },
-                    { "numJobFocusing", data.jellies.numJobFocusing } };
+  j["Jellies"] += {
+    { "num", data.jellies.numJellies },
+    { "numMax", data.jellies.maxNumJellies },
+    { "numJobNone", data.jellies.numJobNone },
+    { "numJobGatherFood", data.jellies.numJobGatheringFood },
+    { "numJobExplore", data.jellies.numJobExploreTheDepths },
+    { "numJobGatherSand", data.jellies.numJobGatheringSand },
+    { "numJobMining", data.jellies.numJobMining },
+    { "numJobFocusing", data.jellies.numJobFocusing },
+    { "numJobCrafting", data.jellies.numJobCrafting },
+  };
 
-  j["Depth"] += { { "currentDepth", data.depth.currentDepth },
-                  { "currentProg", data.depth.currentProg } };
+  j["Depth"] += {
+    { "currentDepth", data.depth.currentDepth },
+    { "currentProg", data.depth.currentProg },
+  };
 
   for (const auto &[id, val] : data.upgrades)
     {
-      j["Upgrade"]
-          += { { "id", static_cast<unsigned> (id) }, { "Bought", val } };
+      j["Upgrade"] += {
+        { "id", static_cast<unsigned> (id) },
+        { "Bought", val },
+      };
+    }
+
+  for (const auto &[id, craftData] : data.crafts)
+    {
+      j["Craft"] += {
+        { "id", static_cast<unsigned> (id) },
+        { "Workers", craftData.numAssignedWorkers },
+        { "Done", craftData.craftDone },
+        { "Ongoing", craftData.craftOngoing },
+        { "RemainingTicks", craftData.remainingTicksToCraft },
+        { "Level", craftData.lvl },
+        { "CurrentProg", craftData.progressNeeded },
+      };
     }
 
   std::ofstream file (saveFileName);
@@ -107,6 +130,8 @@ SaveSystem::loadFromFile (std::string path)
       = data["Jellies"][0]["numJobMining"].get<unsigned> ();
   result.jellies.numJobFocusing
       = data["Jellies"][0]["numJobFocusing"].get<unsigned> ();
+  result.jellies.numJobCrafting
+      = data["Jellies"][0]["numJobCrafting"].get<unsigned> ();
 
   result.depth.currentDepth
       = data["Depth"][0]["currentDepth"].get<unsigned> ();
@@ -118,6 +143,22 @@ SaveSystem::loadFromFile (std::string path)
       result.upgrades.emplace_back (
           static_cast<UpgradeID> (d["id"].get<unsigned> ()),
           d["Bought"].get<bool> ());
+    }
+
+  result.crafts.reserve (CraftingRecipe::RecipeTypes.size ());
+  for (const auto &c : data["Craft"])
+    {
+      result.crafts.emplace_back (
+          static_cast<RecipeID> (c["id"].get<unsigned> ()),
+          RecipeSaveData{
+              c["Level"].get<unsigned> (),
+              c["CurrentProg"].get<double> (),
+              0,
+              c["Ongoing"].get<bool> (),
+              c["Done"].get<bool> (),
+              c["RemainingTicks"].get<unsigned> (),
+              c["Workers"].get<unsigned> (),
+          });
     }
 
   return result;

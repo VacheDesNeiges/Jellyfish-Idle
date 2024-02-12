@@ -179,6 +179,7 @@ JellyfishManager::getData () const
   result.numJobExploreTheDepths = jobNumbers.at (ExploreTheDepths);
   result.numJobFocusing = jobNumbers.at (FocusForInsight);
   result.numJobMining = jobNumbers.at (Mining);
+  result.numJobCrafting = jobNumbers.at (Artisan);
   result.numJobNone = jobNumbers.at (None);
 
   result.numJellies = static_cast<unsigned> (jellies.size ());
@@ -217,6 +218,11 @@ JellyfishManager::loadData (const JellyfishData &data)
         {
           assign (JellyJobs::Mining);
         }
+
+      for (unsigned i = 0; i < data.numJobCrafting; i++)
+        {
+          assign (JellyJobs::Artisan);
+        }
     }
 
   using enum JellyJobs;
@@ -226,6 +232,7 @@ JellyfishManager::loadData (const JellyfishData &data)
   jobNumbers[ExploreTheDepths] = data.numJobExploreTheDepths;
   jobNumbers[GatherSand] = data.numJobGatheringSand;
   jobNumbers[FocusForInsight] = data.numJobFocusing;
+  jobNumbers[Artisan] = data.numJobCrafting;
 }
 
 double

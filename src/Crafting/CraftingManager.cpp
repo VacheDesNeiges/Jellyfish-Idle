@@ -179,3 +179,31 @@ CraftingManager::distributeCraftsExp ()
     }
   return hasLeveledUp;
 }
+
+std::vector<std::pair<RecipeID, RecipeSaveData> >
+CraftingManager::getData () const
+{
+  auto result = std::vector<std::pair<RecipeID, RecipeSaveData> > ();
+
+  for (const auto craft : CraftingRecipe::RecipeTypes)
+    {
+      auto saveData = recipes.at (craft).getData ();
+      saveData.numAssignedWorkers = getAssignedNumOfJellies (craft);
+      result.emplace_back (craft, saveData);
+    }
+  return result;
+}
+
+void
+CraftingManager::loadData (
+    const std::vector<std::pair<RecipeID, RecipeSaveData> > &data)
+{
+  for (const auto &[id, recipeData] : data)
+    {
+      for (size_t i = 0; i < recipeData.numAssignedWorkers; i++)
+        {
+          assign (id);
+        }
+      recipes.at (id).loadData (recipeData);
+    }
+}

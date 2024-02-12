@@ -41,6 +41,7 @@ GameSystems::save () const
   data.jellies = systems->jellies->getData ();
   data.depth = systems->depth->getData ();
   data.upgrades = systems->upgrades->getData ();
+  data.crafts = systems->crafts->getData ();
 
   SaveSystem::save (data);
 }
@@ -55,7 +56,9 @@ GameSystems::loadSave (const std::string &path) const
   systems->jellies->loadData (loadedData.jellies);
   systems->depth->loadData (loadedData.depth);
   systems->upgrades->loadData (loadedData.upgrades);
+
   synchronizer->synchronizeSystems ();
+  systems->crafts->loadData (loadedData.crafts);
 }
 
 std::shared_ptr<GameDataView>

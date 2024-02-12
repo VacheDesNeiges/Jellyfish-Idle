@@ -132,3 +132,34 @@ CraftingRecipe::applyExp ()
     }
   return hasLeveledUp;
 }
+
+RecipeLevel
+CraftingRecipe::getLevelData () const
+{
+  return level;
+}
+
+RecipeSaveData
+CraftingRecipe::getData () const
+{
+  RecipeSaveData result;
+  result.craftDone = done;
+  result.craftOngoing = craftOngoing;
+  result.remainingTicksToCraft = remainingTicksToCraft;
+  result.lvl = level.lvl;
+  result.currentProgress = level.currentProgress;
+  result.progressNeeded = level.progressNeeded;
+
+  return result;
+}
+
+void
+CraftingRecipe::loadData (const RecipeSaveData &data)
+{
+  done = data.craftDone;
+  craftOngoing = data.craftOngoing;
+  remainingTicksToCraft = data.remainingTicksToCraft;
+  level.lvl = data.lvl;
+  level.currentProgress = data.currentProgress;
+  level.progressNeeded = data.progressNeeded;
+}

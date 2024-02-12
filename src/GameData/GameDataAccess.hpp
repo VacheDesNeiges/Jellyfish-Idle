@@ -6,6 +6,10 @@
 #include "UpgradeDataView.hpp"
 #include <memory>
 
+/**
+ * @brief Interface giving access to a read only view of the game state
+ *
+ */
 class GameDataAccess
 {
 public:

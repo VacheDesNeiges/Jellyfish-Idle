@@ -4,6 +4,18 @@
 
 #include "RecipeID.hpp"
 #include "Ressource.hpp"
+#include "SaveAndLoadable.hpp"
+
+struct RecipeSaveData
+{
+  unsigned lvl;
+  double currentProgress;
+  double progressNeeded;
+  bool craftOngoing;
+  bool craftDone;
+  unsigned remainingTicksToCraft;
+  unsigned numAssignedWorkers;
+};
 
 struct RecipeLevel
 {
@@ -12,12 +24,12 @@ struct RecipeLevel
   double progressNeeded;
 };
 
-class CraftingRecipe
+class CraftingRecipe : public SaveAndLoadable<RecipeSaveData>
 {
 public:
   CraftingRecipe () = default;
   explicit CraftingRecipe (RecipeID);
-  ~CraftingRecipe () = default;
+  ~CraftingRecipe () override = default;
 
   unsigned getRecipelvl () const;
   void start ();
@@ -34,10 +46,15 @@ public:
   std::vector<std::pair<RessourceType, double> > getRecipe () const;
   std::vector<std::pair<RessourceType, double> > getBaseResult () const;
 
+  RecipeSaveData getData () const override;
+  void loadData (const RecipeSaveData &) override;
+
   static constexpr std::array<RecipeID, 2> RecipeTypes
       = { RecipeID::StoneSlabRecipe, RecipeID::GlassPanelRecipe };
 
 private:
+  RecipeLevel getLevelData () const;
+
   bool craftOngoing = false;
   bool done = false;
   std::string recipeName;

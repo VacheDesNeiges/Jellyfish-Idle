@@ -2,7 +2,7 @@
 
 enum class RecipeID
 {
-  NoneRecipe,
-  StoneSlabRecipe,
-  GlassPanelRecipe
+  NoneRecipe = 0,
+  StoneSlabRecipe = 1,
+  GlassPanelRecipe = 2,
 };
