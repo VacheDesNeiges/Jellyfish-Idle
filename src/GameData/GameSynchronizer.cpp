@@ -19,9 +19,7 @@ GameSynchronizer::gameTick () const
   systems->ressources->zerosValuePerTick ();
 
   // Ressource consumption
-  systems->ressources->consume (
-      addMaps (systems->jellies->getConsumptionRates (),
-               systems->buildings->getConsumptionRates ()));
+  systems->ressources->consume (systems->jellies->getConsumptionRates ());
 
   convertRessources ();
 

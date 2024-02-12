@@ -42,6 +42,12 @@ BuildingManager::getProduction (BuildingType t)
 }
 
 std::vector<std::pair<RessourceType, double> >
+BuildingManager::getConsumption (BuildingType t)
+{
+  return buildings[t].getConsumPerTick ();
+}
+
+std::vector<std::pair<RessourceType, double> >
 BuildingManager::nextBuyCost (BuildingType t)
 {
   return buildings[t].getNextBuyCost ();
@@ -71,7 +77,8 @@ BuildingManager::getProductionRates () const
   std::unordered_map<RessourceType, double> result;
   for (const auto &[bType, b] : buildings)
     {
-      if (std::ranges::find (Building::convertionBuildings, bType))
+      if (std::ranges::find (Building::convertionBuildings, bType)
+          != Building::convertionBuildings.end ())
         continue;
 
       for (const auto &[rType, productionRate] : b.getProdPerTick ())
@@ -90,7 +97,8 @@ BuildingManager::getConsumptionRates () const
   std::unordered_map<RessourceType, double> result;
   for (const auto &[bType, b] : buildings)
     {
-      if (std::ranges::find (Building::convertionBuildings, bType))
+      if (std::ranges::find (Building::convertionBuildings, bType)
+          != Building::convertionBuildings.end ())
         continue;
 
       for (const auto &[rType, consumptionRate] : b.getConsumPerTick ())

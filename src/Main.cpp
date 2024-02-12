@@ -46,6 +46,7 @@ main (int argc, char *argv[])
 // TODO : parenthesis still display next to the price at the last second in
 // button's hover
 // TODO : remove time estimation when no ressource generation ?
+// TODO : fix time estimation when res prod is <= 0
 
 // Roadmap :
 
