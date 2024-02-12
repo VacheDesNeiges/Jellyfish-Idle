@@ -3,7 +3,9 @@
 #include "Building.hpp"
 #include "Ressource.hpp"
 
+#include <algorithm>
 #include <string>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -69,11 +71,31 @@ BuildingManager::getProductionRates () const
   std::unordered_map<RessourceType, double> result;
   for (const auto &[bType, b] : buildings)
     {
+      if (std::ranges::find (Building::convertionBuildings, bType))
+        continue;
+
       for (const auto &[rType, productionRate] : b.getProdPerTick ())
         {
           result[rType]
               += (productionRate
                   * multipliersView ()->getBuildingMultiplier (bType));
+        }
+    }
+  return result;
+}
+
+std::unordered_map<RessourceType, double>
+BuildingManager::getConsumptionRates () const
+{
+  std::unordered_map<RessourceType, double> result;
+  for (const auto &[bType, b] : buildings)
+    {
+      if (std::ranges::find (Building::convertionBuildings, bType))
+        continue;
+
+      for (const auto &[rType, consumptionRate] : b.getConsumPerTick ())
+        {
+          result[rType] += consumptionRate;
         }
     }
   return result;
@@ -111,6 +133,6 @@ BuildingManager::loadData (
   for (const auto &[type, quant] : data)
     {
       buildings[type].setQuantity (quant);
-      buildings[type].updateProdPerTick ();
+      buildings[type].update ();
     }
 }

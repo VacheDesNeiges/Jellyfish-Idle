@@ -1,16 +1,10 @@
 #include "GameSynchronizer.hpp"
-#include "AbilityManager.hpp"
-#include "AchievementSystem.hpp"
-#include "BuildingManager.hpp"
-#include "CraftingManager.hpp"
-#include "DepthSystem.hpp"
+
+#include "Building.hpp"
 #include "GameDataView.hpp"
 #include "GameSystems.hpp"
-#include "JellyfishManager.hpp"
 #include "MultiplierDataView.hpp"
-#include "MultipliersRegister.hpp"
-#include "RessourceManager.hpp"
-#include "UpgradeManager.hpp"
+
 #include <iostream>
 #include <memory>
 
@@ -25,10 +19,11 @@ GameSynchronizer::gameTick () const
   systems->ressources->zerosValuePerTick ();
 
   // Ressource consumption
-  systems->ressources->consume (systems->jellies->getConsumptionRates ());
+  systems->ressources->consume (
+      addMaps (systems->jellies->getConsumptionRates (),
+               systems->buildings->getConsumptionRates ()));
 
-  // Ressource conversion here
-  // not yet implemented
+  convertRessources ();
 
   // Ressource production
   systems->ressources->produce (
@@ -120,4 +115,15 @@ GameSynchronizer::distributeExp () const
 
   if (hasLeveledUp)
     systems->multipliers->recomputeMultipliers ();
+}
+
+void
+GameSynchronizer::convertRessources () const
+{
+  for (const auto building : Building::convertionBuildings)
+    {
+      const auto &prod = systems->buildings->getProduction (building);
+      const auto &cons = systems->buildings->getConsumption (building);
+      systems->ressources->tryConvert (cons, prod);
+    }
 }

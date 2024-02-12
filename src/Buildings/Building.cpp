@@ -49,6 +49,13 @@ Building::Building (BuildingType bType)
       basePrice.emplace_back (Stone, 25);
       break;
 
+    case BuildingType::GlassNests:
+      name = "Glass Nests";
+      increaseToMaxJfish = 2;
+      priceMultiplier = 2.5;
+      basePrice.emplace_back (Glass, 30);
+      break;
+
     case BuildingType::GlassTower:
       name = "Glass Tower";
 
@@ -62,6 +69,29 @@ Building::Building (BuildingType bType)
       basePrice.emplace_back (StoneSlab, 12);
       basePrice.emplace_back (GlassPane, 10);
       break;
+
+    case BuildingType::SubmergedLibrary:
+      name = "Submerged Library";
+      priceMultiplier = 1.2;
+      basePrice.emplace_back (Stone, 200);
+      basePrice.emplace_back (KnowledgeTablet, 5);
+      break;
+
+    case BuildingType::GlassBlowerAtelier:
+      name = "Glassblower's Atelier";
+      priceMultiplier = 1.5;
+      basePrice.emplace_back (Stone, 100);
+      basePrice.emplace_back (Glass, 80);
+      break;
+
+    case BuildingType::SolarLensFurnace:
+      name = "Solar Lens Furnace";
+      priceMultiplier = 1.3;
+      baseProductionPerTick.try_emplace (Glass, 0.01);
+      baseConsumptionPerTick.try_emplace (Sand, 0.15);
+      basePrice.emplace_back (Stone, 200);
+      basePrice.emplace_back (StoneSlab, 5);
+      basePrice.emplace_back (GlassPane, 2);
     }
 }
 
@@ -69,7 +99,7 @@ void
 Building::buy ()
 {
   quantity++;
-  updateProdPerTick ();
+  update ();
 }
 
 unsigned
@@ -111,7 +141,6 @@ Building::getAdvancedDescription () const // TODO : Move to UI ?
   std::string s = "price :";
   for (const auto &[ressource, price] : basePrice)
     {
-
       s += fmt::format ("\n{:.2f}", price * pow (priceMultiplier, quantity));
     }
   return s;
@@ -130,11 +159,21 @@ Building::setQuantity (unsigned quant)
 }
 
 void
-Building::updateProdPerTick ()
+Building::update ()
 {
   for (auto &[ressource, prod] : prodPerTick)
     {
       prod = baseProductionPerTick.at (ressource) * quantity;
+    }
+
+  for (auto &[ressource, consum] : consumPerTick)
+    {
+      consum = baseConsumptionPerTick.at (ressource) * quantity;
+    }
+
+  for (auto &[ressource, bonusStorage] : increasedStorage)
+    {
+      bonusStorage = baseIncreasedStorage.at (ressource) * quantity;
     }
 }
 
@@ -142,4 +181,10 @@ std::vector<std::pair<RessourceType, double> >
 Building::getProdPerTick () const
 {
   return prodPerTick;
+}
+
+std::vector<std::pair<RessourceType, double> >
+Building::getConsumPerTick () const
+{
+  return consumPerTick;
 }

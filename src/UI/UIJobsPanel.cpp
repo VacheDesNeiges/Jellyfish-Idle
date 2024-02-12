@@ -74,8 +74,11 @@ UIJobsPanel::renderJobsControls (JellyJobs job) const
     }
   ImGui::PopButtonRepeat ();
 
-  ImGui::SameLine ();
-  ImGui::Text ("lvl %u", gData->getJelliesView ()->getJobLevel (job));
+  if (gData->getAchievementsView ()->isUnlocked (UpgradeID::Leveling))
+    {
+      ImGui::SameLine ();
+      ImGui::Text ("lvl %u", gData->getJelliesView ()->getJobLevel (job));
+    }
   ImGui::NextColumn ();
 
   if (gData->getAchievementsView ()->isUnlocked (UpgradeID::Leveling))

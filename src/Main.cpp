@@ -26,15 +26,18 @@ main (int argc, char *argv[])
 // TODO : add save and load function to crafting system
 // TODO : add save and load to leveling system
 // TODO : add a keep crafting functionality
+// TODO : display unlocked things by depth + incitation to explore deeper on
+// depth tab
 
 // Polishing :
 
 // TODO : unify the button size in a file.
 // TODO : use different colors for xp bar and progress bar
-// TODO : gate levels behind achievements
 // TODO : refactor the leveling system ?
 // TODO : create one or multiples files containing all the global constants of
 // the game
+// TODO : gate glass ressource quantity display behind production ?
+// TODO : Try using std::span on function that returns vectors
 
 // Bugs :
 // TODO : Savefile format stores enums with integers, making the saves prone to
@@ -42,16 +45,10 @@ main (int argc, char *argv[])
 // TODO : stop exp being attributed when no recipes are ongoing
 // TODO : parenthesis still display next to the price at the last second in
 // button's hover
+// TODO : remove time estimation when no ressource generation ?
 
 // Roadmap :
 
-// Crafting System -> Leveling System -> Tests
-
-// Telekinesis upgrade for insight
-// -> Unlocks Mining job
-// Advanced Telekinesis
-// -> unlocks manufacturing job with stone Slabs. Slabs have a stock
-// limit ?
 // -> Slabs unlock stone shelves
 // TESTS !!!!
 
@@ -59,6 +56,8 @@ main (int argc, char *argv[])
 // Marine Stockroom
 // Oceanic Vault
 // Abyssal Hoard
+// Glassblower's Atelier
+// Submerged Library
 
 // at some point, using std::map might end up causing performance issues, in
 // this case, try boost's flat map, and then implement a short version of it

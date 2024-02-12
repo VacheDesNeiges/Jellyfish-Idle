@@ -37,7 +37,7 @@ AchievementSystem::AchievementSystem ()
                >= 0.3;
       } },
 
-    { Mines, [this] () { return depthView ()->getCurrentDepth () >= 30; } },
+    { Mines, [this] () { return depthView ()->getCurrentDepth () >= 20; } },
 
     { FirstJelly,
       [this] () { return jelliesView ()->getNumJellies () >= 1; } },
@@ -77,7 +77,7 @@ AchievementSystem::AchievementSystem ()
     { ResearchTabUnlocked, [] () { return false; } },
 
     { AncientOctopus,
-      [this] () { return depthView ()->getCurrentDepth () >= 20; } },
+      [this] () { return depthView ()->getCurrentDepth () >= 10; } },
 
     { RessourceGlass,
       [this] () {
@@ -258,21 +258,22 @@ AchievementSystem::isUnlocked (AbilityType t) const
 bool
 AchievementSystem::isUnlocked (UpgradeID id) const
 {
-  using enum UpgradeID;
-  using IDs = AchievementIDs;
   switch (id)
     {
+      using enum AchievementIDs;
+      using enum UpgradeID;
+
     case Focusing:
-      return isUnlocked (IDs::AncientOctopus);
+      return isUnlocked (AncientOctopus);
 
     case Telekinesis:
-      return isUnlocked (IDs::FocusingUpgradeBought);
+      return isUnlocked (FocusingUpgradeBought);
 
     case AdvancedTelekinesis:
-      return isUnlocked (IDs::TelekinesisUpgradeBought);
+      return isUnlocked (TelekinesisUpgradeBought);
 
     case Writing:
-      return isUnlocked (IDs::AdvancedTelekinesisUpgradeBought);
+      return isUnlocked (AdvancedTelekinesisUpgradeBought);
 
     default:
       return false;

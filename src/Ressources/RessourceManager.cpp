@@ -99,6 +99,34 @@ RessourceManager::produce (
     }
 }
 
+void
+RessourceManager::tryConvert (
+    const std::vector<std::pair<RessourceType, double> > &from,
+    const std::vector<std::pair<RessourceType, double> > &to)
+{
+  bool canConvert = true;
+  for (const auto &[rType, cons] : from)
+    {
+      if (cons > ressources[rType].getCurrentQuantity ())
+        canConvert = false;
+    }
+
+  if (!canConvert)
+    return;
+
+  for (const auto &[rType, cons] : from)
+    {
+      ressources[rType].add (-cons);
+      ressources[rType].addToConsumptionPerTick (-cons);
+    }
+
+  for (const auto &[rType, prod] : to)
+    {
+      ressources[rType].add (prod);
+      ressources[rType].addToConsumptionPerTick (prod);
+    }
+}
+
 std::vector<std::pair<RessourceType, double> >
 RessourceManager::getData () const
 {

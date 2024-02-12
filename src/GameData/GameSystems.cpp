@@ -1,15 +1,5 @@
 #include "GameSystems.hpp"
 
-#include "AbilityManager.hpp"
-#include "AchievementSystem.hpp"
-#include "BuildingManager.hpp"
-#include "CraftingManager.hpp"
-#include "DepthSystem.hpp"
-#include "JellyfishManager.hpp"
-#include "MultipliersRegister.hpp"
-#include "RessourceManager.hpp"
-#include "UpgradeManager.hpp"
-
 #include "GameDataAccess.hpp"
 #include "GameDataView.hpp"
 #include "GameSynchronizer.hpp"

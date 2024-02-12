@@ -19,6 +19,7 @@ private:
   void checkAchievements () const;
   void checkJellyfishArrival () const;
   void distributeExp () const;
+  void convertRessources () const;
 
   std::unordered_map<RessourceType, double>
   addMaps (const std::unordered_map<RessourceType, double> &,

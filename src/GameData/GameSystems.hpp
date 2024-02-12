@@ -1,22 +1,22 @@
 #pragma once
 #include <memory>
 
-#include "CraftingManager.hpp"
 #include "GameSynchronizer.hpp"
 #include "InputHandler.hpp"
+
+#include "AbilityManager.hpp"
+#include "AchievementSystem.hpp"
+#include "BuildingManager.hpp"
+#include "CraftingManager.hpp"
+#include "DepthSystem.hpp"
+#include "JellyfishManager.hpp"
+#include "MultipliersRegister.hpp"
+#include "RessourceManager.hpp"
+#include "UpgradeManager.hpp"
 
 class GameDataView;
 class GameSynchronizer;
 class InputHandler;
-
-class RessourceManager;
-class BuildingManager;
-class JellyfishManager;
-class AchievementSystem;
-class AbilityManager;
-class DepthSystem;
-class UpgradeManager;
-class MultipliersRegister;
 
 struct SystemPtrs
 {

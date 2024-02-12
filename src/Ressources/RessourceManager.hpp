@@ -29,6 +29,9 @@ public:
 
   void consume (const std::unordered_map<RessourceType, double> &);
   void produce (const std::unordered_map<RessourceType, double> &);
+  void tryConvert (const std::vector<std::pair<RessourceType, double> > &,
+                   const std::vector<std::pair<RessourceType, double> > &);
+
   std::vector<std::pair<RessourceType, double> > getData () const override;
   void
   loadData (const std::vector<std::pair<RessourceType, double> > &) override;
