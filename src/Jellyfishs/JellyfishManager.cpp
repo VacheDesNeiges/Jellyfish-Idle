@@ -12,7 +12,7 @@ JellyfishManager::JellyfishManager ()
     {
       jobNumbers.try_emplace (job, 0);
       jobExp.try_emplace (job, 1, 0, 100);
-    } // TODO : Move every level implementation to an interface ?
+    }
 }
 
 unsigned int

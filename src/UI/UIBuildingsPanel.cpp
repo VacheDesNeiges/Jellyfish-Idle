@@ -14,6 +14,8 @@ UIBuildingPanel::render () const
       ImGui::End ();
       return;
     }
+
+  ImGui::SetCursorPosX (50);
   if (constexpr auto sz = ImVec2 (300.f, 45.0f);
       ImGui::Button ("GatherFood", sz))
     {
@@ -27,7 +29,10 @@ UIBuildingPanel::render () const
   for (const auto &building : Building::BuildingTypes)
     {
       if (renderBuildingButton (building))
-        odd = !odd;
+        {
+          odd = !odd;
+          ImGui::SetCursorPosX (50);
+        }
 
       if (odd)
         ImGui::SameLine ();

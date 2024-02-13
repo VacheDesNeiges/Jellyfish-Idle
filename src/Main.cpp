@@ -26,7 +26,6 @@ main (int argc, char *argv[])
 // TODO : add save and load to leveling system // Done for crafts
 // TODO : add a keep crafting functionality
 // TODO : display unlocked things by depth + incitation to explore deeper on
-// TODO : gate leveling behind achievements
 // depth tab
 
 // Polishing :
@@ -36,7 +35,6 @@ main (int argc, char *argv[])
 // TODO : refactor the leveling system ?
 // TODO : create one or multiples files containing all the global constants of
 // the game
-// TODO : gate glass ressource quantity display behind production ?
 // TODO : Try using std::span on function that returns vectors
 
 // Bugs :

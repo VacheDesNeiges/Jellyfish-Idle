@@ -4,6 +4,7 @@
 #include "GameDataView.hpp"
 #include "GameSystems.hpp"
 #include "MultiplierDataView.hpp"
+#include "UpgradeId.hpp"
 
 #include <iostream>
 #include <memory>
@@ -107,13 +108,17 @@ GameSynchronizer::synchronizeSystems () const
 void
 GameSynchronizer::distributeExp () const
 {
-  bool hasLeveledUp = systems->jellies->distributeJobExp ();
+  if (systems->achievements->isUnlocked (UpgradeID::Leveling))
+    {
 
-  if (systems->crafts->distributeCraftsExp ())
-    hasLeveledUp = true;
+      bool hasLeveledUp = systems->jellies->distributeJobExp ();
 
-  if (hasLeveledUp)
-    systems->multipliers->recomputeMultipliers ();
+      if (systems->crafts->distributeCraftsExp ())
+        hasLeveledUp = true;
+
+      if (hasLeveledUp)
+        systems->multipliers->recomputeMultipliers ();
+    }
 }
 
 void

@@ -49,15 +49,17 @@ InputHandler::assignJelly (JellyJobs j) const
 bool
 InputHandler::unassignJelly (JellyJobs j) const
 {
-  bool ret = systems->jellies->unasign (j);
 
-  if (j == JellyJobs::Artisan && ret)
+  if (j != JellyJobs::Artisan)
+    return systems->jellies->unasign (j);
+
+  if (systems->crafts->getAssignedNumOfJellies (RecipeID::NoneRecipe))
     {
-      systems->crafts->unasign (RecipeID::NoneRecipe);
+      systems->jellies->unasign (j);
       systems->crafts->updateAssignments ();
+      return true;
     }
-
-  return ret;
+  return false;
 }
 
 void

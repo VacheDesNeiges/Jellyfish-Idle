@@ -175,6 +175,9 @@ AchievementSystem::isUnlocked (BuildingType t) const
     case Mines:
       return isUnlocked (AchievementIDs::Mines);
 
+    case GlassNests:
+      return isUnlocked (AchievementIDs::RessourceGlass);
+
     default:
       return false;
     }
@@ -229,7 +232,7 @@ AchievementSystem::isUnlocked (RessourceType r) const
       return isUnlocked (FocusingUpgradeBought);
 
     case Glass:
-      return isUnlocked (LightningAbilityBuyable);
+      return isUnlocked (RessourceGlass);
 
     case StoneSlab:
       return isUnlocked (RessourceStoneSlab);
