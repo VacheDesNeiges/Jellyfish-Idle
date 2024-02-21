@@ -40,7 +40,6 @@ public:
   std::vector<std::pair<RessourceType, double> > getConsumPerTick () const;
   std::vector<std::pair<RessourceType, double> > getNextBuyCost ();
 
-  std::string getDescription ();
   std::string getAdvancedDescription () const;
 
   static constexpr std::array<BuildingType, 10> BuildingTypes = {

@@ -5,6 +5,7 @@
 #include "UIUtils.hpp"
 
 #include "imgui.h"
+#include <fmt/format.h>
 
 void
 UIBuildingPanel::render () const
@@ -49,10 +50,12 @@ UIBuildingPanel::renderBuildingButton (BuildingType building) const
   if (gData->getAchievementsView ()->isUnlocked (building))
     {
       ImGui::BeginDisabled (!gData->getBuildingsView ()->isBuyable (building));
-      if (ImGui::Button (gData->getBuildingsView ()
-                             ->getBuildingDescription (building)
-                             .c_str (),
-                         size))
+      auto name = gData->getBuildingsView ()->getBuildingName (building);
+      auto quantity
+          = gData->getBuildingsView ()->getBuildingQuantity (building);
+      std::string buttonText = fmt::format ("{}; lvl {}", name, quantity);
+
+      if (ImGui::Button (buttonText.c_str (), size))
         {
           inputHandler->buy (building);
         }

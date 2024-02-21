@@ -29,12 +29,6 @@ BuildingDataView::getBuildingName (BuildingType t) const
 }
 
 std::string
-BuildingDataView::getBuildingDescription (BuildingType t) const
-{
-  return buildings->getDescription (t);
-}
-
-std::string
 BuildingDataView::getAdvancedBuildingDescription (BuildingType t) const
 {
   return buildings->getAdvancedDescription (t);

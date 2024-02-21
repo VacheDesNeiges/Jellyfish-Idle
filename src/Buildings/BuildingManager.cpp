@@ -60,12 +60,6 @@ BuildingManager::getBuildingName (BuildingType t)
 }
 
 std::string
-BuildingManager::getDescription (BuildingType t)
-{
-  return buildings[t].getDescription ();
-}
-
-std::string
 BuildingManager::getAdvancedDescription (BuildingType t)
 {
   return buildings[t].getAdvancedDescription ();
