@@ -1,6 +1,5 @@
 #include "AbilityManager.hpp"
 
-#include "GameSystems.hpp"
 #include "InsightAbility.hpp"
 #include "Ressource.hpp"
 #include "RessourceDataView.hpp"

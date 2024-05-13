@@ -6,7 +6,6 @@
 #include "MultiplierDataView.hpp"
 #include "UpgradeId.hpp"
 
-#include <iostream>
 #include <memory>
 
 GameSynchronizer::GameSynchronizer (std::shared_ptr<SystemPtrs> ptrs)
@@ -33,13 +32,7 @@ GameSynchronizer::gameTick () const
     {
       for (const auto &[ressource, prod] : systems->crafts->getCraftResults ())
         {
-          std::cout << "id : " << static_cast<int> (ressource)
-                    << "prod : " << prod << "\n";
           systems->ressources->add (ressource, prod);
-          std::cout << "stone slabs : "
-                    << systems->ressources->getCurrentQuantity (
-                           RessourceType::StoneSlab)
-                    << "\n";
         }
     }
 

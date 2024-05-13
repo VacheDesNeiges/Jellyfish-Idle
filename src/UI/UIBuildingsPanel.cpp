@@ -53,7 +53,7 @@ UIBuildingPanel::renderBuildingButton (BuildingType building) const
       auto name = gData->getBuildingsView ()->getBuildingName (building);
       auto quantity
           = gData->getBuildingsView ()->getBuildingQuantity (building);
-      std::string buttonText = fmt::format ("{}; lvl {}", name, quantity);
+      std::string buttonText = fmt::format ("{} lvl {}", name, quantity);
 
       if (ImGui::Button (buttonText.c_str (), size))
         {

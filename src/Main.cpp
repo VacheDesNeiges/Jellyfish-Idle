@@ -23,10 +23,10 @@ main (int argc, char *argv[])
 // TODO : add a little descriptive text in the decription of building hover
 // TODO : add a cooldown to abilities ?
 // TODO : Catchup on load
-// TODO : add save and load to leveling system // Done for crafts
+// TODO : add save and load to leveling system // Done for crafts, jobs to do
 // TODO : add a keep crafting functionality
-// TODO : display unlocked things by depth + incitation to explore deeper on
-// depth tab
+// TODO : display unlocked things by depth + incitation text to explore deeper
+// on depth tab
 
 // Polishing :
 
@@ -35,7 +35,7 @@ main (int argc, char *argv[])
 // TODO : refactor the leveling system ?
 // TODO : create one or multiples files containing all the global constants of
 // the game
-// TODO : Try using std::span on function that returns vectors
+// TODO : Try using std::span on function that returns vectors ?
 
 // Bugs :
 // TODO : Savefile format stores enums with integers, making the saves prone to
@@ -44,7 +44,7 @@ main (int argc, char *argv[])
 // TODO : parenthesis still display next to the price at the last second in
 // button's hover
 // TODO : remove time estimation when no ressource generation ?
-// TODO : fix time estimation when res prod is <= 0
+// TODO : fix time estimation when res prod is <= 0 (time to zero)
 
 // Roadmap :
 

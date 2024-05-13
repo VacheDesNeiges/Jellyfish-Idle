@@ -8,7 +8,7 @@
 CallThunder::CallThunder ()
 {
   using enum RessourceType;
-  name = "Call Thunder";
+  name = "Lightning";
   castingCost = { { Insight, 100 }, { Sand, 100 } };
   ressourcesGained = { { Glass, 10 } };
 }
@@ -16,5 +16,5 @@ CallThunder::CallThunder ()
 std::string
 CallThunder::getDescription ()
 {
-  return "Call the thunder to melt some sand into glass";
+  return "Call a lightning to melt some sand into glass";
 }
