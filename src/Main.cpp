@@ -40,11 +40,10 @@ main (int argc, char *argv[])
 // Bugs :
 // TODO : Savefile format stores enums with integers, making the saves prone to
 // break when inserting a new value in enums. Needs a more robust solution
-// TODO : stop exp being attributed when no recipes are ongoing
 // TODO : parenthesis still display next to the price at the last second in
 // button's hover
 // TODO : remove time estimation when no ressource generation ?
-// TODO : fix time estimation when res prod is <= 0 (time to zero)
+// TODO : fix time estimation when ressource prod is <= 0 (time to zero)
 
 // Roadmap :
 

@@ -56,3 +56,9 @@ CraftDataView::craftIsOngoing (RecipeID id) const
 {
   return crafts->craftIsOngoing (id);
 }
+
+unsigned
+CraftDataView::getAssignedNumOfJelliesOnOngoingCrafts () const
+{
+  return crafts->getAssignedNumOfJelliesOnOngoingCrafts ();
+}

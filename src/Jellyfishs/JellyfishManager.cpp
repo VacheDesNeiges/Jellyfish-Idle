@@ -245,11 +245,22 @@ bool
 JellyfishManager::distributeJobExp ()
 {
   bool hasLeveledUp = false;
+  double progressGained;
 
-  for (auto &[key, lvlStruct] : jobExp)
+  for (auto &[job, lvlStruct] : jobExp)
     {
-      double progressGained = jobNumbers.at (key) * 0.5;
+
+      if (job == JellyJobs::Artisan)
+        {
+          progressGained
+              = 0.5 * craftView ()->getAssignedNumOfJelliesOnOngoingCrafts ();
+        }
+      else
+        {
+          progressGained = jobNumbers.at (job) * 0.5;
+        }
       lvlStruct.currentProgress += progressGained;
+
       while (lvlStruct.currentProgress >= lvlStruct.progressNeeded)
         {
           hasLeveledUp = true;

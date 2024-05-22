@@ -26,6 +26,7 @@ public:
   unsigned getRemainingTicks (RecipeID) const;
   unsigned getTotalRequiredTicks (RecipeID) const;
   unsigned getAssignedNumOfJellies (RecipeID) const;
+  unsigned getAssignedNumOfJelliesOnOngoingCrafts () const;
   void updateAssignments ();
   std::string getName (RecipeID) const;
 

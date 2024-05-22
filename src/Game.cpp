@@ -2,6 +2,7 @@
 
 #include "GameSystems.hpp"
 #include "SaveSystem.hpp"
+
 #include "imgui.h"
 #include "imgui_impl_sdl2.h"
 #include "imgui_impl_sdlrenderer2.h"
@@ -10,6 +11,7 @@
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_surface.h>
+
 #include <cassert>
 #include <chrono>
 #include <cstdio>

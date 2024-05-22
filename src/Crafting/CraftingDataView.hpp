@@ -14,6 +14,7 @@ public:
   unsigned getRemainingTicks (RecipeID) const;
   unsigned getTotalRequiredTicks (RecipeID) const;
   unsigned getAssignedNumOfJellies (RecipeID) const;
+  unsigned getAssignedNumOfJelliesOnOngoingCrafts () const;
   bool canAfford (RecipeID) const;
   bool craftIsOngoing (RecipeID) const;
   std::string getName (RecipeID) const;
