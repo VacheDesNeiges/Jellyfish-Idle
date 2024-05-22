@@ -15,7 +15,7 @@ jobs:
     # Install dependencies
     - name: Install compiler
       run: |
-        sudo apt-get install g++-12 && alias g++='g++-12'
+        sudo apt-get install g++-12
     
     - name: Install gtests
       run: |
@@ -41,7 +41,7 @@ jobs:
     - name: Build
       # Build your program with the given configuration
       run: |
-        ./build.sh
+        alias g++='g++-12' && ./build.sh
 
     - name: Test
       run: |
