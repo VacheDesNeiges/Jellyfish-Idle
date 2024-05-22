@@ -75,6 +75,11 @@ UIBuildingPanel::setToolTip (BuildingType building) const
                             | ImGuiHoveredFlags_AllowWhenDisabled)
       && ImGui::BeginTooltip ())
     {
+
+      ImGui::Text ("%s\n", gData->getBuildingsView ()
+                               ->getBuildingDescription (building)
+                               .c_str ());
+
       auto ressourcesNeeded
           = gData->getBuildingsView ()->getNextBuyCost (building);
 

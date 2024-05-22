@@ -54,9 +54,15 @@ BuildingManager::nextBuyCost (BuildingType t)
 }
 
 std::string
-BuildingManager::getBuildingName (BuildingType t)
+BuildingManager::getBuildingName (BuildingType t) const
 {
-  return buildings[t].getBuildingName ();
+  return buildings.at (t).getBuildingName ();
+}
+
+std::string
+BuildingManager::getBuildingDescription (BuildingType t) const
+{
+  return buildings.at (t).getDescription ();
 }
 
 std::string

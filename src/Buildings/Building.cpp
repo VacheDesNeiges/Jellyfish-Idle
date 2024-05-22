@@ -16,7 +16,9 @@ Building::Building (BuildingType bType)
 
     case BuildingType::PlanktonField:
       name = "Plankton Field";
-
+      description
+          = "A delimited area on the surface where your jellies cultivate "
+            "plankton. Generates 0.25 units of food per second";
       priceMultiplier = 1.15;
       basePrice.emplace_back (Food, 5);
 
@@ -30,12 +32,16 @@ Building::Building (BuildingType bType)
       // the plankton field and increase its
       // production
       name = "Sand Current Ducts";
+      description
+          = "A sand duct harnessing the currents to allow more nutrients to "
+            "reach your plankton fields, increasing their production";
       priceMultiplier = 1.3;
       basePrice.emplace_back (Sand, 5);
       break;
 
     case BuildingType::DuneShelter:
       name = "Dune Shelter";
+      description = "A dune shelter, providing room for housing one jellie.";
       increaseToMaxJfish = 1;
 
       priceMultiplier = 2;
@@ -44,6 +50,7 @@ Building::Building (BuildingType bType)
 
     case BuildingType::Mines:
       name = "Mines";
+      description = "Underwater mine, print what they do here";
 
       priceMultiplier = 1.2;
       basePrice.emplace_back (Stone, 25);
@@ -51,6 +58,8 @@ Building::Building (BuildingType bType)
 
     case BuildingType::GlassNests:
       name = "Glass Nests";
+      description
+          = "A pretty glass nest, providing enough room to house two jellies";
       increaseToMaxJfish = 2;
       priceMultiplier = 2.5;
       basePrice.emplace_back (Glass, 30);
@@ -178,4 +187,10 @@ std::vector<std::pair<RessourceType, double> >
 Building::getConsumPerTick () const
 {
   return consumPerTick;
+}
+
+std::string
+Building::getDescription () const
+{
+  return description;
 }

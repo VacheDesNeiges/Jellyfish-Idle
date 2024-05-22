@@ -23,7 +23,8 @@ public:
   std::vector<std::pair<RessourceType, double> > getProduction (BuildingType);
   std::vector<std::pair<RessourceType, double> > getConsumption (BuildingType);
 
-  std::string getBuildingName (BuildingType);
+  std::string getBuildingName (BuildingType) const;
+  std::string getBuildingDescription (BuildingType) const;
   std::string getAdvancedDescription (BuildingType);
 
   std::unordered_map<RessourceType, double> getProductionRates () const;

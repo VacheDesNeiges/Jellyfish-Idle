@@ -40,6 +40,7 @@ public:
   std::vector<std::pair<RessourceType, double> > getConsumPerTick () const;
   std::vector<std::pair<RessourceType, double> > getNextBuyCost ();
 
+  std::string getDescription () const;
   std::string getAdvancedDescription () const;
 
   static constexpr std::array<BuildingType, 10> BuildingTypes = {
@@ -56,6 +57,7 @@ public:
 
 private:
   std::string name;
+  std::string description;
   unsigned quantity = 0;
   unsigned increaseToMaxJfish = 0;
   double priceMultiplier;

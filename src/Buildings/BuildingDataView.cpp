@@ -3,6 +3,7 @@
 #include "Building.hpp"
 #include "BuildingManager.hpp"
 #include "RessourceManager.hpp"
+#include <string>
 
 BuildingDataView::BuildingDataView (std::shared_ptr<BuildingManager> b,
                                     std::shared_ptr<RessourceManager> r)
@@ -26,6 +27,12 @@ std::string
 BuildingDataView::getBuildingName (BuildingType t) const
 {
   return buildings->getBuildingName (t);
+}
+
+std::string
+BuildingDataView::getBuildingDescription (BuildingType t) const
+{
+  return buildings->getBuildingDescription (t);
 }
 
 std::string
