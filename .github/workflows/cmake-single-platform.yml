@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
     - uses: actions/checkout@v4
@@ -41,7 +41,7 @@ jobs:
     - name: Build
       # Build your program with the given configuration
       run: |
-        alias g++='g++-12' && ./build.sh
+        ./build.sh
 
     - name: Test
       run: |
