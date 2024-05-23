@@ -34,14 +34,16 @@ Building::Building (BuildingType bType)
       name = "Sand Current Ducts";
       description
           = "A sand duct harnessing the currents to allow more nutrients to "
-            "reach your plankton fields, increasing their production";
+            "reach your plankton fields. Each level increase their production "
+            "by 8%";
       priceMultiplier = 1.3;
       basePrice.emplace_back (Sand, 5);
       break;
 
     case BuildingType::DuneShelter:
       name = "Dune Shelter";
-      description = "A dune shelter, providing room for housing one jellie.";
+      description
+          = "A dune shelter, each level provides room for housing one jellie.";
       increaseToMaxJfish = 1;
 
       priceMultiplier = 2;
@@ -50,7 +52,8 @@ Building::Building (BuildingType bType)
 
     case BuildingType::Mines:
       name = "Mines";
-      description = "Underwater mine, print what they do here";
+      description
+          = "Underwater mine, each level increases stone production by 10%";
 
       priceMultiplier = 1.2;
       basePrice.emplace_back (Stone, 25);
@@ -58,8 +61,8 @@ Building::Building (BuildingType bType)
 
     case BuildingType::GlassNests:
       name = "Glass Nests";
-      description
-          = "A pretty glass nest, providing enough room to house two jellies";
+      description = "A pretty glass nest, each level provides enough room to "
+                    "house two jellies";
       increaseToMaxJfish = 2;
       priceMultiplier = 2.5;
       basePrice.emplace_back (Glass, 30);
