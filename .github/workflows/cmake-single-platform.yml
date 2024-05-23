@@ -12,11 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    # Install dependencies
-    - name: Install compiler
-      run: |
-        sudo apt-get install g++-12
-    
+    # Install dependencies  
     - name: Install gtests
       run: |
         sudo apt-get install libgtest-dev
