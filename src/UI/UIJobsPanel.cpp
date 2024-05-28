@@ -156,7 +156,7 @@ UIJobsPanel::renderRecipe (RecipeID id) const
 
   ImGui::SeparatorText ("Recipe");
   displayRecipeText (id);
-  ImGui::Separator ();
+  ImGui::SeparatorText ("");
 
   ImGui::BeginDisabled (gData->getCraftView ()->getAssignedNumOfJellies (id)
                             == 0

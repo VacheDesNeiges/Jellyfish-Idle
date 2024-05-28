@@ -13,7 +13,6 @@ UIUtils::printCostsImGui (
     return;
 
   ImVec4 textColor;
-  ImGui::TextWrapped ("Price :\n");
 
   for (const auto &[ressource, cost] : ressourcesNeeded)
     {
