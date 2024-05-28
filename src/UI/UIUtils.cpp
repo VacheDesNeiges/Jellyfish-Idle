@@ -1,5 +1,6 @@
 #include "UIUtils.hpp"
 #include "fmt/core.h"
+#include "imgui.h"
 #include <cmath>
 
 void
@@ -12,7 +13,7 @@ UIUtils::printCostsImGui (
     return;
 
   ImVec4 textColor;
-  ImGui::Text ("Price :\n");
+  ImGui::TextWrapped ("Price :\n");
 
   for (const auto &[ressource, cost] : ressourcesNeeded)
     {

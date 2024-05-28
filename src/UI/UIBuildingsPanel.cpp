@@ -70,15 +70,16 @@ UIBuildingPanel::renderBuildingButton (BuildingType building) const
 void
 UIBuildingPanel::setToolTip (BuildingType building) const
 {
+  ImGui::SetNextWindowSize ({ 300, -1 });
 
   if (ImGui::IsItemHovered (ImGuiHoveredFlags_DelayNone
                             | ImGuiHoveredFlags_AllowWhenDisabled)
       && ImGui::BeginTooltip ())
     {
 
-      ImGui::Text ("%s\n", gData->getBuildingsView ()
-                               ->getBuildingDescription (building)
-                               .c_str ());
+      ImGui::TextWrapped ("%s\n", gData->getBuildingsView ()
+                                      ->getBuildingDescription (building)
+                                      .c_str ());
 
       auto ressourcesNeeded
           = gData->getBuildingsView ()->getNextBuyCost (building);
