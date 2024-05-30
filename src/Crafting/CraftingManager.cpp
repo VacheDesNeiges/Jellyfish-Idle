@@ -13,7 +13,7 @@ CraftingManager::CraftingManager ()
   recipes.reserve (CraftingRecipe::RecipeTypes.size ());
   for (const auto &c : CraftingRecipe::RecipeTypes)
     {
-      recipes[c] = CraftingRecipe (c);
+      recipes.try_emplace (c, c);
       assignedJelliesToRecipes[c] = 0;
     }
   assignedJelliesToRecipes[RecipeID::NoneRecipe] = 0;
@@ -46,13 +46,13 @@ CraftingManager::unasign (RecipeID id)
 void
 CraftingManager::startRecipe (RecipeID id)
 {
-  recipes[id].start ();
+  recipes.at (id).start ();
 }
 
 void
 CraftingManager::cancelRecipe (RecipeID id)
 {
-  recipes[id].cancel ();
+  recipes.at (id).cancel ();
 }
 
 unsigned

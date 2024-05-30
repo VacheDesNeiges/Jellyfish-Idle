@@ -49,6 +49,12 @@ Ressource::Ressource (RessourceType rType)
       quantity = 0;
       break;
 
+    case RessourceType::Pearl:
+      name = "Pearl";
+      max_quantity = DBL_MAX;
+      quantity = 0;
+      break;
+
     default:
       break;
     }

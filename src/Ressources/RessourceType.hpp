@@ -5,6 +5,7 @@ enum class RessourceType
   Stone = 3,
   Glass = 4,
   Insight = 5,
+  Pearl = 6,
 
   StoneSlab = 100,
   GlassPane = 101,

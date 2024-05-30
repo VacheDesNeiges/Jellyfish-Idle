@@ -20,7 +20,6 @@ main (int argc, char *argv[])
 // Features :
 
 // TODO : add production in the description of buildings hover
-// TODO : add a little descriptive text in the decription of building hover
 // TODO : add a cooldown to abilities ?
 // TODO : Catchup on load
 // TODO : add save and load to leveling system // Done for crafts, jobs to do
@@ -56,6 +55,12 @@ main (int argc, char *argv[])
 // Abyssal Hoard
 // Glassblower's Atelier
 // Submerged Library
+
+// Garden :
+// Long time growing, harvest, allow auto harvest and auto repeat with
+// achievements
+// Plankton for food (lure in jellies)
+// Oysters for pearls (insight related, consume sand and food)
 
 // at some point, using std::map might end up causing performance issues, in
 // this case, try boost's flat map, and then implement a short version of it
