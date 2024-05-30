@@ -1,4 +1,5 @@
 #include "AquaCulture.hpp"
+#include <vector>
 
 AquaCulture::AquaCulture (AquaCultureID id)
 {
@@ -73,4 +74,18 @@ unsigned
 AquaCulture::getTotalRequiredTicks () const
 {
   return baseTicksToFinish;
+}
+
+std::vector<int>
+AquaCulture::getData () const
+{
+  // TODO implement
+  return { 1 };
+}
+
+void
+AquaCulture::loadData (const std::vector<int> &vec)
+{
+  // TODO Implement
+  vec.at (0);
 }

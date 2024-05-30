@@ -3,6 +3,7 @@
 #include "GameDataAccess.hpp"
 #include "GameDataView.hpp"
 #include "GameSynchronizer.hpp"
+#include "GardenManager.hpp"
 #include "InputHandler.hpp"
 
 #include "SaveSystem.hpp"
@@ -21,6 +22,7 @@ GameSystems::GameSystems ()
   systems->upgrades = std::make_shared<UpgradeManager> ();
   systems->multipliers = std::make_shared<MultipliersRegister> ();
   systems->crafts = std::make_shared<CraftingManager> ();
+  systems->garden = std::make_shared<GardenManager> ();
 
   dataView = std::make_shared<GameDataView> (systems);
 
@@ -42,6 +44,7 @@ GameSystems::save () const
   data.depth = systems->depth->getData ();
   data.upgrades = systems->upgrades->getData ();
   data.crafts = systems->crafts->getData ();
+  // TODO Garden
 
   SaveSystem::save (data);
 }
@@ -59,6 +62,7 @@ GameSystems::loadSave (const std::string &path) const
 
   synchronizer->synchronizeSystems ();
   systems->crafts->loadData (loadedData.crafts);
+  // TODO Garden
 }
 
 std::shared_ptr<GameDataView>

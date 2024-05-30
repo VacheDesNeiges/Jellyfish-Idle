@@ -33,3 +33,17 @@ GardenManager::getTotalRequiredTicks (AquaCultureID id) const
 {
   return cultures.at (id).getTotalRequiredTicks ();
 }
+
+std::vector<int>
+GardenManager::getData () const
+{
+  // TODO : implement save and load
+  return { 1 };
+}
+
+void
+GardenManager::loadData (const std::vector<int> &vec)
+{
+  // TODO implement
+  vec.at (0);
+}

@@ -1,15 +1,9 @@
 #include "InputHandler.hpp"
-#include "AbilityManager.hpp"
-#include "BuildingManager.hpp"
-#include "CraftingRecipe.hpp"
+#include "AquaCulture.hpp"
 #include "GameSystems.hpp"
 #include "Jellyfish.hpp"
-#include "JellyfishManager.hpp"
-#include "MultipliersRegister.hpp"
 #include "RecipeID.hpp"
-#include "RessourceManager.hpp"
 #include "UpgradeId.hpp"
-#include "UpgradeManager.hpp"
 #include <memory>
 
 InputHandler::InputHandler (std::shared_ptr<SystemPtrs> sy)
@@ -134,4 +128,18 @@ void
 InputHandler::unassignToRecipe (RecipeID id) const
 {
   systems->crafts->unasign (id);
+}
+
+void
+InputHandler::startCulture (AquaCultureID id) const
+{
+  if (systems->garden->canAfford (id))
+    {
+      // TODO : Add a function that takes a vector and does the following loop
+      // internaly
+      for (const auto &[rType, quant] : systems->garden->getCost (id))
+        {
+          systems->ressources->add (rType, -quant);
+        }
+    }
 }

@@ -2,6 +2,7 @@
 #include <memory>
 
 #include "GameSynchronizer.hpp"
+#include "GardenManager.hpp"
 #include "InputHandler.hpp"
 
 #include "AbilityManager.hpp"
@@ -29,6 +30,7 @@ struct SystemPtrs
   std::shared_ptr<UpgradeManager> upgrades;
   std::shared_ptr<MultipliersRegister> multipliers;
   std::shared_ptr<CraftingManager> crafts;
+  std::shared_ptr<GardenManager> garden;
 };
 
 class GameSystems

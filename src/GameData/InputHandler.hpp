@@ -1,4 +1,5 @@
 #pragma once
+#include "AquaCulture.hpp"
 #include "GameSystems.hpp"
 #include <memory>
 
@@ -26,6 +27,9 @@ public:
   void cancelRecipe (RecipeID) const;
   void assignToRecipe (RecipeID) const;
   void unassignToRecipe (RecipeID) const;
+
+  void startCulture (AquaCultureID) const;
+  void cancelCulture (AquaCultureID) const;
 
 private:
   std::shared_ptr<SystemPtrs> systems;
