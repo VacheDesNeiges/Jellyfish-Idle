@@ -25,8 +25,9 @@ public:
   unsigned getTotalRequiredTicks (AquaCultureID) const;
 
   bool tick ();
-  std::vector<std::pair<RessourceType, double> > getCost (AquaCultureID);
-  std::vector<std::pair<RessourceType, double> > getResult (AquaCultureID);
+  std::vector<std::pair<RessourceType, double> > getCost (AquaCultureID) const;
+  std::vector<std::pair<RessourceType, double> >
+      getResult (AquaCultureID) const;
 
   void loadData (const std::vector<int> &) override;
   std::vector<int> getData () const override;

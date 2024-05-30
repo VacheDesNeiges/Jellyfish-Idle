@@ -24,9 +24,14 @@ public:
   void cancel ();
   bool tick ();
   bool isDone () const;
+  bool isOngoing () const;
+  bool canAfford () const;
 
   unsigned getRemainingTicks () const;
   unsigned getTotalRequiredTicks () const;
+
+  std::vector<std::pair<RessourceType, double> > getCost () const;
+  std::vector<std::pair<RessourceType, double> > getResult () const;
 
   std::vector<int> getData () const override;
   void loadData (const std::vector<int> &) override;

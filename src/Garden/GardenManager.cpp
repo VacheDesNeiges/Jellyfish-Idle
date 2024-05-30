@@ -1,5 +1,7 @@
 #include "GardenManager.hpp"
 #include "AquaCulture.hpp"
+#include <utility>
+#include <vector>
 
 GardenManager::GardenManager ()
 {
@@ -34,6 +36,12 @@ GardenManager::getTotalRequiredTicks (AquaCultureID id) const
   return cultures.at (id).getTotalRequiredTicks ();
 }
 
+bool
+GardenManager::isOngoing (AquaCultureID id) const
+{
+  return cultures.at (id).isOngoing ();
+}
+
 std::vector<int>
 GardenManager::getData () const
 {
@@ -46,4 +54,22 @@ GardenManager::loadData (const std::vector<int> &vec)
 {
   // TODO implement
   vec.at (0);
+}
+
+std::vector<std::pair<RessourceType, double> >
+GardenManager::getCost (AquaCultureID id) const
+{
+  return cultures.at (id).getCost ();
+}
+
+std::vector<std::pair<RessourceType, double> >
+GardenManager::getResult (AquaCultureID id) const
+{
+  return cultures.at (id).getResult ();
+}
+
+bool
+GardenManager::canAfford (AquaCultureID id) const
+{
+  return cultures.at (id).canAfford ();
 }
