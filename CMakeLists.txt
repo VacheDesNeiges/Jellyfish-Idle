@@ -12,9 +12,9 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}\
 -fPIE")
 
 if(DEBUG_MODE)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -flto=auto" )
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g" )
 else()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -flto=auto")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 endif()
 
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}\
