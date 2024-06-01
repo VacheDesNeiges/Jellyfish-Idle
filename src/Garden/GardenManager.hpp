@@ -21,6 +21,8 @@ public:
   bool canAfford (AquaCultureID) const;
   bool isOngoing (AquaCultureID) const;
 
+  std::string getName (AquaCultureID) const;
+
   unsigned getRemainingTicks (AquaCultureID) const;
   unsigned getTotalRequiredTicks (AquaCultureID) const;
 

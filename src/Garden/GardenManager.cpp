@@ -73,3 +73,9 @@ GardenManager::canAfford (AquaCultureID id) const
 {
   return cultures.at (id).canAfford ();
 }
+
+std::string
+GardenManager::getName (AquaCultureID id) const
+{
+  return cultures.at (id).getName ();
+}

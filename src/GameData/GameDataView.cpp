@@ -5,6 +5,7 @@
 #include "BuildingDataView.hpp"
 #include "CraftingDataView.hpp"
 #include "DepthDataView.hpp"
+#include "GardenDataView.hpp"
 #include "JellyfishDataView.hpp"
 #include "MultiplierDataView.hpp"
 #include "RessourceDataView.hpp"
@@ -31,6 +32,7 @@ GameDataView::GameDataView (std::shared_ptr<SystemPtrs> s) : systems (s)
   multipliersView
       = std::make_shared<MultiplierDataView> (systems->multipliers);
   craftView = std::make_shared<CraftDataView> (systems->crafts);
+  gardenView = std::make_shared<GardenDataView> (systems->garden);
 }
 
 std::shared_ptr<RessourceDataView>
@@ -85,4 +87,10 @@ std::shared_ptr<CraftDataView>
 GameDataView::getCraftView () const
 {
   return craftView;
+}
+
+std::shared_ptr<GardenDataView>
+GameDataView::getGardenView () const
+{
+  return gardenView;
 }

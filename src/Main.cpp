@@ -35,6 +35,8 @@ main (int argc, char *argv[])
 // TODO : create one or multiples files containing all the global constants of
 // the game
 // TODO : Try using std::span on function that returns vectors ?
+// TODO : separate CI into 3 jobs
+// TODO : add ImGuiWindowFlags_NoFocusOnAppearing to UI
 
 // Bugs :
 // TODO : Savefile format stores enums with integers, making the saves prone to

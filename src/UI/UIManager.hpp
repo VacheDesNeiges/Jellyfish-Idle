@@ -4,6 +4,7 @@
 #include "UIAbilitiesPanel.hpp"
 #include "UIBuildingsPanel.hpp"
 #include "UIDepthPanel.hpp"
+#include "UIGardenPanel.hpp"
 #include "UIJobsPanel.hpp"
 #include "UIOctopusPanel.hpp"
 #include "UIResearchPanel.hpp"
@@ -29,4 +30,5 @@ private:
   UIResearchPanel researchPanel;
   UIDepthPanel depthPanel;
   UIOctopusPanel octopusPanel;
+  UIGardenPanel gardenPanel;
 };

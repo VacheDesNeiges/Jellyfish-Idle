@@ -26,6 +26,7 @@ public:
   bool isDone () const;
   bool isOngoing () const;
   bool canAfford () const;
+  std::string getName () const;
 
   unsigned getRemainingTicks () const;
   unsigned getTotalRequiredTicks () const;

@@ -115,3 +115,9 @@ AquaCulture::canAfford () const
   // TODO : implement
   return false;
 }
+
+std::string
+AquaCulture::getName () const
+{
+  return name;
+}
