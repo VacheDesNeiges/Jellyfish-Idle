@@ -99,3 +99,29 @@ GardenManager::getAssignedFieldsToCulture (AquaCultureID c) const
 {
   return assignedFieldsToCultures.at (c);
 }
+
+bool
+GardenManager::assign (AquaCultureID id)
+{
+  using enum AquaCultureID;
+  if (assignedFieldsToCultures.at (None) > 0)
+    {
+      assignedFieldsToCultures[id]++;
+      assignedFieldsToCultures[None]--;
+      return true;
+    }
+  return false;
+}
+
+bool
+GardenManager::unnasign (AquaCultureID id)
+{
+  using enum AquaCultureID;
+  if (assignedFieldsToCultures.at (id) > 0)
+    {
+      assignedFieldsToCultures[id]--;
+      assignedFieldsToCultures[None]++;
+      return true;
+    }
+  return false;
+}

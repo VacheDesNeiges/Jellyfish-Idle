@@ -143,3 +143,15 @@ InputHandler::startCulture (AquaCultureID id) const
         }
     }
 }
+
+void
+InputHandler::unassignToField (AquaCultureID id) const
+{
+  systems->garden->unnasign (id);
+}
+
+void
+InputHandler::assignToField (AquaCultureID id) const
+{
+  systems->garden->assign (id);
+}

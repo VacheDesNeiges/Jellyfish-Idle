@@ -30,6 +30,8 @@ public:
 
   void startCulture (AquaCultureID) const;
   void cancelCulture (AquaCultureID) const;
+  void unassignToField (AquaCultureID) const;
+  void assignToField (AquaCultureID) const;
 
 private:
   std::shared_ptr<SystemPtrs> systems;

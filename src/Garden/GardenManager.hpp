@@ -18,6 +18,9 @@ public:
   void startCulture (AquaCultureID);
   void cancelCulture (AquaCultureID);
 
+  bool assign (AquaCultureID);
+  bool unnasign (AquaCultureID);
+
   bool canAfford (AquaCultureID) const;
   bool isOngoing (AquaCultureID) const;
 
