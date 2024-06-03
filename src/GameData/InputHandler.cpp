@@ -145,6 +145,15 @@ InputHandler::startCulture (AquaCultureID id) const
 }
 
 void
+InputHandler::cancelCulture (AquaCultureID id) const
+{
+  if (systems->garden->isOngoing (id))
+    {
+      systems->garden->cancelCulture (id);
+    }
+}
+
+void
 InputHandler::unassignToField (AquaCultureID id) const
 {
   systems->garden->unnasign (id);

@@ -1,6 +1,10 @@
 #include "UIGardenPanel.hpp"
 #include "AquaCulture.hpp"
+#include "GardenDataView.hpp"
+#include "UIUtils.hpp"
 #include "imgui.h"
+#include <fmt/core.h>
+#include <string>
 
 void
 UIGardenPanel::render () const
@@ -36,6 +40,14 @@ UIGardenPanel::renderCulture (AquaCultureID id) const
   ImGui::BeginChild (cultureName.c_str (), size);
   ImGui::SeparatorText (cultureName.c_str ());
 
+  ImGui::Text ("Produces :");
+  const std::string quantity
+      = fmt::format ("{} x {:.2f}", cultureName,
+                     gData->getGardenView ()->getFieldResults (id)[0].second);
+  ImGui::SameLine (ImGui::GetWindowWidth ()
+                   - (ImGui::CalcTextSize (quantity.c_str ()).x + 10));
+  ImGui::Text ("%s", quantity.c_str ());
+
   ImGui::SeparatorText ("Assigned Fields ");
 
   ImGui::BeginDisabled (
@@ -64,5 +76,55 @@ UIGardenPanel::renderCulture (AquaCultureID id) const
     }
   ImGui::EndDisabled ();
 
+  ImGui::SeparatorText ("Cost");
+  displayCultureCost (id);
+
+  ImGui::SeparatorText ("");
+
+  ImGui::BeginDisabled (
+      gData->getGardenView ()->getAssignedFieldsToCulture (id) == 0
+      || (gData->getGardenView ()->isOngoing (id))
+      || (!gData->getGardenView ()->canAfford (id)));
+
+  if (ImGui::Button ("Start"))
+    {
+      inputHandler->startCulture (id);
+    }
+  ImGui::EndDisabled ();
+
+  ImGui::SameLine ();
+
+  ImGui::BeginDisabled (!gData->getGardenView ()->isOngoing (id));
+  if (ImGui::Button ("Cancel"))
+    {
+      inputHandler->cancelCulture (id);
+    }
+  ImGui::EndDisabled ();
+
+  const auto progress
+      = 1.f
+        - (static_cast<float> (gData->getGardenView ()->getRemainingTicks (id))
+           / static_cast<float> (
+               gData->getGardenView ()->getTotalRequiredTicks (id)));
+
+  const auto &remainingTime = fmt::format (
+      "{} seconds", gData->getGardenView ()->getRemainingTicks (id) / 2);
+
+  ImGui::ProgressBar (progress, ImVec2 (-1.0f, 0.0f), remainingTime.c_str ());
+
   ImGui::EndChild ();
+}
+
+void
+UIGardenPanel::displayCultureCost (AquaCultureID id) const
+{
+  const auto &costData = gData->getGardenView ()->getFieldCost (id);
+  if (costData.empty ())
+    {
+      ImGui::Text ("Nothing");
+    }
+  else
+    {
+      UIUtils::printCostsImGui (gData, costData);
+    }
 }

@@ -48,7 +48,7 @@ private:
   bool cultureOngoing = false;
   bool done = false;
   unsigned baseTicksToFinish;
-  unsigned remainingTicksToFinish;
+  unsigned remainingTicksToFinish = 0;
   std::string name;
 
   std::vector<std::pair<RessourceType, double> > cost;

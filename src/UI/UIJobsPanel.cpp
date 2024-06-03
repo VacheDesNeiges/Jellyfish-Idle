@@ -170,7 +170,7 @@ UIJobsPanel::renderRecipe (RecipeID id) const
   ImGui::SameLine ();
   ImGui::BeginDisabled (!gData->getCraftView ()->craftIsOngoing (id));
 
-  if (ImGui::Button ("cancel"))
+  if (ImGui::Button ("Cancel"))
     {
       inputHandler->cancelRecipe (id);
     }

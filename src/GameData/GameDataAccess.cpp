@@ -4,6 +4,7 @@
 #include "CraftingDataView.hpp"
 #include "DepthDataView.hpp"
 #include "GameDataView.hpp"
+#include "GardenDataView.hpp"
 #include "JellyfishDataView.hpp"
 #include "MultiplierDataView.hpp"
 #include "RessourceDataView.hpp"
@@ -78,4 +79,10 @@ std::shared_ptr<CraftDataView>
 GameDataAccess::craftView () const
 {
   return view->getCraftView ();
+}
+
+std::shared_ptr<GardenDataView>
+GameDataAccess::gardenView () const
+{
+  return view->getGardenView ();
 }

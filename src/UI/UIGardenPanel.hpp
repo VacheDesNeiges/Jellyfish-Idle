@@ -10,4 +10,5 @@ public:
 
 private:
   void renderCulture (AquaCultureID) const;
+  void displayCultureCost (AquaCultureID) const;
 };

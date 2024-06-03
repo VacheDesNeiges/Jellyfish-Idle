@@ -1,4 +1,5 @@
 #include "AquaCulture.hpp"
+#include <cassert>
 #include <vector>
 
 AquaCulture::AquaCulture (AquaCultureID id)
@@ -26,8 +27,9 @@ AquaCulture::AquaCulture (AquaCultureID id)
       break;
 
     default:
-      break;
+      assert (false);
     }
+  remainingTicksToFinish = baseTicksToFinish;
 }
 
 void

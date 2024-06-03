@@ -25,6 +25,7 @@ protected:
   std::shared_ptr<DepthDataView> depthView () const;
   std::shared_ptr<CraftDataView> craftView () const;
   std::shared_ptr<UpgradeDataView> upgradeView () const;
+  std::shared_ptr<GardenDataView> gardenView () const;
 
 private:
   static inline std::shared_ptr<GameDataView> view = nullptr;
