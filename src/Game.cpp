@@ -20,7 +20,6 @@
 #include <linux/limits.h>
 #include <memory>
 #include <optional>
-#include <stdio.h>
 #include <string_view>
 #include <system_error>
 
@@ -41,7 +40,7 @@ Game::~Game ()
 void
 Game::run (std::optional<std::string_view> option)
 {
-  const std::chrono::milliseconds interval (500);
+  constexpr std::chrono::milliseconds interval (500);
   auto nextTick = std::chrono::high_resolution_clock::now () + interval;
   bool done = false;
   if (std::filesystem::exists (SaveSystem::saveFileName)
@@ -96,7 +95,7 @@ Game::initialize ()
   if (SDL_Init (SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER)
       != 0)
     {
-      printf ("Error: %s\n", SDL_GetError ());
+      std::printf ("Error: %s\n", SDL_GetError ());
       throw std::system_error ();
     }
 

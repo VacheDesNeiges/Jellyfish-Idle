@@ -1,6 +1,5 @@
 #include "Game.hpp"
 
-#include <memory>
 #include <optional>
 
 int
@@ -10,10 +9,8 @@ main (int argc, char *argv[])
   if (argc == 2)
     option = argv[1];
 
-  auto g = std::make_unique<Game> ();
-  g->run (option);
-
-  return 0;
+  Game g;
+  g.run (option);
 }
 
 // todolist ----------------
