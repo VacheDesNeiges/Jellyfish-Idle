@@ -9,7 +9,9 @@ GardenManager::GardenManager ()
   for (const auto &ac : AquaCulture::CultureTypes)
     {
       cultures.try_emplace (ac, ac);
+      assignedFieldsToCultures[ac] = 0;
     }
+  assignedFieldsToCultures[AquaCultureID::None] = 1;
 }
 
 void
@@ -53,7 +55,7 @@ void
 GardenManager::loadData (const std::vector<int> &vec)
 {
   // TODO implement
-  vec.at (0);
+  return;
 }
 
 std::vector<std::pair<RessourceType, double> >
@@ -78,4 +80,22 @@ std::string
 GardenManager::getName (AquaCultureID id) const
 {
   return cultures.at (id).getName ();
+}
+
+unsigned
+GardenManager::getTotalFields () const
+{
+  return maxFields;
+}
+
+unsigned
+GardenManager::getAssignedFields () const
+{
+  return maxFields - assignedFieldsToCultures.at (AquaCultureID::None);
+}
+
+unsigned
+GardenManager::getAssignedFieldsToCulture (AquaCultureID c) const
+{
+  return assignedFieldsToCultures.at (c);
 }

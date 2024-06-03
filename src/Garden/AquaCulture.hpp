@@ -12,6 +12,8 @@ enum class AquaCultureID
 {
   Plankton,
   Oysters,
+  SandWorms,
+  None,
 };
 
 class AquaCulture final : public SaveAndLoadable<std::vector<int> >

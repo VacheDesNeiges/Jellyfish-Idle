@@ -26,6 +26,10 @@ public:
   unsigned getRemainingTicks (AquaCultureID) const;
   unsigned getTotalRequiredTicks (AquaCultureID) const;
 
+  unsigned getTotalFields () const;
+  unsigned getAssignedFields () const;
+  unsigned getAssignedFieldsToCulture (AquaCultureID) const;
+
   bool tick ();
   std::vector<std::pair<RessourceType, double> > getCost (AquaCultureID) const;
   std::vector<std::pair<RessourceType, double> >
@@ -36,4 +40,7 @@ public:
 
 private:
   std::unordered_map<AquaCultureID, AquaCulture> cultures;
+  std::unordered_map<AquaCultureID, unsigned> assignedFieldsToCultures;
+
+  unsigned maxFields = 1;
 };
