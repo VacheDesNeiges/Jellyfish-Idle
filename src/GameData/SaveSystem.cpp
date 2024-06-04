@@ -18,7 +18,7 @@
 #include <vector>
 
 void
-SaveSystem::save (SaveData data)
+SaveSystem::save (const SaveData &data)
 {
   nlohmann::json j;
   for (const auto &[type, quant] : data.buildings)

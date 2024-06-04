@@ -154,7 +154,7 @@ Game::getPath () const
       path.resize (static_cast<unsigned long> (len));
       std::size_t found = path.rfind ('/');
       if (found != std::string::npos)
-        path = path.substr (0, found);
+        path.resize (found);
       return path;
     }
   assert (false);

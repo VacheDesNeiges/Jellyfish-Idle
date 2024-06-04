@@ -60,7 +60,7 @@ private:
   std::string description;
   unsigned quantity = 0;
   unsigned increaseToMaxJfish = 0;
-  double priceMultiplier;
+  double priceMultiplier = 1;
   std::vector<std::pair<RessourceType, double> > basePrice;
   std::unordered_map<RessourceType, const double> baseProductionPerTick;
   std::unordered_map<RessourceType, const double> baseConsumptionPerTick;

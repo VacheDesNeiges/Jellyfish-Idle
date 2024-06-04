@@ -24,7 +24,7 @@ struct SaveData
 class SaveSystem
 {
 public:
-  static void save (SaveData);
+  static void save (const SaveData &);
   static SaveData loadFromFile (std::string);
 
   static constexpr std::string saveFileName = "save.json";

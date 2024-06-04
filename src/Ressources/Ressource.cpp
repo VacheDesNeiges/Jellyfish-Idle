@@ -56,6 +56,7 @@ Ressource::Ressource (RessourceType rType)
       break;
 
     default:
+      max_quantity = -1;
       break;
     }
 }

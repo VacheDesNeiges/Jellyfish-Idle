@@ -27,7 +27,6 @@ struct RecipeLevel
 class CraftingRecipe : public SaveAndLoadable<RecipeSaveData>
 {
 public:
-  CraftingRecipe () = default;
   explicit CraftingRecipe (RecipeID);
   ~CraftingRecipe () override = default;
 

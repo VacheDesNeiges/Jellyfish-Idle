@@ -142,7 +142,7 @@ CraftingRecipe::getLevelData () const
 RecipeSaveData
 CraftingRecipe::getData () const
 {
-  RecipeSaveData result;
+  RecipeSaveData result = {};
   result.craftDone = done;
   result.craftOngoing = craftOngoing;
   result.remainingTicksToCraft = remainingTicksToCraft;
