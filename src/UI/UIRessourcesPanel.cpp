@@ -6,6 +6,7 @@
 #include "imgui.h"
 #include "imgui_internal.h"
 
+#include <cfloat>
 #include <iomanip>
 
 void
@@ -36,57 +37,20 @@ UIRessourcesPanel::renderRessources () const
   auto x = (ImGui::GetCursorPosX () + ImGui::GetColumnWidth ()
             - ImGui::CalcTextSize (jfishtxt.c_str ()).x - ImGui::GetScrollX ()
             - 2 * ImGui::GetStyle ().ItemSpacing.x);
+
   if (x > ImGui::GetCursorPosX ())
     ImGui::SetCursorPosX (x);
+
   ImGui::Text ("%s", jfishtxt.c_str ());
 
-  // print each resource name and quantity
-  ImGui::Columns (3, nullptr, false);
-  ImGui::SetColumnWidth (0, ImGui::GetWindowWidth () / 3);
-  ImGui::SetColumnWidth (1, ImGui::GetWindowWidth () / 3);
-  ImGui::SetColumnWidth (2, ImGui::GetWindowWidth () / 3);
-  for (const auto &resource : Ressource::RessourceTypes)
+  ImGui::SeparatorText ("");
+
+  setupColumns ();
+  for (const auto &ressource : Ressource::RessourceTypes)
     {
-      if (!gData->getAchievementsView ()->isUnlocked (resource))
+      if (!gData->getAchievementsView ()->isUnlocked (ressource))
         continue;
-      ImGui::SetCursorPosX (ImGui::GetCursorPosX ()
-                            + ImGui::GetStyle ().ItemSpacing.x);
-      ImGui::Text (
-          "%s",
-          gData->getRessourcesView ()->getRessourceName (resource).data ());
-
-      ImGui::SameLine ();
-      ImGui::NextColumn ();
-
-      std::ostringstream stream;
-      stream << std::fixed;
-      stream << std::setprecision (2);
-      stream << gData->getRessourcesView ()->getRessourceQuantity (resource)
-             << "/"
-             << gData->getRessourcesView ()->getRessourceMaxQuantity (
-                    resource);
-
-      std::string text = stream.str ();
-      auto textWidth = ImGui::CalcTextSize (text.c_str ()).x;
-      auto columnWidth
-          = ImGui::GetColumnWidth () - ImGui::GetStyle ().ItemSpacing.x;
-      ImGui::SetCursorPosX (ImGui::GetCursorPosX () + columnWidth - textWidth);
-      ImGui::Text ("%s", text.c_str ());
-
-      ImGui::SameLine ();
-      ImGui::NextColumn ();
-
-      std::string production = fmt::format (
-          "+{:.2f}/sec",
-          (gData->getRessourcesView ()->getRessourceProduction (resource)
-           - gData->getRessourcesView ()->getRessourceConsumption (resource))
-              * 2);
-      auto productionWidth = ImGui::CalcTextSize (production.c_str ()).x;
-      ImGui::SetCursorPosX (ImGui::GetCursorPosX () + columnWidth
-                            - productionWidth - 5);
-      ImGui::Text ("%s", production.c_str ());
-
-      ImGui::NextColumn ();
+      renderRessource (ressource);
     }
   ImGui::EndColumns ();
 
@@ -103,52 +67,72 @@ UIRessourcesPanel::renderManufacturedRessources () const
       return;
     }
 
-  // print each resource name and quantity
-  ImGui::Columns (3, nullptr, false);
-  ImGui::SetColumnWidth (0, ImGui::GetWindowWidth () / 3);
-  ImGui::SetColumnWidth (1, ImGui::GetWindowWidth () / 3);
-  ImGui::SetColumnWidth (2, ImGui::GetWindowWidth () / 3);
-  for (const auto &resource : Ressource::CraftableRessourceTypes)
+  setupColumns ();
+  for (const auto &ressource : Ressource::CraftableRessourceTypes)
     {
-      if (!gData->getAchievementsView ()->isUnlocked (resource))
+      if (!gData->getAchievementsView ()->isUnlocked (ressource))
         continue;
-      ImGui::SetCursorPosX (ImGui::GetCursorPosX ()
-                            + ImGui::GetStyle ().ItemSpacing.x);
-      ImGui::Text (
-          "%s",
-          gData->getRessourcesView ()->getRessourceName (resource).data ());
-
-      ImGui::SameLine ();
-      ImGui::NextColumn ();
-
-      std::ostringstream stream;
-      stream << std::fixed;
-      stream << std::setprecision (2);
-      stream << gData->getRessourcesView ()->getRessourceQuantity (resource);
-
-      std::string text = stream.str ();
-      auto textWidth = ImGui::CalcTextSize (text.c_str ()).x;
-      auto columnWidth
-          = ImGui::GetColumnWidth () - ImGui::GetStyle ().ItemSpacing.x;
-      ImGui::SetCursorPosX (ImGui::GetCursorPosX () + columnWidth - textWidth);
-      ImGui::Text ("%s", text.c_str ());
-
-      ImGui::SameLine ();
-      ImGui::NextColumn ();
-
-      std::string production = fmt::format (
-          "+{:.2f}/sec",
-          (gData->getRessourcesView ()->getRessourceProduction (resource)
-           - gData->getRessourcesView ()->getRessourceConsumption (resource))
-              * 2);
-      auto productionWidth = ImGui::CalcTextSize (production.c_str ()).x;
-      ImGui::SetCursorPosX (ImGui::GetCursorPosX () + columnWidth
-                            - productionWidth - 5);
-      ImGui::Text ("%s", production.c_str ());
-
-      ImGui::NextColumn ();
+      renderRessource (ressource);
     }
   ImGui::EndColumns ();
 
   ImGui::End ();
+}
+
+void
+UIRessourcesPanel::renderRessource (RessourceType ressource) const
+{
+  ImGui::SetCursorPosX (ImGui::GetCursorPosX ()
+                        + ImGui::GetStyle ().ItemSpacing.x);
+  ImGui::Text (
+      "%s", gData->getRessourcesView ()->getRessourceName (ressource).data ());
+
+  ImGui::SameLine ();
+  ImGui::NextColumn ();
+
+  std::ostringstream stream;
+  stream << std::fixed;
+  stream << std::setprecision (2);
+  stream << gData->getRessourcesView ()->getRessourceQuantity (ressource);
+
+  if (!(gData->getRessourcesView ()->getRessourceMaxQuantity (ressource)
+        == DBL_MAX)
+      && !(gData->getRessourcesView ()->getRessourceMaxQuantity (ressource)
+           == -1))
+    {
+      stream << "/"
+             << gData->getRessourcesView ()->getRessourceMaxQuantity (
+                    ressource);
+    }
+
+  std::string text = stream.str ();
+  auto textWidth = ImGui::CalcTextSize (text.c_str ()).x;
+  auto columnWidth
+      = ImGui::GetColumnWidth () - ImGui::GetStyle ().ItemSpacing.x;
+  ImGui::SetCursorPosX (ImGui::GetCursorPosX () + columnWidth - textWidth);
+  ImGui::Text ("%s", text.c_str ());
+
+  ImGui::SameLine ();
+  ImGui::NextColumn ();
+
+  std::string production = fmt::format (
+      "+{:.2f}/sec",
+      (gData->getRessourcesView ()->getRessourceProduction (ressource)
+       - gData->getRessourcesView ()->getRessourceConsumption (ressource))
+          * 2);
+  auto productionWidth = ImGui::CalcTextSize (production.c_str ()).x;
+  ImGui::SetCursorPosX (ImGui::GetCursorPosX () + columnWidth - productionWidth
+                        - 5);
+  ImGui::Text ("%s", production.c_str ());
+
+  ImGui::NextColumn ();
+}
+
+void
+UIRessourcesPanel::setupColumns () const
+{
+  ImGui::Columns (3, nullptr, false);
+  ImGui::SetColumnWidth (0, ImGui::GetWindowWidth () / 3);
+  ImGui::SetColumnWidth (1, ImGui::GetWindowWidth () / 3);
+  ImGui::SetColumnWidth (2, ImGui::GetWindowWidth () / 3);
 }

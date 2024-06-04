@@ -9,4 +9,6 @@ public:
 private:
   void renderRessources () const;
   void renderManufacturedRessources () const;
+  void renderRessource (RessourceType) const;
+  void setupColumns () const;
 };
