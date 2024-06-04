@@ -9,6 +9,7 @@ jobs:
   install_dependencies:
     runs-on: ubuntu-24.04
     steps:
+      - uses: actions/checkout@v4
       - name: Install gtests
         run: |
           sudo apt-get install libgtest-dev
