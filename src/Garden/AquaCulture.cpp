@@ -46,6 +46,14 @@ AquaCulture::cancel ()
   remainingTicksToFinish = baseTicksToFinish;
 }
 
+void
+AquaCulture::reset ()
+{
+  done = false;
+  cultureOngoing = false;
+  remainingTicksToFinish = baseTicksToFinish;
+}
+
 bool
 AquaCulture::tick ()
 {
@@ -109,13 +117,6 @@ std::vector<std::pair<RessourceType, double> >
 AquaCulture::getResult () const
 { // TODO multipliers from garden level ?
   return baseResult;
-}
-
-bool
-AquaCulture::canAfford () const
-{
-  // TODO : implement
-  return false;
 }
 
 std::string

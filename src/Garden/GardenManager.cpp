@@ -73,7 +73,17 @@ GardenManager::getResult (AquaCultureID id) const
 bool
 GardenManager::canAfford (AquaCultureID id) const
 {
-  return cultures.at (id).canAfford ();
+  bool ret = true;
+  const auto cost = getCost (id);
+  for (const auto &[rType, quant] : cost)
+    {
+      if (ressourcesView ()->getRessourceQuantity (rType)
+          < quant * assignedFieldsToCultures.at (id))
+        {
+          ret = false;
+        }
+    }
+  return ret;
 }
 
 std::string
@@ -124,4 +134,35 @@ GardenManager::unnasign (AquaCultureID id)
       return true;
     }
   return false;
+}
+
+bool
+GardenManager::tick ()
+{
+  bool ret = false;
+
+  for (auto &[id, culture] : cultures)
+    {
+      if (culture.tick ())
+        {
+          ret = true;
+        }
+    }
+  return ret;
+}
+
+std::vector<std::pair<RessourceType, double> >
+GardenManager::getFieldsResults ()
+{
+  std::vector<std::pair<RessourceType, double> > result;
+  for (const auto &[id, cost] : cultures)
+    {
+      if (cultures.at (id).isDone ())
+        {
+          auto tmp = getResult (id);
+          result.insert (result.end (), tmp.begin (), tmp.end ());
+          cultures.at (id).reset ();
+        }
+    }
+  return result;
 }

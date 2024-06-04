@@ -35,8 +35,10 @@ public:
 
   bool tick ();
   std::vector<std::pair<RessourceType, double> > getCost (AquaCultureID) const;
+
   std::vector<std::pair<RessourceType, double> >
       getResult (AquaCultureID) const;
+  std::vector<std::pair<RessourceType, double> > getFieldsResults ();
 
   void loadData (const std::vector<int> &) override;
   std::vector<int> getData () const override;

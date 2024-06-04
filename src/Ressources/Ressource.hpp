@@ -37,7 +37,7 @@ public:
 private:
   std::string name;
   double quantity = 0;
-  double max_quantity;
+  double max_quantity = -1;
 
   double prodPerTick = 0;
   double consumptionPerTick = 0;

@@ -4,6 +4,7 @@
 #include "GameDataView.hpp"
 #include "GameSystems.hpp"
 #include "MultiplierDataView.hpp"
+#include "Ressource.hpp"
 #include "UpgradeId.hpp"
 
 #include <memory>
@@ -31,6 +32,15 @@ GameSynchronizer::gameTick () const
   if (systems->crafts->tick ())
     {
       for (const auto &[ressource, prod] : systems->crafts->getCraftResults ())
+        {
+          systems->ressources->add (ressource, prod);
+        }
+    }
+
+  if (systems->garden->tick ())
+    {
+      for (const auto &[ressource, prod] :
+           systems->garden->getFieldsResults ())
         {
           systems->ressources->add (ressource, prod);
         }

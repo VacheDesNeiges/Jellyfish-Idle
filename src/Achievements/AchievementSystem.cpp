@@ -241,7 +241,7 @@ AchievementSystem::isUnlocked (RessourceType r) const
       return isUnlocked (RessourceGlassPane);
 
     default:
-      return false;
+      return true;
     }
 }
 

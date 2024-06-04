@@ -24,10 +24,10 @@ public:
 
   void start ();
   void cancel ();
+  void reset ();
   bool tick ();
   bool isDone () const;
   bool isOngoing () const;
-  bool canAfford () const;
   std::string getName () const;
 
   unsigned getRemainingTicks () const;

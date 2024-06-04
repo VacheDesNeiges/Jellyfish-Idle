@@ -141,6 +141,7 @@ InputHandler::startCulture (AquaCultureID id) const
         {
           systems->ressources->add (rType, -quant);
         }
+      systems->garden->startCulture (id);
     }
 }
 
