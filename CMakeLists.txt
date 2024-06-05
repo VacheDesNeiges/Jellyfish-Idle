@@ -11,6 +11,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}\
 -Wconversion \
 -fPIE")
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 if(DEBUG_MODE)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g" )
 else()

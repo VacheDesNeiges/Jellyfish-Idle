@@ -22,9 +22,9 @@ cd build
 
 
 if [ "$DEBUG_MODE" = true ]; then
-    cmake -DDEBUG_MODE=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=1 --graphviz=dependencies.dot ..
+    cmake -DDEBUG_MODE=ON --graphviz=dependencies.dot ..
 else
-    cmake -DDEBUG_MODE=OFF -DCMAKE_EXPORT_COMPILE_COMMANDS=1 ..
+    cmake -DDEBUG_MODE=OFF ..
 fi
 
 

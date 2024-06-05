@@ -53,6 +53,7 @@ Game::run (std::optional<std::string_view> option)
   while (!done)
     {
       SDL_Event event;
+
       while (SDL_PollEvent (&event))
         {
           done = processEvent (event);
@@ -63,6 +64,7 @@ Game::run (std::optional<std::string_view> option)
           gameSystems->gameTick ();
           nextTick += interval;
         }
+
       renderFrame ();
     }
   gameSystems->save ();
@@ -125,7 +127,7 @@ Game::getPath () const
   std::string path;
   path.resize (PATH_MAX);
 
-  ssize_t len = ::readlink ("/proc/self/exe", &path[0], PATH_MAX - 1);
+  ssize_t len = ::readlink ("/proc/self/exe\0", &path[0], PATH_MAX - 1);
 
   if (len != -1)
     {

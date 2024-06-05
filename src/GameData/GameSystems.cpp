@@ -12,7 +12,6 @@
 
 GameSystems::GameSystems ()
 {
-  systems = std::make_shared<SystemPtrs> ();
   systems->ressources = std::make_shared<RessourceManager> ();
   systems->buildings = std::make_shared<BuildingManager> ();
   systems->jellies = std::make_shared<JellyfishManager> ();

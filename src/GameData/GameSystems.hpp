@@ -47,7 +47,7 @@ public:
   std::shared_ptr<InputHandler> getInputHandler () const;
 
 private:
-  std::shared_ptr<SystemPtrs> systems;
+  std::shared_ptr<SystemPtrs> systems = std::make_shared<SystemPtrs> ();
 
   std::unique_ptr<GameSynchronizer> synchronizer;
   std::shared_ptr<GameDataView> dataView;
