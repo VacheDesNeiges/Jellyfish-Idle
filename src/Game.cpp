@@ -43,6 +43,7 @@ Game::run (std::optional<std::string_view> option)
   constexpr std::chrono::milliseconds interval (500);
   auto nextTick = std::chrono::high_resolution_clock::now () + interval;
   bool done = false;
+
   if (std::filesystem::exists (SaveSystem::saveFileName)
       && !(option.has_value () && option == "--noSave"))
     {
@@ -54,14 +55,7 @@ Game::run (std::optional<std::string_view> option)
       SDL_Event event;
       while (SDL_PollEvent (&event))
         {
-          ImGui_ImplSDL2_ProcessEvent (&event);
-          if (event.type == SDL_QUIT)
-            done = true;
-
-          if (event.type == SDL_WINDOWEVENT
-              && event.window.event == SDL_WINDOWEVENT_CLOSE
-              && event.window.windowID == SDL_GetWindowID (window))
-            done = true;
+          done = processEvent (event);
         }
 
       if (std::chrono::high_resolution_clock::now () >= nextTick)
@@ -69,22 +63,7 @@ Game::run (std::optional<std::string_view> option)
           gameSystems->gameTick ();
           nextTick += interval;
         }
-
-      ImGui_ImplSDLRenderer2_NewFrame ();
-      ImGui_ImplSDL2_NewFrame ();
-      ImGui::NewFrame ();
-
-      UI->renderUI ();
-
-      ImGui::Render ();
-      SDL_RenderSetScale (renderer, io->DisplayFramebufferScale.x,
-                          io->DisplayFramebufferScale.y);
-      SDL_RenderClear (renderer);
-      SDL_RenderCopy (renderer, backgroundPicture, nullptr, nullptr);
-
-      ImGui_ImplSDLRenderer2_RenderDrawData (ImGui::GetDrawData ());
-
-      SDL_RenderPresent (renderer);
+      renderFrame ();
     }
   gameSystems->save ();
 }
@@ -92,6 +71,7 @@ Game::run (std::optional<std::string_view> option)
 void
 Game::initialize ()
 {
+  // --------------- Code from ImGui
   if (SDL_Init (SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER)
       != 0)
     {
@@ -119,17 +99,15 @@ Game::initialize ()
   ImGui::CreateContext ();
   io = &ImGui::GetIO ();
   (void)io;
-  io->ConfigFlags
-      |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
-  io->ConfigFlags
-      |= ImGuiConfigFlags_NavEnableGamepad;          // Enable Gamepad Controls
-  io->ConfigFlags |= ImGuiConfigFlags_DockingEnable; // Enable Docking
+  io->ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+  io->ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
+  io->ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
   ImGui::StyleColorsDark ();
   ImGui_ImplSDL2_InitForSDLRenderer (window, renderer);
   ImGui_ImplSDLRenderer2_Init (renderer);
 
-  // -------------------------
+  // --------------- Code from this project
   loadBackgroundImage ();
   loadFont ();
   setImguiStyle ();
@@ -204,4 +182,39 @@ Game::loadBackgroundImage ()
   backgroundPicture = SDL_CreateTextureFromSurface (renderer, surface);
   SDL_FreeSurface (surface);
   assert (backgroundPicture != nullptr);
+}
+
+void
+Game::renderFrame ()
+{
+  ImGui_ImplSDLRenderer2_NewFrame ();
+  ImGui_ImplSDL2_NewFrame ();
+  ImGui::NewFrame ();
+
+  UI->renderUI ();
+
+  ImGui::Render ();
+  SDL_RenderSetScale (renderer, io->DisplayFramebufferScale.x,
+                      io->DisplayFramebufferScale.y);
+  SDL_RenderClear (renderer);
+  SDL_RenderCopy (renderer, backgroundPicture, nullptr, nullptr);
+
+  ImGui_ImplSDLRenderer2_RenderDrawData (ImGui::GetDrawData ());
+
+  SDL_RenderPresent (renderer);
+}
+
+bool
+Game::processEvent (const SDL_Event &event)
+{
+  ImGui_ImplSDL2_ProcessEvent (&event);
+  if (event.type == SDL_QUIT)
+    return true;
+
+  if (event.type == SDL_WINDOWEVENT
+      && event.window.event == SDL_WINDOWEVENT_CLOSE
+      && event.window.windowID == SDL_GetWindowID (window))
+    return true;
+
+  return false;
 }
