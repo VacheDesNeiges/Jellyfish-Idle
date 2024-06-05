@@ -53,6 +53,7 @@ MultipliersRegister::recomputeMultipliers ()
                 += MultipliersConstants::FoodProdPerDuctMultiplier
                    * ductsQuant;
           }
+          break;
 
         default:
           continue;
