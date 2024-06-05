@@ -1,6 +1,7 @@
 #include "SaveSystem.hpp"
 
 #include "AchievementIDs.hpp"
+#include "AquaCulture.hpp"
 #include "Building.hpp"
 #include "CraftingRecipe.hpp"
 #include "DepthSystem.hpp"
@@ -74,6 +75,17 @@ SaveSystem::save (const SaveData &data)
         { "RemainingTicks", craftData.remainingTicksToCraft },
         { "Level", craftData.lvl },
         { "CurrentProg", craftData.progressNeeded },
+      };
+    }
+
+  for (const auto &[id, cultureData] : data.cultures)
+    {
+      j["Culture"] += {
+        { "id", static_cast<unsigned> (id) },
+        { "Fields", cultureData.fieldCount },
+        { "Done", cultureData.craftDone },
+        { "Ongoing", cultureData.craftOngoing },
+        { "RemainingTicks", cultureData.remainingTicksToEnd },
       };
     }
 
@@ -158,6 +170,19 @@ SaveSystem::loadFromFile (std::string path)
               c["Done"].get<bool> (),
               c["RemainingTicks"].get<unsigned> (),
               c["Workers"].get<unsigned> (),
+          });
+    }
+
+  result.cultures.reserve (AquaCulture::CultureTypes.size ());
+  for (const auto &c : data["Culture"])
+    {
+      result.cultures.emplace_back (
+          static_cast<AquaCultureID> (c["id"].get<unsigned> ()),
+          CultureData{
+              c["Ongoing"].get<bool> (),
+              c["Done"].get<bool> (),
+              c["RemainingTicks"].get<unsigned> (),
+              c["Fields"].get<unsigned> (),
           });
     }
 

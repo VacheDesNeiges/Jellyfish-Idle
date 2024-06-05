@@ -44,18 +44,32 @@ GardenManager::isOngoing (AquaCultureID id) const
   return cultures.at (id).isOngoing ();
 }
 
-std::vector<int>
+std::vector<std::pair<AquaCultureID, CultureData> >
 GardenManager::getData () const
 {
-  // TODO : implement save and load
-  return { 1 };
+  auto result = std::vector<std::pair<AquaCultureID, CultureData> > ();
+
+  for (const auto culture : AquaCulture::CultureTypes)
+    {
+      auto saveData = cultures.at (culture).getData ();
+      saveData.fieldCount = getAssignedFieldsToCulture (culture);
+      result.emplace_back (culture, saveData);
+    }
+  return result;
 }
 
 void
-GardenManager::loadData (const std::vector<int> &vec)
+GardenManager::loadData (
+    const std::vector<std::pair<AquaCultureID, CultureData> > &data)
 {
-  // TODO implement
-  return;
+  for (const auto &[culture, cultureData] : data)
+    {
+      for (size_t i = 0; i < cultureData.fieldCount; i++)
+        {
+          assign (culture);
+        }
+      cultures.at (culture).loadData (cultureData);
+    }
 }
 
 std::vector<std::pair<RessourceType, double> >

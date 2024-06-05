@@ -93,18 +93,24 @@ AquaCulture::getTotalRequiredTicks () const
   return baseTicksToFinish;
 }
 
-std::vector<int>
+CultureData
 AquaCulture::getData () const
 {
-  // TODO implement
-  return { 1 };
+  CultureData result{
+    result.craftOngoing = cultureOngoing,
+    result.craftDone = done,
+    result.remainingTicksToEnd = remainingTicksToFinish,
+    result.fieldCount = 0,
+  };
+  return result;
 }
 
 void
-AquaCulture::loadData (const std::vector<int> &vec)
+AquaCulture::loadData (const CultureData &data)
 {
-  // TODO Implement
-  vec.at (0);
+  done = data.craftDone;
+  cultureOngoing = data.craftOngoing;
+  remainingTicksToFinish = data.remainingTicksToEnd;
 }
 
 std::vector<std::pair<RessourceType, double> >

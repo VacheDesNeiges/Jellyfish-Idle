@@ -43,7 +43,7 @@ GameSystems::save () const
   data.depth = systems->depth->getData ();
   data.upgrades = systems->upgrades->getData ();
   data.crafts = systems->crafts->getData ();
-  // TODO Garden
+  data.cultures = systems->garden->getData ();
 
   SaveSystem::save (data);
 }
@@ -58,10 +58,10 @@ GameSystems::loadSave (const std::string &path) const
   systems->jellies->loadData (loadedData.jellies);
   systems->depth->loadData (loadedData.depth);
   systems->upgrades->loadData (loadedData.upgrades);
+  systems->garden->loadData (loadedData.cultures);
 
   synchronizer->synchronizeSystems ();
   systems->crafts->loadData (loadedData.crafts);
-  // TODO Garden
 }
 
 std::shared_ptr<GameDataView>

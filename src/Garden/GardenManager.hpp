@@ -7,8 +7,10 @@
 #include <utility>
 #include <vector>
 
-class GardenManager final : public GameDataAccess,
-                            public SaveAndLoadable<std::vector<int> >
+class GardenManager final
+    : public GameDataAccess,
+      public SaveAndLoadable<
+          std::vector<std::pair<AquaCultureID, CultureData> > >
 {
 
 public:
@@ -40,8 +42,11 @@ public:
       getResult (AquaCultureID) const;
   std::vector<std::pair<RessourceType, double> > getFieldsResults ();
 
-  void loadData (const std::vector<int> &) override;
-  std::vector<int> getData () const override;
+  void loadData (
+      const std::vector<std::pair<AquaCultureID, CultureData> > &) override;
+
+  std::vector<std::pair<AquaCultureID, CultureData> >
+  getData () const override;
 
 private:
   std::unordered_map<AquaCultureID, AquaCulture> cultures;

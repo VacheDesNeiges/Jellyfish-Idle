@@ -1,5 +1,6 @@
 #pragma once
 
+#include "AquaCulture.hpp"
 #include "Building.hpp"
 #include "CraftingRecipe.hpp"
 #include "DepthSystem.hpp"
@@ -19,6 +20,7 @@ struct SaveData
   DepthData depth;
   std::vector<std::pair<UpgradeID, bool> > upgrades;
   std::vector<std::pair<RecipeID, RecipeSaveData> > crafts;
+  std::vector<std::pair<AquaCultureID, CultureData> > cultures;
 };
 
 class SaveSystem

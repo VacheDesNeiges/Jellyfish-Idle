@@ -8,6 +8,14 @@
 #include <utility>
 #include <vector>
 
+struct CultureData
+{
+  bool craftOngoing;
+  bool craftDone;
+  unsigned remainingTicksToEnd;
+  unsigned fieldCount;
+};
+
 enum class AquaCultureID
 {
   Plankton,
@@ -16,7 +24,7 @@ enum class AquaCultureID
   None,
 };
 
-class AquaCulture final : public SaveAndLoadable<std::vector<int> >
+class AquaCulture final : public SaveAndLoadable<CultureData>
 {
 public:
   explicit AquaCulture (AquaCultureID);
@@ -36,8 +44,8 @@ public:
   std::vector<std::pair<RessourceType, double> > getCost () const;
   std::vector<std::pair<RessourceType, double> > getResult () const;
 
-  std::vector<int> getData () const override;
-  void loadData (const std::vector<int> &) override;
+  CultureData getData () const override;
+  void loadData (const CultureData &) override;
 
   static constexpr std::array<AquaCultureID, 2> CultureTypes = {
     AquaCultureID::Plankton,
