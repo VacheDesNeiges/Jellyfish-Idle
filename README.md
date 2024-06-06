@@ -4,7 +4,7 @@
 This repository contains a work-in-progress jellyfish themed incremental game
 
 # Installation
-install the required dependencies, then run the command
+Install the required dependencies, then run the command
 ```
 ./build.sh
 ```
