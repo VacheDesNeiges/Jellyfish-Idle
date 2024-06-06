@@ -10,10 +10,11 @@ install the required dependencies, then run the command
 ```
 
 # Dependencies
-This program requires the following libraries :
+This program requires the following tools and libraries :
 
 - C++ 20 compiler
 - CMake 3.22+
+  
 - SDL2
 - fmt
 - gtest
