@@ -1,6 +1,15 @@
 # Jellyfish-Idle - A jellyfish themed incremental game
+![CI](https://github.com/VacheDesNeiges/Jellyfish-Idle/actions/workflows/cmake-single-platform.yml/badge.svg)
 
-# Dependencies : 
+This repository contains a work-in-progress jellyfish themed incremental game
+
+# Installation
+install the required dependencies, then run the command
+```
+./build.sh
+```
+
+# Dependencies
 
 - C++ 20 compiler
 - CMake 3.22+
