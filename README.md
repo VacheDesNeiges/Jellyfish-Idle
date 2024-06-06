@@ -10,6 +10,7 @@ install the required dependencies, then run the command
 ```
 
 # Dependencies
+This program requires the following libraries :
 
 - C++ 20 compiler
 - CMake 3.22+
