@@ -2,7 +2,6 @@
 #include "AquaCultureID.hpp"
 #include "GardenManager.hpp"
 #include "gtest/gtest.h"
-#include <cassert>
 
 class AquaCultureFixture : public ::testing::Test
 {
