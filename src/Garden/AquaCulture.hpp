@@ -1,5 +1,6 @@
 #pragma once
 
+#include "AquaCultureID.hpp"
 #include "Ressource.hpp"
 #include "SaveAndLoadable.hpp"
 
@@ -14,14 +15,6 @@ struct CultureData
   bool craftDone;
   unsigned remainingTicksToEnd;
   unsigned fieldCount;
-};
-
-enum class AquaCultureID
-{
-  Plankton,
-  Oysters,
-  SandWorms,
-  None,
 };
 
 class AquaCulture final : public SaveAndLoadable<CultureData>
