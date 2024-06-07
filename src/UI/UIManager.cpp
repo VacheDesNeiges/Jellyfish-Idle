@@ -25,7 +25,7 @@ UIManager::bindGameData (std::shared_ptr<GameDataView> viewPtr,
 void
 UIManager::renderUI () const
 {
-  ImGui::DockSpaceOverViewport (ImGui::GetMainViewport ());
+  ImGui::DockSpaceOverViewport (0, ImGui::GetMainViewport ());
 
   buildingsPanel.render ();
 

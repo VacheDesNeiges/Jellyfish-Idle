@@ -17,8 +17,9 @@ void
 UIJobsPanel::render () const
 {
   if (!ImGui::Begin ("Jobs", nullptr,
-                     ImGuiWindowFlags_NoMove)) //  change to noMove flag
-                                               // once done with ui
+                     ImGuiWindowFlags_NoMove
+                         & ImGuiWindowFlags_NoFocusOnAppearing))
+
     {
       ImGui::End ();
       return;

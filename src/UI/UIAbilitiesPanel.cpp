@@ -7,7 +7,9 @@
 void
 UIAbilitiesPanel::render () const
 {
-  if (!ImGui::Begin ("Abilities", nullptr, ImGuiWindowFlags_NoMove))
+  if (!ImGui::Begin ("Abilities", nullptr,
+                     ImGuiWindowFlags_NoFocusOnAppearing
+                         & ImGuiWindowFlags_NoMove))
     {
       ImGui::End ();
       return;

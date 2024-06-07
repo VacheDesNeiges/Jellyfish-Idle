@@ -201,7 +201,7 @@ Game::renderFrame ()
   SDL_RenderClear (renderer);
   SDL_RenderCopy (renderer, backgroundPicture, nullptr, nullptr);
 
-  ImGui_ImplSDLRenderer2_RenderDrawData (ImGui::GetDrawData ());
+  ImGui_ImplSDLRenderer2_RenderDrawData (ImGui::GetDrawData (), renderer);
 
   SDL_RenderPresent (renderer);
 }

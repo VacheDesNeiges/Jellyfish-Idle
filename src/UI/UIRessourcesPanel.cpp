@@ -21,7 +21,7 @@ UIRessourcesPanel::render () const
 void
 UIRessourcesPanel::renderRessources () const
 {
-  if (!ImGui::Begin ("Ressources", nullptr, ImGuiWindowFlags_None))
+  if (!ImGui::Begin ("Ressources", nullptr, ImGuiWindowFlags_NoMove))
     {
       ImGui::End ();
       return;
@@ -61,7 +61,7 @@ void
 UIRessourcesPanel::renderManufacturedRessources () const
 {
   if (!ImGui::Begin ("Manufactured Ressources", nullptr,
-                     ImGuiWindowFlags_None))
+                     ImGuiWindowFlags_NoMove))
     {
       ImGui::End ();
       return;

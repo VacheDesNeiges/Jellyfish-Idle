@@ -10,7 +10,9 @@
 void
 UIOctopusPanel::render () const
 {
-  if (!ImGui::Begin ("Octopus", nullptr, ImGuiWindowFlags_None))
+  if (!ImGui::Begin ("Octopus", nullptr,
+                     ImGuiWindowFlags_NoMove
+                         & ImGuiWindowFlags_NoFocusOnAppearing))
     {
       ImGui::End ();
       return;
