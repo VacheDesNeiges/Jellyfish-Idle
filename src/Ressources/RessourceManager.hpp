@@ -14,7 +14,7 @@ public:
   RessourceManager ();
   void init ();
 
-  void gatherFood ();
+  void gatherSand ();
   double getCurrentQuantity (RessourceType);
   double getMaxQuantity (RessourceType);
   double getNetProduction (RessourceType);

@@ -9,7 +9,7 @@ AbilityFactory::createAbilityInstance (AbilityType t)
 {
   switch (t)
     {
-    case AbilityType::CallThunder:
+    case AbilityType::AbilityLightning:
       return std::make_unique<CallThunder> ();
 
     default:

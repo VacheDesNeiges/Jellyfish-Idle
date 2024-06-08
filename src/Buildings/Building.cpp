@@ -14,29 +14,12 @@ Building::Building (BuildingType bType)
 
       using enum RessourceType;
 
-    case BuildingType::PlanktonField:
-      name = "Plankton Field";
+    case BuildingType::AquaticField:
+      name = "Aquatic Field";
       description
-          = "A delimited area on the surface where your jellies cultivate "
-            "plankton. Generates 0.25 units of food per second";
-      priceMultiplier = 1.15;
-      basePrice.emplace_back (Food, 5);
-
-      baseProductionPerTick.try_emplace (Food, 0.125);
-      prodPerTick.emplace_back (Food, 0);
-      break;
-
-    case BuildingType::SandCurrentDucts:
-      // Ducts that harness the currents,
-      // allowing more nutrients to reach
-      // the plankton field and increase its
-      // production
-      name = "Sand Current Ducts";
-      description
-          = "A sand duct harnessing the currents to allow more nutrients to "
-            "reach your plankton fields. Each level increase their production "
-            "by 8%";
-      priceMultiplier = 1.3;
+          = "A delimited area used to cultivate useful flora and fauna. Each "
+            "level in this building increase the productivity of the fields";
+      priceMultiplier = 1.20;
       basePrice.emplace_back (Sand, 5);
       break;
 

@@ -22,7 +22,7 @@ endif()
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}\
 -lgtest \
 -lpthread \
--lstdc++ \
+-lc++ \
 -lm \
 -lSDL2 \
 -lfmt")
@@ -75,5 +75,4 @@ file(MAKE_DIRECTORY ${TEST_BUILD_DIR})
 add_executable(test ${TEST_SRCS} ${SRCS} ${CMAKE_SOURCE_DIR}/tests/TestsMain.cpp)
 target_link_libraries(test ${CMAKE_EXE_LINKER_FLAGS})
 set_target_properties(test PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY ${TEST_BUILD_DIR}
-)
+    RUNTIME_OUTPUT_DIRECTORY ${TEST_BUILD_DIR})

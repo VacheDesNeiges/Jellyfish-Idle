@@ -36,13 +36,13 @@ public: // constexpr arrays
       buildingMultipliers = {
         std::pair{ BuildingType::Mines,
                    MultiplierID::StoneProdPerMineMultiplier },
-        std::pair{ BuildingType::SandCurrentDucts,
-                   MultiplierID::FoodProdPerDuctMultiplier },
+        std::pair{ BuildingType::AquaticField,
+                   MultiplierID::FieldsProductivityMultiplier },
       };
 
   static constexpr std::array<MultiplierID, 3> allMultipliers = {
     MultiplierID::StoneProdPerMineMultiplier,
     MultiplierID::MiningLevelMultiplier,
-    MultiplierID::FoodProdPerDuctMultiplier,
+    MultiplierID::FieldsProductivityMultiplier,
   };
 };

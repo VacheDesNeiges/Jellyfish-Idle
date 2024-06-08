@@ -44,14 +44,14 @@ MultipliersRegister::recomputeMultipliers ()
           }
           break;
 
-        case MultiplierID::FoodProdPerDuctMultiplier:
+        case MultiplierID::FieldsProductivityMultiplier:
           {
-            auto ductsQuant = buildingsView ()->getBuildingQuantity (
-                BuildingType::SandCurrentDucts);
+            auto fieldsQuantity = buildingsView ()->getBuildingQuantity (
+                BuildingType::AquaticField);
 
             multipliers[multi]
-                += MultipliersConstants::FoodProdPerDuctMultiplier
-                   * ductsQuant;
+                += MultipliersConstants::FieldsProductivityMultiplier
+                   * (fieldsQuantity - 1);
           }
           break;
 
@@ -73,9 +73,9 @@ MultipliersRegister::buildingBoughtUpdate (BuildingType t)
           += MultipliersConstants::StoneProdPerMine;
       break;
 
-    case BuildingType::SandCurrentDucts:
-      multipliers.at (MultiplierID::FoodProdPerDuctMultiplier)
-          += MultipliersConstants::FoodProdPerDuctMultiplier;
+    case BuildingType::AquaticField:
+      multipliers.at (MultiplierID::FieldsProductivityMultiplier)
+          += MultipliersConstants::FieldsProductivityMultiplier;
       break;
 
     default:
@@ -101,8 +101,8 @@ MultipliersRegister::getBuildingMultiplier (BuildingType bType) const
 {
   switch (bType)
     {
-    case BuildingType::PlanktonField:
-      return multipliers.at (MultiplierID::FoodProdPerDuctMultiplier);
+    case BuildingType::AquaticField:
+      return multipliers.at (MultiplierID::FieldsProductivityMultiplier);
 
     default:
       return 1;

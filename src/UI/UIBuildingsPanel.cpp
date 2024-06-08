@@ -18,9 +18,9 @@ UIBuildingPanel::render () const
 
   ImGui::SetCursorPosX (50);
   if (constexpr auto sz = ImVec2 (300.f, 45.0f);
-      ImGui::Button ("GatherFood", sz))
+      ImGui::Button ("Gather Sand", sz))
     {
-      inputHandler->gatherFood ();
+      inputHandler->gatherSand ();
     }
 
   ImGui::SameLine ();

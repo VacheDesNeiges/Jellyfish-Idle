@@ -14,7 +14,7 @@ class InputHandler
 public:
   explicit InputHandler (std::shared_ptr<SystemPtrs>);
 
-  void gatherFood () const;
+  void gatherSand () const;
   void buy (BuildingType) const;
   void buy (UpgradeID) const;
 

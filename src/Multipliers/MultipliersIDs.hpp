@@ -3,7 +3,7 @@
 enum class MultiplierID
 {
   StoneProdPerMineMultiplier,
-  FoodProdPerDuctMultiplier,
+  FieldsProductivityMultiplier,
 
   MiningLevelMultiplier,
 };

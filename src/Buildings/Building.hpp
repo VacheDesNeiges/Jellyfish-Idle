@@ -8,8 +8,7 @@
 #include <vector>
 enum class BuildingType
 {
-  PlanktonField,
-  SandCurrentDucts,
+  AquaticField,
   DuneShelter,
   Mines,
   GlassNests,
@@ -43,12 +42,16 @@ public:
   std::string getDescription () const;
   std::string getAdvancedDescription () const;
 
-  static constexpr std::array<BuildingType, 10> BuildingTypes = {
-    BuildingType::PlanktonField,    BuildingType::SandCurrentDucts,
-    BuildingType::DuneShelter,      BuildingType::Mines,
-    BuildingType::GlassNests,       BuildingType::GlassTower,
-    BuildingType::MarineStockRoom,  BuildingType::GlassBlowerAtelier,
-    BuildingType::SubmergedLibrary, BuildingType::SolarLensFurnace,
+  static constexpr std::array<BuildingType, 9> BuildingTypes = {
+    BuildingType::AquaticField,
+    BuildingType::DuneShelter,
+    BuildingType::Mines,
+    BuildingType::GlassNests,
+    BuildingType::GlassTower,
+    BuildingType::MarineStockRoom,
+    BuildingType::GlassBlowerAtelier,
+    BuildingType::SubmergedLibrary,
+    BuildingType::SolarLensFurnace,
   };
 
   static constexpr std::array<BuildingType, 1> convertionBuildings = {

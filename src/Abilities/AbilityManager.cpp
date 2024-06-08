@@ -7,8 +7,8 @@
 AbilityManager::AbilityManager ()
 {
   abilities.reserve (InsightAbility::AbilitiesTypes.size ());
-  abilities[AbilityType::CallThunder]
-      = AbilityFactory::createAbilityInstance (AbilityType::CallThunder);
+  abilities[AbilityType::AbilityLightning]
+      = AbilityFactory::createAbilityInstance (AbilityType::AbilityLightning);
 }
 
 bool

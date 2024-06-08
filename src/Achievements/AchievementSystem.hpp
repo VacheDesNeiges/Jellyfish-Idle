@@ -35,6 +35,7 @@ public:
   void checkAchievements ();
 
 private:
+  void initLambdas ();
   std::unordered_map<AchievementIDs, Achievement> achievements;
   std::unordered_map<AchievementIDs, std::function<bool ()> >
       achievementConditions;

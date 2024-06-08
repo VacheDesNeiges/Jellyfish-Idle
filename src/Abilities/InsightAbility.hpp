@@ -7,7 +7,7 @@
 
 enum class AbilityType
 {
-  CallThunder
+  AbilityLightning
 };
 
 class InsightAbility
@@ -21,7 +21,7 @@ public:
   std::vector<std::pair<RessourceType, double> > getProduction () const;
 
   static constexpr std::array<AbilityType, 1> AbilitiesTypes
-      = { AbilityType::CallThunder };
+      = { AbilityType::AbilityLightning };
 
 private:
   std::string name;

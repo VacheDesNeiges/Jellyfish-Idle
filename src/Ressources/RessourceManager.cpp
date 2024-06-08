@@ -21,9 +21,9 @@ RessourceManager::init ()
 }
 
 void
-RessourceManager::gatherFood ()
+RessourceManager::gatherSand ()
 {
-  ressources[RessourceType::Food].add (1);
+  ressources[RessourceType::Sand].add (1);
 }
 
 double

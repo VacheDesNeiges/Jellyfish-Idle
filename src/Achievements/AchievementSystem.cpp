@@ -9,8 +9,6 @@
 #include "Ressource.hpp"
 #include "UpgradeId.hpp"
 
-#include <cassert>
-#include <iostream>
 #include <utility>
 #include <vector>
 
@@ -23,89 +21,7 @@ AchievementSystem::AchievementSystem ()
     {
       achievements.emplace (a, Achievement ());
     }
-
-  achievementConditions = {
-    { PlanktonField,
-      [this] () {
-        return ressourcesView ()->getRessourceQuantity (RessourceType::Food)
-               >= 5;
-      } },
-
-    { FirstSandNest,
-      [this] () {
-        return ressourcesView ()->getRessourceQuantity (RessourceType::Sand)
-               >= 0.3;
-      } },
-
-    { Mines, [this] () { return depthView ()->getCurrentDepth () >= 20; } },
-
-    { FirstJelly,
-      [this] () { return jelliesView ()->getNumJellies () >= 1; } },
-
-    { JobExploreTheDepths,
-      [this] () { return jelliesView ()->getNumJellies () >= 2; } },
-
-    { JobMining,
-      [this] () {
-        return upgradeView ()->isBought (UpgradeID::Telekinesis);
-      } },
-
-    { JobArtisan,
-      [this] () {
-        return upgradeView ()->isBought (UpgradeID::AdvancedTelekinesis);
-      } },
-
-    { FocusingUpgradeBought,
-      [this] () { return upgradeView ()->isBought (UpgradeID::Focusing); } },
-
-    { TelekinesisUpgradeBought,
-      [this] () {
-        return upgradeView ()->isBought (UpgradeID::Telekinesis);
-      } },
-
-    { AdvancedTelekinesisUpgradeBought,
-      [this] () {
-        return upgradeView ()->isBought (UpgradeID::AdvancedTelekinesis);
-      } },
-
-    { LightningAbilityBuyable,
-      [this] () {
-        return ressourcesView ()->getRessourceQuantity (RessourceType::Insight)
-               >= 1;
-      } },
-
-    { ResearchTabUnlocked, [] () { return false; } },
-
-    { AncientOctopus,
-      [this] () { return depthView ()->getCurrentDepth () >= 10; } },
-
-    { RessourceGlass,
-      [this] () {
-        return ressourcesView ()->getRessourceQuantity (RessourceType::Glass)
-               > 0;
-      } },
-
-    { RessourceStoneSlab,
-      [this] () {
-        return ressourcesView ()->getRessourceQuantity (
-                   RessourceType::StoneSlab)
-               > 0;
-      } },
-
-    { RessourceGlassPane,
-      [this] () {
-        return ressourcesView ()->getRessourceQuantity (
-                   RessourceType::GlassPane)
-               > 0;
-      } }
-  };
-
-  for (const auto &id : allAchievementsIDs)
-    {
-      assert (achievementConditions.contains (id)
-              || std::cerr << "Missing achievement enum val : "
-                           << static_cast<int> (id) << "\n");
-    }
+  initLambdas ();
 }
 
 bool
@@ -163,20 +79,18 @@ AchievementSystem::isUnlocked (BuildingType t) const
   using enum BuildingType;
   switch (t)
     {
-    case PlanktonField:
-      return isUnlocked (AchievementIDs::PlanktonField);
-
-    case SandCurrentDucts:
-      return isUnlocked (AchievementIDs::FirstSandNest);
+      using enum AchievementIDs;
+    case AquaticField:
+      return isUnlocked (BuildingAquaticField);
 
     case DuneShelter:
-      return isUnlocked (AchievementIDs::FirstSandNest);
+      return isUnlocked (BuildingSandNest);
 
     case Mines:
-      return isUnlocked (AchievementIDs::Mines);
+      return isUnlocked (BuildingMines);
 
     case GlassNests:
-      return isUnlocked (AchievementIDs::RessourceGlass);
+      return isUnlocked (RessourceGlass);
 
     default:
       return false;
@@ -220,10 +134,10 @@ AchievementSystem::isUnlocked (RessourceType r) const
       using enum RessourceType;
 
     case Food:
-      return true;
+      return isUnlocked (RessourceFood);
 
     case Sand:
-      return isUnlocked (FirstJelly);
+      return true;
 
     case Stone:
       return isUnlocked (JobMining);
@@ -251,7 +165,7 @@ AchievementSystem::isUnlocked (AbilityType t) const
   using enum AbilityType;
   switch (t)
     {
-    case CallThunder:
+    case AbilityLightning:
       return isUnlocked (AchievementIDs::LightningAbilityBuyable);
     default:
       return false;

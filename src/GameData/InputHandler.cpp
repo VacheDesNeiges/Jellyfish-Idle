@@ -1,5 +1,4 @@
 #include "InputHandler.hpp"
-#include "AquaCulture.hpp"
 #include "GameSystems.hpp"
 #include "Jellyfish.hpp"
 #include "RecipeID.hpp"
@@ -57,9 +56,9 @@ InputHandler::unassignJelly (JellyJobs j) const
 }
 
 void
-InputHandler::gatherFood () const
+InputHandler::gatherSand () const
 {
-  systems->ressources->gatherFood ();
+  systems->ressources->gatherSand ();
 }
 
 void
