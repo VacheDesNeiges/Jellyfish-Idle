@@ -32,12 +32,8 @@ main (int argc, char *argv[])
 // TODO : create one or multiples files containing all the global constants of
 // the game
 // TODO : Try using std::span on function that returns vectors ?
-// TODO : separate CI into 3 jobs
-// TODO : add ImGuiWindowFlags_NoFocusOnAppearing to UI
 
 // Bugs :
-// TODO : add a no max cap ressource category for pearls and other rare
-// ressources
 // TODO : Savefile format stores enums with integers, making the saves prone to
 // break when inserting a new value in enums. Needs a more robust solution
 // TODO : parenthesis still display next to the price at the last second in

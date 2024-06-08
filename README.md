@@ -15,6 +15,7 @@ This program requires the following tools and libraries :
 - C++ 20 compiler
 - CMake 3.22+
   
+- STL 
 - SDL2
 - fmt
 - gtest
