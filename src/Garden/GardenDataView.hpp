@@ -15,16 +15,12 @@ public:
   std::string getName (AquaCultureID) const;
   unsigned getAssignedFieldsToCulture (AquaCultureID) const;
   bool isOngoing (AquaCultureID) const;
-  bool canAfford (AquaCultureID) const;
 
   std::vector<std::pair<RessourceType, double> >
-      getFieldCost (AquaCultureID) const;
+      getFieldConsumption (AquaCultureID) const;
 
   std::vector<std::pair<RessourceType, double> >
-      getFieldResults (AquaCultureID) const;
-
-  unsigned getRemainingTicks (AquaCultureID) const;
-  unsigned getTotalRequiredTicks (AquaCultureID) const;
+      getFieldProduction (AquaCultureID) const;
 
 private:
   std::shared_ptr<GardenManager> garden;

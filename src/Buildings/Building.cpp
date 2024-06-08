@@ -127,7 +127,7 @@ Building::getAdvancedDescription () const // TODO : Move to UI ?
   std::string s = "price :";
   for (const auto &[ressource, price] : basePrice)
     {
-      s += fmt::format ("\n{:.2f}", price * pow (priceMultiplier, quantity));
+      s += fmt::format ("\n{:.3f}", price * pow (priceMultiplier, quantity));
     }
   return s;
 }

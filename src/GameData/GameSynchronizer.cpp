@@ -37,15 +37,6 @@ GameSynchronizer::gameTick () const
         }
     }
 
-  if (systems->garden->tick ())
-    {
-      for (const auto &[ressource, prod] :
-           systems->garden->getFieldsResults ())
-        {
-          systems->ressources->add (ressource, prod);
-        }
-    }
-
   systems->depth->ExploreDepth (
       systems->jellies->getNum (JellyJobs::ExploreTheDepths));
 
@@ -132,5 +123,15 @@ GameSynchronizer::convertRessources () const
       const auto &prod = systems->buildings->getProduction (building);
       const auto &cons = systems->buildings->getConsumption (building);
       systems->ressources->tryConvert (cons, prod);
+    }
+
+  for (const auto culture : AquaCulture::CultureTypes)
+    {
+      if (systems->garden->isOngoing (culture))
+        {
+          const auto &prod = systems->garden->getProduction (culture);
+          const auto &cons = systems->garden->getConsumption (culture);
+          systems->ressources->tryConvert (cons, prod);
+        }
     }
 }

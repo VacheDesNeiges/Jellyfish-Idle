@@ -118,13 +118,13 @@ RessourceManager::tryConvert (
   for (const auto &[rType, cons] : from)
     {
       ressources[rType].add (-cons);
-      ressources[rType].addToConsumptionPerTick (-cons);
+      ressources[rType].addToConsumptionPerTick (cons);
     }
 
   for (const auto &[rType, prod] : to)
     {
       ressources[rType].add (prod);
-      ressources[rType].addToConsumptionPerTick (prod);
+      ressources[rType].addToProdPerTick (prod);
     }
 }
 

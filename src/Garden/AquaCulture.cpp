@@ -13,17 +13,17 @@ AquaCulture::AquaCulture (AquaCultureID id)
       name = "Plankton";
       baseTicksToFinish = 120;
 
-      baseResult.emplace_back (Food, 10);
+      baseProduction.emplace_back (Food, 0.08);
       break;
 
     case Oysters:
-      name = "Oyster";
+      name = "Oysters";
       baseTicksToFinish = 600;
 
-      cost.emplace_back (Food, 30);
-      cost.emplace_back (Sand, 10);
+      baseConsumption.emplace_back (Food, 0.05);
+      baseConsumption.emplace_back (Sand, 0.02);
 
-      baseResult.emplace_back (Pearl, 1);
+      baseProduction.emplace_back (Pearl, 0.0017);
       break;
 
     default:
@@ -114,15 +114,15 @@ AquaCulture::loadData (const CultureData &data)
 }
 
 std::vector<std::pair<RessourceType, double> >
-AquaCulture::getCost () const
+AquaCulture::getBaseConsumption () const
 {
-  return cost;
+  return baseConsumption;
 }
 
 std::vector<std::pair<RessourceType, double> >
-AquaCulture::getResult () const
-{ // TODO multipliers from garden level ?
-  return baseResult;
+AquaCulture::getBaseProduction () const
+{
+  return baseProduction;
 }
 
 std::string

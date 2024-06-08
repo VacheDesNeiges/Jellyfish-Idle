@@ -123,7 +123,7 @@ UIJobsPanel::renderRecipe (RecipeID id) const
   ImGui::Text ("Produces :");
 
   const std::string quantity
-      = fmt::format ("{} x {:.2f}", recipeName,
+      = fmt::format ("{} x {:.3f}", recipeName,
                      gData->getCraftView ()->getCraftResults (id)[0].second);
 
   ImGui::SameLine (ImGui::GetWindowWidth ()

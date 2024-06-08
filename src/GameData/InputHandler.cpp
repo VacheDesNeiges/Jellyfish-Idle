@@ -132,11 +132,11 @@ InputHandler::unassignToRecipe (RecipeID id) const
 void
 InputHandler::startCulture (AquaCultureID id) const
 {
-  if (systems->garden->canAfford (id))
+  if (systems->garden->canAffordTick (id))
     {
       // TODO : Add a function that takes a vector and does the following loop
       // internaly
-      for (const auto &[rType, quant] : systems->garden->getCost (id))
+      for (const auto &[rType, quant] : systems->garden->getConsumption (id))
         {
           systems->ressources->add (rType, -quant);
         }

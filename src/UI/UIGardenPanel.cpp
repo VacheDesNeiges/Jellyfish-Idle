@@ -35,35 +35,36 @@ UIGardenPanel::render () const
 void
 UIGardenPanel::renderCulture (AquaCultureID id) const
 {
-  constexpr auto size = ImVec2 (200, 300);
+  constexpr auto size = ImVec2 (200, 270);
   const auto &cultureName = gData->getGardenView ()->getName (id);
 
   ImGui::BeginChild (cultureName.c_str (), size);
 
   ImGui::SeparatorText (cultureName.c_str ());
-  displayCultureProduction (cultureName, id);
+  displayCultureProduction (id);
 
   ImGui::SeparatorText ("Assigned Fields ");
   displayFieldsAssignmentArrows (cultureName, id);
+  displayGrowAndStopButtons (id);
 
   ImGui::SeparatorText ("Cost");
   displayCultureCost (id);
 
   ImGui::SeparatorText ("");
-  displayStartAndCancelButtons (id);
-  displayProgressBar (id);
 
   ImGui::EndChild ();
 }
 
 void
-UIGardenPanel::displayCultureProduction (const std::string &cultureName,
-                                         AquaCultureID id) const
+UIGardenPanel::displayCultureProduction (AquaCultureID id) const
 {
   ImGui::Text ("Produces :");
-  const std::string quantity
-      = fmt::format ("{} x {:.2f}", cultureName,
-                     gData->getGardenView ()->getFieldResults (id)[0].second);
+  const std::string quantity = fmt::format (
+      "{} x {:.3f}/sec",
+      gData->getRessourcesView ()->getRessourceName (
+          gData->getGardenView ()->getFieldProduction (id).at (0).first),
+      gData->getGardenView ()->getFieldProduction (id)[0].second * 2);
+
   ImGui::SameLine (ImGui::GetWindowWidth ()
                    - (ImGui::CalcTextSize (quantity.c_str ()).x + 10));
   ImGui::Text ("%s", quantity.c_str ());
@@ -76,10 +77,14 @@ UIGardenPanel::displayFieldsAssignmentArrows (const std::string &cultureName,
   ImGui::BeginDisabled (
       gData->getGardenView ()->isOngoing (id)
       || (gData->getGardenView ()->getAssignedFieldsToCulture (id) == 0));
+
+  ImGui::SetCursorPosX (ImGui::GetCursorPosX () + 67);
+
   if (ImGui::ArrowButton ((cultureName + "##left").c_str (), ImGuiDir_Left))
     {
       inputHandler->unassignToField (id);
     }
+
   ImGui::EndDisabled ();
 
   ImGui::SameLine ();
@@ -101,9 +106,11 @@ UIGardenPanel::displayFieldsAssignmentArrows (const std::string &cultureName,
 }
 
 void
-UIGardenPanel::displayCultureCost (AquaCultureID id) const
+UIGardenPanel::displayCultureCost (
+    AquaCultureID id) const // TODO write garden own function instead of
+                            // reusing the one from crafting
 {
-  const auto &costData = gData->getGardenView ()->getFieldCost (id);
+  const auto &costData = gData->getGardenView ()->getFieldConsumption (id);
   if (costData.empty ())
     {
       ImGui::Text ("Nothing");
@@ -115,14 +122,15 @@ UIGardenPanel::displayCultureCost (AquaCultureID id) const
 }
 
 void
-UIGardenPanel::displayStartAndCancelButtons (AquaCultureID id) const
+UIGardenPanel::displayGrowAndStopButtons (AquaCultureID id) const
 {
   ImGui::BeginDisabled (
       gData->getGardenView ()->getAssignedFieldsToCulture (id) == 0
-      || (gData->getGardenView ()->isOngoing (id))
-      || (!gData->getGardenView ()->canAfford (id)));
+      || (gData->getGardenView ()->isOngoing (id)));
 
-  if (ImGui::Button ("Start"))
+  ImGui::SetCursorPosX (ImGui::GetCursorPosX () + 25);
+
+  if (ImGui::Button ("Grow"))
     {
       inputHandler->startCulture (id);
     }
@@ -131,24 +139,9 @@ UIGardenPanel::displayStartAndCancelButtons (AquaCultureID id) const
   ImGui::SameLine ();
 
   ImGui::BeginDisabled (!gData->getGardenView ()->isOngoing (id));
-  if (ImGui::Button ("Cancel"))
+  if (ImGui::Button ("Stop"))
     {
       inputHandler->cancelCulture (id);
     }
   ImGui::EndDisabled ();
-}
-
-void
-UIGardenPanel::displayProgressBar (AquaCultureID id) const
-{
-  const auto progress
-      = 1.f
-        - (static_cast<float> (gData->getGardenView ()->getRemainingTicks (id))
-           / static_cast<float> (
-               gData->getGardenView ()->getTotalRequiredTicks (id)));
-
-  const auto &remainingTime = fmt::format (
-      "{} seconds", gData->getGardenView ()->getRemainingTicks (id) / 2);
-
-  ImGui::ProgressBar (progress, ImVec2 (-1.0f, 0.0f), remainingTime.c_str ());
 }

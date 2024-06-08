@@ -92,7 +92,7 @@ UIRessourcesPanel::renderRessource (RessourceType ressource) const
 
   std::ostringstream stream;
   stream << std::fixed;
-  stream << std::setprecision (2);
+  stream << std::setprecision (3);
   stream << gData->getRessourcesView ()->getRessourceQuantity (ressource);
 
   if (!(gData->getRessourcesView ()->getRessourceMaxQuantity (ressource)
@@ -100,7 +100,7 @@ UIRessourcesPanel::renderRessource (RessourceType ressource) const
       && !(gData->getRessourcesView ()->getRessourceMaxQuantity (ressource)
            == -1))
     {
-      stream << "/"
+      stream << " /"
              << gData->getRessourcesView ()->getRessourceMaxQuantity (
                     ressource);
     }
@@ -116,7 +116,7 @@ UIRessourcesPanel::renderRessource (RessourceType ressource) const
   ImGui::NextColumn ();
 
   std::string production = fmt::format (
-      "+{:.2f}/sec",
+      "{:.3f}/sec",
       (gData->getRessourcesView ()->getRessourceProduction (ressource)
        - gData->getRessourcesView ()->getRessourceConsumption (ressource))
           * 2);

@@ -74,7 +74,7 @@ UIUtils::printCostsImGui (
           timeToBuyable += fmt::format (")");
         }
       ImGui::TextColored (textColor, "%s",
-                          fmt::format ("{} : {:.2f}/{:.2f}  {}", ressourceName,
+                          fmt::format ("{} : {:.3f}/{:.3f}  {}", ressourceName,
                                        requestedQuantity, cost, timeToBuyable)
                               .c_str ());
     }

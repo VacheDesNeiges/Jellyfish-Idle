@@ -1,5 +1,8 @@
 #include "GardenManager.hpp"
 #include "AquaCulture.hpp"
+#include "AquaCultureID.hpp"
+#include "MultiplierDataView.hpp"
+#include "MultipliersIDs.hpp"
 #include <utility>
 #include <vector>
 
@@ -24,18 +27,6 @@ void
 GardenManager::cancelCulture (AquaCultureID id)
 {
   cultures.at (id).cancel ();
-}
-
-unsigned
-GardenManager::getRemainingTicks (AquaCultureID id) const
-{
-  return cultures.at (id).getRemainingTicks ();
-}
-
-unsigned
-GardenManager::getTotalRequiredTicks (AquaCultureID id) const
-{
-  return cultures.at (id).getTotalRequiredTicks ();
 }
 
 bool
@@ -73,22 +64,36 @@ GardenManager::loadData (
 }
 
 std::vector<std::pair<RessourceType, double> >
-GardenManager::getCost (AquaCultureID id) const
+GardenManager::getConsumption (AquaCultureID id) const
 {
-  return cultures.at (id).getCost ();
+  auto vec = cultures.at (id).getBaseConsumption ();
+  for (auto &[rType, val] : vec)
+    {
+      val *= assignedFieldsToCultures.at (id);
+    }
+  return vec;
 }
 
 std::vector<std::pair<RessourceType, double> >
-GardenManager::getResult (AquaCultureID id) const
+GardenManager::getProduction (AquaCultureID id) const
 {
-  return cultures.at (id).getResult ();
+  auto vec = cultures.at (id).getBaseProduction ();
+
+  using enum MultiplierID;
+  for (auto &[rType, val] : vec)
+    {
+      val *= multipliersView ()->getMultiplier (FieldsProductivityMultiplier);
+      val *= assignedFieldsToCultures.at (id);
+    }
+
+  return vec;
 }
 
 bool
-GardenManager::canAfford (AquaCultureID id) const
+GardenManager::canAffordTick (AquaCultureID id) const
 {
   bool ret = true;
-  const auto cost = getCost (id);
+  const auto cost = getConsumption (id);
   for (const auto &[rType, quant] : cost)
     {
       if (ressourcesView ()->getRessourceQuantity (rType)
@@ -163,20 +168,4 @@ GardenManager::tick ()
         }
     }
   return ret;
-}
-
-std::vector<std::pair<RessourceType, double> >
-GardenManager::getFieldsResults ()
-{
-  std::vector<std::pair<RessourceType, double> > result;
-  for (const auto &[id, cost] : cultures)
-    {
-      if (cultures.at (id).isDone ())
-        {
-          auto tmp = getResult (id);
-          result.insert (result.end (), tmp.begin (), tmp.end ());
-          cultures.at (id).reset ();
-        }
-    }
-  return result;
 }

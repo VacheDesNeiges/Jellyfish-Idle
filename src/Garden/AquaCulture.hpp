@@ -34,8 +34,8 @@ public:
   unsigned getRemainingTicks () const;
   unsigned getTotalRequiredTicks () const;
 
-  std::vector<std::pair<RessourceType, double> > getCost () const;
-  std::vector<std::pair<RessourceType, double> > getResult () const;
+  std::vector<std::pair<RessourceType, double> > getBaseConsumption () const;
+  std::vector<std::pair<RessourceType, double> > getBaseProduction () const;
 
   CultureData getData () const override;
   void loadData (const CultureData &) override;
@@ -52,6 +52,6 @@ private:
   unsigned remainingTicksToFinish = 0;
   std::string name;
 
-  std::vector<std::pair<RessourceType, double> > cost;
-  std::vector<std::pair<RessourceType, double> > baseResult;
+  std::vector<std::pair<RessourceType, double> > baseProduction;
+  std::vector<std::pair<RessourceType, double> > baseConsumption;
 };

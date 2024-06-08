@@ -1,5 +1,6 @@
 #pragma once
 #include "AquaCulture.hpp"
+#include "AquaCultureID.hpp"
 #include "GameDataAccess.hpp"
 #include "SaveAndLoadable.hpp"
 
@@ -23,24 +24,21 @@ public:
   bool assign (AquaCultureID);
   bool unnasign (AquaCultureID);
 
-  bool canAfford (AquaCultureID) const;
+  bool canAffordTick (AquaCultureID) const;
   bool isOngoing (AquaCultureID) const;
 
   std::string getName (AquaCultureID) const;
-
-  unsigned getRemainingTicks (AquaCultureID) const;
-  unsigned getTotalRequiredTicks (AquaCultureID) const;
 
   unsigned getTotalFields () const;
   unsigned getAssignedFields () const;
   unsigned getAssignedFieldsToCulture (AquaCultureID) const;
 
   bool tick ();
-  std::vector<std::pair<RessourceType, double> > getCost (AquaCultureID) const;
 
   std::vector<std::pair<RessourceType, double> >
-      getResult (AquaCultureID) const;
-  std::vector<std::pair<RessourceType, double> > getFieldsResults ();
+      getConsumption (AquaCultureID) const;
+  std::vector<std::pair<RessourceType, double> >
+      getProduction (AquaCultureID) const;
 
   void loadData (
       const std::vector<std::pair<AquaCultureID, CultureData> > &) override;
