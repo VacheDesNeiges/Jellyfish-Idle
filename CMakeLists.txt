@@ -22,7 +22,7 @@ endif()
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}\
 -lgtest \
 -lpthread \
--lc++ \
+-lstdc++ \
 -lm \
 -lSDL2 \
 -lfmt")
