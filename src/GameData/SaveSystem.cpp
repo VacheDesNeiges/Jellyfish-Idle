@@ -83,9 +83,7 @@ SaveSystem::save (const SaveData &data)
       j["Culture"] += {
         { "id", static_cast<unsigned> (id) },
         { "Fields", cultureData.fieldCount },
-        { "Done", cultureData.craftDone },
         { "Ongoing", cultureData.craftOngoing },
-        { "RemainingTicks", cultureData.remainingTicksToEnd },
       };
     }
 
@@ -180,8 +178,6 @@ SaveSystem::loadFromFile (std::string path)
           static_cast<AquaCultureID> (c["id"].get<unsigned> ()),
           CultureData{
               c["Ongoing"].get<bool> (),
-              c["Done"].get<bool> (),
-              c["RemainingTicks"].get<unsigned> (),
               c["Fields"].get<unsigned> (),
           });
     }

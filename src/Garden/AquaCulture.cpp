@@ -11,14 +11,12 @@ AquaCulture::AquaCulture (AquaCultureID id)
 
     case Plankton:
       name = "Plankton";
-      baseTicksToFinish = 120;
 
       baseProduction.emplace_back (Food, 0.08);
       break;
 
     case Oysters:
       name = "Oysters";
-      baseTicksToFinish = 600;
 
       baseConsumption.emplace_back (Food, 0.05);
       baseConsumption.emplace_back (Sand, 0.02);
@@ -29,50 +27,18 @@ AquaCulture::AquaCulture (AquaCultureID id)
     default:
       assert (false);
     }
-  remainingTicksToFinish = baseTicksToFinish;
 }
 
 void
 AquaCulture::start ()
 {
   cultureOngoing = true;
-  remainingTicksToFinish = baseTicksToFinish;
 }
 
 void
 AquaCulture::cancel ()
 {
   cultureOngoing = false;
-  remainingTicksToFinish = baseTicksToFinish;
-}
-
-void
-AquaCulture::reset ()
-{
-  done = false;
-  cultureOngoing = false;
-  remainingTicksToFinish = baseTicksToFinish;
-}
-
-bool
-AquaCulture::tick ()
-{
-  if (cultureOngoing)
-    {
-      remainingTicksToFinish--;
-      if (remainingTicksToFinish == 0)
-        {
-          done = true;
-          cultureOngoing = false;
-        }
-    }
-  return done;
-}
-
-bool
-AquaCulture::isDone () const
-{
-  return done;
 }
 
 bool
@@ -81,25 +47,11 @@ AquaCulture::isOngoing () const
   return cultureOngoing;
 }
 
-unsigned
-AquaCulture::getRemainingTicks () const
-{
-  return remainingTicksToFinish;
-}
-
-unsigned
-AquaCulture::getTotalRequiredTicks () const
-{
-  return baseTicksToFinish;
-}
-
 CultureData
 AquaCulture::getData () const
 {
   CultureData result{
     result.craftOngoing = cultureOngoing,
-    result.craftDone = done,
-    result.remainingTicksToEnd = remainingTicksToFinish,
     result.fieldCount = 0,
   };
   return result;
@@ -108,9 +60,7 @@ AquaCulture::getData () const
 void
 AquaCulture::loadData (const CultureData &data)
 {
-  done = data.craftDone;
   cultureOngoing = data.craftOngoing;
-  remainingTicksToFinish = data.remainingTicksToEnd;
 }
 
 std::vector<std::pair<RessourceType, double> >

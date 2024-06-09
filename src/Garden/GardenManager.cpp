@@ -154,18 +154,3 @@ GardenManager::unnasign (AquaCultureID id)
     }
   return false;
 }
-
-bool
-GardenManager::tick ()
-{
-  bool ret = false;
-
-  for (auto &[id, culture] : cultures)
-    {
-      if (culture.tick ())
-        {
-          ret = true;
-        }
-    }
-  return ret;
-}

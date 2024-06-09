@@ -12,8 +12,6 @@
 struct CultureData
 {
   bool craftOngoing;
-  bool craftDone;
-  unsigned remainingTicksToEnd;
   unsigned fieldCount;
 };
 
@@ -25,14 +23,8 @@ public:
 
   void start ();
   void cancel ();
-  void reset ();
-  bool tick ();
-  bool isDone () const;
   bool isOngoing () const;
   std::string getName () const;
-
-  unsigned getRemainingTicks () const;
-  unsigned getTotalRequiredTicks () const;
 
   std::vector<std::pair<RessourceType, double> > getBaseConsumption () const;
   std::vector<std::pair<RessourceType, double> > getBaseProduction () const;
@@ -47,9 +39,6 @@ public:
 
 private:
   bool cultureOngoing = false;
-  bool done = false;
-  unsigned baseTicksToFinish;
-  unsigned remainingTicksToFinish = 0;
   std::string name;
 
   std::vector<std::pair<RessourceType, double> > baseProduction;

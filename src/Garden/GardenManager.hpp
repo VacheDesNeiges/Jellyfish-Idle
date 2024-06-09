@@ -33,8 +33,6 @@ public:
   unsigned getAssignedFields () const;
   unsigned getAssignedFieldsToCulture (AquaCultureID) const;
 
-  bool tick ();
-
   std::vector<std::pair<RessourceType, double> >
       getConsumption (AquaCultureID) const;
   std::vector<std::pair<RessourceType, double> >
