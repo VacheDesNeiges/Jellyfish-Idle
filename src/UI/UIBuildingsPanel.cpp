@@ -1,5 +1,6 @@
 #include "UIBuildingsPanel.hpp"
 
+#include "AchievementIDs.hpp"
 #include "Building.hpp"
 #include "InputHandler.hpp"
 #include "UIUtils.hpp"
@@ -17,14 +18,14 @@ UIBuildingPanel::render () const
     }
 
   ImGui::SetCursorPosX (50);
-  if (constexpr auto sz = ImVec2 (300.f, 45.0f);
-      ImGui::Button ("Gather Sand", sz))
+  if (ImGui::Button ("Gather Sand", UIConstants::UIBuildingButtonSize))
     {
       inputHandler->gatherSand ();
     }
 
-  ImGui::SameLine ();
-  bool odd = true;
+  bool odd = !renderJellyfishLuringButton ();
+  if (!odd)
+    ImGui::SetCursorPosX (50);
 
   using enum BuildingType;
   for (const auto &building : Building::BuildingTypes)
@@ -45,7 +46,6 @@ UIBuildingPanel::render () const
 bool
 UIBuildingPanel::renderBuildingButton (BuildingType building) const
 {
-  constexpr auto size = ImVec2 (300.f, 45.0f);
 
   if (gData->getAchievementsView ()->isUnlocked (building))
     {
@@ -55,7 +55,8 @@ UIBuildingPanel::renderBuildingButton (BuildingType building) const
           = gData->getBuildingsView ()->getBuildingQuantity (building);
       std::string buttonText = fmt::format ("{} lvl {}", name, quantity);
 
-      if (ImGui::Button (buttonText.c_str (), size))
+      if (ImGui::Button (buttonText.c_str (),
+                         UIConstants::UIBuildingButtonSize))
         {
           inputHandler->buy (building);
         }
@@ -88,4 +89,48 @@ UIBuildingPanel::setToolTip (BuildingType building) const
 
       ImGui::EndTooltip ();
     }
+}
+
+bool
+UIBuildingPanel::renderJellyfishLuringButton () const
+{
+  ImGui::SameLine ();
+
+  if (gData->getAchievementsView ()->isUnlocked (
+          AchievementIDs::JellyfishLuring))
+    {
+      ImGui::BeginDisabled (!gData->getJelliesView ()->canLure ());
+
+      if (ImGui::Button ("Lure Jellyfish", UIConstants::UIBuildingButtonSize))
+        {
+          inputHandler->lureJellyfish ();
+        }
+      ImGui::EndDisabled ();
+      ImGui::SetNextWindowSize ({ 300, -1 });
+
+      if (ImGui::IsItemHovered (ImGuiHoveredFlags_DelayNone
+                                | ImGuiHoveredFlags_AllowWhenDisabled)
+          && ImGui::BeginTooltip ())
+        {
+          ImGui::TextWrapped (
+              "Allows you to use some food to lure a jellyfish");
+
+          if (gData->getJelliesView ()->getMaxNumJellies ()
+              == gData->getJelliesView ()->getNumJellies ())
+            {
+              ImGui::PushStyleColor (ImGuiCol_Text, UIColors::redText);
+              ImGui::TextWrapped ("Not enough room to host more jellies");
+              ImGui::PopStyleColor ();
+            }
+
+          ImGui::SeparatorText ("Price :");
+          UIUtils::printCostsImGui (
+              gData, { gData->getJelliesView ()->getLureCost () });
+
+          ImGui::EndTooltip ();
+        }
+
+      return true;
+    }
+  return false;
 }

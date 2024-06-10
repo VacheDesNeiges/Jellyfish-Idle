@@ -62,6 +62,13 @@ InputHandler::gatherSand () const
 }
 
 void
+InputHandler::lureJellyfish () const
+{
+  systems->ressources->consume ({ systems->jellies->getLureCost () });
+  systems->jellies->createJellyfish ();
+}
+
+void
 InputHandler::buy (BuildingType t) const
 {
   for (const auto &[rType, quant] : systems->buildings->nextBuyCost (t))

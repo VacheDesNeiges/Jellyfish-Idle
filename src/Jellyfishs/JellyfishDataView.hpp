@@ -2,6 +2,7 @@
 #include <memory>
 
 class JellyfishManager;
+enum class RessourceType;
 enum class JellyJobs;
 
 class JellyFishDataView
@@ -9,10 +10,15 @@ class JellyFishDataView
 public:
   explicit JellyFishDataView (std::shared_ptr<JellyfishManager>);
 
+  bool canLure () const;
+  std::pair<RessourceType, double> getLureCost () const;
+
   unsigned int getNumJellies () const;
   unsigned int getNumJellies (JellyJobs) const;
   unsigned int getMaxNumJellies () const;
+
   std::string getJobDescription (JellyJobs) const;
+
   unsigned getJobLevel (JellyJobs) const;
   double getCurrentProgress (JellyJobs) const;
   double getProgressNeeded (JellyJobs) const;

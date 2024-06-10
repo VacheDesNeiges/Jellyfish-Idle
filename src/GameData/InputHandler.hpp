@@ -1,5 +1,4 @@
 #pragma once
-#include "AquaCulture.hpp"
 #include "GameSystems.hpp"
 #include <memory>
 
@@ -15,6 +14,7 @@ public:
   explicit InputHandler (std::shared_ptr<SystemPtrs>);
 
   void gatherSand () const;
+  void lureJellyfish () const;
   void buy (BuildingType) const;
   void buy (UpgradeID) const;
 

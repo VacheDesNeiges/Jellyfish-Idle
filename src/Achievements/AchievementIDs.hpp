@@ -14,6 +14,7 @@ enum class AchievementIDs
   CultureOyster,
 
   FirstJelly,
+  JellyfishLuring,
 
   JobSystem,
   JobMining,
@@ -37,7 +38,7 @@ enum class AchievementIDs
   LightningAbilityBuyable,
 };
 
-inline constexpr std::array<AchievementIDs, 21> allAchievementsIDs = {
+inline constexpr std::array<AchievementIDs, 22> allAchievementsIDs = {
   AchievementIDs::BuildingAquaticField,
   AchievementIDs::BuildingSandNest,
   AchievementIDs::BuildingMines,
@@ -47,6 +48,7 @@ inline constexpr std::array<AchievementIDs, 21> allAchievementsIDs = {
   AchievementIDs::CultureOyster,
 
   AchievementIDs::FirstJelly,
+  AchievementIDs::JellyfishLuring,
 
   AchievementIDs::JobSystem,
   AchievementIDs::JobMining,

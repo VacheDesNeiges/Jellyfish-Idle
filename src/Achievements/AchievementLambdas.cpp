@@ -76,6 +76,12 @@ AchievementSystem::initLambdas ()
     { FirstJelly,
       [this] () { return jelliesView ()->getNumJellies () >= 1; } },
 
+    { JellyfishLuring,
+      [this] () {
+        return ressourcesView ()->getRessourceQuantity (RessourceType::Food)
+               > 0;
+      } },
+
     // Jobs Achievements
     // -------------------------------------------------------------------
 

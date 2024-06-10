@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <cmath>
 #include <string>
+#include <utility>
 
 JellyfishManager::JellyfishManager ()
 {
@@ -276,4 +277,18 @@ double
 JellyfishManager::getJobProgressNeeded (JellyJobs j) const
 {
   return jobExp.at (j).progressNeeded;
+}
+
+bool
+JellyfishManager::canLure () const
+{
+  return LurePrice
+             <= ressourcesView ()->getRessourceQuantity (RessourceType::Food)
+         && maxNumJellies > jellies.size ();
+}
+
+std::pair<RessourceType, double>
+JellyfishManager::getLureCost () const
+{
+  return { RessourceType::Food, LurePrice };
 }

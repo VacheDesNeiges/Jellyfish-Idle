@@ -20,3 +20,8 @@ void printCostsImGui (
     std::shared_ptr<GameDataView> gData,
     const std::vector<std::pair<RessourceType, double> > &ressourcesNeeded);
 }
+
+namespace UIConstants
+{
+constexpr auto UIBuildingButtonSize = ImVec2{ 300.f, 45.f };
+}

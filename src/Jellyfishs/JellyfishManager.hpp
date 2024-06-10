@@ -5,6 +5,7 @@
 #include "Ressource.hpp"
 #include "SaveAndLoadable.hpp"
 #include <unordered_map>
+#include <utility>
 #include <vector>
 
 struct JellyfishData
@@ -34,20 +35,26 @@ class JellyfishManager : public GameDataAccess,
 {
 public:
   JellyfishManager ();
+  unsigned int getNum (JellyJobs);
   unsigned int getNumJellies () const;
   unsigned int getMaxNumJellies () const;
+
+  bool canLure () const;
+  std::pair<RessourceType, double> getLureCost () const;
+
   void setBonusMaxJellies (unsigned);
-  unsigned int getNum (JellyJobs);
   bool assign (JellyJobs);
   bool unasign (JellyJobs);
-  bool distributeJobExp ();
   void createJellyfish ();
+
   std::unordered_map<RessourceType, double> getProductionRates () const;
+
   std::string getJobDescription (JellyJobs) const;
 
   unsigned getJobLevel (JellyJobs) const;
   double getJobProgress (JellyJobs) const;
   double getJobProgressNeeded (JellyJobs) const;
+  bool distributeJobExp ();
 
   JellyfishData getData () const override;
   void loadData (const JellyfishData &) override;
@@ -63,6 +70,7 @@ private:
 
   unsigned maxNumJellies = 1;
   bool numJobsUpToDate = false;
+  static constexpr double LurePrice = 10;
 
   void updateNumJobs ();
   void zerosJobNumbersMap ();

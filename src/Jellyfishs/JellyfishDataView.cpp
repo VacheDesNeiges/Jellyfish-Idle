@@ -48,3 +48,15 @@ JellyFishDataView::getProgressNeeded (JellyJobs j) const
 {
   return jellies->getJobProgressNeeded (j);
 }
+
+bool
+JellyFishDataView::canLure () const
+{
+  return jellies->canLure ();
+}
+
+std::pair<RessourceType, double>
+JellyFishDataView::getLureCost () const
+{
+  return jellies->getLureCost ();
+}

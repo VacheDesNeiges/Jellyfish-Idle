@@ -9,5 +9,7 @@ public:
 
 private:
   bool renderBuildingButton (BuildingType) const;
+  bool renderJellyfishLuringButton () const;
+
   void setToolTip (BuildingType) const;
 };
