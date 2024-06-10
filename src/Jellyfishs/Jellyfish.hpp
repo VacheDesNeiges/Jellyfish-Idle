@@ -20,26 +20,13 @@ public:
   JellyJobs getJob () const;
 
   static constexpr std::array<JellyJobs, 7> JobsTypes = {
-    JellyJobs::None,   JellyJobs::GatherFood,       JellyJobs::GatherSand,
-    JellyJobs::Mining, JellyJobs::ExploreTheDepths, JellyJobs::FocusForInsight,
-    JellyJobs::Artisan
+    JellyJobs::None,
+    JellyJobs::Mining,
+    JellyJobs::ExploreTheDepths,
+    JellyJobs::FocusForInsight,
+    JellyJobs::Artisan,
   };
 
-  static double constexpr necessaryFoodPerSec = 1;
-
 private:
-  unsigned id = 0;
   JellyJobs currentJob = JellyJobs::None;
-
-  unsigned GatheringFoodLvl = 0;
-  unsigned long GatheringFoodExp = 0;
-
-  unsigned GatheringSandLevel = 0;
-  unsigned long GatheringSandExp = 0;
-
-  unsigned exploreTheDepthsLvl = 0;
-  unsigned long exploreTheDepthsExp = 0;
-
-  unsigned miningLvl = 0;
-  unsigned long miningLvlExp = 0;
 };

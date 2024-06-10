@@ -129,15 +129,6 @@ JellyfishManager::getProductionRates () const
   return result;
 }
 
-std::unordered_map<RessourceType, double>
-JellyfishManager::getConsumptionRates () const
-{
-  std::unordered_map<RessourceType, double> result;
-  using enum RessourceType;
-  result[Food] = static_cast<double> (getNumJellies ()) * 0.5;
-  return result;
-}
-
 std::string
 JellyfishManager::getJobDescription (JellyJobs j) const
 {
@@ -233,12 +224,6 @@ JellyfishManager::loadData (const JellyfishData &data)
   jobNumbers[GatherSand] = data.numJobGatheringSand;
   jobNumbers[FocusForInsight] = data.numJobFocusing;
   jobNumbers[Artisan] = data.numJobCrafting;
-}
-
-double
-JellyfishManager::getFoodRequiredPerJellyfishPerSec () const
-{
-  return Jellyfish::necessaryFoodPerSec;
 }
 
 bool

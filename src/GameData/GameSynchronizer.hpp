@@ -17,7 +17,6 @@ private:
   std::shared_ptr<SystemPtrs> systems;
 
   void checkAchievements () const;
-  void checkJellyfishArrival () const;
   void distributeExp () const;
   void convertRessources () const;
 

@@ -20,8 +20,6 @@ GameSynchronizer::gameTick () const
   systems->ressources->zerosValuePerTick ();
 
   // Ressource consumption
-  systems->ressources->consume (systems->jellies->getConsumptionRates ());
-
   convertRessources ();
 
   // Ressource production
@@ -44,31 +42,6 @@ GameSynchronizer::gameTick () const
   distributeExp ();
 
   checkAchievements ();
-  checkJellyfishArrival ();
-}
-
-void
-GameSynchronizer::checkJellyfishArrival () const
-{
-  static short gameTicksInterval = 0;
-  if (systems->jellies->getNumJellies ()
-      == systems->jellies->getMaxNumJellies ())
-    {
-      gameTicksInterval = 0;
-    }
-  else
-    {
-      gameTicksInterval++;
-      if (gameTicksInterval == 8
-          && systems->ressources->getNetProduction (RessourceType::Food)
-                 >= systems->jellies->getFoodRequiredPerJellyfishPerSec () / 2)
-        {
-          gameTicksInterval = 0;
-          systems->jellies->createJellyfish ();
-        }
-      if (gameTicksInterval >= 8)
-        gameTicksInterval = 0;
-    }
 }
 
 void

@@ -42,9 +42,7 @@ public:
   bool unasign (JellyJobs);
   bool distributeJobExp ();
   void createJellyfish ();
-  double getFoodRequiredPerJellyfishPerSec () const;
   std::unordered_map<RessourceType, double> getProductionRates () const;
-  std::unordered_map<RessourceType, double> getConsumptionRates () const;
   std::string getJobDescription (JellyJobs) const;
 
   unsigned getJobLevel (JellyJobs) const;
