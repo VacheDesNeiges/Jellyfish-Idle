@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <optional>
 #include <utility>
 #include <vector>
 
@@ -20,7 +21,8 @@ public:
       getFieldConsumption (AquaCultureID) const;
 
   std::vector<std::pair<RessourceType, double> >
-      getFieldProduction (AquaCultureID) const;
+      getFieldProduction (AquaCultureID,
+                          std::optional<unsigned> = std::nullopt) const;
 
 private:
   std::shared_ptr<GardenManager> garden;

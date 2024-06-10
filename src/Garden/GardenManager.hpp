@@ -4,6 +4,7 @@
 #include "GameDataAccess.hpp"
 #include "SaveAndLoadable.hpp"
 
+#include <optional>
 #include <unordered_map>
 #include <utility>
 #include <vector>
@@ -36,7 +37,8 @@ public:
   std::vector<std::pair<RessourceType, double> >
       getConsumption (AquaCultureID) const;
   std::vector<std::pair<RessourceType, double> >
-      getProduction (AquaCultureID) const;
+      getProduction (AquaCultureID,
+                     std::optional<unsigned> = std::nullopt) const;
 
   void loadData (
       const std::vector<std::pair<AquaCultureID, CultureData> > &) override;

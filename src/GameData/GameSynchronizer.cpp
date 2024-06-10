@@ -130,6 +130,7 @@ GameSynchronizer::convertRessources () const
       if (systems->garden->isOngoing (culture))
         {
           const auto &prod = systems->garden->getProduction (culture);
+
           const auto &cons = systems->garden->getConsumption (culture);
           systems->ressources->tryConvert (cons, prod);
         }

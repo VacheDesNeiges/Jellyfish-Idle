@@ -50,23 +50,22 @@ UIGardenPanel::renderCulture (AquaCultureID id) const
   ImGui::SeparatorText ("Cost");
   displayCultureCost (id);
 
-  ImGui::SeparatorText ("");
-
   ImGui::EndChild ();
 }
 
 void
 UIGardenPanel::displayCultureProduction (AquaCultureID id) const
 {
-  ImGui::Text ("Produces :");
-  const std::string quantity = fmt::format (
-      "{} x {:.3f}/sec",
-      gData->getRessourcesView ()->getRessourceName (
-          gData->getGardenView ()->getFieldProduction (id).at (0).first),
-      gData->getGardenView ()->getFieldProduction (id)[0].second * 2);
+  ImGui::Text ("Each field produces :");
+  ImGui::NewLine ();
 
-  ImGui::SameLine (ImGui::GetWindowWidth ()
-                   - (ImGui::CalcTextSize (quantity.c_str ()).x + 10));
+  const auto [rType, quant]
+      = gData->getGardenView ()->getFieldProduction (id, 1).at (0);
+
+  const std::string quantity = fmt::format (
+      "{} x {:.3f}/sec", gData->getRessourcesView ()->getRessourceName (rType),
+      quant * 2);
+
   ImGui::Text ("%s", quantity.c_str ());
 }
 

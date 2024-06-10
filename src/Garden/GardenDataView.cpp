@@ -1,6 +1,7 @@
 #include "GardenDataView.hpp"
 #include "GardenManager.hpp"
 #include <memory>
+#include <optional>
 
 GardenDataView::GardenDataView (std::shared_ptr<GardenManager> g) : garden (g)
 {
@@ -31,7 +32,8 @@ GardenDataView::getFieldConsumption (AquaCultureID id) const
 }
 
 std::vector<std::pair<RessourceType, double> >
-GardenDataView::getFieldProduction (AquaCultureID id) const
+GardenDataView::getFieldProduction (AquaCultureID id,
+                                    std::optional<unsigned> nFields) const
 {
-  return garden->getProduction (id);
+  return garden->getProduction (id, nFields);
 }

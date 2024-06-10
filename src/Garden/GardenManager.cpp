@@ -75,7 +75,8 @@ GardenManager::getConsumption (AquaCultureID id) const
 }
 
 std::vector<std::pair<RessourceType, double> >
-GardenManager::getProduction (AquaCultureID id) const
+GardenManager::getProduction (AquaCultureID id,
+                              std::optional<unsigned> nFields) const
 {
   auto vec = cultures.at (id).getBaseProduction ();
 
@@ -83,7 +84,7 @@ GardenManager::getProduction (AquaCultureID id) const
   for (auto &[rType, val] : vec)
     {
       val *= multipliersView ()->getMultiplier (FieldsProductivityMultiplier);
-      val *= assignedFieldsToCultures.at (id);
+      val *= (nFields.value_or (assignedFieldsToCultures.at (id)));
     }
 
   return vec;
