@@ -119,9 +119,6 @@ JellyfishManager::getProductionRates () const
 
   std::unordered_map<RessourceType, double> result;
 
-  result[Food] = jobNumbers.at (GatherFood) * 3;
-  result[Sand] = jobNumbers.at (GatherSand) * 0.04;
-
   result[Stone] = (jobNumbers.at (Mining) * 0.1)
                   * multipliersView ()->getMultiplier (Stone);
 
@@ -166,8 +163,6 @@ JellyfishManager::getData () const
   result.maxNumJellies = maxNumJellies;
 
   using enum JellyJobs;
-  result.numJobGatheringFood = jobNumbers.at (GatherFood);
-  result.numJobGatheringSand = jobNumbers.at (GatherSand);
   result.numJobExploreTheDepths = jobNumbers.at (ExploreTheDepths);
   result.numJobFocusing = jobNumbers.at (FocusForInsight);
   result.numJobMining = jobNumbers.at (Mining);
@@ -201,10 +196,6 @@ JellyfishManager::loadData (const JellyfishData &data)
         {
           assign (JellyJobs::ExploreTheDepths);
         }
-      for (unsigned i = 0; i < data.numJobGatheringSand; i++)
-        {
-          assign (JellyJobs::GatherSand);
-        }
 
       for (unsigned i = 0; i < data.numJobMining; i++)
         {
@@ -219,10 +210,8 @@ JellyfishManager::loadData (const JellyfishData &data)
 
   using enum JellyJobs;
   jobNumbers[None] = data.numJobNone;
-  jobNumbers[GatherFood] = data.numJobGatheringFood;
   jobNumbers[Mining] = data.numJobMining;
   jobNumbers[ExploreTheDepths] = data.numJobExploreTheDepths;
-  jobNumbers[GatherSand] = data.numJobGatheringSand;
   jobNumbers[FocusForInsight] = data.numJobFocusing;
   jobNumbers[Artisan] = data.numJobCrafting;
 }

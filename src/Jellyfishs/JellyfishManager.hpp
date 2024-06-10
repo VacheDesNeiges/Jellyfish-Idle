@@ -13,8 +13,6 @@ struct JellyfishData
   unsigned maxNumJellies;
   unsigned numJobNone;
   unsigned numJobExploreTheDepths;
-  unsigned numJobGatheringSand;
-  unsigned numJobGatheringFood;
   unsigned numJobMining;
   unsigned numJobFocusing;
   unsigned numJobCrafting;

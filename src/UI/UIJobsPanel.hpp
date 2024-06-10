@@ -1,5 +1,4 @@
 #pragma once
-#include "Jellyfish.hpp"
 #include "RecipeID.hpp"
 #include "UIElement.hpp"
 
@@ -9,7 +8,7 @@ public:
   void render () const override;
 
 private:
-  void renderJobsControls (JellyJobs) const;
+  void renderJobsControls () const;
   void renderRecipes () const;
   void renderRecipe (RecipeID) const;
   void displayRecipeText (RecipeID) const;

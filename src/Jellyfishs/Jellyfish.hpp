@@ -19,7 +19,7 @@ public:
   void gainJobExp (unsigned);
   JellyJobs getJob () const;
 
-  static constexpr std::array<JellyJobs, 7> JobsTypes = {
+  static constexpr std::array<JellyJobs, 5> JobsTypes = {
     JellyJobs::None,
     JellyJobs::Mining,
     JellyJobs::ExploreTheDepths,

@@ -30,13 +30,7 @@ UIJobsPanel::render () const
   ImGui::Text ("Available Jellies : %d",
                gData->getJelliesView ()->getNumJellies (None));
 
-  for (const auto job : Jellyfish::JobsTypes)
-    {
-      if (gData->getAchievementsView ()->isUnlocked (job))
-        renderJobsControls (job);
-    }
-  ImGui::EndColumns (); // TODO handle columns of renderjobcontrols() more
-                        // cleanly
+  renderJobsControls ();
 
   if (gData->getUpgradeView ()->isBought (UpgradeID::AdvancedTelekinesis))
     {
@@ -48,48 +42,58 @@ UIJobsPanel::render () const
 }
 
 void
-UIJobsPanel::renderJobsControls (JellyJobs job) const
+UIJobsPanel::renderJobsControls () const
 {
   ImGui::Columns (3, nullptr, false);
   ImGui::SetColumnWidth (0, ImGui::GetWindowWidth () / 6);
   ImGui::SetColumnWidth (1, ImGui::GetWindowWidth () / 6);
   ImGui::SetColumnWidth (2, ImGui::GetWindowWidth () / 6);
 
-  ImGui::Text ("%s",
-               gData->getJelliesView ()->getJobDescription (job).c_str ());
-  ImGui::SameLine ();
-  ImGui::NextColumn ();
-
-  ImGui::PushButtonRepeat (true);
-  auto s = gData->getJelliesView ()->getJobDescription (job);
-  if (ImGui::ArrowButton ((s + "##left").c_str (), ImGuiDir_Left))
+  for (const auto job : Jellyfish::JobsTypes)
     {
-      inputHandler->unassignJelly (job);
-    }
-  ImGui::SameLine ();
-  ImGui::Text ("%d", gData->getJelliesView ()->getNumJellies (job));
-  ImGui::SameLine (0.0f);
-  if (ImGui::ArrowButton ((s + "##right").c_str (), ImGuiDir_Right))
-    {
-      inputHandler->assignJelly (job);
-    }
-  ImGui::PopButtonRepeat ();
+      if (gData->getAchievementsView ()->isUnlocked (job))
+        {
+          ImGui::Text (
+              "%s",
+              gData->getJelliesView ()->getJobDescription (job).c_str ());
+          ImGui::SameLine ();
+          ImGui::NextColumn ();
 
-  if (gData->getAchievementsView ()->isUnlocked (UpgradeID::Leveling))
-    {
-      ImGui::SameLine ();
-      ImGui::Text ("lvl %u", gData->getJelliesView ()->getJobLevel (job));
-    }
-  ImGui::NextColumn ();
+          ImGui::PushButtonRepeat (true);
+          auto s = gData->getJelliesView ()->getJobDescription (job);
+          if (ImGui::ArrowButton ((s + "##left").c_str (), ImGuiDir_Left))
+            {
+              inputHandler->unassignJelly (job);
+            }
+          ImGui::SameLine ();
+          ImGui::Text ("%d", gData->getJelliesView ()->getNumJellies (job));
+          ImGui::SameLine (0.0f);
+          if (ImGui::ArrowButton ((s + "##right").c_str (), ImGuiDir_Right))
+            {
+              inputHandler->assignJelly (job);
+            }
+          ImGui::PopButtonRepeat ();
 
-  if (gData->getAchievementsView ()->isUnlocked (UpgradeID::Leveling))
-    {
-      auto lvlProgress = gData->getJelliesView ()->getCurrentProgress (job)
-                         / gData->getJelliesView ()->getProgressNeeded (job);
-      ImGui::ProgressBar (static_cast<float> (lvlProgress));
-    }
+          if (gData->getAchievementsView ()->isUnlocked (UpgradeID::Leveling))
+            {
+              ImGui::SameLine ();
+              ImGui::Text ("lvl %u",
+                           gData->getJelliesView ()->getJobLevel (job));
+            }
+          ImGui::NextColumn ();
 
-  ImGui::NextColumn ();
+          if (gData->getAchievementsView ()->isUnlocked (UpgradeID::Leveling))
+            {
+              auto lvlProgress
+                  = gData->getJelliesView ()->getCurrentProgress (job)
+                    / gData->getJelliesView ()->getProgressNeeded (job);
+              ImGui::ProgressBar (static_cast<float> (lvlProgress));
+            }
+
+          ImGui::NextColumn ();
+        }
+    }
+  ImGui::EndColumns ();
 }
 
 void

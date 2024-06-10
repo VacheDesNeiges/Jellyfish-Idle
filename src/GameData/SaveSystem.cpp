@@ -44,9 +44,7 @@ SaveSystem::save (const SaveData &data)
     { "num", data.jellies.numJellies },
     { "numMax", data.jellies.maxNumJellies },
     { "numJobNone", data.jellies.numJobNone },
-    { "numJobGatherFood", data.jellies.numJobGatheringFood },
     { "numJobExplore", data.jellies.numJobExploreTheDepths },
-    { "numJobGatherSand", data.jellies.numJobGatheringSand },
     { "numJobMining", data.jellies.numJobMining },
     { "numJobFocusing", data.jellies.numJobFocusing },
     { "numJobCrafting", data.jellies.numJobCrafting },
@@ -132,10 +130,6 @@ SaveSystem::loadFromFile (std::string path)
       = data["Jellies"][0]["numJobNone"].get<unsigned> ();
   result.jellies.numJobExploreTheDepths
       = data["Jellies"][0]["numJobExplore"].get<unsigned> ();
-  result.jellies.numJobGatheringFood
-      = data["Jellies"][0]["numJobGatherFood"].get<unsigned> ();
-  result.jellies.numJobGatheringSand
-      = data["Jellies"][0]["numJobGatherSand"].get<unsigned> ();
   result.jellies.numJobMining
       = data["Jellies"][0]["numJobMining"].get<unsigned> ();
   result.jellies.numJobFocusing
