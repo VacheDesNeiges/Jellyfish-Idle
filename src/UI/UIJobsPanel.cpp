@@ -19,7 +19,6 @@ UIJobsPanel::render () const
   if (!ImGui::Begin ("Jobs", nullptr,
                      ImGuiWindowFlags_NoMove
                          & ImGuiWindowFlags_NoFocusOnAppearing))
-
     {
       ImGui::End ();
       return;
