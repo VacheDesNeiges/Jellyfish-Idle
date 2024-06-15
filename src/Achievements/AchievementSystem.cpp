@@ -21,8 +21,8 @@ AchievementSystem::AchievementSystem ()
   notifications.reserve (allAchievementsIDs.size ());
   for (const auto a : allAchievementsIDs)
     {
-      achievements.emplace (a, Achievement ());
-      notifications.emplace (a, std::nullopt);
+      achievements.try_emplace (a, Achievement ());
+      notifications.try_emplace (a, std::nullopt);
     }
   initLambdas ();
 }
