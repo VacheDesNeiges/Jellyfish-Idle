@@ -16,6 +16,9 @@ class Game
 public:
   Game ();
   ~Game ();
+  Game (Game &) = delete;
+  Game &operator= (Game &) = delete;
+
   void run (std::optional<std::string_view>);
 
 private:
