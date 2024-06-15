@@ -33,6 +33,8 @@ public:
   void unassignToField (AquaCultureID) const;
   void assignToField (AquaCultureID) const;
 
+  void removeCurrentNotification () const;
+
 private:
   std::shared_ptr<SystemPtrs> systems;
 

@@ -171,3 +171,9 @@ InputHandler::assignToField (AquaCultureID id) const
 {
   systems->garden->assign (id);
 }
+
+void
+InputHandler::removeCurrentNotification () const
+{
+  systems->achievements->popNotification ();
+}

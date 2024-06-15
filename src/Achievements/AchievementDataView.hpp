@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include <optional>
 
 class AchievementSystem;
 enum class RessourceType;
@@ -20,6 +21,8 @@ public:
   bool isUnlocked (RessourceType) const;
   bool isUnlocked (AbilityType) const;
   bool isUnlocked (UpgradeID) const;
+
+  std::optional<std::string_view> getNextNotification () const;
 
 private:
   std::shared_ptr<AchievementSystem> achievements;

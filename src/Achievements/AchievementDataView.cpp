@@ -6,6 +6,8 @@
 #include "InsightAbility.hpp"
 #include "Jellyfish.hpp"
 #include "UpgradeId.hpp"
+#include <optional>
+#include <string_view>
 
 AchievementDataView::AchievementDataView (std::shared_ptr<AchievementSystem> a)
     : achievements (a)
@@ -46,4 +48,10 @@ bool
 AchievementDataView::isUnlocked (UpgradeID id) const
 {
   return achievements->isUnlocked (id);
+}
+
+std::optional<std::string_view>
+AchievementDataView::getNextNotification () const
+{
+  return achievements->getNotification ();
 }

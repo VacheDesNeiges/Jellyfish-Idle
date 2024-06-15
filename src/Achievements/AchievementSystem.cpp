@@ -9,6 +9,7 @@
 #include "Ressource.hpp"
 #include "UpgradeId.hpp"
 
+#include <optional>
 #include <utility>
 #include <vector>
 
@@ -17,9 +18,11 @@ AchievementSystem::AchievementSystem ()
   using enum AchievementIDs;
   achievements.reserve (allAchievementsIDs.size ());
   achievementConditions.reserve (allAchievementsIDs.size ());
+  notifications.reserve (allAchievementsIDs.size ());
   for (const auto a : allAchievementsIDs)
     {
       achievements.emplace (a, Achievement ());
+      notifications.emplace (a, std::nullopt);
     }
   initLambdas ();
 }
@@ -69,7 +72,10 @@ AchievementSystem::checkAchievements ()
         continue;
 
       if (achievementConditions[id]())
-        unlock (id);
+        {
+          unlock (id);
+          pushNotification (id);
+        }
     }
 }
 
@@ -195,4 +201,26 @@ AchievementSystem::isUnlocked (UpgradeID id) const
     default:
       return false;
     }
+}
+
+std::optional<std::string_view>
+AchievementSystem::getNotification () const
+{
+  if (!notificationQueue.empty ())
+    return notificationQueue.front ().getNotificationText ();
+
+  return std::nullopt;
+}
+
+void
+AchievementSystem::popNotification ()
+{
+  notificationQueue.pop ();
+}
+
+void
+AchievementSystem::pushNotification (AchievementIDs id)
+{
+  if (const auto &notif = notifications.at (id); notif.has_value ())
+    notificationQueue.push (notif.value ());
 }

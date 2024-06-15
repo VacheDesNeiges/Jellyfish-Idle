@@ -27,34 +27,31 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}\
 -lSDL2 \
 -lfmt")
 
-    include_directories(
-        ${CMAKE_SOURCE_DIR}/../
-        ${CMAKE_SOURCE_DIR}/imgui/
-        ${CMAKE_SOURCE_DIR}/imgui/backends/
-        ${CMAKE_SOURCE_DIR}/src/UI
-        ${CMAKE_SOURCE_DIR}/src/Ressources
-        ${CMAKE_SOURCE_DIR}/src/GameData
-        ${CMAKE_SOURCE_DIR}/src/Buildings
-        ${CMAKE_SOURCE_DIR}/src/Jellyfishs
-        ${CMAKE_SOURCE_DIR}/src/Abilities
-        ${CMAKE_SOURCE_DIR}/src/Achievements
-        ${CMAKE_SOURCE_DIR}/src/Upgrades
-        ${CMAKE_SOURCE_DIR}/src/Crafting
-        ${CMAKE_SOURCE_DIR}/src/Multipliers
-        ${CMAKE_SOURCE_DIR}/src/Depth
-        ${CMAKE_SOURCE_DIR}/src/Garden
+include_directories(
+    ${CMAKE_SOURCE_DIR}/../
+    ${CMAKE_SOURCE_DIR}/imgui/
+    ${CMAKE_SOURCE_DIR}/imgui/backends/
+    ${CMAKE_SOURCE_DIR}/src/UI
+    ${CMAKE_SOURCE_DIR}/src/Ressources
+    ${CMAKE_SOURCE_DIR}/src/GameData
+    ${CMAKE_SOURCE_DIR}/src/Buildings
+    ${CMAKE_SOURCE_DIR}/src/Jellyfishs
+    ${CMAKE_SOURCE_DIR}/src/Abilities
+    ${CMAKE_SOURCE_DIR}/src/Achievements
+    ${CMAKE_SOURCE_DIR}/src/Upgrades
+    ${CMAKE_SOURCE_DIR}/src/Crafting
+    ${CMAKE_SOURCE_DIR}/src/Multipliers
+    ${CMAKE_SOURCE_DIR}/src/Depth
+    ${CMAKE_SOURCE_DIR}/src/Garden
 
-    )
+)
     
-# Source files for the main application
 file(GLOB_RECURSE SRCS ${CMAKE_SOURCE_DIR}/src/*.cpp ${CMAKE_SOURCE_DIR}/imgui/*.cpp)
 list(FILTER SRCS EXCLUDE REGEX "Main.cpp|TestsMain.cpp")
 
-# Specific options for 3rdParty source code
 file(GLOB_RECURSE IMGUI_DIR "imgui/*.c*" "imgui/*.h*")
 set_source_files_properties(${IMGUI_DIR} PROPERTIES COMPILE_FLAGS "-w")
 
-# Specify the build directory
 set(BUILD_DIR ${CMAKE_BINARY_DIR})
 file(MAKE_DIRECTORY ${BUILD_DIR})
 
@@ -64,11 +61,9 @@ set_target_properties(game PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${BUILD_DIR}
 )
 
-# Source files for the tests
 file(GLOB_RECURSE TEST_SRCS ${CMAKE_SOURCE_DIR}/tests/*.cpp)
 list(FILTER TEST_SRCS EXCLUDE REGEX "Main.cpp|TestsMain.cpp")
 
-# Specify the test build directory
 set(TEST_BUILD_DIR ${CMAKE_BINARY_DIR})
 file(MAKE_DIRECTORY ${TEST_BUILD_DIR})
 

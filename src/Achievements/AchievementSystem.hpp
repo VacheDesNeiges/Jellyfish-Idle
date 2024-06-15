@@ -1,14 +1,18 @@
 #pragma once
 
 #include "Achievement.hpp"
+#include "AchievementIDs.hpp"
 #include "Building.hpp"
 #include "GameDataAccess.hpp"
 #include "InsightAbility.hpp"
 #include "Jellyfish.hpp"
+#include "Notification.hpp"
 #include "SaveAndLoadable.hpp"
 #include "UpgradeId.hpp"
 
 #include <functional>
+#include <optional>
+#include <queue>
 #include <unordered_map>
 #include <utility>
 #include <vector>
@@ -34,9 +38,18 @@ public:
   loadData (const std::vector<std::pair<AchievementIDs, bool> > &) override;
   void checkAchievements ();
 
+  std::optional<std::string_view> getNotification () const;
+  void popNotification ();
+  void pushNotification (AchievementIDs);
+
 private:
   void initLambdas ();
   std::unordered_map<AchievementIDs, Achievement> achievements;
   std::unordered_map<AchievementIDs, std::function<bool ()> >
       achievementConditions;
+
+  std::unordered_map<AchievementIDs, std::optional<Notification> >
+      notifications;
+
+  std::queue<Notification> notificationQueue;
 };

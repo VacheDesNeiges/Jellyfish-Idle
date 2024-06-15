@@ -20,7 +20,7 @@ public:
 
 private:
   bool bought = false;
-  const std::string name;
-  const std::string description;
+  std::string name;
+  std::string description;
   std::vector<std::pair<RessourceType, double> > cost;
 };
