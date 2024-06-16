@@ -7,15 +7,11 @@ UINotification::render () const
   if (auto notif = gData->getAchievementsView ()->getNextNotification ();
       notif.has_value ())
     {
-      ImGui::OpenPopup ("Notification");
-      if (ImGui::BeginPopup ("Notification"))
-        {
-          ImGui::Text ("%s", std::string (notif.value ()).c_str ());
-          ImGui::EndPopup ();
-        }
-      else
-        {
-          inputHandler->removeCurrentNotification ();
-        }
+      ImGui::Begin ("Notification", nullptr, ImGuiWindowFlags_None);
+      ImGui::SetWindowFocus ();
+      ImGui::Text ("%s", std::string (notif.value ()).c_str ());
+      if (ImGui::Button ("close"))
+        inputHandler->removeCurrentNotification ();
+      ImGui::End ();
     }
 }

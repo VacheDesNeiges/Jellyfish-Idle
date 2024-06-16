@@ -48,8 +48,7 @@ private:
   std::unordered_map<AchievementIDs, std::function<bool ()> >
       achievementConditions;
 
-  std::unordered_map<AchievementIDs, std::optional<Notification> >
-      notifications;
+  std::unordered_map<AchievementIDs, Notification> notifications;
 
   std::queue<Notification> notificationQueue;
 };

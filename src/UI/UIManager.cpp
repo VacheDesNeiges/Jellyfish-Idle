@@ -20,6 +20,7 @@ UIManager::bindGameData (std::shared_ptr<GameDataView> viewPtr,
   depthPanel.bindGameData (viewPtr, inputPtr);
   octopusPanel.bindGameData (viewPtr, inputPtr);
   gardenPanel.bindGameData (viewPtr, inputPtr);
+  notifications.bindGameData (viewPtr, inputPtr);
 }
 
 void
@@ -49,6 +50,7 @@ UIManager::renderUI () const
     {
       octopusPanel.render ();
     }
+  notifications.render ();
 
   // TODO add condition to garden
   gardenPanel.render ();

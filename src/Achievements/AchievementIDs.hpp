@@ -69,3 +69,8 @@ inline constexpr std::array<AchievementIDs, 22> allAchievementsIDs = {
 
   AchievementIDs::LightningAbilityBuyable,
 };
+
+inline constexpr std::array<AchievementIDs, 2> achievementsWithNotification = {
+  AchievementIDs::FirstJelly,
+  AchievementIDs::RessourceFood,
+};

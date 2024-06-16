@@ -6,6 +6,7 @@
 #include "UIDepthPanel.hpp"
 #include "UIGardenPanel.hpp"
 #include "UIJobsPanel.hpp"
+#include "UINotification.hpp"
 #include "UIOctopusPanel.hpp"
 #include "UIResearchPanel.hpp"
 #include "UIRessourcesPanel.hpp"
@@ -31,4 +32,5 @@ private:
   UIDepthPanel depthPanel;
   UIOctopusPanel octopusPanel;
   UIGardenPanel gardenPanel;
+  UINotification notifications;
 };

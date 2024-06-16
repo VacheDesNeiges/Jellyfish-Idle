@@ -6,6 +6,7 @@
 #include "Building.hpp"
 #include "InsightAbility.hpp"
 #include "Jellyfish.hpp"
+#include "Notification.hpp"
 #include "Ressource.hpp"
 #include "UpgradeId.hpp"
 
@@ -16,14 +17,20 @@
 AchievementSystem::AchievementSystem ()
 {
   using enum AchievementIDs;
+
   achievements.reserve (allAchievementsIDs.size ());
-  achievementConditions.reserve (allAchievementsIDs.size ());
-  notifications.reserve (allAchievementsIDs.size ());
   for (const auto a : allAchievementsIDs)
     {
       achievements.try_emplace (a, Achievement ());
-      notifications.try_emplace (a, std::nullopt);
     }
+
+  notifications.reserve (achievementsWithNotification.size ());
+  for (const auto a : achievementsWithNotification)
+    {
+      notifications.try_emplace (a, Notification (a));
+    }
+
+  achievementConditions.reserve (allAchievementsIDs.size ());
   initLambdas ();
 }
 
@@ -221,6 +228,6 @@ AchievementSystem::popNotification ()
 void
 AchievementSystem::pushNotification (AchievementIDs id)
 {
-  if (const auto &notif = notifications.at (id); notif.has_value ())
-    notificationQueue.push (notif.value ());
+  if (const auto it = notifications.find (id); it != notifications.end ())
+    notificationQueue.push (it->second);
 }
