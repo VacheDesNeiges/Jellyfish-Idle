@@ -32,8 +32,9 @@ public:
   CultureData getData () const override;
   void loadData (const CultureData &) override;
 
-  static constexpr std::array<AquaCultureID, 2> CultureTypes = {
+  static constexpr std::array<AquaCultureID, 3> CultureTypes = {
     AquaCultureID::Plankton,
+    AquaCultureID::SandWorms,
     AquaCultureID::Oysters,
   };
 

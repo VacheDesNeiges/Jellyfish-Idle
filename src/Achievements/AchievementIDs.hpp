@@ -40,13 +40,14 @@ enum class AchievementIDs
   LightningAbilityBuyable,
 };
 
-inline constexpr std::array<AchievementIDs, 23> allAchievementsIDs = {
+inline constexpr std::array<AchievementIDs, 24> allAchievementsIDs = {
   AchievementIDs::BuildingAquaticField,
   AchievementIDs::BuildingSandNest,
   AchievementIDs::BuildingMines,
 
   AchievementIDs::GardenSystem,
   AchievementIDs::CulturePlankton,
+  AchievementIDs::CultureSandworm,
   AchievementIDs::CultureOyster,
 
   AchievementIDs::FirstJelly,
