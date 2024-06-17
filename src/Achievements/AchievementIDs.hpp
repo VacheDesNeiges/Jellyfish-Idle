@@ -75,5 +75,5 @@ inline constexpr std::array<AchievementIDs, 23> allAchievementsIDs = {
 
 inline constexpr std::array<AchievementIDs, 2> achievementsWithNotification = {
   AchievementIDs::FirstJelly,
-  AchievementIDs::RessourceFood,
+  AchievementIDs::DepthSystem,
 };

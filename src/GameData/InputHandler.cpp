@@ -64,7 +64,8 @@ InputHandler::gatherSand () const
 void
 InputHandler::lureJellyfish () const
 {
-  systems->ressources->consume ({ systems->jellies->getLureCost () });
+  const auto &[rType, quant] = systems->jellies->getLureCost ();
+  systems->ressources->add (rType, -quant);
   systems->jellies->createJellyfish ();
 }
 

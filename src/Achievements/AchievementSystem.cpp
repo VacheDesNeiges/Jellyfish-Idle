@@ -216,13 +216,17 @@ AchievementSystem::isUnlocked (AquaCultureID id) const
 {
   switch (id)
     {
+      using enum AquaCultureID;
       using enum AchievementIDs;
 
-    case AquaCultureID::Oysters:
+    case Oysters:
       return isUnlocked (CultureOyster);
 
-    case AquaCultureID::Plankton:
+    case Plankton:
       return isUnlocked (CulturePlankton);
+
+    case SandWorms:
+      return isUnlocked (CultureSandworm);
 
     default:
       return false;

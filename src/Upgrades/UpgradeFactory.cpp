@@ -20,7 +20,7 @@ UpgradeFactory::createUpgrade (UpgradeID id)
       description
           = "The Octopus tells you that you have a hidden potential, they "
             "propose to teach you how to use it in exchange for some food.";
-      cost.emplace_back (std::pair{ RessourceType::Food, 300 });
+      cost.emplace_back (std::pair{ RessourceType::Food, 50 });
       break;
 
     case UpgradeID::Telekinesis:

@@ -1,7 +1,6 @@
 #include "AchievementIDs.hpp"
 #include "AchievementSystem.hpp"
 #include "Building.hpp"
-#include "DepthSystem.hpp"
 #include "Jellyfish.hpp"
 #include "JellyfishDataView.hpp"
 
@@ -31,7 +30,7 @@ AchievementSystem::initLambdas ()
       } },
 
     { BuildingMines,
-      [this] () { return depthView ()->getCurrentDepth () >= 20; } },
+      [this] () { return isUnlocked (AchievementIDs::JobMining); } },
 
     // Garden achievements
     // ------------------------------------------------------------------
@@ -112,6 +111,14 @@ AchievementSystem::initLambdas ()
         return jelliesView ()->getNumJellies (JellyJobs::ExploreTheDepths) > 0;
       } },
 
+    { ResearchTabUnlocked, [] () { return false; } },
+
+    // Octopus upgrades
+    // -------------------------------------------------------------------
+
+    { AncientOctopus,
+      [this] () { return depthView ()->getCurrentDepth () >= 10; } },
+
     { FocusingUpgradeBought,
       [this] () { return upgradeView ()->isBought (UpgradeID::Focusing); } },
 
@@ -130,11 +137,6 @@ AchievementSystem::initLambdas ()
         return ressourcesView ()->getRessourceQuantity (RessourceType::Insight)
                >= 1;
       } },
-
-    { ResearchTabUnlocked, [] () { return false; } },
-
-    { AncientOctopus,
-      [this] () { return depthView ()->getCurrentDepth () >= 10; } },
 
   };
 
