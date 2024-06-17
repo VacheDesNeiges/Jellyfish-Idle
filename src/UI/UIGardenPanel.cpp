@@ -25,8 +25,11 @@ UIGardenPanel::render () const
   ImGui::PushStyleColor (ImGuiCol_ChildBg, IM_COL32 (0, 0, 0, 180));
   for (const auto &culture : AquaCulture::CultureTypes)
     {
-      renderCulture (culture);
-      ImGui::SameLine ();
+      if (gData->getAchievementsView ()->isUnlocked (culture))
+        {
+          renderCulture (culture);
+          ImGui::SameLine ();
+        }
     }
   ImGui::PopStyleColor ();
   ImGui::End ();

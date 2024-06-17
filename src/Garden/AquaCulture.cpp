@@ -1,4 +1,5 @@
 #include "AquaCulture.hpp"
+#include "AquaCultureID.hpp"
 #include <cassert>
 #include <vector>
 
@@ -13,6 +14,14 @@ AquaCulture::AquaCulture (AquaCultureID id)
       name = "Plankton";
 
       baseProduction.emplace_back (Food, 0.08);
+      break;
+
+    case SandWorms:
+      name = "Sand Worms";
+
+      baseConsumption.emplace_back (Food, 0.05);
+
+      baseProduction.emplace_back (Sand, 0.05);
       break;
 
     case Oysters:

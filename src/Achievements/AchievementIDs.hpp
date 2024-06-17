@@ -11,6 +11,7 @@ enum class AchievementIDs
 
   GardenSystem,
   CulturePlankton,
+  CultureSandworm,
   CultureOyster,
 
   FirstJelly,
@@ -29,6 +30,7 @@ enum class AchievementIDs
 
   ResearchTabUnlocked,
 
+  DepthSystem,
   AncientOctopus,
 
   FocusingUpgradeBought,
@@ -38,7 +40,7 @@ enum class AchievementIDs
   LightningAbilityBuyable,
 };
 
-inline constexpr std::array<AchievementIDs, 22> allAchievementsIDs = {
+inline constexpr std::array<AchievementIDs, 23> allAchievementsIDs = {
   AchievementIDs::BuildingAquaticField,
   AchievementIDs::BuildingSandNest,
   AchievementIDs::BuildingMines,
@@ -62,6 +64,7 @@ inline constexpr std::array<AchievementIDs, 22> allAchievementsIDs = {
 
   AchievementIDs::ResearchTabUnlocked,
 
+  AchievementIDs::DepthSystem,
   AchievementIDs::AncientOctopus,
   AchievementIDs::FocusingUpgradeBought,
   AchievementIDs::TelekinesisUpgradeBought,

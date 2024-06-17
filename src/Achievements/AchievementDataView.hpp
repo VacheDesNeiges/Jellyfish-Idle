@@ -9,6 +9,7 @@ enum class JellyJobs;
 enum class AchievementIDs;
 enum class AbilityType;
 enum class UpgradeID;
+enum class AquaCultureID;
 
 class AchievementDataView
 {
@@ -21,6 +22,7 @@ public:
   bool isUnlocked (RessourceType) const;
   bool isUnlocked (AbilityType) const;
   bool isUnlocked (UpgradeID) const;
+  bool isUnlocked (AquaCultureID) const;
 
   std::optional<std::string_view> getNextNotification () const;
 

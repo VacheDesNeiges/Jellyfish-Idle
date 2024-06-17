@@ -26,36 +26,31 @@ UIManager::bindGameData (std::shared_ptr<GameDataView> viewPtr,
 void
 UIManager::renderUI () const
 {
+  using enum AchievementIDs;
   ImGui::DockSpaceOverViewport (0, ImGui::GetMainViewport ());
 
   buildingsPanel.render ();
 
-  if (gData->getAchievementsView ()->isUnlocked (AchievementIDs::FirstJelly))
+  if (gData->getAchievementsView ()->isUnlocked (FirstJelly))
     jobsPanel.render ();
 
-  if (gData->getAchievementsView ()->isUnlocked (
-          AchievementIDs::LightningAbilityBuyable))
+  if (gData->getAchievementsView ()->isUnlocked (LightningAbilityBuyable))
     abilitiesPanel.render ();
 
-  if (gData->getAchievementsView ()->isUnlocked (
-          AchievementIDs::ResearchTabUnlocked))
+  if (gData->getAchievementsView ()->isUnlocked (ResearchTabUnlocked))
     researchPanel.render ();
 
-  if (gData->getAchievementsView ()->isUnlocked (
-          AchievementIDs::JobExploreTheDepths))
+  if (gData->getAchievementsView ()->isUnlocked (DepthSystem))
     depthPanel.render ();
 
-  if (gData->getAchievementsView ()->isUnlocked (
-          AchievementIDs::AncientOctopus))
-    {
-      octopusPanel.render ();
-    }
-  notifications.render ();
+  if (gData->getAchievementsView ()->isUnlocked (AncientOctopus))
+    octopusPanel.render ();
 
-  // TODO add condition to garden
-  gardenPanel.render ();
+  if (gData->getAchievementsView ()->isUnlocked (GardenSystem))
+    gardenPanel.render ();
 
   ressourcesPanel.render ();
+  notifications.render ();
 
   ImGui::ShowDemoWindow ();
   ImGui::ShowStyleEditor ();

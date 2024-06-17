@@ -2,6 +2,7 @@
 
 #include "AchievementIDs.hpp"
 #include "AchievementSystem.hpp"
+#include "AquaCultureID.hpp"
 #include "Building.hpp"
 #include "InsightAbility.hpp"
 #include "Jellyfish.hpp"
@@ -46,6 +47,12 @@ AchievementDataView::isUnlocked (AbilityType t) const
 
 bool
 AchievementDataView::isUnlocked (UpgradeID id) const
+{
+  return achievements->isUnlocked (id);
+}
+
+bool
+AchievementDataView::isUnlocked (AquaCultureID id) const
 {
   return achievements->isUnlocked (id);
 }

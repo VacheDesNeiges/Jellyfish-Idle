@@ -2,6 +2,7 @@
 
 #include "Achievement.hpp"
 #include "AchievementIDs.hpp"
+#include "AquaCultureID.hpp"
 #include "Building.hpp"
 #include "GameDataAccess.hpp"
 #include "InsightAbility.hpp"
@@ -31,6 +32,7 @@ public:
   bool isUnlocked (RessourceType) const;
   bool isUnlocked (AbilityType) const;
   bool isUnlocked (UpgradeID) const;
+  bool isUnlocked (AquaCultureID) const;
 
   void unlock (AchievementIDs);
   std::vector<std::pair<AchievementIDs, bool> > getData () const override;

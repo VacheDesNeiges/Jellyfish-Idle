@@ -3,6 +3,7 @@
 #include "Achievement.hpp"
 #include "AchievementDataView.hpp"
 #include "AchievementIDs.hpp"
+#include "AquaCultureID.hpp"
 #include "Building.hpp"
 #include "InsightAbility.hpp"
 #include "Jellyfish.hpp"
@@ -204,6 +205,24 @@ AchievementSystem::isUnlocked (UpgradeID id) const
 
     case Writing:
       return isUnlocked (AdvancedTelekinesisUpgradeBought);
+
+    default:
+      return false;
+    }
+}
+
+bool
+AchievementSystem::isUnlocked (AquaCultureID id) const
+{
+  switch (id)
+    {
+      using enum AchievementIDs;
+
+    case AquaCultureID::Oysters:
+      return isUnlocked (CultureOyster);
+
+    case AquaCultureID::Plankton:
+      return isUnlocked (CulturePlankton);
 
     default:
       return false;

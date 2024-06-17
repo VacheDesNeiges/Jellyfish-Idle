@@ -1,6 +1,9 @@
 #include "AchievementIDs.hpp"
 #include "AchievementSystem.hpp"
 #include "Building.hpp"
+#include "DepthSystem.hpp"
+#include "Jellyfish.hpp"
+#include "JellyfishDataView.hpp"
 
 #include <cassert>
 #include <iostream>
@@ -22,8 +25,9 @@ AchievementSystem::initLambdas ()
 
     { BuildingSandNest,
       [this] () {
-        return ressourcesView ()->getRessourceQuantity (RessourceType::Sand)
-               >= 5;
+        return (ressourcesView ()->getRessourceQuantity (RessourceType::Sand)
+                >= 5)
+               && (jelliesView ()->getNumJellies () > 0);
       } },
 
     { BuildingMines,
@@ -41,15 +45,18 @@ AchievementSystem::initLambdas ()
 
     { CulturePlankton, [] () { return true; } },
 
+    { CultureSandworm,
+      [this] () { return depthView ()->getCurrentDepth () >= 20; } },
+
     { CultureOyster,
-      [this] () { return depthView ()->getCurrentDepth () >= 15; } },
+      [this] () { return depthView ()->getCurrentDepth () >= 30; } },
 
     // Ressources Achievements
     // -------------------------------------------------------------------
 
     { RessourceFood,
       [this] () {
-        return ressourcesView ()->getRessourceMaxQuantity (RessourceType::Food)
+        return ressourcesView ()->getRessourceQuantity (RessourceType::Food)
                > 0;
       } },
 
@@ -88,7 +95,7 @@ AchievementSystem::initLambdas ()
     { JobSystem, [this] () { return jelliesView ()->getNumJellies () > 0; } },
 
     { JobExploreTheDepths,
-      [this] () { return jelliesView ()->getNumJellies () >= 2; } },
+      [this] () { return jelliesView ()->getNumJellies () > 0; } },
 
     { JobMining,
       [this] () {
@@ -98,6 +105,11 @@ AchievementSystem::initLambdas ()
     { JobArtisan,
       [this] () {
         return upgradeView ()->isBought (UpgradeID::AdvancedTelekinesis);
+      } },
+
+    { DepthSystem,
+      [this] {
+        return jelliesView ()->getNumJellies (JellyJobs::ExploreTheDepths) > 0;
       } },
 
     { FocusingUpgradeBought,
