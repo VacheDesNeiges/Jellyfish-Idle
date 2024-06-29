@@ -1,5 +1,6 @@
 #include "UpgradeFactory.hpp"
 
+#include "RessourceType.hpp"
 #include "Upgrade.hpp"
 #include "UpgradeId.hpp"
 
@@ -20,7 +21,7 @@ UpgradeFactory::createUpgrade (UpgradeID id)
       description
           = "The Octopus tells you that you have a hidden potential, they "
             "propose to teach you how to use it in exchange for some food.";
-      cost.emplace_back (std::pair{ RessourceType::Food, 50 });
+      cost.emplace_back (std::pair{ RessourcesAlias::FOOD, 50 });
       break;
 
     case UpgradeID::Telekinesis:
@@ -28,13 +29,13 @@ UpgradeFactory::createUpgrade (UpgradeID id)
       description
           = "The octopus teaches you how to use insight to move heavy objects."
             "This will allow you to do basic manual labour such as mining";
-      cost.emplace_back (std::pair{ RessourceType::Insight, 100 });
+      cost.emplace_back (std::pair{ RessourcesAlias::INSIGHT, 100 });
       break;
 
     case UpgradeID::Writing:
       name = "Writing";
       description = "Description for writing";
-      cost.emplace_back (std::pair{ RessourceType::Insight, 300 });
+      cost.emplace_back (std::pair{ RessourcesAlias::INSIGHT, 300 });
       break;
 
     case UpgradeID::AdvancedTelekinesis:
@@ -42,7 +43,7 @@ UpgradeFactory::createUpgrade (UpgradeID id)
         name = "Advanced Telekinesis";
         description = "Refine your control of Telekinesis, enabling you to "
                       "manufacture more complex items";
-        cost.emplace_back (std::pair{ RessourceType::Insight, 200 });
+        cost.emplace_back (std::pair{ RessourcesAlias::INSIGHT, 200 });
         break;
       }
 
@@ -52,7 +53,7 @@ UpgradeFactory::createUpgrade (UpgradeID id)
         description
             = "Allows you to use your insight to call a lightning strike. "
               "Useful to rapidly melt some sand into glass";
-        cost.emplace_back (std::pair{ RessourceType::Insight, 100 });
+        cost.emplace_back (std::pair{ RessourcesAlias::INSIGHT, 100 });
         break;
       }
     case UpgradeID::Leveling:
@@ -60,7 +61,7 @@ UpgradeFactory::createUpgrade (UpgradeID id)
         name = "Long Term Memory";
         description = "Enhances your knowledge of things over time, making "
                       "your jellyfishs more effective";
-        cost.emplace_back (std::pair{ RessourceType::KnowledgeTablet, 50 });
+        cost.emplace_back (std::pair{ RessourcesAlias::KNOWLEDGETABLET, 50 });
         break;
       }
     }

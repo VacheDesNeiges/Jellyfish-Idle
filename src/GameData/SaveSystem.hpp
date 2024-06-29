@@ -5,7 +5,7 @@
 #include "CraftingRecipe.hpp"
 #include "DepthSystem.hpp"
 #include "JellyfishManager.hpp"
-#include "Ressource.hpp"
+#include "RessourceType.hpp"
 #include "UpgradeId.hpp"
 #include <string>
 #include <utility>

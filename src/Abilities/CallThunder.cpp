@@ -1,16 +1,16 @@
 #include "CallThunder.hpp"
 
 #include "InsightAbility.hpp"
-#include "Ressource.hpp"
+#include "RessourceType.hpp"
 
 #include <string>
 
 CallThunder::CallThunder ()
 {
-  using enum RessourceType;
+  using namespace RessourcesAlias;
   name = "Lightning";
-  castingCost = { { Insight, 100 }, { Sand, 100 } };
-  ressourcesGained = { { Glass, 10 } };
+  castingCost = { { INSIGHT, 100 }, { SAND, 100 } };
+  ressourcesGained = { { GLASS, 10 } };
 }
 
 std::string

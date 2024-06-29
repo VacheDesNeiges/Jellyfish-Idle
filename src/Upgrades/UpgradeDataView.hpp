@@ -1,11 +1,11 @@
 #pragma once
+#include "RessourceType.hpp"
 #include <memory>
 #include <vector>
 
 class UpgradeManager;
 class RessourceManager;
 enum class UpgradeID;
-enum class RessourceType;
 
 class UpgradeDataView
 {

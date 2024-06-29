@@ -2,7 +2,7 @@
 
 #include "GameDataAccess.hpp"
 #include "InsightAbility.hpp"
-#include "Ressource.hpp"
+#include "RessourceType.hpp"
 
 #include <unordered_map>
 

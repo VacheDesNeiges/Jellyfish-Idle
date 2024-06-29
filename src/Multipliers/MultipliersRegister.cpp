@@ -88,7 +88,7 @@ MultipliersRegister::getRessourceProdMultiplier (RessourceType rtype) const
 {
   switch (rtype)
     {
-    case RessourceType::Stone:
+    case RessourcesAlias::STONE:
       return multipliers.at (MultiplierID::StoneProdPerMineMultiplier);
 
     default:

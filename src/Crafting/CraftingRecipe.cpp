@@ -1,27 +1,29 @@
 #include "CraftingRecipe.hpp"
 #include "RecipeID.hpp"
+#include "RessourceType.hpp"
 
 #include <cassert>
 #include <cmath>
+#include <string>
 
 CraftingRecipe::CraftingRecipe (RecipeID id)
 {
   switch (id)
     {
-      using enum RessourceType;
+      using namespace RessourcesAlias;
 
     case RecipeID::StoneSlabRecipe:
       recipeName = "Stone Slab";
       baseTicksForCraft = 120;
-      recipe.emplace_back (Stone, 5);
-      baseResult.emplace_back (StoneSlab, 1);
+      recipe.emplace_back (STONE, 5);
+      baseResult.emplace_back (STONESLAB, 1);
       break;
 
     case RecipeID::GlassPanelRecipe:
       recipeName = "Glass Pane";
       baseTicksForCraft = 300;
-      recipe.emplace_back (Glass, 100);
-      baseResult.emplace_back (GlassPane, 1);
+      recipe.emplace_back (GLASS, 100);
+      baseResult.emplace_back (GLASSPANE, 1);
       break;
 
     default:

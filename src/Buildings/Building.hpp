@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Ressource.hpp"
+#include "RessourceType.hpp"
 
 #include <array>
 #include <string>

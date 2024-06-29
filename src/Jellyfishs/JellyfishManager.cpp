@@ -1,6 +1,6 @@
 #include "JellyfishManager.hpp"
 #include "Jellyfish.hpp"
-#include "Ressource.hpp"
+#include "RessourceType.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -115,14 +115,14 @@ std::unordered_map<RessourceType, double>
 JellyfishManager::getProductionRates () const
 {
   using enum JellyJobs;
-  using enum RessourceType;
+  using namespace RessourcesAlias;
 
   std::unordered_map<RessourceType, double> result;
 
-  result[Stone] = (jobNumbers.at (Mining) * 0.1)
-                  * multipliersView ()->getMultiplier (Stone);
+  result[STONE] = (jobNumbers.at (Mining) * 0.1)
+                  * multipliersView ()->getMultiplier (STONE);
 
-  result[Insight] = jobNumbers.at (FocusForInsight) * 0.16;
+  result[INSIGHT] = jobNumbers.at (FocusForInsight) * 0.16;
 
   return result;
 }
@@ -272,12 +272,12 @@ bool
 JellyfishManager::canLure () const
 {
   return LurePrice
-             <= ressourcesView ()->getRessourceQuantity (RessourceType::Food)
+             <= ressourcesView ()->getRessourceQuantity (RessourcesAlias::FOOD)
          && maxNumJellies > jellies.size ();
 }
 
 std::pair<RessourceType, double>
 JellyfishManager::getLureCost () const
 {
-  return { RessourceType::Food, LurePrice };
+  return { RessourcesAlias::FOOD, LurePrice };
 }

@@ -4,7 +4,6 @@
 
 class MultipliersRegister;
 enum class MultiplierID;
-enum class RessourceType;
 
 class MultiplierDataView
 {

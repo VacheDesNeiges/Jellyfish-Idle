@@ -1,5 +1,11 @@
 #include "RessourceManager.hpp"
+#include "FilePaths.hpp"
 #include "Ressource.hpp"
+#include "RessourceType.hpp"
+
+#include <fstream>
+#include <iostream>
+#include <nlohmann/json.hpp>
 #include <vector>
 
 RessourceManager::RessourceManager () { init (); }
@@ -7,23 +13,62 @@ RessourceManager::RessourceManager () { init (); }
 void
 RessourceManager::init ()
 {
-  using enum RessourceType;
-  ressources.reserve (Ressource::RessourceTypes.size ()
-                      + Ressource::CraftableRessourceTypes.size ());
-  for (const auto &res : Ressource::RessourceTypes)
+  std::cout << "Starting to read ressources \n";
+  const auto path = std::string (FilePaths::getPath ())
+                    + std::string (FilePaths::RessourcesPath);
+
+  std::ifstream fstream (path);
+  std::cout << "Path = " << path << "\n";
+
+  nlohmann::json ressourcesJson = nlohmann::json::parse (fstream);
+  std::cout << "Parsing OK \n";
+
+  ressources.reserve (ressourcesJson["Ressources"].size ()
+                      + ressourcesJson["RareRessources"].size ()
+                      + ressourcesJson["ManufacturedRessources"].size ());
+
+  Ressource::ressourceTypes.reserve (ressourcesJson["Ressources"].size ());
+
+  std::cout << "First Loop\n";
+
+  for (const auto &resData : ressourcesJson["Ressources"])
     {
-      ressources.try_emplace (res, res);
+      ressources.try_emplace (resData.value ("Id", -1),
+                              resData.value ("Name", "Unknown"),
+                              resData.value ("Max_Quantity", -1));
+
+      Ressource::ressourceTypes.push_back (resData.value ("Id", -1));
     }
-  for (const auto &cRes : Ressource::CraftableRessourceTypes)
+
+  Ressource::rareRessourceTypes.reserve (
+      ressourcesJson["RareRessources"].size ());
+
+  for (const auto &resData : ressourcesJson["RareRessources"])
     {
-      ressources.try_emplace (cRes, cRes);
+      ressources.try_emplace (resData.value ("Id", -1),
+                              resData.value ("Name", "Unknown"),
+                              resData.value ("Max_Quantity", -1));
+
+      Ressource::rareRessourceTypes.push_back (resData.value ("Id", -1));
+    }
+
+  Ressource::craftableRessourceTypes.reserve (
+      ressourcesJson["ManufacturedRessources"].size ());
+
+  for (const auto &resData : ressourcesJson["ManufacturedRessources"])
+    {
+      ressources.try_emplace (resData.value ("Id", -1),
+                              resData.value ("Name", "Unknown"),
+                              resData.value ("Max_Quantity", -1));
+
+      Ressource::craftableRessourceTypes.push_back (resData.value ("Id", -1));
     }
 }
 
 void
 RessourceManager::gatherSand ()
 {
-  ressources[RessourceType::Sand].add (1);
+  ressources[RessourcesAlias::SAND].add (1);
 }
 
 double

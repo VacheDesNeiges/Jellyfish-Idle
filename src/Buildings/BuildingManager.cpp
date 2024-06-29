@@ -1,7 +1,7 @@
 #include "BuildingManager.hpp"
 
 #include "Building.hpp"
-#include "Ressource.hpp"
+#include "RessourceType.hpp"
 
 #include <algorithm>
 #include <string>

@@ -1,7 +1,10 @@
 #pragma once
+
 #include "GameDataAccess.hpp"
 #include "Ressource.hpp"
+#include "RessourceType.hpp"
 #include "SaveAndLoadable.hpp"
+
 #include "unordered_map"
 #include <utility>
 #include <vector>

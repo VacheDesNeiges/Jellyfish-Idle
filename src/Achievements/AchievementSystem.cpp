@@ -8,7 +8,7 @@
 #include "InsightAbility.hpp"
 #include "Jellyfish.hpp"
 #include "Notification.hpp"
-#include "Ressource.hpp"
+#include "RessourceType.hpp"
 #include "UpgradeId.hpp"
 
 #include <optional>
@@ -145,27 +145,27 @@ AchievementSystem::isUnlocked (RessourceType r) const
   switch (r)
     {
       using enum AchievementIDs;
-      using enum RessourceType;
+      using namespace RessourcesAlias;
 
-    case Food:
+    case FOOD:
       return isUnlocked (RessourceFood);
 
-    case Sand:
+    case SAND:
       return true;
 
-    case Stone:
+    case STONE:
       return isUnlocked (JobMining);
 
-    case Insight:
+    case INSIGHT:
       return isUnlocked (FocusingUpgradeBought);
 
-    case Glass:
+    case GLASS:
       return isUnlocked (RessourceGlass);
 
-    case StoneSlab:
+    case STONESLAB:
       return isUnlocked (RessourceStoneSlab);
 
-    case GlassPane:
+    case GLASSPANE:
       return isUnlocked (RessourceGlassPane);
 
     default:

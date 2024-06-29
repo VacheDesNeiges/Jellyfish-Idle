@@ -1,8 +1,9 @@
 #pragma once
+#include "RessourceType.hpp"
+
 #include <memory>
 #include <unordered_map>
 
-enum class RessourceType;
 struct SystemPtrs;
 
 class GameSynchronizer

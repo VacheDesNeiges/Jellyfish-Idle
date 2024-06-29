@@ -1,5 +1,6 @@
 #include "Game.hpp"
 
+#include "FilePaths.hpp"
 #include "GameSystems.hpp"
 #include "SaveSystem.hpp"
 
@@ -47,7 +48,7 @@ Game::run (std::optional<std::string_view> option)
   if (std::filesystem::exists (SaveSystem::saveFileName)
       && !(option.has_value () && option == "--noSave"))
     {
-      gameSystems->loadSave (getPath ());
+      gameSystems->loadSave (std::string (FilePaths::getPath ()));
     }
 
   while (!done)
@@ -121,30 +122,11 @@ Game::initialize ()
                     gameSystems->getInputHandler ());
 }
 
-std::string
-Game::getPath () const
-{
-  std::string path;
-  path.resize (PATH_MAX);
-
-  ssize_t len = ::readlink ("/proc/self/exe\0", &path[0], PATH_MAX - 1);
-
-  if (len != -1)
-    {
-      path.resize (static_cast<unsigned long> (len));
-      std::size_t found = path.rfind ('/');
-      if (found != std::string::npos)
-        path.resize (found);
-      return path;
-    }
-  assert (false);
-}
-
 void
 Game::loadFont ()
 {
-  std::string path = getPath ();
-  path += "/assets/font/OpenSans-Bold.ttf";
+  std::string path (FilePaths::getPath ());
+  path += FilePaths::FontPath;
   io->Fonts->AddFontFromFileTTF (path.c_str (), 17);
 }
 

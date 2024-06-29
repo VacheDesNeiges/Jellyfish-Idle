@@ -14,7 +14,6 @@
 
 #include <fstream>
 #include <nlohmann/json.hpp>
-#include <nlohmann/json_fwd.hpp>
 #include <string>
 #include <vector>
 
@@ -114,8 +113,10 @@ SaveSystem::loadFromFile (std::string path)
           d["Unlocked"].get<bool> ());
     }
 
-  result.ressources.reserve (Ressource::RessourceTypes.size ()
-                             + Ressource::CraftableRessourceTypes.size ());
+  result.ressources.reserve (
+      Ressource::getRessourcesTypes ().size ()
+      + Ressource::getCraftableRessourcesTypes ().size ()
+      + Ressource::getRareRessourcesTypes ().size ());
   for (const auto &d : data["Ressource"])
     {
       result.ressources.emplace_back (

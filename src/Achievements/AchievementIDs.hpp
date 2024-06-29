@@ -25,6 +25,8 @@ enum class AchievementIDs
   RessourceFood,
   RessourceGlass,
 
+  RareRessources,
+
   RessourceStoneSlab,
   RessourceGlassPane,
 
@@ -40,7 +42,7 @@ enum class AchievementIDs
   LightningAbilityBuyable,
 };
 
-inline constexpr std::array<AchievementIDs, 24> allAchievementsIDs = {
+inline constexpr std::array<AchievementIDs, 25> allAchievementsIDs = {
   AchievementIDs::BuildingAquaticField,
   AchievementIDs::BuildingSandNest,
   AchievementIDs::BuildingMines,
@@ -60,6 +62,9 @@ inline constexpr std::array<AchievementIDs, 24> allAchievementsIDs = {
 
   AchievementIDs::RessourceFood,
   AchievementIDs::RessourceGlass,
+
+  AchievementIDs::RareRessources,
+
   AchievementIDs::RessourceStoneSlab,
   AchievementIDs::RessourceGlassPane,
 

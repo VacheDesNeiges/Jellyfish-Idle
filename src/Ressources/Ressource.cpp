@@ -1,63 +1,17 @@
 #include "Ressource.hpp"
+#include "AchievementDataView.hpp"
+
 #include <cfloat>
 #include <string_view>
+#include <vector>
 
-Ressource::Ressource (RessourceType rType)
+std::vector<RessourceType> Ressource::ressourceTypes = {};
+std::vector<RessourceType> Ressource::rareRessourceTypes = {};
+std::vector<RessourceType> Ressource::craftableRessourceTypes = {};
+
+Ressource::Ressource (const std::string &n, double max = DBL_MAX)
+    : name (n), max_quantity (max)
 {
-
-  switch (rType)
-    {
-    case RessourceType::Food:
-      name = "Food";
-      max_quantity = 2000;
-      quantity = 0;
-      break;
-
-    case RessourceType::Sand:
-      name = "Sand";
-      max_quantity = 250;
-      quantity = 0;
-      break;
-
-    case RessourceType::Stone:
-      name = "Stone";
-      max_quantity = 200;
-      quantity = 0;
-      break;
-
-    case RessourceType::Insight:
-      name = "Insight";
-      max_quantity = 300;
-      quantity = 0;
-      break;
-
-    case RessourceType::Glass:
-      name = "Glass";
-      max_quantity = 75;
-      quantity = 0;
-      break;
-
-    case RessourceType::StoneSlab:
-      name = "Stone Slab";
-      max_quantity = DBL_MAX;
-      quantity = 0;
-      break;
-
-    case RessourceType::GlassPane:
-      name = "Glass Pane";
-      max_quantity = DBL_MAX;
-      quantity = 0;
-      break;
-
-    case RessourceType::Pearl:
-      name = "Pearl";
-      max_quantity = DBL_MAX;
-      quantity = 0;
-      break;
-
-    default:
-      break;
-    }
 }
 
 void
@@ -146,4 +100,22 @@ double
 Ressource::getConsumption () const
 {
   return consumptionPerTick;
+}
+
+const std::vector<RessourceType> &
+Ressource::getRessourcesTypes ()
+{
+  return ressourceTypes;
+}
+
+const std::vector<RessourceType> &
+Ressource::getRareRessourcesTypes ()
+{
+  return rareRessourceTypes;
+}
+
+const std::vector<RessourceType> &
+Ressource::getCraftableRessourcesTypes ()
+{
+  return craftableRessourceTypes;
 }

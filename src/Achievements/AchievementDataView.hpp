@@ -3,7 +3,7 @@
 #include <optional>
 
 class AchievementSystem;
-enum class RessourceType;
+using RessourceType = int;
 enum class BuildingType;
 enum class JellyJobs;
 enum class AchievementIDs;

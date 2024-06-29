@@ -2,7 +2,6 @@
 #include "GameDataAccess.hpp"
 #include "Jellyfish.hpp"
 #include "MultipliersIDs.hpp"
-#include "Ressource.hpp"
 #include "SaveAndLoadable.hpp"
 #include <unordered_map>
 #include <utility>

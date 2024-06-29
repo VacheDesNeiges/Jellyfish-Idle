@@ -1,8 +1,6 @@
 #include "AbilityManager.hpp"
 
 #include "InsightAbility.hpp"
-#include "Ressource.hpp"
-#include "RessourceDataView.hpp"
 
 AbilityManager::AbilityManager ()
 {

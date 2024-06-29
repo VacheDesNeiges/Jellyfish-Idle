@@ -2,7 +2,7 @@
 #include <memory>
 
 class JellyfishManager;
-enum class RessourceType;
+using RessourceType = int;
 enum class JellyJobs;
 
 class JellyFishDataView

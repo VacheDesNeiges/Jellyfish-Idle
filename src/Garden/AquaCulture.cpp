@@ -7,30 +7,30 @@ AquaCulture::AquaCulture (AquaCultureID id)
 {
   switch (id)
     {
-      using enum RessourceType;
+      using namespace RessourcesAlias;
       using enum AquaCultureID;
 
     case Plankton:
       name = "Plankton";
 
-      baseProduction.emplace_back (Food, 0.08);
+      baseProduction.emplace_back (FOOD, 0.08);
       break;
 
     case SandWorms:
       name = "Sand Worms";
 
-      baseConsumption.emplace_back (Food, 0.05);
+      baseConsumption.emplace_back (FOOD, 0.05);
 
-      baseProduction.emplace_back (Sand, 0.05);
+      baseProduction.emplace_back (SAND, 0.05);
       break;
 
     case Oysters:
       name = "Oysters";
 
-      baseConsumption.emplace_back (Food, 0.05);
-      baseConsumption.emplace_back (Sand, 0.02);
+      baseConsumption.emplace_back (FOOD, 0.05);
+      baseConsumption.emplace_back (SAND, 0.02);
 
-      baseProduction.emplace_back (Pearl, 0.0017);
+      baseProduction.emplace_back (PEARL, 0.0017);
       break;
 
     default:

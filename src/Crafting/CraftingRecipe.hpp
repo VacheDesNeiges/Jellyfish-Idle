@@ -1,9 +1,11 @@
 #pragma once
+#include <array>
+#include <string>
 #include <utility>
 #include <vector>
 
 #include "RecipeID.hpp"
-#include "Ressource.hpp"
+#include "RessourceType.hpp"
 #include "SaveAndLoadable.hpp"
 
 struct RecipeSaveData

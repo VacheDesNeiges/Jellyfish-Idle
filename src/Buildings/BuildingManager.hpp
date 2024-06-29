@@ -1,7 +1,7 @@
 #pragma once
 #include "Building.hpp"
 #include "GameDataAccess.hpp"
-#include "Ressource.hpp"
+#include "RessourceType.hpp"
 #include "SaveAndLoadable.hpp"
 #include <unordered_map>
 #include <utility>

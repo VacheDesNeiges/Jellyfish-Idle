@@ -1,6 +1,6 @@
 #include "Building.hpp"
 
-#include "Ressource.hpp"
+#include "RessourceType.hpp"
 
 #include <fmt/core.h>
 #include <math.h>
@@ -12,7 +12,7 @@ Building::Building (BuildingType bType)
   switch (bType)
     {
 
-      using enum RessourceType;
+      using namespace RessourcesAlias;
 
     case BuildingType::AquaticField:
       name = "Aquatic Field";
@@ -20,7 +20,7 @@ Building::Building (BuildingType bType)
           = "A delimited area used to cultivate useful flora and fauna. Each "
             "level in this building increase the productivity of the fields";
       priceMultiplier = 1.20;
-      basePrice.emplace_back (Sand, 5);
+      basePrice.emplace_back (SAND, 5);
       break;
 
     case BuildingType::DuneShelter:
@@ -30,7 +30,7 @@ Building::Building (BuildingType bType)
       increaseToMaxJfish = 1;
 
       priceMultiplier = 2;
-      basePrice.emplace_back (Sand, 10);
+      basePrice.emplace_back (SAND, 10);
       break;
 
     case BuildingType::Mines:
@@ -39,7 +39,7 @@ Building::Building (BuildingType bType)
           = "Underwater mine, each level increases stone production by 10%";
 
       priceMultiplier = 1.2;
-      basePrice.emplace_back (Stone, 25);
+      basePrice.emplace_back (STONE, 25);
       break;
 
     case BuildingType::GlassNests:
@@ -48,45 +48,45 @@ Building::Building (BuildingType bType)
                     "house two jellies";
       increaseToMaxJfish = 2;
       priceMultiplier = 2.5;
-      basePrice.emplace_back (Glass, 30);
+      basePrice.emplace_back (GLASS, 30);
       break;
 
     case BuildingType::GlassTower:
       name = "Glass Tower";
 
       priceMultiplier = 1.3;
-      basePrice.emplace_back (Glass, 50);
+      basePrice.emplace_back (GLASS, 50);
       break;
 
     case BuildingType::MarineStockRoom:
       name = "Marine Stockroom";
       priceMultiplier = 1.2;
-      basePrice.emplace_back (StoneSlab, 12);
-      basePrice.emplace_back (GlassPane, 10);
+      basePrice.emplace_back (STONESLAB, 12);
+      basePrice.emplace_back (GLASSPANE, 10);
       break;
 
     case BuildingType::SubmergedLibrary:
       name = "Submerged Library";
       priceMultiplier = 1.2;
-      basePrice.emplace_back (Stone, 200);
-      basePrice.emplace_back (KnowledgeTablet, 5);
+      basePrice.emplace_back (STONE, 200);
+      basePrice.emplace_back (KNOWLEDGETABLET, 5);
       break;
 
     case BuildingType::GlassBlowerAtelier:
       name = "Glassblower's Atelier";
       priceMultiplier = 1.5;
-      basePrice.emplace_back (Stone, 100);
-      basePrice.emplace_back (Glass, 80);
+      basePrice.emplace_back (STONE, 100);
+      basePrice.emplace_back (GLASS, 80);
       break;
 
     case BuildingType::SolarLensFurnace:
       name = "Solar Lens Furnace";
       priceMultiplier = 1.3;
-      baseProductionPerTick.try_emplace (Glass, 0.01);
-      baseConsumptionPerTick.try_emplace (Sand, 0.15);
-      basePrice.emplace_back (Stone, 200);
-      basePrice.emplace_back (StoneSlab, 5);
-      basePrice.emplace_back (GlassPane, 2);
+      baseProductionPerTick.try_emplace (GLASS, 0.01);
+      baseConsumptionPerTick.try_emplace (SAND, 0.15);
+      basePrice.emplace_back (STONE, 200);
+      basePrice.emplace_back (STONESLAB, 5);
+      basePrice.emplace_back (GLASSPANE, 2);
     }
 }
 

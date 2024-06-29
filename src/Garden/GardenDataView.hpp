@@ -7,7 +7,7 @@
 
 class GardenManager;
 enum class AquaCultureID;
-enum class RessourceType;
+using RessourceType = int;
 
 class GardenDataView
 {

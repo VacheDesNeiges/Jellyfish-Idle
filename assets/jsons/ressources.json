@@ -1,0 +1,49 @@
+{
+  "Ressources": [
+    {
+      "Name": "Food",
+      "Id": 1,
+      "Max_Quantity": 2000
+    },
+    {
+      "Name": "Sand",
+      "Id": 2,
+      "Max_Quantity": 250
+    },
+    {
+      "Name": "Stone",
+      "Id": 3,
+      "Max_Quantity": 200
+    },
+    {
+      "Name": "Insight",
+      "Id": 4,
+      "Max_Quantity": 300
+    },
+    {
+      "Name": "Glass",
+      "Id": 5,
+      "Max_Quantity": 75
+    }
+  ],
+  "RareRessources": [
+    {
+      "Name": "Pearl",
+      "Id": 1001
+    }
+  ],
+  "ManufacturedRessources": [
+    {
+      "Name": "Glass Pane",
+      "Id": 2001
+    },
+    {
+      "Name": "Stone Slab",
+      "Id": 2002
+    },
+    {
+      "Name": "Knowledge Tablet",
+      "Id": 2003
+    }
+  ]
+}

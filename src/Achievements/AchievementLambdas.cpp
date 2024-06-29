@@ -3,6 +3,7 @@
 #include "Building.hpp"
 #include "Jellyfish.hpp"
 #include "JellyfishDataView.hpp"
+#include "Ressource.hpp"
 
 #include <cassert>
 #include <iostream>
@@ -18,13 +19,13 @@ AchievementSystem::initLambdas ()
 
     { BuildingAquaticField,
       [this] () {
-        return ressourcesView ()->getRessourceQuantity (RessourceType::Sand)
+        return ressourcesView ()->getRessourceQuantity (RessourcesAlias::SAND)
                >= 2;
       } },
 
     { BuildingSandNest,
       [this] () {
-        return (ressourcesView ()->getRessourceQuantity (RessourceType::Sand)
+        return (ressourcesView ()->getRessourceQuantity (RessourcesAlias::SAND)
                 >= 5)
                && (jelliesView ()->getNumJellies () > 0);
       } },
@@ -55,27 +56,44 @@ AchievementSystem::initLambdas ()
 
     { RessourceFood,
       [this] () {
-        return ressourcesView ()->getRessourceQuantity (RessourceType::Food)
+        return ressourcesView ()->getRessourceQuantity (RessourcesAlias::FOOD)
                > 0;
       } },
 
     { RessourceGlass,
       [this] () {
-        return ressourcesView ()->getRessourceQuantity (RessourceType::Glass)
+        return ressourcesView ()->getRessourceQuantity (RessourcesAlias::GLASS)
                > 0;
       } },
+
+    // Rare Ressources
+    // -------------------------------------------------------------------
+
+    { RareRessources,
+      [this] () {
+        bool ret = false;
+        for (const auto rType : Ressource::getRareRessourcesTypes ())
+          {
+            if (ressourcesView ()->getRessourceQuantity (rType) > 0)
+              ret = true;
+          }
+        return ret;
+      } },
+
+    // Manufactured Ressources
+    // -------------------------------------------------------------------
 
     { RessourceStoneSlab,
       [this] () {
         return ressourcesView ()->getRessourceQuantity (
-                   RessourceType::StoneSlab)
+                   RessourcesAlias::STONESLAB)
                > 0;
       } },
 
     { RessourceGlassPane,
       [this] () {
         return ressourcesView ()->getRessourceQuantity (
-                   RessourceType::GlassPane)
+                   RessourcesAlias::GLASSPANE)
                > 0;
       } },
 
@@ -84,7 +102,7 @@ AchievementSystem::initLambdas ()
 
     { JellyfishLuring,
       [this] () {
-        return ressourcesView ()->getRessourceQuantity (RessourceType::Food)
+        return ressourcesView ()->getRessourceQuantity (RessourcesAlias::FOOD)
                > 0;
       } },
 
@@ -134,7 +152,8 @@ AchievementSystem::initLambdas ()
 
     { LightningAbilityBuyable,
       [this] () {
-        return ressourcesView ()->getRessourceQuantity (RessourceType::Insight)
+        return ressourcesView ()->getRessourceQuantity (
+                   RessourcesAlias::INSIGHT)
                >= 1;
       } },
 

@@ -1,6 +1,7 @@
 #pragma once
-#include "Ressource.hpp"
+#include "RessourceType.hpp"
 
+#include <array>
 #include <memory>
 #include <string>
 #include <vector>

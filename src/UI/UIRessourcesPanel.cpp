@@ -46,13 +46,27 @@ UIRessourcesPanel::renderRessources () const
   ImGui::SeparatorText ("");
 
   setupColumns ();
-  for (const auto &ressource : Ressource::RessourceTypes)
+  for (const auto &ressource : Ressource::getRessourcesTypes ())
     {
       if (!gData->getAchievementsView ()->isUnlocked (ressource))
         continue;
       renderRessource (ressource);
     }
   ImGui::EndColumns ();
+
+  if (gData->getAchievementsView ()->isUnlocked (
+          AchievementIDs::RareRessources))
+    {
+      ImGui::SeparatorText ("Rare Ressources");
+      setupColumns ();
+      for (const auto &rareRessource : Ressource::getRareRessourcesTypes ())
+        {
+          if (!gData->getAchievementsView ()->isUnlocked (rareRessource))
+            continue;
+          renderRessource (rareRessource);
+        }
+      ImGui::EndColumns ();
+    }
 
   ImGui::End ();
 }
@@ -68,7 +82,7 @@ UIRessourcesPanel::renderManufacturedRessources () const
     }
 
   setupColumns ();
-  for (const auto &ressource : Ressource::CraftableRessourceTypes)
+  for (const auto &ressource : Ressource::getCraftableRessourcesTypes ())
     {
       if (!gData->getAchievementsView ()->isUnlocked (ressource))
         continue;

@@ -1,15 +1,17 @@
 #pragma once
+#include "AbilityDataView.hpp"
 #include "RessourceType.hpp"
 
-#include <array>
 #include <string>
 #include <string_view>
+#include <vector>
 
 class Ressource
 {
+
 public:
   Ressource () = default;
-  explicit Ressource (RessourceType);
+  explicit Ressource (const std::string &, double);
   ~Ressource () = default;
   void add (double n);
   double getCurrentQuantity () const;
@@ -22,19 +24,16 @@ public:
   void addToConsumptionPerTick (double);
   void addToProdPerTick (double);
   void setQuantity (double);
-
-  static constexpr std::array<RessourceType, 6> RessourceTypes = {
-    RessourceType::Food,  RessourceType::Sand,    RessourceType::Stone,
-    RessourceType::Glass, RessourceType::Insight, RessourceType::Pearl,
-  };
-
-  static constexpr std::array<RessourceType, 3> CraftableRessourceTypes = {
-    RessourceType::StoneSlab,
-    RessourceType::GlassPane,
-    RessourceType::KnowledgeTablet,
-  };
+  static const std::vector<RessourceType> &getRessourcesTypes ();
+  static const std::vector<RessourceType> &getRareRessourcesTypes ();
+  static const std::vector<RessourceType> &getCraftableRessourcesTypes ();
 
 private:
+  friend RessourceManager;
+  static std::vector<RessourceType> ressourceTypes;
+  static std::vector<RessourceType> rareRessourceTypes;
+  static std::vector<RessourceType> craftableRessourceTypes;
+
   std::string name;
   double quantity = 0;
   double max_quantity = -1;

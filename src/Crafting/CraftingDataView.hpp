@@ -1,11 +1,12 @@
 #pragma once
+#include "RessourceType.hpp"
+
 #include <memory>
 #include <utility>
 #include <vector>
 
 class CraftingManager;
 enum class RecipeID;
-enum class RessourceType;
 
 class CraftDataView
 {

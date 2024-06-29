@@ -8,7 +8,6 @@
 #include <SDL2/SDL_render.h>
 #include <memory>
 #include <optional>
-#include <string>
 
 class Game
 
@@ -30,7 +29,6 @@ private:
   void renderFrame ();
 
   void setImguiStyle () const;
-  std::string getPath () const;
 
   SDL_Window *window;
   SDL_Renderer *renderer;
