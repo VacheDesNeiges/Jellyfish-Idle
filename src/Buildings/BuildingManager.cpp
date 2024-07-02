@@ -26,6 +26,10 @@ BuildingManager::BuildingManager ()
         {
           buildings.try_emplace (BuildingType (building["BuildingID"]),
                                  building);
+          if (!building.contains ("Convertion"))
+            {
+              Building::buildingTypes.emplace_back (building["BuildingID"]);
+            }
         }
     }
   catch (nlohmann::json::exception &e)

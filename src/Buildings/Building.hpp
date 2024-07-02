@@ -34,6 +34,7 @@ public:
   const static std::vector<BuildingType> &getConvertionBuildingTypes ();
 
 private:
+  friend class BuildingManager;
   static std::vector<BuildingType> buildingTypes;
   static std::vector<BuildingType> convertionBuildings;
 

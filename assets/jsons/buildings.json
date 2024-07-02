@@ -135,7 +135,21 @@
           "RessourceID": 2001,
           "Quantity": 2
         }
-      ]
+      ],
+      "Convertion": {
+        "Cost": [
+          {
+            "RessourceID": 2,
+            "Quantity": 0.15
+          }
+        ],
+        "Production": [
+          {
+            "RessourceID": 5,
+            "Quantity": 0.01
+          }
+        ]
+      }
     }
   ]
 }

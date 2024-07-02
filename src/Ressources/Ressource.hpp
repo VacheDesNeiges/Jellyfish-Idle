@@ -29,7 +29,7 @@ public:
   static const std::vector<RessourceType> &getCraftableRessourcesTypes ();
 
 private:
-  friend RessourceManager;
+  friend class RessourceManager;
   static std::vector<RessourceType> ressourceTypes;
   static std::vector<RessourceType> rareRessourceTypes;
   static std::vector<RessourceType> craftableRessourceTypes;
