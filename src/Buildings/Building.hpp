@@ -31,12 +31,12 @@ public:
   std::string getAdvancedDescription () const;
 
   const static std::vector<BuildingType> &getBuildingTypes ();
-  const static std::vector<BuildingType> &getConvertionBuildingTypes ();
+  const static std::vector<BuildingType> &getConversionBuildingTypes ();
 
 private:
   friend class BuildingManager;
   static std::vector<BuildingType> buildingTypes;
-  static std::vector<BuildingType> convertionBuildings;
+  static std::vector<BuildingType> conversionBuildings;
 
   std::string name;
   std::string description;

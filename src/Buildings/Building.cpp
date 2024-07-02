@@ -9,7 +9,7 @@
 #include <vector>
 
 std::vector<BuildingType> Building::buildingTypes = {};
-std::vector<BuildingType> Building::convertionBuildings = {};
+std::vector<BuildingType> Building::conversionBuildings = {};
 
 Building::Building (const nlohmann::json &data)
 {
@@ -131,7 +131,7 @@ Building::getBuildingTypes ()
 }
 
 const std::vector<BuildingType> &
-Building::getConvertionBuildingTypes ()
+Building::getConversionBuildingTypes ()
 {
-  return convertionBuildings;
+  return conversionBuildings;
 }

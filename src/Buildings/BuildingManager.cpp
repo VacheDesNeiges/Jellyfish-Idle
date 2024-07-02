@@ -22,16 +22,23 @@ BuildingManager::BuildingManager ()
       auto buildingsJson = nlohmann::json::parse (fstream);
 
       buildings.reserve (buildingsJson["Buildings"].size ());
+      Building::buildingTypes.reserve (buildingsJson["Buildings"].size ());
+
       for (const auto &building : buildingsJson["Buildings"])
         {
           buildings.try_emplace (BuildingType (building["BuildingID"]),
                                  building);
-          if (!building.contains ("Convertion"))
+
+          Building::buildingTypes.emplace_back (building["BuildingID"]);
+
+          if (building.contains ("Conversion"))
             {
-              Building::buildingTypes.emplace_back (building["BuildingID"]);
+              Building::conversionBuildings.emplace_back (
+                  building["BuildingID"]);
             }
         }
     }
+
   catch (nlohmann::json::exception &e)
     {
       std::cerr << "Error while parsing buildings :\n" << e.what () << "\n";
@@ -98,8 +105,8 @@ BuildingManager::getProductionRates () const
   std::unordered_map<RessourceType, double> result;
   for (const auto &[bType, b] : buildings)
     {
-      if (std::ranges::find (Building::getConvertionBuildingTypes (), bType)
-          != Building::getConvertionBuildingTypes ().end ())
+      if (std::ranges::find (Building::getConversionBuildingTypes (), bType)
+          != Building::getConversionBuildingTypes ().end ())
         continue;
 
       for (const auto &[rType, productionRate] : b.getProdPerTick ())
@@ -118,8 +125,8 @@ BuildingManager::getConsumptionRates () const
   std::unordered_map<RessourceType, double> result;
   for (const auto &[bType, b] : buildings)
     {
-      if (std::ranges::find (Building::getConvertionBuildingTypes (), bType)
-          != Building::getConvertionBuildingTypes ().end ())
+      if (std::ranges::find (Building::getConversionBuildingTypes (), bType)
+          != Building::getConversionBuildingTypes ().end ())
         continue;
 
       for (const auto &[rType, consumptionRate] : b.getConsumPerTick ())
