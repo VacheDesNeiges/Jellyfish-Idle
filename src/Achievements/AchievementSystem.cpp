@@ -89,24 +89,12 @@ AchievementSystem::checkAchievements ()
 bool
 AchievementSystem::isUnlocked (BuildingType t) const
 {
-  switch (static_cast<int> (t))
+  if (const auto ach = buildingsAchievements.find (t);
+      ach != buildingsAchievements.end ())
     {
-      using enum AchievementIDs;
-    case static_cast<int> (BuildingsAlias::AQUATICFIELD):
-      return isUnlocked (BuildingAquaticField);
-
-    case static_cast<int> (BuildingsAlias::DUNESHELTER):
-      return isUnlocked (BuildingSandNest);
-
-    case static_cast<int> (BuildingsAlias::MINES):
-      return isUnlocked (BuildingMines);
-
-    case static_cast<int> (BuildingsAlias::GLASSNESTS):
-      return isUnlocked (RessourceGlass);
-
-    default:
-      return false;
+      return achievements.at (ach->second).isUnlocked ();
     }
+  return true;
 }
 
 bool
@@ -140,35 +128,12 @@ bool
 AchievementSystem::isUnlocked (RessourceType r) const
 {
 
-  switch (static_cast<int> (r))
+  if (const auto ach = ressourcesAchievements.find (r);
+      ach != ressourcesAchievements.end ())
     {
-      using enum AchievementIDs;
-      using namespace RessourcesAlias;
-
-    case static_cast<int> (FOOD):
-      return isUnlocked (RessourceFood);
-
-    case static_cast<int> (SAND):
-      return true;
-
-    case static_cast<int> (STONE):
-      return isUnlocked (JobMining);
-
-    case static_cast<int> (INSIGHT):
-      return isUnlocked (FocusingUpgradeBought);
-
-    case static_cast<int> (GLASS):
-      return isUnlocked (RessourceGlass);
-
-    case static_cast<int> (STONESLAB):
-      return isUnlocked (RessourceStoneSlab);
-
-    case static_cast<int> (GLASSPANE):
-      return isUnlocked (RessourceGlassPane);
-
-    default:
-      return true;
+      return achievements.at (ach->second).isUnlocked ();
     }
+  return true;
 }
 
 bool

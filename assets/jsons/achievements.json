@@ -1,0 +1,54 @@
+{
+  "Achievements": [
+    {
+      "Type": "Ressource",
+      "Name": "Food Ressource",
+      "ID": 0,
+      "RessourceID": 1,
+      "Condition": [
+        {
+          "RessourceID": 1,
+          "Quantity_GT": 0
+        }
+      ]
+    },
+    {
+      "RessourceID": 5,
+      "Condition": [
+        {
+          "RessourceID": 5,
+          "Quantity_GT": 0
+        }
+      ]
+    },
+    {
+      "RessourceID": 2001,
+      "Condition": [
+        {
+          "RessourceID": 2001,
+          "Quantity_GT": 0
+        }
+      ]
+    },
+    {
+      "RessourceID": 2002,
+      "Condition": [
+        {
+          "RessourceID": 2002,
+          "Quantity_GT": 0
+        }
+      ]
+    },
+    {
+      "Type": "Garden",
+      "Name": "Garden System",
+      "ID": 2000,
+      "Condition": [
+        {
+          "BuildingID": 2,
+          "MinQuantity": 1
+        }
+      ]
+    }
+  ]
+}

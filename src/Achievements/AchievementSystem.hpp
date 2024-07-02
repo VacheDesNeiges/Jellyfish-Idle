@@ -3,8 +3,8 @@
 #include "Achievement.hpp"
 #include "AchievementIDs.hpp"
 #include "AquaCultureID.hpp"
-#include "Building.hpp"
 #include "GameDataAccess.hpp"
+#include "GameIDsTypes.hpp"
 #include "InsightAbility.hpp"
 #include "Jellyfish.hpp"
 #include "Notification.hpp"
@@ -46,6 +46,8 @@ public:
 
 private:
   void initLambdas ();
+  std::unordered_map<RessourceType, AchievementIDs> ressourcesAchievements;
+  std::unordered_map<BuildingType, AchievementIDs> buildingsAchievements;
   std::unordered_map<AchievementIDs, Achievement> achievements;
   std::unordered_map<AchievementIDs, std::function<bool ()> >
       achievementConditions;
