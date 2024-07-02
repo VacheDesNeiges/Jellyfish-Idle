@@ -15,26 +15,27 @@ Building::Building (const nlohmann::json &data)
 {
   try
     {
-      name = data["Name"];
-      description = data["Description"];
-      increaseToMaxJfish = data["IncreaseToJfish"];
-      priceMultiplier = data["PriceMultiplier"];
+      name = data.at ("Name");
+      description = data.at ("Description");
+      increaseToMaxJfish = data.at ("IncreaseToJfish");
+      priceMultiplier = data.at ("PriceMultiplier");
 
-      basePrice.reserve (data["BasePrice"].size ());
+      basePrice.reserve (data.at ("BasePrice").size ());
       for (const auto &price : data["BasePrice"])
         {
-          basePrice.emplace_back (price["RessourceID"], price["Quantity"]);
+          basePrice.emplace_back (price.at ("RessourceID"),
+                                  price.at ("Quantity"));
         }
 
       if (data.contains ("Conversion"))
         {
-          for (const auto &cost : data["Conversion"]["Cost"])
+          for (const auto &cost : data["Conversion"].at ("Cost"))
             {
               baseConsumptionPerTick.try_emplace (
                   RessourceType (cost.at ("RessourceID")),
                   cost.at ("Quantity"));
             }
-          for (const auto &prod : data["Conversion"]["Production"])
+          for (const auto &prod : data["Conversion"].at ("Production"))
             {
               baseProductionPerTick.try_emplace (
                   RessourceType (prod.at ("RessourceID")),
