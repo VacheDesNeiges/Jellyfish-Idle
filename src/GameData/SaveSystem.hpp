@@ -4,8 +4,8 @@
 #include "Building.hpp"
 #include "CraftingRecipe.hpp"
 #include "DepthSystem.hpp"
+#include "GameIDsTypes.hpp"
 #include "JellyfishManager.hpp"
-#include "RessourceType.hpp"
 #include "UpgradeId.hpp"
 #include <string>
 #include <utility>

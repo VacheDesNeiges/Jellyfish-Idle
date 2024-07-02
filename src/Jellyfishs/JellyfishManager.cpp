@@ -1,6 +1,6 @@
 #include "JellyfishManager.hpp"
+#include "GameIDsTypes.hpp"
 #include "Jellyfish.hpp"
-#include "RessourceType.hpp"
 
 #include <algorithm>
 #include <cmath>

@@ -4,8 +4,8 @@
 #include <utility>
 #include <vector>
 
+#include "GameIDsTypes.hpp"
 #include "RecipeID.hpp"
-#include "RessourceType.hpp"
 #include "SaveAndLoadable.hpp"
 
 struct RecipeSaveData

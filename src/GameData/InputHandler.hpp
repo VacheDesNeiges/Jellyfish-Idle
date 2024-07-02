@@ -1,8 +1,8 @@
 #pragma once
+#include "GameIDsTypes.hpp"
 #include "GameSystems.hpp"
 #include <memory>
 
-enum class BuildingType;
 enum class JellyJobs;
 enum class AbilityType;
 enum class UpgradeID;

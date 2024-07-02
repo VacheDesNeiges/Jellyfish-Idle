@@ -3,7 +3,6 @@
 #include "AchievementIDs.hpp"
 #include "AchievementSystem.hpp"
 #include "AquaCultureID.hpp"
-#include "Building.hpp"
 #include "InsightAbility.hpp"
 #include "Jellyfish.hpp"
 #include "UpgradeId.hpp"

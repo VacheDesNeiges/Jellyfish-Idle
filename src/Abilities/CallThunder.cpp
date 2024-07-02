@@ -1,7 +1,7 @@
 #include "CallThunder.hpp"
 
+#include "GameIDsTypes.hpp"
 #include "InsightAbility.hpp"
-#include "RessourceType.hpp"
 
 #include <string>
 

@@ -1,6 +1,6 @@
 #include "CraftingRecipe.hpp"
+#include "GameIDsTypes.hpp"
 #include "RecipeID.hpp"
-#include "RessourceType.hpp"
 
 #include <cassert>
 #include <cmath>

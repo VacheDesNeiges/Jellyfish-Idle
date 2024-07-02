@@ -1,11 +1,11 @@
 #pragma once
+#include "GameIDsTypes.hpp"
 #include <memory>
 #include <vector>
 
 class AbilityManager;
 class RessourceManager;
 enum class AbilityType;
-using RessourceType = int;
 
 class AbilityDataView
 {

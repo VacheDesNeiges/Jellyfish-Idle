@@ -12,6 +12,8 @@ namespace FilePaths
 inline constexpr std::string_view FontPath = "/assets/font/OpenSans-Bold.ttf";
 inline constexpr std::string_view RessourcesPath
     = "/assets/jsons/ressources.json";
+inline constexpr std::string_view BuildingsPath
+    = "/assets/jsons/buildings.json";
 
 inline std::string_view
 getPath ()
@@ -22,13 +24,12 @@ getPath ()
 
   path.resize (PATH_MAX);
 
-  ssize_t len = ::readlink ("/proc/self/exe\0", &path[0], PATH_MAX - 1);
-
-  if (len != -1)
+  if (ssize_t len = ::readlink ("/proc/self/exe\0", &path[0], PATH_MAX - 1);
+      len != -1)
     {
       path.resize (static_cast<unsigned long> (len));
-      std::size_t found = path.rfind ('/');
-      if (found != std::string::npos)
+
+      if (std::size_t found = path.rfind ('/'); found != std::string::npos)
         path.resize (found);
       return path;
     }

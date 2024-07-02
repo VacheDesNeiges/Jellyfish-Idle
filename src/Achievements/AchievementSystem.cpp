@@ -4,11 +4,10 @@
 #include "AchievementDataView.hpp"
 #include "AchievementIDs.hpp"
 #include "AquaCultureID.hpp"
-#include "Building.hpp"
+#include "GameIDsTypes.hpp"
 #include "InsightAbility.hpp"
 #include "Jellyfish.hpp"
 #include "Notification.hpp"
-#include "RessourceType.hpp"
 #include "UpgradeId.hpp"
 
 #include <optional>
@@ -90,20 +89,19 @@ AchievementSystem::checkAchievements ()
 bool
 AchievementSystem::isUnlocked (BuildingType t) const
 {
-  using enum BuildingType;
-  switch (t)
+  switch (static_cast<int> (t))
     {
       using enum AchievementIDs;
-    case AquaticField:
+    case static_cast<int> (BuildingsAlias::AQUATICFIELD):
       return isUnlocked (BuildingAquaticField);
 
-    case DuneShelter:
+    case static_cast<int> (BuildingsAlias::DUNESHELTER):
       return isUnlocked (BuildingSandNest);
 
-    case Mines:
+    case static_cast<int> (BuildingsAlias::MINES):
       return isUnlocked (BuildingMines);
 
-    case GlassNests:
+    case static_cast<int> (BuildingsAlias::GLASSNESTS):
       return isUnlocked (RessourceGlass);
 
     default:
@@ -142,30 +140,30 @@ bool
 AchievementSystem::isUnlocked (RessourceType r) const
 {
 
-  switch (r)
+  switch (static_cast<int> (r))
     {
       using enum AchievementIDs;
       using namespace RessourcesAlias;
 
-    case FOOD:
+    case static_cast<int> (FOOD):
       return isUnlocked (RessourceFood);
 
-    case SAND:
+    case static_cast<int> (SAND):
       return true;
 
-    case STONE:
+    case static_cast<int> (STONE):
       return isUnlocked (JobMining);
 
-    case INSIGHT:
+    case static_cast<int> (INSIGHT):
       return isUnlocked (FocusingUpgradeBought);
 
-    case GLASS:
+    case static_cast<int> (GLASS):
       return isUnlocked (RessourceGlass);
 
-    case STONESLAB:
+    case static_cast<int> (STONESLAB):
       return isUnlocked (RessourceStoneSlab);
 
-    case GLASSPANE:
+    case static_cast<int> (GLASSPANE):
       return isUnlocked (RessourceGlassPane);
 
     default:

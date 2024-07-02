@@ -1,5 +1,7 @@
 #pragma once
 
+#include "GameIDsTypes.hpp"
+
 #include <memory>
 #include <optional>
 #include <utility>
@@ -7,7 +9,6 @@
 
 class GardenManager;
 enum class AquaCultureID;
-using RessourceType = int;
 
 class GardenDataView
 {

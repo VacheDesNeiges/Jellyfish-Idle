@@ -1,6 +1,6 @@
 #pragma once
 #include "AbilityDataView.hpp"
-#include "RessourceType.hpp"
+#include "GameIDsTypes.hpp"
 
 #include <string>
 #include <string_view>

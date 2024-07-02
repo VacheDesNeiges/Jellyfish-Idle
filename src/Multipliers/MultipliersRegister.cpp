@@ -1,6 +1,6 @@
 #include "MultipliersRegister.hpp"
 
-#include "Building.hpp"
+#include "GameIDsTypes.hpp"
 #include "MultipliersConstants.hpp"
 #include "MultipliersIDs.hpp"
 #include <linux/limits.h>
@@ -36,8 +36,8 @@ MultipliersRegister::recomputeMultipliers ()
         {
         case MultiplierID::StoneProdPerMineMultiplier:
           {
-            auto minesQuant
-                = buildingsView ()->getBuildingQuantity (BuildingType::Mines);
+            auto minesQuant = buildingsView ()->getBuildingQuantity (
+                BuildingsAlias::MINES);
 
             multipliers[multi]
                 += MultipliersConstants::StoneProdPerMine * minesQuant;
@@ -47,7 +47,7 @@ MultipliersRegister::recomputeMultipliers ()
         case MultiplierID::FieldsProductivityMultiplier:
           {
             auto fieldsQuantity = buildingsView ()->getBuildingQuantity (
-                BuildingType::AquaticField);
+                BuildingsAlias::AQUATICFIELD);
 
             multipliers[multi]
                 += MultipliersConstants::FieldsProductivityMultiplier
@@ -64,16 +64,16 @@ MultipliersRegister::recomputeMultipliers ()
 void
 MultipliersRegister::buildingBoughtUpdate (BuildingType t)
 {
-  switch (t)
+  switch (static_cast<int> (t))
     {
 
-    case BuildingType::Mines:
+    case static_cast<int> (BuildingsAlias::MINES):
 
       multipliers.at (MultiplierID::StoneProdPerMineMultiplier)
           += MultipliersConstants::StoneProdPerMine;
       break;
 
-    case BuildingType::AquaticField:
+    case static_cast<int> (BuildingsAlias::AQUATICFIELD):
       multipliers.at (MultiplierID::FieldsProductivityMultiplier)
           += MultipliersConstants::FieldsProductivityMultiplier;
       break;
@@ -86,9 +86,9 @@ MultipliersRegister::buildingBoughtUpdate (BuildingType t)
 double
 MultipliersRegister::getRessourceProdMultiplier (RessourceType rtype) const
 {
-  switch (rtype)
+  switch (static_cast<int> (rtype))
     {
-    case RessourcesAlias::STONE:
+    case static_cast<int> (RessourcesAlias::STONE):
       return multipliers.at (MultiplierID::StoneProdPerMineMultiplier);
 
     default:
@@ -99,9 +99,9 @@ MultipliersRegister::getRessourceProdMultiplier (RessourceType rtype) const
 double
 MultipliersRegister::getBuildingMultiplier (BuildingType bType) const
 {
-  switch (bType)
+  switch (static_cast<int> (bType))
     {
-    case BuildingType::AquaticField:
+    case static_cast<int> (BuildingsAlias::AQUATICFIELD):
       return multipliers.at (MultiplierID::FieldsProductivityMultiplier);
 
     default:

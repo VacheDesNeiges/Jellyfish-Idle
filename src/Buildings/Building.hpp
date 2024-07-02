@@ -1,29 +1,17 @@
 #pragma once
 
-#include "RessourceType.hpp"
+#include "GameIDsTypes.hpp"
 
-#include <array>
+#include <nlohmann/json.hpp>
 #include <string>
 #include <unordered_map>
 #include <vector>
-enum class BuildingType
-{
-  AquaticField,
-  DuneShelter,
-  Mines,
-  GlassNests,
-  GlassTower,
-  MarineStockRoom,
-  GlassBlowerAtelier,
-  SubmergedLibrary,
-  SolarLensFurnace,
-};
 
 class Building
 {
 public:
   Building () = default;
-  explicit Building (BuildingType);
+  explicit Building (const nlohmann::json &);
 
   ~Building () = default;
 
@@ -42,23 +30,13 @@ public:
   std::string getDescription () const;
   std::string getAdvancedDescription () const;
 
-  static constexpr std::array<BuildingType, 9> BuildingTypes = {
-    BuildingType::AquaticField,
-    BuildingType::DuneShelter,
-    BuildingType::Mines,
-    BuildingType::GlassNests,
-    BuildingType::GlassTower,
-    BuildingType::MarineStockRoom,
-    BuildingType::GlassBlowerAtelier,
-    BuildingType::SubmergedLibrary,
-    BuildingType::SolarLensFurnace,
-  };
-
-  static constexpr std::array<BuildingType, 1> convertionBuildings = {
-    BuildingType::SolarLensFurnace,
-  };
+  const static std::vector<BuildingType> &getBuildingTypes ();
+  const static std::vector<BuildingType> &getConvertionBuildingTypes ();
 
 private:
+  static std::vector<BuildingType> buildingTypes;
+  static std::vector<BuildingType> convertionBuildings;
+
   std::string name;
   std::string description;
   unsigned quantity = 0;

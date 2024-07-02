@@ -1,8 +1,9 @@
 #pragma once
+#include "GameIDsTypes.hpp"
+
 #include <memory>
 
 class JellyfishManager;
-using RessourceType = int;
 enum class JellyJobs;
 
 class JellyFishDataView

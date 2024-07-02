@@ -1,0 +1,141 @@
+{
+  "Buildings": [
+    {
+      "Name": "Aquatic Field",
+      "BuildingID": 1,
+      "Description": "A delimited area used to cultivate useful flora and fauna. Each level in this building increase the productivity of the fields",
+      "IncreaseToJfish": 0,
+      "PriceMultiplier": 1.20,
+      "BasePrice": [
+        {
+          "RessourceID": 2,
+          "Quantity": 5
+        }
+      ]
+    },
+    {
+      "Name": "Dune Shelter",
+      "BuildingID": 2,
+      "Description": "A dune shelter, each level provides room for housing one jellie.",
+      "IncreaseToJfish": 1,
+      "PriceMultiplier": 2,
+      "BasePrice": [
+        {
+          "RessourceID": 2,
+          "Quantity": 10
+        }
+      ]
+    },
+    {
+      "Name": "Mines",
+      "BuildingID": 3,
+      "Description": "Underwater mine, each level increases stone production by 10%",
+      "IncreaseToJfish": 0,
+      "PriceMultiplier": 1.2,
+      "BasePrice": [
+        {
+          "RessourceID": 3,
+          "Quantity": 25
+        }
+      ]
+    },
+    {
+      "Name": "Glass Nests",
+      "BuildingID": 4,
+      "Description": "A pretty glass nest, each level provides enough room to house two jellies",
+      "IncreaseToJfish": 2,
+      "PriceMultiplier": 2.5,
+      "BasePrice": [
+        {
+          "RessourceID": 5,
+          "Quantity": 30
+        }
+      ]
+    },
+    {
+      "Name": "Glass Tower",
+      "BuildingID": 5,
+      "Description": "A glass tower",
+      "IncreaseToJfish": 0,
+      "PriceMultiplier": 1.3,
+      "BasePrice": [
+        {
+          "RessourceID": 5,
+          "Quantity": 50
+        }
+      ]
+    },
+    {
+      "Name": "Marine Stockroom",
+      "BuildingID": 6,
+      "Description": "Increases the cap of ressources",
+      "IncreaseToJfish": 0,
+      "PriceMultiplier": 1.2,
+      "BasePrice": [
+        {
+          "RessourceID": 2002,
+          "Quantity": 12
+        },
+        {
+          "RessourceID": 2001,
+          "Quantity": 10
+        }
+      ]
+    },
+    {
+      "Name": "Submerged Library",
+      "BuildingID": 7,
+      "Description": "A Library",
+      "IncreaseToJfish": 0,
+      "PriceMultiplier": 1.2,
+      "BasePrice": [
+        {
+          "RessourceID": 3,
+          "Quantity": 200
+        },
+        {
+          "RessourceID": 2003,
+          "Quantity": 5
+        }
+      ]
+    },
+    {
+      "Name": "Glassblower's Atelier",
+      "BuildingID": 8,
+      "Description": "Atelier",
+      "IncreaseToJfish": 0,
+      "PriceMultiplier": 1.5,
+      "BasePrice": [
+        {
+          "RessourceID": 3,
+          "Quantity": 100
+        },
+        {
+          "RessourceID": 5,
+          "Quantity": 80
+        }
+      ]
+    },
+    {
+      "Name": "Solar Lens Furnace",
+      "BuildingID": 9,
+      "Description": "Solar Lens Furnace",
+      "IncreaseToJfish": 0,
+      "PriceMultiplier": 1.3,
+      "BasePrice": [
+        {
+          "RessourceID": 3,
+          "Quantity": 200
+        },
+        {
+          "RessourceID": 2002,
+          "Quantity": 5
+        },
+        {
+          "RessourceID": 2001,
+          "Quantity": 2
+        }
+      ]
+    }
+  ]
+}

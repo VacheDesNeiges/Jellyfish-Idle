@@ -24,7 +24,7 @@ SaveSystem::save (const SaveData &data)
   for (const auto &[type, quant] : data.buildings)
     {
       j["Building"]
-          += { { "id", static_cast<unsigned> (type) }, { "Quantity", quant } };
+          += { { "id", static_cast<int> (type) }, { "Quantity", quant } };
     }
 
   for (const auto &[idAch, isUnlocked] : data.achievements)
@@ -35,8 +35,8 @@ SaveSystem::save (const SaveData &data)
 
   for (const auto &[idRes, quant] : data.ressources)
     {
-      j["Ressource"] += { { "id", static_cast<unsigned> (idRes) },
-                          { "Quantity", quant } };
+      j["Ressource"]
+          += { { "id", static_cast<int> (idRes) }, { "Quantity", quant } };
     }
 
   j["Jellies"] += {
@@ -97,11 +97,12 @@ SaveSystem::loadFromFile (std::string path)
   std::ifstream f (path);
   nlohmann::json data = nlohmann::json::parse (f);
 
-  result.buildings.reserve (Building::BuildingTypes.size ());
+  result.buildings.reserve (
+      Building::getBuildingTypes ().size ()); // FIXME use size in json
   for (const auto &d : data["Building"])
     {
       result.buildings.emplace_back (
-          static_cast<BuildingType> (d["id"].get<unsigned> ()),
+          static_cast<BuildingType> (d["id"].get<int> ()),
           d["Quantity"].get<unsigned> ());
     }
 
@@ -120,7 +121,7 @@ SaveSystem::loadFromFile (std::string path)
   for (const auto &d : data["Ressource"])
     {
       result.ressources.emplace_back (
-          static_cast<RessourceType> (d["id"].get<unsigned> ()),
+          static_cast<RessourceType> (d["id"].get<int> ()),
           d["Quantity"].get<double> ());
     }
 

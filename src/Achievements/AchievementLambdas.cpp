@@ -1,6 +1,6 @@
 #include "AchievementIDs.hpp"
 #include "AchievementSystem.hpp"
-#include "Building.hpp"
+#include "GameIDsTypes.hpp"
 #include "Jellyfish.hpp"
 #include "JellyfishDataView.hpp"
 #include "Ressource.hpp"
@@ -39,7 +39,7 @@ AchievementSystem::initLambdas ()
     { GardenSystem,
       [this] () {
         return buildingsView ()->getBuildingQuantity (
-                   BuildingType::AquaticField)
+                   BuildingsAlias::AQUATICFIELD)
                >= 1;
       } },
 

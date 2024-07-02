@@ -1,8 +1,8 @@
 #pragma once
 
 #include "GameDataAccess.hpp"
+#include "GameIDsTypes.hpp"
 #include "InsightAbility.hpp"
-#include "RessourceType.hpp"
 
 #include <unordered_map>
 

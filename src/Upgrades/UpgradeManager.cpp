@@ -1,6 +1,5 @@
 #include "UpgradeManager.hpp"
 
-#include "Ressource.hpp"
 #include "UpgradeDataView.hpp"
 #include "UpgradeFactory.hpp"
 #include "UpgradeId.hpp"

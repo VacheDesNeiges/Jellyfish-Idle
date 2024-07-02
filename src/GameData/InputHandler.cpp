@@ -96,9 +96,8 @@ InputHandler::buy (UpgradeID id) const
 void
 InputHandler::updateMaxNumJellies () const
 {
-  using enum BuildingType;
   unsigned n = 0;
-  for (const auto &b : Building::BuildingTypes)
+  for (const auto &b : Building::getBuildingTypes ())
     {
       n += systems->buildings->getIncreaseToMaxJfish (b);
     }

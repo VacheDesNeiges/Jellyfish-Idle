@@ -1,5 +1,5 @@
 #pragma once
-#include "RessourceType.hpp"
+#include "GameIDsTypes.hpp"
 
 #include <array>
 #include <memory>

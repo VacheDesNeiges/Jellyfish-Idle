@@ -1,7 +1,7 @@
 #pragma once
 
 #include "AquaCultureID.hpp"
-#include "RessourceType.hpp"
+#include "GameIDsTypes.hpp"
 #include "SaveAndLoadable.hpp"
 
 #include <array>

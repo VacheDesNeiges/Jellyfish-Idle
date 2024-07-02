@@ -2,7 +2,6 @@
 
 #include "AchievementIDs.hpp"
 #include "Building.hpp"
-#include "InputHandler.hpp"
 #include "UIUtils.hpp"
 
 #include "imgui.h"
@@ -29,8 +28,7 @@ UIBuildingPanel::render () const
   if (!odd)
     ImGui::SetCursorPosX (50);
 
-  using enum BuildingType;
-  for (const auto &building : Building::BuildingTypes)
+  for (const auto &building : Building::getBuildingTypes ())
     {
       if (renderBuildingButton (building))
         {

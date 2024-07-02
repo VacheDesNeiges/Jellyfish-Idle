@@ -1,6 +1,6 @@
 #include "UpgradeFactory.hpp"
 
-#include "RessourceType.hpp"
+#include "GameIDsTypes.hpp"
 #include "Upgrade.hpp"
 #include "UpgradeId.hpp"
 

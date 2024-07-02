@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Building.hpp"
 #include "GameDataAccess.hpp"
+#include "GameIDsTypes.hpp"
 #include "Jellyfish.hpp"
 #include "MultipliersIDs.hpp"
 
@@ -34,9 +34,9 @@ public: // constexpr arrays
 
   static constexpr std::array<std::pair<BuildingType, MultiplierID>, 2>
       buildingMultipliers = {
-        std::pair{ BuildingType::Mines,
+        std::pair{ BuildingsAlias::MINES,
                    MultiplierID::StoneProdPerMineMultiplier },
-        std::pair{ BuildingType::AquaticField,
+        std::pair{ BuildingsAlias::AQUATICFIELD,
                    MultiplierID::FieldsProductivityMultiplier },
       };
 

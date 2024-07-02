@@ -1,92 +1,35 @@
 #include "Building.hpp"
 
-#include "RessourceType.hpp"
+#include "GameIDsTypes.hpp"
 
 #include <fmt/core.h>
+#include <iostream>
 #include <math.h>
 #include <utility>
 #include <vector>
 
-Building::Building (BuildingType bType)
+std::vector<BuildingType> Building::buildingTypes = {};
+std::vector<BuildingType> Building::convertionBuildings = {};
+
+Building::Building (const nlohmann::json &data)
 {
-  switch (bType)
+  try
     {
+      name = data["Name"];
+      description = data["Description"];
+      increaseToMaxJfish = data["IncreaseToJfish"];
+      priceMultiplier = data["PriceMultiplier"];
 
-      using namespace RessourcesAlias;
-
-    case BuildingType::AquaticField:
-      name = "Aquatic Field";
-      description
-          = "A delimited area used to cultivate useful flora and fauna. Each "
-            "level in this building increase the productivity of the fields";
-      priceMultiplier = 1.20;
-      basePrice.emplace_back (SAND, 5);
-      break;
-
-    case BuildingType::DuneShelter:
-      name = "Dune Shelter";
-      description
-          = "A dune shelter, each level provides room for housing one jellie.";
-      increaseToMaxJfish = 1;
-
-      priceMultiplier = 2;
-      basePrice.emplace_back (SAND, 10);
-      break;
-
-    case BuildingType::Mines:
-      name = "Mines";
-      description
-          = "Underwater mine, each level increases stone production by 10%";
-
-      priceMultiplier = 1.2;
-      basePrice.emplace_back (STONE, 25);
-      break;
-
-    case BuildingType::GlassNests:
-      name = "Glass Nests";
-      description = "A pretty glass nest, each level provides enough room to "
-                    "house two jellies";
-      increaseToMaxJfish = 2;
-      priceMultiplier = 2.5;
-      basePrice.emplace_back (GLASS, 30);
-      break;
-
-    case BuildingType::GlassTower:
-      name = "Glass Tower";
-
-      priceMultiplier = 1.3;
-      basePrice.emplace_back (GLASS, 50);
-      break;
-
-    case BuildingType::MarineStockRoom:
-      name = "Marine Stockroom";
-      priceMultiplier = 1.2;
-      basePrice.emplace_back (STONESLAB, 12);
-      basePrice.emplace_back (GLASSPANE, 10);
-      break;
-
-    case BuildingType::SubmergedLibrary:
-      name = "Submerged Library";
-      priceMultiplier = 1.2;
-      basePrice.emplace_back (STONE, 200);
-      basePrice.emplace_back (KNOWLEDGETABLET, 5);
-      break;
-
-    case BuildingType::GlassBlowerAtelier:
-      name = "Glassblower's Atelier";
-      priceMultiplier = 1.5;
-      basePrice.emplace_back (STONE, 100);
-      basePrice.emplace_back (GLASS, 80);
-      break;
-
-    case BuildingType::SolarLensFurnace:
-      name = "Solar Lens Furnace";
-      priceMultiplier = 1.3;
-      baseProductionPerTick.try_emplace (GLASS, 0.01);
-      baseConsumptionPerTick.try_emplace (SAND, 0.15);
-      basePrice.emplace_back (STONE, 200);
-      basePrice.emplace_back (STONESLAB, 5);
-      basePrice.emplace_back (GLASSPANE, 2);
+      basePrice.reserve (data["BasePrice"].size ());
+      for (const auto &price : data["BasePrice"])
+        {
+          basePrice.emplace_back (price["RessourceID"], price["Quantity"]);
+        }
+    }
+  catch (nlohmann::json::exception &e)
+    {
+      std::cerr << "Error while parsing a building :\n" << e.what () << "\n";
+      abort ();
     }
 }
 
@@ -179,4 +122,16 @@ std::string
 Building::getDescription () const
 {
   return description;
+}
+
+const std::vector<BuildingType> &
+Building::getBuildingTypes ()
+{
+  return buildingTypes;
+}
+
+const std::vector<BuildingType> &
+Building::getConvertionBuildingTypes ()
+{
+  return convertionBuildings;
 }

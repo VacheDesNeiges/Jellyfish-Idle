@@ -1,12 +1,11 @@
 #pragma once
-#include "RessourceType.hpp"
+#include "GameIDsTypes.hpp"
 
 #include <memory>
 #include <vector>
 
 class BuildingManager;
 class RessourceManager;
-enum class BuildingType;
 
 class BuildingDataView
 {

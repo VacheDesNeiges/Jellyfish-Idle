@@ -89,7 +89,7 @@ GameSynchronizer::distributeExp () const
 void
 GameSynchronizer::convertRessources () const
 {
-  for (const auto building : Building::convertionBuildings)
+  for (const auto building : Building::getConvertionBuildingTypes ())
     {
       const auto &prod = systems->buildings->getProduction (building);
       const auto &cons = systems->buildings->getConsumption (building);

@@ -1,9 +1,12 @@
 #include "BuildingManager.hpp"
 
 #include "Building.hpp"
-#include "RessourceType.hpp"
+#include "FilePaths.hpp"
+#include "GameIDsTypes.hpp"
 
 #include <algorithm>
+#include <fstream>
+#include <iostream>
 #include <string>
 #include <unordered_map>
 #include <utility>
@@ -11,10 +14,24 @@
 
 BuildingManager::BuildingManager ()
 {
-  buildings.reserve (Building::BuildingTypes.size ());
-  for (const auto &b : Building::BuildingTypes)
+  const auto path = std::string (FilePaths::getPath ())
+                    + std::string (FilePaths::BuildingsPath);
+  std::ifstream fstream (path);
+  try
     {
-      buildings.try_emplace (b, b);
+      auto buildingsJson = nlohmann::json::parse (fstream);
+
+      buildings.reserve (buildingsJson["Buildings"].size ());
+      for (const auto &building : buildingsJson["Buildings"])
+        {
+          buildings.try_emplace (BuildingType (building["BuildingID"]),
+                                 building);
+        }
+    }
+  catch (nlohmann::json::exception &e)
+    {
+      std::cerr << "Error while parsing buildings :\n" << e.what () << "\n";
+      abort ();
     }
 }
 
@@ -77,8 +94,8 @@ BuildingManager::getProductionRates () const
   std::unordered_map<RessourceType, double> result;
   for (const auto &[bType, b] : buildings)
     {
-      if (std::ranges::find (Building::convertionBuildings, bType)
-          != Building::convertionBuildings.end ())
+      if (std::ranges::find (Building::getConvertionBuildingTypes (), bType)
+          != Building::getConvertionBuildingTypes ().end ())
         continue;
 
       for (const auto &[rType, productionRate] : b.getProdPerTick ())
@@ -97,8 +114,8 @@ BuildingManager::getConsumptionRates () const
   std::unordered_map<RessourceType, double> result;
   for (const auto &[bType, b] : buildings)
     {
-      if (std::ranges::find (Building::convertionBuildings, bType)
-          != Building::convertionBuildings.end ())
+      if (std::ranges::find (Building::getConvertionBuildingTypes (), bType)
+          != Building::getConvertionBuildingTypes ().end ())
         continue;
 
       for (const auto &[rType, consumptionRate] : b.getConsumPerTick ())

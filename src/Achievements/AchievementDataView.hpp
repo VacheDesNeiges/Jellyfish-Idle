@@ -1,10 +1,10 @@
 #pragma once
+#include "GameIDsTypes.hpp"
 #include <memory>
 #include <optional>
+#include <string_view>
 
 class AchievementSystem;
-using RessourceType = int;
-enum class BuildingType;
 enum class JellyJobs;
 enum class AchievementIDs;
 enum class AbilityType;
