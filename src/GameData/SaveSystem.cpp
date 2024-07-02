@@ -2,7 +2,6 @@
 
 #include "AchievementIDs.hpp"
 #include "AquaCulture.hpp"
-#include "Building.hpp"
 #include "CraftingRecipe.hpp"
 #include "DepthSystem.hpp"
 #include "JellyfishManager.hpp"
@@ -97,8 +96,7 @@ SaveSystem::loadFromFile (std::string path)
   std::ifstream f (path);
   nlohmann::json data = nlohmann::json::parse (f);
 
-  result.buildings.reserve (
-      Building::getBuildingTypes ().size ()); // FIXME use size in json
+  result.buildings.reserve (data.at ("Building").size ());
   for (const auto &d : data["Building"])
     {
       result.buildings.emplace_back (
