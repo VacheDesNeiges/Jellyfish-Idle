@@ -4,6 +4,7 @@
 #include "Ressource.hpp"
 
 #include <fstream>
+#include <iostream>
 #include <nlohmann/json.hpp>
 #include <vector>
 
@@ -17,48 +18,50 @@ RessourceManager::init ()
 
   std::ifstream fstream (path);
 
-  nlohmann::json ressourcesJson = nlohmann::json::parse (fstream);
-
-  ressources.reserve (ressourcesJson["Ressources"].size ()
-                      + ressourcesJson["RareRessources"].size ()
-                      + ressourcesJson["ManufacturedRessources"].size ());
-
-  Ressource::ressourceTypes.reserve (ressourcesJson["Ressources"].size ());
-
-  for (const auto &resData : ressourcesJson["Ressources"])
+  try
     {
-      ressources.try_emplace (RessourceType (resData.value ("Id", -1)),
-                              resData.value ("Name", "Unknown"),
-                              resData.value ("Max_Quantity", -1));
+      nlohmann::json ressourcesJson = nlohmann::json::parse (fstream);
 
-      Ressource::ressourceTypes.push_back (
-          RessourceType (resData.value ("Id", -1)));
+      ressources.reserve (
+          ressourcesJson.at ("Ressources").size ()
+          + ressourcesJson.at ("RareRessources").size ()
+          + ressourcesJson.at ("ManufacturedRessources").size ());
+
+      Ressource::ressourceTypes.reserve (
+          ressourcesJson.at ("Ressources").size ());
+
+      for (const auto &resData : ressourcesJson["Ressources"])
+        {
+          ressources.try_emplace (RessourceType (resData.at ("Id")), resData);
+          Ressource::ressourceTypes.push_back (
+              RessourceType (resData.at ("Id")));
+        }
+
+      Ressource::rareRessourceTypes.reserve (
+          ressourcesJson["RareRessources"].size ());
+
+      for (const auto &resData : ressourcesJson["RareRessources"])
+        {
+          ressources.try_emplace (RessourceType (resData.at ("Id")), resData);
+          Ressource::rareRessourceTypes.push_back (
+              RessourceType (resData.at ("Id")));
+        }
+
+      Ressource::craftableRessourceTypes.reserve (
+          ressourcesJson["ManufacturedRessources"].size ());
+
+      for (const auto &resData : ressourcesJson["ManufacturedRessources"])
+        {
+          ressources.try_emplace (RessourceType (resData.at ("Id")), resData);
+
+          Ressource::craftableRessourceTypes.push_back (
+              RessourceType (resData.at ("Id")));
+        }
     }
-
-  Ressource::rareRessourceTypes.reserve (
-      ressourcesJson["RareRessources"].size ());
-
-  for (const auto &resData : ressourcesJson["RareRessources"])
+  catch (nlohmann::json::exception &e)
     {
-      ressources.try_emplace (RessourceType (resData.value ("Id", -1)),
-                              resData.value ("Name", "Unknown"),
-                              resData.value ("Max_Quantity", -1));
-
-      Ressource::rareRessourceTypes.push_back (
-          RessourceType (resData.value ("Id", -1)));
-    }
-
-  Ressource::craftableRessourceTypes.reserve (
-      ressourcesJson["ManufacturedRessources"].size ());
-
-  for (const auto &resData : ressourcesJson["ManufacturedRessources"])
-    {
-      ressources.try_emplace (RessourceType (resData.value ("Id", -1)),
-                              resData.value ("Name", "Unknown"),
-                              resData.value ("Max_Quantity", -1));
-
-      Ressource::craftableRessourceTypes.push_back (
-          RessourceType (resData.value ("Id", -1)));
+      std::cerr << "Error while parsing ressources :\n" << e.what () << "\n";
+      abort ();
     }
 }
 

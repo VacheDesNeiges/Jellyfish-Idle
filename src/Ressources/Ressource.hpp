@@ -2,6 +2,7 @@
 #include "AbilityDataView.hpp"
 #include "GameIDsTypes.hpp"
 
+#include <nlohmann/json.hpp>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -11,7 +12,7 @@ class Ressource
 
 public:
   Ressource () = default;
-  explicit Ressource (const std::string &, double);
+  explicit Ressource (const nlohmann::json &);
   ~Ressource () = default;
   void add (double n);
   double getCurrentQuantity () const;

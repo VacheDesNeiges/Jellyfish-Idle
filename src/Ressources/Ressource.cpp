@@ -1,6 +1,7 @@
 #include "Ressource.hpp"
 
 #include <cfloat>
+#include <nlohmann/json_fwd.hpp>
 #include <string_view>
 #include <vector>
 
@@ -8,9 +9,10 @@ std::vector<RessourceType> Ressource::ressourceTypes = {};
 std::vector<RessourceType> Ressource::rareRessourceTypes = {};
 std::vector<RessourceType> Ressource::craftableRessourceTypes = {};
 
-Ressource::Ressource (const std::string &n, double max = DBL_MAX)
-    : name (n), max_quantity (max)
+Ressource::Ressource (const nlohmann::json &resData)
 {
+  name = resData.at ("Name");
+  max_quantity = resData.at ("Max_Quantity");
 }
 
 void
