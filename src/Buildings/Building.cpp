@@ -25,6 +25,22 @@ Building::Building (const nlohmann::json &data)
         {
           basePrice.emplace_back (price["RessourceID"], price["Quantity"]);
         }
+
+      if (data.contains ("Conversion"))
+        {
+          for (const auto &cost : data["Conversion"]["Cost"])
+            {
+              baseConsumptionPerTick.try_emplace (
+                  RessourceType (cost.at ("RessourceID")),
+                  cost.at ("Quantity"));
+            }
+          for (const auto &prod : data["Conversion"]["Production"])
+            {
+              baseProductionPerTick.try_emplace (
+                  RessourceType (prod.at ("RessourceID")),
+                  prod.at ("Quantity"));
+            }
+        }
     }
   catch (nlohmann::json::exception &e)
     {
