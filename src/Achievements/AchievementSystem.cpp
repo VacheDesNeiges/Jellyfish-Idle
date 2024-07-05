@@ -1,37 +1,64 @@
 #include "AchievementSystem.hpp"
 
-#include "Achievement.hpp"
 #include "AchievementDataView.hpp"
-#include "AchievementIDs.hpp"
 #include "AquaCultureID.hpp"
+#include "FilePaths.hpp"
 #include "GameIDsTypes.hpp"
 #include "InsightAbility.hpp"
 #include "Jellyfish.hpp"
-#include "Notification.hpp"
 #include "UpgradeId.hpp"
 
+#include <fstream>
+#include <iostream>
+#include <nlohmann/json_fwd.hpp>
 #include <optional>
+#include <ranges>
 #include <utility>
 #include <vector>
 
 AchievementSystem::AchievementSystem ()
 {
-  using enum AchievementIDs;
+  const auto path = std::string (FilePaths::getPath ())
+                    + std::string (FilePaths::AchievementsPath);
 
-  achievements.reserve (allAchievementsIDs.size ());
-  for (const auto a : allAchievementsIDs)
+  std::ifstream fstream (path);
+  try
     {
-      achievements.try_emplace (a, Achievement ());
-    }
+      auto json = nlohmann::json::parse (fstream);
 
-  notifications.reserve (achievementsWithNotification.size ());
-  for (const auto a : achievementsWithNotification)
+      achievements.reserve (json.at ("Achievements").size ());
+      idMaps.allAchievementsIDs.reserve (json.at ("Achievements").size ());
+
+      for (const auto &achiev : json.at ("Achievements"))
+        {
+          achievements.try_emplace (AchievementIDs (achiev.at ("ID")), achiev);
+          insertIdInSearchMaps (achiev);
+          if (achiev.contains ("Notification"))
+            {
+              notifications.try_emplace (AchievementIDs (achiev.at ("ID")),
+                                         AchievementIDs (achiev.at ("ID")));
+            }
+        }
+    }
+  catch (nlohmann::json::exception &e)
     {
-      notifications.try_emplace (a, Notification (a));
+      std::cerr << "Error while parsing achievements :\n" << e.what () << "\n";
+      abort ();
     }
+}
 
-  achievementConditions.reserve (allAchievementsIDs.size ());
-  initLambdas ();
+void
+AchievementSystem::insertIdInSearchMaps (nlohmann::json achievement)
+{
+  idMaps.allAchievementsIDs.push_back (AchievementIDs (achievement.at ("ID")));
+
+  if (achievement.at ("Type") == "Ressource")
+    idMaps.ressources.emplace (achievement.at ("RessourceID"),
+                               achievement.at ("ID"));
+
+  if (achievement.at ("Type") == "Building")
+    idMaps.buildings.emplace (achievement.at ("BuildingID"),
+                              achievement.at ("ID"));
 }
 
 bool
@@ -50,7 +77,7 @@ std::vector<std::pair<AchievementIDs, bool> >
 AchievementSystem::getData () const
 {
   std::vector<std::pair<AchievementIDs, bool> > result;
-  result.reserve (allAchievementsIDs.size ());
+  result.reserve (achievements.size ());
   for (const auto &[id, val] : achievements)
     {
       result.emplace_back (id, val.isUnlocked ());
@@ -71,10 +98,8 @@ AchievementSystem::loadData (
 void
 AchievementSystem::checkAchievements ()
 {
-  using enum AchievementIDs;
-  for (const auto &id : allAchievementsIDs)
+  for (const auto &[id, _] : achievements)
     {
-      using enum AchievementIDs;
       if (isUnlocked (id))
         continue;
 
@@ -89,8 +114,8 @@ AchievementSystem::checkAchievements ()
 bool
 AchievementSystem::isUnlocked (BuildingType t) const
 {
-  if (const auto ach = buildingsAchievements.find (t);
-      ach != buildingsAchievements.end ())
+  if (const auto ach = idMaps.buildings.find (t);
+      ach != idMaps.buildings.end ())
     {
       return achievements.at (ach->second).isUnlocked ();
     }
@@ -100,36 +125,17 @@ AchievementSystem::isUnlocked (BuildingType t) const
 bool
 AchievementSystem::isUnlocked (JellyJobs j) const
 {
-  using enum JellyJobs;
-  using enum AchievementIDs;
-  switch (j)
-    {
-    case GatherSand:
-      return isUnlocked (FirstJelly);
-
-    case ExploreTheDepths:
-      return isUnlocked (JobExploreTheDepths);
-
-    case FocusForInsight:
-      return isUnlocked (FocusingUpgradeBought);
-
-    case Mining:
-      return isUnlocked (JobMining);
-
-    case Artisan:
-      return isUnlocked (JobArtisan);
-
-    default:
-      return false;
-    }
+  if (idMaps.jobs.contains (j))
+    return achievements.at (idMaps.jobs.at (j)).isUnlocked ();
+  return false;
 }
 
 bool
 AchievementSystem::isUnlocked (RessourceType r) const
 {
 
-  if (const auto ach = ressourcesAchievements.find (r);
-      ach != ressourcesAchievements.end ())
+  if (const auto ach = idMaps.ressources.find (r);
+      ach != idMaps.ressources.end ())
     {
       return achievements.at (ach->second).isUnlocked ();
     }
@@ -139,6 +145,8 @@ AchievementSystem::isUnlocked (RessourceType r) const
 bool
 AchievementSystem::isUnlocked (AbilityType t) const
 {
+  return false;
+  /*
   using enum AbilityType;
   switch (t)
     {
@@ -147,53 +155,24 @@ AchievementSystem::isUnlocked (AbilityType t) const
     default:
       return false;
     }
+    FIXME after implementing ability Ids
+    */
 }
 
 bool
 AchievementSystem::isUnlocked (UpgradeID id) const
 {
-  switch (id)
-    {
-      using enum AchievementIDs;
-      using enum UpgradeID;
-
-    case Focusing:
-      return isUnlocked (AncientOctopus);
-
-    case Telekinesis:
-      return isUnlocked (FocusingUpgradeBought);
-
-    case AdvancedTelekinesis:
-      return isUnlocked (TelekinesisUpgradeBought);
-
-    case Writing:
-      return isUnlocked (AdvancedTelekinesisUpgradeBought);
-
-    default:
-      return false;
-    }
+  if (idMaps.upgrades.contains (id))
+    return achievements.at (idMaps.upgrades.at (id)).isUnlocked ();
+  return false;
 }
 
 bool
 AchievementSystem::isUnlocked (AquaCultureID id) const
 {
-  switch (id)
-    {
-      using enum AquaCultureID;
-      using enum AchievementIDs;
-
-    case Plankton:
-      return isUnlocked (CulturePlankton);
-
-    case SandWorms:
-      return isUnlocked (CultureSandworm);
-
-    case Oysters:
-      return isUnlocked (CultureOyster);
-
-    default:
-      return false;
-    }
+  if (idMaps.cultures.contains (id))
+    return achievements.at (idMaps.cultures.at (id)).isUnlocked ();
+  return false;
 }
 
 std::optional<std::string_view>
@@ -216,4 +195,11 @@ AchievementSystem::pushNotification (AchievementIDs id)
 {
   if (const auto it = notifications.find (id); it != notifications.end ())
     notificationQueue.push (it->second);
+}
+
+std::span<const AchievementIDs>
+AchievementSystem::getAchievementsIDs () const
+{
+  return std::span<const AchievementIDs> (idMaps.allAchievementsIDs.data (),
+                                          idMaps.allAchievementsIDs.size ());
 }

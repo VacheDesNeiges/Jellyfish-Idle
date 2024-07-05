@@ -1,6 +1,6 @@
 #include "UIRessourcesPanel.hpp"
 
-#include "AchievementIDs.hpp"
+#include "GameIDsTypes.hpp"
 #include "Ressource.hpp"
 #include "fmt/core.h"
 #include "imgui.h"
@@ -14,7 +14,7 @@ UIRessourcesPanel::render () const
 {
   renderRessources ();
   if (gData->getAchievementsView ()->isUnlocked (
-          AchievementIDs::AdvancedTelekinesisUpgradeBought))
+          AchievementsAlias::ADVANCEDTELEKINESIS))
     renderManufacturedRessources ();
 }
 
@@ -54,8 +54,9 @@ UIRessourcesPanel::renderRessources () const
     }
   ImGui::EndColumns ();
 
+  // TODO implement a function that checks if any rare ressource is unlocked
   if (gData->getAchievementsView ()->isUnlocked (
-          AchievementIDs::RareRessources))
+          AchievementsAlias::ANYRARERESSOURCE))
     {
       ImGui::SeparatorText ("Rare Ressources");
       setupColumns ();

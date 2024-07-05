@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Achievement.hpp"
-#include "AchievementIDs.hpp"
 #include "AquaCultureID.hpp"
 #include "GameDataAccess.hpp"
 #include "GameIDsTypes.hpp"
@@ -44,15 +43,24 @@ public:
   void popNotification ();
   void pushNotification (AchievementIDs);
 
+  std::span<const AchievementIDs> getAchievementsIDs () const;
+
 private:
-  void initLambdas ();
-  std::unordered_map<RessourceType, AchievementIDs> ressourcesAchievements;
-  std::unordered_map<BuildingType, AchievementIDs> buildingsAchievements;
+  void insertIdInSearchMaps (nlohmann::json);
   std::unordered_map<AchievementIDs, Achievement> achievements;
   std::unordered_map<AchievementIDs, std::function<bool ()> >
       achievementConditions;
 
   std::unordered_map<AchievementIDs, Notification> notifications;
-
   std::queue<Notification> notificationQueue;
+
+  struct
+  {
+    std::vector<AchievementIDs> allAchievementsIDs;
+    std::unordered_map<RessourceType, AchievementIDs> ressources;
+    std::unordered_map<BuildingType, AchievementIDs> buildings;
+    std::unordered_map<JellyJobs, AchievementIDs> jobs;
+    std::unordered_map<UpgradeID, AchievementIDs> upgrades;
+    std::unordered_map<AquaCultureID, AchievementIDs> cultures;
+  } idMaps;
 };

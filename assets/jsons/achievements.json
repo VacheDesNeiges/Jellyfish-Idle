@@ -13,7 +13,10 @@
       ]
     },
     {
+      "Type": "Ressource",
       "RessourceID": 5,
+      "Name": "Glass Ressource",
+      "ID": 1,
       "Condition": [
         {
           "RessourceID": 5,
@@ -22,7 +25,10 @@
       ]
     },
     {
+      "Type": "Ressource",
       "RessourceID": 2001,
+      "Name": "Glass Pane Ressource",
+      "ID": 2,
       "Condition": [
         {
           "RessourceID": 2001,
@@ -31,13 +37,52 @@
       ]
     },
     {
+      "Type": "Ressource",
       "RessourceID": 2002,
+      "Name": "Stone Slab Ressource",
+      "ID": 3,
       "Condition": [
         {
           "RessourceID": 2002,
           "Quantity_GT": 0
         }
       ]
+    },
+    {
+      "Type": "Building",
+      "BuildingID": 1,
+      "Name": "Aquatic Field Building",
+      "ID": 1000,
+      "Condition": [
+        {
+          "RessourceID": 2,
+          "Quantity_GT": 1
+        }
+      ]
+    },
+    {
+      "Type": "Building",
+      "BuildingID": 2,
+      "Name": "Dune Shelter Building",
+      "ID": 1001,
+      "Condition": [
+        {
+          "RessourceID": 2,
+          "Quantity_GT": 4
+        },
+        {
+          "AchievementID": 3000
+        }
+      ]
+    },
+    {
+      "Type": "Building",
+      "BuildingID": 3,
+      "Name": "Mines Building",
+      "ID": 1002,
+      "Condition": {
+        "AchievementID": "REMPLACER PAR JOB MINING ID"
+      }
     },
     {
       "Type": "Garden",
@@ -47,6 +92,180 @@
         {
           "BuildingID": 2,
           "MinQuantity": 1
+        }
+      ]
+    },
+    {
+      "Type": "Garden",
+      "Name": "CulturePlankton",
+      "ID": 2001,
+      "Condition": [
+        {
+          "AchievementID": 2000
+        }
+      ]
+    },
+    {
+      "Type": "Garden",
+      "Name": "CultureSandworm",
+      "ID": 2002,
+      "Condition": [
+        {
+          "Depth": 20
+        }
+      ]
+    },
+    {
+      "Type": "Garden",
+      "Name": "CultureOyster",
+      "ID": 2003,
+      "Condition": [
+        {
+          "Depth": 30
+        }
+      ]
+    },
+    {
+      "Type": "Jfish",
+      "Name": "First Jelly",
+      "ID": 3000,
+      "Notification": true,
+      "Condition": [
+        {
+          "NumJfish": 1
+        }
+      ]
+    },
+    {
+      "Type": "Jfish",
+      "Name": "Jellyfish Luring",
+      "ID": 3001,
+      "Condition": [
+        {
+          "RessourceID": 1,
+          "Quantity_GT": 0
+        }
+      ]
+    },
+    {
+      "Type": "Jfish",
+      "Name": "Job System",
+      "ID": 3002,
+      "Condition": [
+        {
+          "AchievementID": 3000
+        }
+      ]
+    },
+    {
+      "Type": "Jfish",
+      "Name": "Explore the depths Job",
+      "ID": 3003,
+      "Condition": [
+        {
+          "AchievementID": 3000
+        }
+      ]
+    },
+    {
+      "Type": "Jfish",
+      "Name": "Mining Job",
+      "ID": 3004,
+      "Condition": [
+        {
+          "UpgradeID": 1
+        }
+      ]
+    },
+    {
+      "Type": "Jfish",
+      "Name": "Artisan Job",
+      "ID": 3005,
+      "Condition": [
+        {
+          "UpgradeID": 3
+        }
+      ]
+    },
+    {
+      "Type": "Depth",
+      "Name": "Depth System",
+      "ID": 4000,
+      "Notification": true,
+      "Condition": [
+        {
+          "Job": "Explore Depths",
+          "NumAssigned": 1
+        }
+      ]
+    },
+    {
+      "Type": "Upgrade",
+      "Name": "Octopus",
+      "ID": 5000,
+      "Condition": [
+        {
+          "Depth": 10
+        }
+      ]
+    },
+    {
+      "Type": "Upgrade",
+      "Name": "Focusing Upgrade Bought",
+      "ID": 5001,
+      "Condition": [
+        {
+          "UpgradeID": 0
+        }
+      ]
+    },
+    {
+      "Type": "Upgrade",
+      "Name": "Telekinesis Upgrade Bought",
+      "ID": 5002,
+      "Condition": [
+        {
+          "UpgradeID": 1
+        }
+      ]
+    },
+    {
+      "Type": "Upgrade",
+      "Name": "Writing Upgrade Bought",
+      "ID": 5003,
+      "Condition": [
+        {
+          "UpgradeID": 2
+        }
+      ]
+    },
+    {
+      "Type": "Upgrade",
+      "Name": "Advanced Telekinesis Upgrade Bought",
+      "ID": 5004,
+      "Condition": [
+        {
+          "UpgradeID": 3
+        }
+      ]
+    },
+    {
+      "Type": "Upgrade",
+      "Name": "Long Term Memory Upgrade Bought",
+      "ID": 5005,
+      "Condition": [
+        {
+          "UpgradeID": 4
+        }
+      ]
+    },
+    {
+      "Type": "Upgrade",
+      "Name": "Lightning Ability Upgrade Bought",
+      "ID": 5006,
+      "Condition": [
+        {
+          "UpgradeID": 1001
         }
       ]
     }

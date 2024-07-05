@@ -1,0 +1,70 @@
+{
+  "Upgrades": [
+    {
+      "ID": 0,
+      "Name": "Focusing",
+      "Description": "Blablabla",
+      "Cost": [
+        {
+          "RessourceID": 1,
+          "Quantity": 50
+        }
+      ]
+    },
+    {
+      "ID": 1,
+      "Name": "Telekinesis",
+      "Description": "Blablabla",
+      "Cost": [
+        {
+          "RessourceID": 4,
+          "Quantity": 100
+        }
+      ]
+    },
+    {
+      "ID": 2,
+      "Name": "Writing",
+      "Description": "Blablabla",
+      "Cost": [
+        {
+          "RessourceID": 4,
+          "Quantity": 300
+        }
+      ]
+    },
+    {
+      "ID": 3,
+      "Name": "Advanced Telekinesis",
+      "Description": "Blablabla",
+      "Cost": [
+        {
+          "RessourceID": 4,
+          "Quantity": 200
+        }
+      ]
+    },
+    {
+      "ID": 4,
+      "Name": "Long Term Memory",
+      "Description": "Blablabla",
+      "Cost": [
+        {
+          "RessourceID": 2003,
+          "Quantity": 50
+        }
+      ]
+    },
+    {
+      "ID": 1001,
+      "Name": "Lightning Ability",
+      "Description": "Blablabla",
+      "Cost": [
+        {
+          "RessourceID": 1,
+          "Quantity": 100
+        }
+      ]
+    }
+  ]
+}

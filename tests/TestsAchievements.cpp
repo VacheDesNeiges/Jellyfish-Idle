@@ -1,6 +1,6 @@
 #include "Achievement.hpp"
-#include "AchievementIDs.hpp"
 #include "AchievementSystem.hpp"
+#include "GameIDsTypes.hpp"
 #include "gtest/gtest.h"
 
 TEST (TestsAchievements, initialization)
@@ -28,9 +28,8 @@ TEST (TestsAchievements, settingState)
 TEST (TestsAchievementSystem, initialization)
 {
   AchievementSystem aSys;
-  using enum AchievementIDs;
 
-  for (const auto ach : allAchievementsIDs)
+  for (const auto ach : aSys.getAchievementsIDs ())
     {
       ASSERT_EQ (false, aSys.isUnlocked (ach));
     }
@@ -39,9 +38,8 @@ TEST (TestsAchievementSystem, initialization)
 TEST (TestsAchievementSystem, unlocking)
 {
   AchievementSystem aSys;
-  using enum AchievementIDs;
 
-  for (const auto ach : allAchievementsIDs)
+  for (const auto ach : aSys.getAchievementsIDs ())
     {
       aSys.unlock (ach);
       ASSERT_EQ (true, aSys.isUnlocked (ach));

@@ -1,5 +1,5 @@
 #include "UIManager.hpp"
-#include "AchievementIDs.hpp"
+#include "GameIDsTypes.hpp"
 #include "GameSystems.hpp"
 #include "imgui.h"
 
@@ -26,27 +26,27 @@ UIManager::bindGameData (std::shared_ptr<GameDataView> viewPtr,
 void
 UIManager::renderUI () const
 {
-  using enum AchievementIDs;
   ImGui::DockSpaceOverViewport (0, ImGui::GetMainViewport ());
 
   buildingsPanel.render ();
 
-  if (gData->getAchievementsView ()->isUnlocked (FirstJelly))
+  using namespace AchievementsAlias;
+  if (gData->getAchievementsView ()->isUnlocked (JOBSYSTEM))
     jobsPanel.render ();
 
-  if (gData->getAchievementsView ()->isUnlocked (LightningAbilityBuyable))
+  if (gData->getAchievementsView ()->isUnlocked (ABILITYSYSTEM))
     abilitiesPanel.render ();
 
-  if (gData->getAchievementsView ()->isUnlocked (ResearchTabUnlocked))
+  if (gData->getAchievementsView ()->isUnlocked (RESEARCHSYSTEM))
     researchPanel.render ();
 
-  if (gData->getAchievementsView ()->isUnlocked (DepthSystem))
+  if (gData->getAchievementsView ()->isUnlocked (DEPTHSYSTEM))
     depthPanel.render ();
 
-  if (gData->getAchievementsView ()->isUnlocked (AncientOctopus))
+  if (gData->getAchievementsView ()->isUnlocked (OCTOPUS))
     octopusPanel.render ();
 
-  if (gData->getAchievementsView ()->isUnlocked (GardenSystem))
+  if (gData->getAchievementsView ()->isUnlocked (GARDENSYSTEM))
     gardenPanel.render ();
 
   ressourcesPanel.render ();

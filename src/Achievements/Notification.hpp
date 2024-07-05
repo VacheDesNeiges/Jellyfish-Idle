@@ -1,6 +1,6 @@
 #pragma once
 
-#include "AchievementIDs.hpp"
+#include "GameIDsTypes.hpp"
 #include <string_view>
 
 class Notification

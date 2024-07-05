@@ -1,7 +1,14 @@
 #pragma once
 #include <compare>
+#include <cstddef>
 #include <functional>
 
+/**
+ * @brief ID for the ressources type
+ * Implements comparaison operators and hash function for use in std::map
+ * the underlying value is an int
+ *
+ */
 struct RessourceType
 {
   int value;
@@ -27,6 +34,12 @@ struct std::hash<RessourceType>
   }
 };
 
+/**
+ * @brief ID for the building type
+ * Implements comparaison operators and hash function for use in std::map
+ * the underlying value is an int
+ *
+ */
 struct BuildingType
 {
   int value;
@@ -51,10 +64,34 @@ struct std::hash<BuildingType>
 };
 
 /**
- * @brief Constants that represent specific ressources, keep in mind that they
- * have to be kept synchronized with the ressources.json file
- *
+ * @brief ID for the achievement Type
+ * Implements comparaison operators and hash function for use in std::map
+ * the underlying value is an int
  */
+struct AchievementIDs
+{
+  int value;
+  AchievementIDs () : value (0) {}
+  constexpr explicit AchievementIDs (int x) : value (x){};
+
+  friend std::strong_ordering operator<=> (const AchievementIDs &lhs,
+                                           const AchievementIDs &rhs)
+      = default;
+
+  constexpr explicit operator int () const { return value; }
+};
+
+template <>
+
+struct std::hash<AchievementIDs>
+{
+  std::size_t
+  operator() (const AchievementIDs &b) const noexcept
+  {
+    return std::hash<int>{}(b.value);
+  }
+};
+
 namespace RessourcesAlias
 {
 constexpr inline RessourceType FOOD{ 1 };
@@ -76,4 +113,21 @@ constexpr inline BuildingType AQUATICFIELD{ 1 };
 constexpr inline BuildingType DUNESHELTER{ 2 };
 constexpr inline BuildingType MINES{ 3 };
 constexpr inline BuildingType GLASSNESTS{ 4 };
+}
+
+namespace AchievementsAlias
+{
+constexpr inline AchievementIDs JOBSYSTEM{ 3000 };
+constexpr inline AchievementIDs JELLYFISHLURING (3001);
+
+constexpr inline AchievementIDs ABILITYSYSTEM{ 5006 };
+constexpr inline AchievementIDs RESEARCHSYSTEM{ -1 };
+constexpr inline AchievementIDs DEPTHSYSTEM{ 4000 };
+constexpr inline AchievementIDs GARDENSYSTEM{ 2000 };
+constexpr inline AchievementIDs OCTOPUS{ 5000 };
+
+constexpr inline AchievementIDs ADVANCEDTELEKINESIS{ 5004 };
+
+constexpr inline AchievementIDs ANYRARERESSOURCE{ -1 };
+
 }

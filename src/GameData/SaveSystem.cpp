@@ -1,6 +1,5 @@
 #include "SaveSystem.hpp"
 
-#include "AchievementIDs.hpp"
 #include "AquaCulture.hpp"
 #include "CraftingRecipe.hpp"
 #include "DepthSystem.hpp"
@@ -28,7 +27,7 @@ SaveSystem::save (const SaveData &data)
 
   for (const auto &[idAch, isUnlocked] : data.achievements)
     {
-      j["Achievement"] += { { "id", static_cast<unsigned> (idAch) },
+      j["Achievement"] += { { "id", static_cast<int> (idAch) },
                             { "Unlocked", isUnlocked } };
     }
 
@@ -104,11 +103,11 @@ SaveSystem::loadFromFile (std::string path)
           d["Quantity"].get<unsigned> ());
     }
 
-  result.achievements.reserve (allAchievementsIDs.size ());
+  result.achievements.reserve (data.at ("Achievements").size ());
   for (const auto &d : data["Achievement"])
     {
       result.achievements.emplace_back (
-          static_cast<AchievementIDs> (d["id"].get<unsigned> ()),
+          static_cast<AchievementIDs> (d["id"].get<int> ()),
           d["Unlocked"].get<bool> ());
     }
 

@@ -1,7 +1,7 @@
 #include "UIBuildingsPanel.hpp"
 
-#include "AchievementIDs.hpp"
 #include "Building.hpp"
+#include "GameIDsTypes.hpp"
 #include "UIUtils.hpp"
 
 #include "imgui.h"
@@ -97,7 +97,7 @@ UIBuildingPanel::renderJellyfishLuringButton () const
   ImGui::SameLine ();
 
   if (gData->getAchievementsView ()->isUnlocked (
-          AchievementIDs::JellyfishLuring))
+          AchievementsAlias::JELLYFISHLURING))
     {
       ImGui::BeginDisabled (!gData->getJelliesView ()->canLure ());
 

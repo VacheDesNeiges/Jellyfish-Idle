@@ -1,5 +1,52 @@
 #include "Achievement.hpp"
+#include "GameIDsTypes.hpp"
 #include <algorithm>
+#include <nlohmann/json_fwd.hpp>
+
+Achievement::Achievement (const nlohmann::json &json)
+{
+  for (const auto &condition : json.at ("Condition"))
+    {
+      if (condition.contains ("NumJfish"))
+        {
+          jfishNumCondition = condition.at ("NumJfish");
+          continue;
+        }
+
+      if (condition.contains ("Depth"))
+        {
+          depthCondition = condition.at ("Depth");
+          continue;
+        }
+
+      if (condition.contains ("AchievementID"))
+        {
+          achievementsCondition.push_back (
+              AchievementIDs (condition.at ("AchievementID")));
+          continue;
+        }
+
+      if (condition.contains ("UpgradeID"))
+        {
+          upgradeCondition.push_back (condition.at ("UpgradeID"));
+          continue;
+        }
+
+      if (condition.contains ("RessourceID"))
+        {
+          ressourceCondition.push_back (std::pair<RessourceType, int>{
+              condition.at ("RessourceID"), condition.at ("Quantity_GT") });
+          continue;
+        }
+
+      if (condition.contains ("BuildingID"))
+        {
+          buildingsCondition.push_back (std::pair<BuildingType, unsigned>{
+              condition.at ("BuildingID"), condition.at ("MinQuantity") });
+          continue;
+        }
+    }
+}
 
 bool
 Achievement::isUnlocked () const
@@ -38,16 +85,28 @@ Achievement::buildingConditionsMet () const
 }
 
 bool
+Achievement::achievementConditionsMet () const
+{
+  return std::ranges::none_of (achievementsCondition,
+                               [this] (const auto &ach) {
+                                 return !achievementsView ()->isUnlocked (ach);
+                               });
+}
+
+bool
 Achievement::unlockConditionMet () const
 {
 
   if (jelliesView ()->getNumJellies () < jfishNumCondition)
     return false;
 
-  if (!ressourcesConditionsMet ())
+  if (!ressourceCondition.empty () && !ressourcesConditionsMet ())
     return false;
 
-  if (!buildingConditionsMet ())
+  if (!buildingsCondition.empty () && !buildingConditionsMet ())
+    return false;
+
+  if (!achievementsCondition.empty () && !achievementConditionsMet ())
     return false;
 
   return true;
