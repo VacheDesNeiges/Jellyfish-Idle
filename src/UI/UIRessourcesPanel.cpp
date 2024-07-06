@@ -54,7 +54,6 @@ UIRessourcesPanel::renderRessources () const
     }
   ImGui::EndColumns ();
 
-  // TODO implement a function that checks if any rare ressource is unlocked
   if (gData->getAchievementsView ()->isUnlocked (
           AchievementsAlias::ANYRARERESSOURCE))
     {
