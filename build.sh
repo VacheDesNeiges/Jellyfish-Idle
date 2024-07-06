@@ -22,7 +22,7 @@ cd build
 
 
 if [ "$DEBUG_MODE" = true ]; then
-    cmake -DDEBUG_MODE=ON --graphviz=dependencies.dot .. -G Ninja
+    cmake -DDEBUG_MODE=ON .. -G Ninja
 else
     cmake -DDEBUG_MODE=OFF .. -G Ninja
 fi
