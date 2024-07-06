@@ -49,6 +49,26 @@
       ]
     },
     {
+      "Type": "Special",
+      "Name": "Any Rare ressource",
+      "ID": 6000,
+      "Condition": [
+        {
+          "AnyOf": "Rare"
+        }
+      ]
+    },
+    {
+      "Type": "Special",
+      "Name": "Any Manufactured ressource",
+      "ID": 6001,
+      "Condition": [
+        {
+          "AnyOf": "Manufactured"
+        }
+      ]
+    },
+    {
       "Type": "Building",
       "BuildingID": 1,
       "Name": "Aquatic Field Building",

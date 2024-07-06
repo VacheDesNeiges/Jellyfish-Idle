@@ -22,6 +22,8 @@ private:
 
   unsigned jfishNumCondition = 0;
   unsigned depthCondition = 0;
+  bool anyRareRessource = false;
+  bool AnyManufacturedRessource = false;
   std::vector<std::pair<RessourceType, int> > ressourceCondition;
   std::vector<std::pair<BuildingType, unsigned> > buildingsCondition;
   std::vector<AchievementIDs> achievementsCondition;

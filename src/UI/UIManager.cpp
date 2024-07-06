@@ -37,8 +37,7 @@ UIManager::renderUI () const
   if (gData->getAchievementsView ()->isUnlocked (ABILITYSYSTEM))
     abilitiesPanel.render ();
 
-  if (gData->getAchievementsView ()->isUnlocked (RESEARCHSYSTEM))
-    researchPanel.render ();
+  researchPanel.render ();
 
   if (gData->getAchievementsView ()->isUnlocked (DEPTHSYSTEM))
     depthPanel.render ();

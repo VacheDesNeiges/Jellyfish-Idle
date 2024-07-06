@@ -150,13 +150,14 @@ constexpr inline AchievementIDs JOBSYSTEM{ 3000 };
 constexpr inline AchievementIDs JELLYFISHLURING (3001);
 
 constexpr inline AchievementIDs ABILITYSYSTEM{ 5006 };
-constexpr inline AchievementIDs RESEARCHSYSTEM{ -1 };
+
 constexpr inline AchievementIDs DEPTHSYSTEM{ 4000 };
 constexpr inline AchievementIDs GARDENSYSTEM{ 2000 };
 constexpr inline AchievementIDs OCTOPUS{ 5000 };
 
 constexpr inline AchievementIDs ADVANCEDTELEKINESIS{ 5004 };
 
-constexpr inline AchievementIDs ANYRARERESSOURCE{ -1 };
+constexpr inline AchievementIDs ANYRARERESSOURCE{ 6000 };
+constexpr inline AchievementIDs ANYMANUFACTUREDRESSOURCE{ 6001 };
 
 }

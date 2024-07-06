@@ -1,5 +1,7 @@
 #include "Achievement.hpp"
 #include "GameIDsTypes.hpp"
+#include "Ressource.hpp"
+
 #include <algorithm>
 #include <nlohmann/json_fwd.hpp>
 
@@ -43,6 +45,19 @@ Achievement::Achievement (const nlohmann::json &json)
         {
           buildingsCondition.push_back (std::pair<BuildingType, unsigned>{
               condition.at ("BuildingID"), condition.at ("MinQuantity") });
+          continue;
+        }
+
+      if (condition.contains ("AnyOf"))
+        {
+          if (condition.at ("AnyOf") == "Rare")
+            {
+              anyRareRessource = true;
+            }
+          else if (condition.at ("AnyOf") == "Manufactured")
+            {
+              AnyManufacturedRessource = true;
+            }
           continue;
         }
     }
@@ -108,6 +123,23 @@ Achievement::unlockConditionMet () const
 
   if (!achievementsCondition.empty () && !achievementConditionsMet ())
     return false;
+
+  if (anyRareRessource)
+    {
+      return std::ranges::any_of (
+          Ressource::getRareRessourcesTypes (), [this] (const auto &rType) {
+            return ressourcesView ()->getRessourceQuantity (rType) > 0;
+          });
+    }
+
+  if (AnyManufacturedRessource)
+    {
+      return std::ranges::any_of (
+          Ressource::getCraftableRessourcesTypes (),
+          [this] (const auto &rType) {
+            return ressourcesView ()->getRessourceQuantity (rType) > 0;
+          });
+    }
 
   return true;
 }
