@@ -4,7 +4,6 @@
 #include <memory>
 
 enum class JellyJobs;
-enum class AbilityType;
 enum class UpgradeID;
 enum class RecipeID;
 

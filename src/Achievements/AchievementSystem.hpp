@@ -4,7 +4,6 @@
 #include "AquaCultureID.hpp"
 #include "GameDataAccess.hpp"
 #include "GameIDsTypes.hpp"
-#include "InsightAbility.hpp"
 #include "Jellyfish.hpp"
 #include "Notification.hpp"
 #include "SaveAndLoadable.hpp"
@@ -48,8 +47,6 @@ public:
 private:
   void insertIdInSearchMaps (nlohmann::json);
   std::unordered_map<AchievementIDs, Achievement> achievements;
-  std::unordered_map<AchievementIDs, std::function<bool ()> >
-      achievementConditions;
 
   std::unordered_map<AchievementIDs, Notification> notifications;
   std::queue<Notification> notificationQueue;
@@ -62,5 +59,6 @@ private:
     std::unordered_map<JellyJobs, AchievementIDs> jobs;
     std::unordered_map<UpgradeID, AchievementIDs> upgrades;
     std::unordered_map<AquaCultureID, AchievementIDs> cultures;
+    std::unordered_map<AbilityType, AchievementIDs> abilities;
   } idMaps;
 };

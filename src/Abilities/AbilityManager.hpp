@@ -17,5 +17,6 @@ public:
   std::string getAbilityName (AbilityType);
 
 private:
-  std::unordered_map<AbilityType, std::unique_ptr<InsightAbility> > abilities;
+  friend InsightAbility;
+  std::unordered_map<AbilityType, InsightAbility> abilities;
 };

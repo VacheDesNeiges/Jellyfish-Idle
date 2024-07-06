@@ -1,19 +1,29 @@
 #include "InsightAbility.hpp"
+#include "GameIDsTypes.hpp"
 
-#include "CallThunder.hpp"
+#include <iostream>
 
-#include <memory>
+std::vector<AbilityType> InsightAbility::abilitiesTypes = {};
 
-std::unique_ptr<InsightAbility>
-AbilityFactory::createAbilityInstance (AbilityType t)
+InsightAbility::InsightAbility (const nlohmann::json &data)
 {
-  switch (t)
+  try
     {
-    case AbilityType::AbilityLightning:
-      return std::make_unique<CallThunder> ();
+      name = data.at ("Name");
+      description = data.at ("Description");
 
-    default:
-      return nullptr;
+      castingCost.reserve (data.at ("Cost").size ());
+
+      for (const auto &cost : data.at ("Cost"))
+        {
+          castingCost.push_back ({ RessourceType (cost.at ("RessourceID")),
+                                   cost.at ("Quantity") });
+        }
+    }
+  catch (nlohmann::json::exception &e)
+    {
+      std::cerr << "Error while parsing an ability :\n" << e.what () << "\n";
+      abort ();
     }
 }
 
@@ -33,4 +43,10 @@ std::string
 InsightAbility::getName () const
 {
   return name;
+}
+
+std::string
+InsightAbility::getDescription () const
+{
+  return description;
 }

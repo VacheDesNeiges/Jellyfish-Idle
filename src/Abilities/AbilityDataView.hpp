@@ -5,7 +5,6 @@
 
 class AbilityManager;
 class RessourceManager;
-enum class AbilityType;
 
 class AbilityDataView
 {

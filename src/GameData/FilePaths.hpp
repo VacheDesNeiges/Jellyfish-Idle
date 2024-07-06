@@ -17,6 +17,7 @@ inline constexpr std::string_view BuildingsPath
 inline constexpr std::string_view AchievementsPath
     = "/assets/jsons/achievements.json";
 inline constexpr std::string_view UpgradesPath = "/assets/jsons/upgrades.json";
+inline const std::string_view AbilitiesPath = "/assets/jsons/abilities.json";
 
 inline std::string_view
 getPath ()

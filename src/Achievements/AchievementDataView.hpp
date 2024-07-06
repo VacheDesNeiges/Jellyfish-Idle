@@ -6,7 +6,6 @@
 
 class AchievementSystem;
 enum class JellyJobs;
-enum class AbilityType;
 enum class UpgradeID;
 enum class AquaCultureID;
 

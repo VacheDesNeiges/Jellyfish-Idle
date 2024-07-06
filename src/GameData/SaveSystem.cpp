@@ -11,6 +11,7 @@
 #include "UpgradeManager.hpp"
 
 #include <fstream>
+#include <iostream>
 #include <nlohmann/json.hpp>
 #include <string>
 #include <vector>
@@ -93,87 +94,98 @@ SaveSystem::loadFromFile (std::string path)
   path += "/" + saveFileName;
 
   std::ifstream f (path);
-  nlohmann::json data = nlohmann::json::parse (f);
 
-  result.buildings.reserve (data.at ("Building").size ());
-  for (const auto &d : data["Building"])
+  try
     {
-      result.buildings.emplace_back (
-          static_cast<BuildingType> (d["id"].get<int> ()),
-          d["Quantity"].get<unsigned> ());
-    }
 
-  result.achievements.reserve (data.at ("Achievements").size ());
-  for (const auto &d : data["Achievement"])
+      nlohmann::json data = nlohmann::json::parse (f);
+
+      result.buildings.reserve (data.at ("Building").size ());
+      for (const auto &d : data["Building"])
+        {
+          result.buildings.emplace_back (
+              static_cast<BuildingType> (d["id"].get<int> ()),
+              d["Quantity"].get<unsigned> ());
+        }
+
+      result.achievements.reserve (data.at ("Achievement").size ());
+      for (const auto &d : data["Achievement"])
+        {
+          result.achievements.emplace_back (
+              static_cast<AchievementIDs> (d["id"].get<int> ()),
+              d["Unlocked"].get<bool> ());
+        }
+
+      result.ressources.reserve (
+          Ressource::getRessourcesTypes ().size ()
+          + Ressource::getCraftableRessourcesTypes ().size ()
+          + Ressource::getRareRessourcesTypes ().size ());
+      for (const auto &d : data["Ressource"])
+        {
+          result.ressources.emplace_back (
+              static_cast<RessourceType> (d["id"].get<int> ()),
+              d["Quantity"].get<double> ());
+        }
+
+      result.jellies.numJellies = data["Jellies"][0]["num"].get<unsigned> ();
+      result.jellies.maxNumJellies
+          = data["Jellies"][0]["numMax"].get<unsigned> ();
+
+      result.jellies.numJobNone
+          = data["Jellies"][0]["numJobNone"].get<unsigned> ();
+      result.jellies.numJobExploreTheDepths
+          = data["Jellies"][0]["numJobExplore"].get<unsigned> ();
+      result.jellies.numJobMining
+          = data["Jellies"][0]["numJobMining"].get<unsigned> ();
+      result.jellies.numJobFocusing
+          = data["Jellies"][0]["numJobFocusing"].get<unsigned> ();
+      result.jellies.numJobCrafting
+          = data["Jellies"][0]["numJobCrafting"].get<unsigned> ();
+
+      result.depth.currentDepth
+          = data["Depth"][0]["currentDepth"].get<unsigned> ();
+      result.depth.currentProg = data["Depth"][0]["currentProg"].get<float> ();
+
+      result.upgrades.reserve (UpgradeManager::UpgradesTypes.size ());
+      for (const auto &d : data["Upgrade"])
+        {
+          result.upgrades.emplace_back (
+              static_cast<UpgradeID> (d["id"].get<unsigned> ()),
+              d["Bought"].get<bool> ());
+        }
+
+      result.crafts.reserve (CraftingRecipe::RecipeTypes.size ());
+      for (const auto &c : data["Craft"])
+        {
+          result.crafts.emplace_back (
+              static_cast<RecipeID> (c["id"].get<unsigned> ()),
+              RecipeSaveData{
+                  c["Level"].get<unsigned> (),
+                  c["CurrentProg"].get<double> (),
+                  0,
+                  c["Ongoing"].get<bool> (),
+                  c["Done"].get<bool> (),
+                  c["RemainingTicks"].get<unsigned> (),
+                  c["Workers"].get<unsigned> (),
+              });
+        }
+
+      result.cultures.reserve (AquaCulture::CultureTypes.size ());
+      for (const auto &c : data["Culture"])
+        {
+          result.cultures.emplace_back (
+              static_cast<AquaCultureID> (c["id"].get<unsigned> ()),
+              CultureData{
+                  c["Ongoing"].get<bool> (),
+                  c["Fields"].get<unsigned> (),
+              });
+        }
+
+      return result;
+    }
+  catch (nlohmann::json::exception &e)
     {
-      result.achievements.emplace_back (
-          static_cast<AchievementIDs> (d["id"].get<int> ()),
-          d["Unlocked"].get<bool> ());
+      std::cerr << "Error while parsing save :\n" << e.what () << '\n';
+      abort ();
     }
-
-  result.ressources.reserve (
-      Ressource::getRessourcesTypes ().size ()
-      + Ressource::getCraftableRessourcesTypes ().size ()
-      + Ressource::getRareRessourcesTypes ().size ());
-  for (const auto &d : data["Ressource"])
-    {
-      result.ressources.emplace_back (
-          static_cast<RessourceType> (d["id"].get<int> ()),
-          d["Quantity"].get<double> ());
-    }
-
-  result.jellies.numJellies = data["Jellies"][0]["num"].get<unsigned> ();
-  result.jellies.maxNumJellies = data["Jellies"][0]["numMax"].get<unsigned> ();
-
-  result.jellies.numJobNone
-      = data["Jellies"][0]["numJobNone"].get<unsigned> ();
-  result.jellies.numJobExploreTheDepths
-      = data["Jellies"][0]["numJobExplore"].get<unsigned> ();
-  result.jellies.numJobMining
-      = data["Jellies"][0]["numJobMining"].get<unsigned> ();
-  result.jellies.numJobFocusing
-      = data["Jellies"][0]["numJobFocusing"].get<unsigned> ();
-  result.jellies.numJobCrafting
-      = data["Jellies"][0]["numJobCrafting"].get<unsigned> ();
-
-  result.depth.currentDepth
-      = data["Depth"][0]["currentDepth"].get<unsigned> ();
-  result.depth.currentProg = data["Depth"][0]["currentProg"].get<float> ();
-
-  result.upgrades.reserve (UpgradeManager::UpgradesTypes.size ());
-  for (const auto &d : data["Upgrade"])
-    {
-      result.upgrades.emplace_back (
-          static_cast<UpgradeID> (d["id"].get<unsigned> ()),
-          d["Bought"].get<bool> ());
-    }
-
-  result.crafts.reserve (CraftingRecipe::RecipeTypes.size ());
-  for (const auto &c : data["Craft"])
-    {
-      result.crafts.emplace_back (
-          static_cast<RecipeID> (c["id"].get<unsigned> ()),
-          RecipeSaveData{
-              c["Level"].get<unsigned> (),
-              c["CurrentProg"].get<double> (),
-              0,
-              c["Ongoing"].get<bool> (),
-              c["Done"].get<bool> (),
-              c["RemainingTicks"].get<unsigned> (),
-              c["Workers"].get<unsigned> (),
-          });
-    }
-
-  result.cultures.reserve (AquaCulture::CultureTypes.size ());
-  for (const auto &c : data["Culture"])
-    {
-      result.cultures.emplace_back (
-          static_cast<AquaCultureID> (c["id"].get<unsigned> ()),
-          CultureData{
-              c["Ongoing"].get<bool> (),
-              c["Fields"].get<unsigned> (),
-          });
-    }
-
-  return result;
 }

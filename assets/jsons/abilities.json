@@ -1,0 +1,19 @@
+{
+  "Ability": [
+    {
+      "ID": 0,
+      "Name": "Lightning",
+      "Description": "Call a lightning to melt some sand into glass",
+      "Cost": [
+        {
+          "RessourceID": 1,
+          "Quantity": 300
+        },
+        {
+          "RessourceID": 4,
+          "Quantity": 50
+        }
+      ]
+    }
+  ]
+}

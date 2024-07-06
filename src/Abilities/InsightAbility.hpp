@@ -1,31 +1,27 @@
 #pragma once
 #include "GameIDsTypes.hpp"
 
-#include <array>
 #include <memory>
+#include <nlohmann/json.hpp>
 #include <string>
 #include <vector>
-
-enum class AbilityType
-{
-  AbilityLightning
-};
 
 class InsightAbility
 {
 public:
   InsightAbility () = default;
-  virtual ~InsightAbility () = default;
-  virtual std::string getDescription () = 0;
+  explicit InsightAbility (const nlohmann::json &);
+  ~InsightAbility () = default;
+  std::string getDescription () const;
   std::string getName () const;
   std::vector<std::pair<RessourceType, double> > getCost () const;
   std::vector<std::pair<RessourceType, double> > getProduction () const;
 
-  static constexpr std::array<AbilityType, 1> AbilitiesTypes
-      = { AbilityType::AbilityLightning };
+  static std::vector<AbilityType> abilitiesTypes;
 
 private:
   std::string name;
+  std::string description;
   std::vector<std::pair<RessourceType, double> > castingCost;
   std::vector<std::pair<RessourceType, double> > ressourcesGained;
 

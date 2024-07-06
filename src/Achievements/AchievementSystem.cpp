@@ -4,7 +4,6 @@
 #include "AquaCultureID.hpp"
 #include "FilePaths.hpp"
 #include "GameIDsTypes.hpp"
-#include "InsightAbility.hpp"
 #include "Jellyfish.hpp"
 #include "UpgradeId.hpp"
 
@@ -103,7 +102,7 @@ AchievementSystem::checkAchievements ()
       if (isUnlocked (id))
         continue;
 
-      if (achievementConditions[id]())
+      if (achievements.at (id).unlockConditionMet ())
         {
           unlock (id);
           pushNotification (id);
@@ -145,18 +144,12 @@ AchievementSystem::isUnlocked (RessourceType r) const
 bool
 AchievementSystem::isUnlocked (AbilityType t) const
 {
-  return false;
-  /*
-  using enum AbilityType;
-  switch (t)
+  if (const auto ach = idMaps.abilities.find (t);
+      ach != idMaps.abilities.end ())
     {
-    case AbilityLightning:
-      return isUnlocked (AchievementIDs::LightningAbilityBuyable);
-    default:
-      return false;
+      return achievements.at (ach->second).isUnlocked ();
     }
-    FIXME after implementing ability Ids
-    */
+  return true;
 }
 
 bool

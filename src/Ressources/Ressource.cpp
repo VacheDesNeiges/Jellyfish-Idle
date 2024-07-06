@@ -10,7 +10,8 @@ std::vector<RessourceType> Ressource::rareRessourceTypes = {};
 std::vector<RessourceType> Ressource::craftableRessourceTypes = {};
 
 Ressource::Ressource (const nlohmann::json &resData)
-    : name (resData.at ("Name")), max_quantity (resData.at ("Max_Quantity"))
+    : name (resData.at ("Name")),
+      max_quantity (resData.value ("Max_Quantity", DBL_MAX))
 {
 }
 

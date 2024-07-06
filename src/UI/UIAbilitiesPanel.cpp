@@ -1,5 +1,4 @@
 #include "UIAbilitiesPanel.hpp"
-#include "InputHandler.hpp"
 #include "InsightAbility.hpp"
 #include "UIUtils.hpp"
 #include "imgui.h"
@@ -15,7 +14,7 @@ UIAbilitiesPanel::render () const
       return;
     }
 
-  for (const auto &ability : InsightAbility::AbilitiesTypes)
+  for (const auto &ability : InsightAbility::abilitiesTypes)
     {
       renderAbilityButton (ability);
     }
@@ -44,7 +43,6 @@ UIAbilitiesPanel::renderAbilityButton (AbilityType ability) const
 void
 UIAbilitiesPanel::setToolTip (AbilityType ability) const
 {
-  using enum AbilityType;
   if (ImGui::IsItemHovered (ImGuiHoveredFlags_DelayNone
                             | ImGuiHoveredFlags_AllowWhenDisabled)
       && ImGui::BeginTooltip ())

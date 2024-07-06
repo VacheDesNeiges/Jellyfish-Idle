@@ -92,6 +92,35 @@ struct std::hash<AchievementIDs>
   }
 };
 
+/**
+ * @brief ID for the achievement Type
+ * Implements comparaison operators and hash function for use in std::map
+ * the underlying value is an int
+ */
+struct AbilityType
+{
+  int value;
+  AbilityType () : value (0) {}
+  constexpr explicit AbilityType (int x) : value (x){};
+
+  friend std::strong_ordering operator<=> (const AbilityType &lhs,
+                                           const AbilityType &rhs)
+      = default;
+
+  constexpr explicit operator int () const { return value; }
+};
+
+template <>
+
+struct std::hash<AbilityType>
+{
+  std::size_t
+  operator() (const AbilityType &a) const noexcept
+  {
+    return std::hash<int>{}(a.value);
+  }
+};
+
 namespace RessourcesAlias
 {
 constexpr inline RessourceType FOOD{ 1 };
