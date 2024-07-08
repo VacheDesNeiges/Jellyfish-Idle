@@ -1,13 +1,14 @@
 #include "Jellyfish.hpp"
+#include "GameIDsTypes.hpp"
 
-JellyJobs
+JellyJob
 Jellyfish::getJob () const
 {
   return currentJob;
 }
 
 void
-Jellyfish::setJob (JellyJobs j)
+Jellyfish::setJob (JellyJob j)
 {
   currentJob = j;
 }

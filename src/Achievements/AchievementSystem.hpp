@@ -4,14 +4,13 @@
 #include "AquaCultureID.hpp"
 #include "GameDataAccess.hpp"
 #include "GameIDsTypes.hpp"
-#include "Jellyfish.hpp"
 #include "Notification.hpp"
 #include "SaveAndLoadable.hpp"
 #include "UpgradeId.hpp"
 
-#include <functional>
 #include <optional>
 #include <queue>
+#include <span>
 #include <unordered_map>
 #include <utility>
 #include <vector>
@@ -26,7 +25,7 @@ public:
 
   bool isUnlocked (AchievementIDs) const;
   bool isUnlocked (BuildingType) const;
-  bool isUnlocked (JellyJobs) const;
+  bool isUnlocked (JellyJob) const;
   bool isUnlocked (RessourceType) const;
   bool isUnlocked (AbilityType) const;
   bool isUnlocked (UpgradeID) const;
@@ -56,7 +55,7 @@ private:
     std::vector<AchievementIDs> allAchievementsIDs;
     std::unordered_map<RessourceType, AchievementIDs> ressources;
     std::unordered_map<BuildingType, AchievementIDs> buildings;
-    std::unordered_map<JellyJobs, AchievementIDs> jobs;
+    std::unordered_map<JellyJob, AchievementIDs> jobs;
     std::unordered_map<UpgradeID, AchievementIDs> upgrades;
     std::unordered_map<AquaCultureID, AchievementIDs> cultures;
     std::unordered_map<AbilityType, AchievementIDs> abilities;

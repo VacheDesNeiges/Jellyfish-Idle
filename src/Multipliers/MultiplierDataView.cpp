@@ -1,5 +1,4 @@
 #include "MultiplierDataView.hpp"
-#include "Building.hpp"
 #include "MultipliersIDs.hpp"
 #include "MultipliersRegister.hpp"
 #include <memory>

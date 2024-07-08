@@ -1,7 +1,7 @@
 #include "CraftingManager.hpp"
 
 #include "CraftingRecipe.hpp"
-#include "Jellyfish.hpp"
+#include "GameIDsTypes.hpp"
 #include "RecipeID.hpp"
 
 #include <utility>
@@ -126,7 +126,7 @@ void
 CraftingManager::updateAssignments ()
 {
   const auto asssignedToJob
-      = jelliesView ()->getNumJellies (JellyJobs::Artisan);
+      = jelliesView ()->getNumJellies (JobsAlias::ARTISAN);
   if (assignedJelliesToCrafting == asssignedToJob)
     return;
 

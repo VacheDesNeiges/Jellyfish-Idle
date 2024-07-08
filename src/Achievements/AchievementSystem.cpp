@@ -4,12 +4,11 @@
 #include "AquaCultureID.hpp"
 #include "FilePaths.hpp"
 #include "GameIDsTypes.hpp"
-#include "Jellyfish.hpp"
 #include "UpgradeId.hpp"
 
 #include <fstream>
 #include <iostream>
-#include <nlohmann/json_fwd.hpp>
+#include <nlohmann/json.hpp>
 #include <optional>
 #include <ranges>
 #include <utility>
@@ -58,6 +57,9 @@ AchievementSystem::insertIdInSearchMaps (nlohmann::json achievement)
   if (achievement.at ("Type") == "Building")
     idMaps.buildings.emplace (achievement.at ("BuildingID"),
                               achievement.at ("ID"));
+
+  if (achievement.at ("Type") == "JfishJob")
+    idMaps.jobs.emplace (achievement.at ("JobID"), achievement.at ("ID"));
 }
 
 bool
@@ -122,7 +124,7 @@ AchievementSystem::isUnlocked (BuildingType t) const
 }
 
 bool
-AchievementSystem::isUnlocked (JellyJobs j) const
+AchievementSystem::isUnlocked (JellyJob j) const
 {
   if (idMaps.jobs.contains (j))
     return achievements.at (idMaps.jobs.at (j)).isUnlocked ();

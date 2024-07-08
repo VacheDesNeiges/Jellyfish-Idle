@@ -1,18 +1,19 @@
+#include "GameIDsTypes.hpp"
 #include "Jellyfish.hpp"
 #include "JellyfishManager.hpp"
 #include "gtest/gtest.h"
-#include <array>
 
 TEST (TestsJellies, initialization)
 {
   Jellyfish j;
-  ASSERT_EQ (JellyJobs::None, j.getJob ());
+  ASSERT_EQ (JobsAlias::NONE, j.getJob ());
 }
 
 TEST (TestsJellies, settingJob)
 {
+  JellyfishManager manager;
   Jellyfish j;
-  for (const auto &job : Jellyfish::JobsTypes)
+  for (const auto &job : manager.getAllJobsTypes ())
     {
       j.setJob (job);
       ASSERT_EQ (job, j.getJob ());
@@ -24,7 +25,7 @@ TEST (TestsJelliesManager, initialization)
   JellyfishManager manager;
   ASSERT_EQ (0, manager.getNumJellies ());
   ASSERT_EQ (1, manager.getMaxNumJellies ());
-  for (const auto &job : Jellyfish::JobsTypes)
+  for (const auto &job : manager.getAllJobsTypes ())
     {
       ASSERT_EQ (0, manager.getNum (job));
     }
@@ -51,12 +52,14 @@ TEST (TestsJelliesManager, overflow)
 TEST (TestsJelliesManager, jobAssignement)
 {
   JellyfishManager manager;
-  manager.setBonusMaxJellies (Jellyfish::JobsTypes.size ());
+  manager.setBonusMaxJellies (
+      static_cast<unsigned> (manager.getAllJobsTypes ().size ()));
 
-  for (const auto &job : Jellyfish::JobsTypes)
+  for (const auto &job : manager.getAllJobsTypes ())
     {
-      if (job != JellyJobs::None)
+      if (job != JobsAlias::NONE)
         {
+          std::cout << job.value;
           manager.createJellyfish ();
           manager.assign (job);
           ASSERT_EQ (1, manager.getNum (job));
@@ -67,19 +70,20 @@ TEST (TestsJelliesManager, jobAssignement)
 TEST (TestsJelliesManager, jobUnasignement)
 {
   JellyfishManager manager;
-  manager.setBonusMaxJellies (Jellyfish::JobsTypes.size ());
+  manager.setBonusMaxJellies (
+      static_cast<unsigned> (manager.getAllJobsTypes ().size ()));
 
   manager.createJellyfish ();
-  ASSERT_EQ (1, manager.getNum (JellyJobs::None));
+  ASSERT_EQ (1, manager.getNum (JobsAlias::NONE));
 
-  for (const auto &job : Jellyfish::JobsTypes)
+  for (const auto &job : manager.getAllJobsTypes ())
     {
-      if (job != JellyJobs::None)
+      if (job != JobsAlias::NONE)
         {
           manager.assign (job);
           manager.unasign (job);
           ASSERT_EQ (0, manager.getNum (job));
-          ASSERT_EQ (1, manager.getNum (JellyJobs::None));
+          ASSERT_EQ (1, manager.getNum (JobsAlias::NONE));
         }
     }
 }

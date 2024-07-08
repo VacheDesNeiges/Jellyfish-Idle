@@ -2,6 +2,7 @@
 
 #include "CraftingDataView.hpp"
 #include "CraftingRecipe.hpp"
+#include "GameIDsTypes.hpp"
 #include "InputHandler.hpp"
 #include "Jellyfish.hpp"
 #include "RecipeID.hpp"
@@ -24,10 +25,8 @@ UIJobsPanel::render () const
       return;
     }
 
-  using enum JellyJobs;
-
   ImGui::Text ("Available Jellies : %d",
-               gData->getJelliesView ()->getNumJellies (None));
+               gData->getJelliesView ()->getNumJellies (JobsAlias::NONE));
 
   renderJobsControls ();
 
@@ -48,7 +47,7 @@ UIJobsPanel::renderJobsControls () const
   ImGui::SetColumnWidth (1, ImGui::GetWindowWidth () / 6);
   ImGui::SetColumnWidth (2, ImGui::GetWindowWidth () / 6);
 
-  for (const auto job : Jellyfish::JobsTypes)
+  for (const auto job : gData->getJelliesView ()->getAllJobsTypes ())
     {
       if (gData->getAchievementsView ()->isUnlocked (job))
         {

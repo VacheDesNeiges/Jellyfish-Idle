@@ -178,9 +178,10 @@
       ]
     },
     {
-      "Type": "Jfish",
+      "Type": "JfishJob",
       "Name": "Explore the depths Job",
       "ID": 3003,
+      "JobID": 2,
       "Condition": [
         {
           "AchievementID": 3000
@@ -188,9 +189,10 @@
       ]
     },
     {
-      "Type": "Jfish",
+      "Type": "JfishJob",
       "Name": "Mining Job",
       "ID": 3004,
+      "JobID": 1,
       "Condition": [
         {
           "UpgradeID": 1
@@ -198,12 +200,24 @@
       ]
     },
     {
-      "Type": "Jfish",
+      "Type": "JfishJob",
       "Name": "Artisan Job",
       "ID": 3005,
+      "JobID": 4,
       "Condition": [
         {
           "UpgradeID": 3
+        }
+      ]
+    },
+    {
+      "Type": "JfishJob",
+      "Name": "Focusing Job",
+      "ID": 3006,
+      "JobID": 3,
+      "Condition": [
+        {
+          "AchievementID": 5001
         }
       ]
     },

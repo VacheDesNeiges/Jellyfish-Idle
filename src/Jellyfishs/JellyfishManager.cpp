@@ -1,15 +1,51 @@
 #include "JellyfishManager.hpp"
+#include "FilePaths.hpp"
 #include "GameIDsTypes.hpp"
 #include "Jellyfish.hpp"
 
 #include <algorithm>
 #include <cmath>
+#include <fstream>
+#include <iostream>
+#include <nlohmann/json.hpp>
+#include <nlohmann/json_fwd.hpp>
+#include <span>
 #include <string>
 #include <utility>
 
 JellyfishManager::JellyfishManager ()
 {
-  for (const auto &job : Jellyfish::JobsTypes)
+
+  const auto path = std::string (FilePaths::getPath ())
+                    + std::string (FilePaths::JobsPath);
+  std::ifstream fstream (path);
+
+  try
+    {
+      auto jobsJson = nlohmann::json::parse (fstream);
+
+      const auto numJobs = jobsJson.at ("Jobs").size ();
+      jobNumbers.reserve (numJobs);
+      jobExp.reserve (numJobs);
+
+      allJobs.reserve (numJobs);
+
+      for (const auto &job : jobsJson.at ("Jobs"))
+        {
+          jobNumbers.try_emplace (JellyJob (job.at ("ID")), 0);
+          jobExp.try_emplace (JellyJob (job.at ("ID")), 1, 0, 100);
+          allJobs.push_back (JellyJob (job.at ("ID")));
+          jobDescripions.try_emplace (JellyJob (job.at ("ID")),
+                                      job.at ("Description"));
+        }
+    }
+  catch (nlohmann::json::exception &e)
+    {
+      std::cerr << "Error while parsing Jobs :\n" << e.what () << "\n";
+      abort ();
+    }
+
+  for (const auto &job : allJobs)
     {
       jobNumbers.try_emplace (job, 0);
       jobExp.try_emplace (job, 1, 0, 100);
@@ -17,7 +53,7 @@ JellyfishManager::JellyfishManager ()
 }
 
 unsigned int
-JellyfishManager::getNum (JellyJobs job)
+JellyfishManager::getNum (JellyJob job)
 {
   if (!numJobsUpToDate)
     updateNumJobs ();
@@ -28,7 +64,7 @@ JellyfishManager::getNum (JellyJobs job)
 void
 JellyfishManager::zerosJobNumbersMap ()
 {
-  for (const auto &job : Jellyfish::JobsTypes)
+  for (const auto &job : allJobs)
     {
       jobNumbers[job] = 0;
     }
@@ -46,25 +82,25 @@ JellyfishManager::updateNumJobs ()
 }
 
 bool
-JellyfishManager::assign (JellyJobs j)
+JellyfishManager::assign (JellyJob j)
 {
-  if (jobNumbers[JellyJobs::None] == 0)
+  if (jobNumbers[JobsAlias::NONE] == 0)
     return false;
   auto it = std::ranges::find_if (jellies, [] (const auto &jelly) {
-    return (jelly.getJob () == JellyJobs::None);
+    return (jelly.getJob () == JobsAlias::NONE);
   });
   if (it == jellies.end ())
     return false;
 
   it->setJob (j);
-  jobNumbers[JellyJobs::None] -= 1;
+  jobNumbers[JobsAlias::NONE] -= 1;
   jobNumbers[j] += 1;
 
   return true;
 }
 
 bool
-JellyfishManager::unasign (JellyJobs j)
+JellyfishManager::unasign (JellyJob j)
 {
   if (jobNumbers[j] == 0)
     return false;
@@ -77,8 +113,8 @@ JellyfishManager::unasign (JellyJobs j)
   if (it == jellies.end ())
     return false;
 
-  it->setJob (JellyJobs::None);
-  jobNumbers[JellyJobs::None] += 1;
+  it->setJob (JobsAlias::NONE);
+  jobNumbers[JobsAlias::NONE] += 1;
 
   return true;
 }
@@ -89,7 +125,7 @@ JellyfishManager::createJellyfish ()
   if (jellies.size () < maxNumJellies)
     {
       jellies.emplace_back ();
-      jobNumbers[JellyJobs::None] += 1;
+      jobNumbers[JobsAlias::NONE] += 1;
     }
 }
 
@@ -114,46 +150,26 @@ JellyfishManager::setBonusMaxJellies (unsigned n)
 std::unordered_map<RessourceType, double>
 JellyfishManager::getProductionRates () const
 {
-  using enum JellyJobs;
   using namespace RessourcesAlias;
 
   std::unordered_map<RessourceType, double> result;
 
-  result[STONE] = (jobNumbers.at (Mining) * 0.1)
+  result[STONE] = (jobNumbers.at (JobsAlias::MINING) * 0.1)
                   * multipliersView ()->getMultiplier (STONE);
 
-  result[INSIGHT] = jobNumbers.at (FocusForInsight) * 0.16;
+  result[INSIGHT] = jobNumbers.at (JobsAlias::FOCUS) * 0.16;
 
   return result;
 }
 
 std::string
-JellyfishManager::getJobDescription (JellyJobs j) const
+JellyfishManager::getJobDescription (JellyJob j) const
 {
-  using enum JellyJobs;
-  switch (j)
-    {
-    case GatherFood:
-      return "Gather some food";
 
-    case GatherSand:
-      return "Gather Sand";
+  if (jobDescripions.contains (j))
+    return jobDescripions.at (j);
 
-    case Mining:
-      return "Mining for stone";
-
-    case ExploreTheDepths:
-      return "Explore the Depths";
-
-    case FocusForInsight:
-      return "Focus for Insight";
-
-    case Artisan:
-      return "Crafting Things";
-
-    default:
-      return "Undefined Description";
-    }
+  return "Undefined Description";
 }
 
 JellyfishData
@@ -162,13 +178,11 @@ JellyfishManager::getData () const
   JellyfishData result;
   result.maxNumJellies = maxNumJellies;
 
-  using enum JellyJobs;
-  result.numJobExploreTheDepths = jobNumbers.at (ExploreTheDepths);
-  result.numJobFocusing = jobNumbers.at (FocusForInsight);
-  result.numJobMining = jobNumbers.at (Mining);
-  result.numJobCrafting = jobNumbers.at (Artisan);
-  result.numJobNone = jobNumbers.at (None);
-
+  result.jobNumbers.reserve (jobNumbers.size ());
+  for (const auto &[job, num] : jobNumbers)
+    {
+      result.jobNumbers.push_back ({ job, num });
+    }
   result.numJellies = static_cast<unsigned> (jellies.size ());
 
   return result;
@@ -187,33 +201,14 @@ JellyfishManager::loadData (const JellyfishData &data)
           createJellyfish ();
         }
 
-      for (unsigned i = 0; i < data.numJobFocusing; i++)
+      for (const auto &[job, num] : data.jobNumbers)
         {
-          assign (JellyJobs::FocusForInsight);
-        }
-
-      for (unsigned i = 0; i < data.numJobExploreTheDepths; i++)
-        {
-          assign (JellyJobs::ExploreTheDepths);
-        }
-
-      for (unsigned i = 0; i < data.numJobMining; i++)
-        {
-          assign (JellyJobs::Mining);
-        }
-
-      for (unsigned i = 0; i < data.numJobCrafting; i++)
-        {
-          assign (JellyJobs::Artisan);
+          for (unsigned i = 0; i < num; i++)
+            {
+              assign (job);
+            }
         }
     }
-
-  using enum JellyJobs;
-  jobNumbers[None] = data.numJobNone;
-  jobNumbers[Mining] = data.numJobMining;
-  jobNumbers[ExploreTheDepths] = data.numJobExploreTheDepths;
-  jobNumbers[FocusForInsight] = data.numJobFocusing;
-  jobNumbers[Artisan] = data.numJobCrafting;
 }
 
 bool
@@ -225,7 +220,7 @@ JellyfishManager::distributeJobExp ()
   for (auto &[job, lvlStruct] : jobExp)
     {
 
-      if (job == JellyJobs::Artisan)
+      if (job == JobsAlias::ARTISAN)
         {
           progressGained
               = 0.5 * craftView ()->getAssignedNumOfJelliesOnOngoingCrafts ();
@@ -251,19 +246,19 @@ JellyfishManager::distributeJobExp ()
 }
 
 unsigned
-JellyfishManager::getJobLevel (JellyJobs j) const
+JellyfishManager::getJobLevel (JellyJob j) const
 {
   return jobExp.at (j).lvl;
 }
 
 double
-JellyfishManager::getJobProgress (JellyJobs j) const
+JellyfishManager::getJobProgress (JellyJob j) const
 {
   return jobExp.at (j).currentProgress;
 }
 
 double
-JellyfishManager::getJobProgressNeeded (JellyJobs j) const
+JellyfishManager::getJobProgressNeeded (JellyJob j) const
 {
   return jobExp.at (j).progressNeeded;
 }
@@ -280,4 +275,10 @@ std::pair<RessourceType, double>
 JellyfishManager::getLureCost () const
 {
   return { RessourcesAlias::FOOD, LurePrice };
+}
+
+std::span<const JellyJob>
+JellyfishManager::getAllJobsTypes () const
+{
+  return std::span<const JellyJob> (allJobs.data (), allJobs.size ());
 }

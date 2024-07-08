@@ -1,5 +1,5 @@
 #pragma once
-#include "Building.hpp"
+#include "GameIDsTypes.hpp"
 #include <memory>
 
 class MultipliersRegister;

@@ -3,6 +3,7 @@
 #include "AquaCulture.hpp"
 #include "CraftingRecipe.hpp"
 #include "DepthSystem.hpp"
+#include "GameIDsTypes.hpp"
 #include "JellyfishManager.hpp"
 #include "RecipeID.hpp"
 #include "Ressource.hpp"
@@ -13,6 +14,7 @@
 #include <fstream>
 #include <iostream>
 #include <nlohmann/json.hpp>
+#include <nlohmann/json_fwd.hpp>
 #include <string>
 #include <vector>
 
@@ -38,15 +40,24 @@ SaveSystem::save (const SaveData &data)
           += { { "id", static_cast<int> (idRes) }, { "Quantity", quant } };
     }
 
-  j["Jellies"] += {
+  j["Jellies"] = {
     { "num", data.jellies.numJellies },
     { "numMax", data.jellies.maxNumJellies },
-    { "numJobNone", data.jellies.numJobNone },
-    { "numJobExplore", data.jellies.numJobExploreTheDepths },
-    { "numJobMining", data.jellies.numJobMining },
-    { "numJobFocusing", data.jellies.numJobFocusing },
-    { "numJobCrafting", data.jellies.numJobCrafting },
+    { "Jobs", nlohmann::json::array () },
   };
+
+  try
+    {
+      for (const auto &[jobID, num] : data.jellies.jobNumbers)
+        {
+          j["Jellies"]["Jobs"].push_back (
+              { { "id", jobID.value }, { "num", num } });
+        }
+    }
+  catch (nlohmann::json::exception &e)
+    {
+      std::cerr << "Error while writting jellies :\n" << e.what () << '\n';
+    }
 
   j["Depth"] += {
     { "currentDepth", data.depth.currentDepth },
@@ -95,10 +106,21 @@ SaveSystem::loadFromFile (std::string path)
 
   std::ifstream f (path);
 
+  nlohmann::json data;
+
   try
     {
+      data = nlohmann::json::parse (f);
+    }
+  catch (nlohmann::json::exception &e)
+    {
+      std::cerr << "Error while parsing save with json::parse() :\n"
+                << e.what () << '\n';
+      abort ();
+    }
 
-      nlohmann::json data = nlohmann::json::parse (f);
+  try
+    {
 
       result.buildings.reserve (data.at ("Building").size ());
       for (const auto &d : data["Building"])
@@ -107,6 +129,16 @@ SaveSystem::loadFromFile (std::string path)
               static_cast<BuildingType> (d["id"].get<int> ()),
               d["Quantity"].get<unsigned> ());
         }
+    }
+  catch (nlohmann::json::exception &e)
+    {
+      std::cerr << "Error while parsing saved buildings :\n"
+                << e.what () << '\n';
+      abort ();
+    }
+
+  try
+    {
 
       result.achievements.reserve (data.at ("Achievement").size ());
       for (const auto &d : data["Achievement"])
@@ -115,7 +147,16 @@ SaveSystem::loadFromFile (std::string path)
               static_cast<AchievementIDs> (d["id"].get<int> ()),
               d["Unlocked"].get<bool> ());
         }
+    }
+  catch (nlohmann::json::exception &e)
+    {
+      std::cerr << "Error while parsing saved buildings :\n"
+                << e.what () << '\n';
+      abort ();
+    }
 
+  try
+    {
       result.ressources.reserve (
           Ressource::getRessourcesTypes ().size ()
           + Ressource::getCraftableRessourcesTypes ().size ()
@@ -126,21 +167,38 @@ SaveSystem::loadFromFile (std::string path)
               static_cast<RessourceType> (d["id"].get<int> ()),
               d["Quantity"].get<double> ());
         }
+    }
 
-      result.jellies.numJellies = data["Jellies"][0]["num"].get<unsigned> ();
+  catch (nlohmann::json::exception &e)
+    {
+      std::cerr << "Error while parsing saved achievements :\n"
+                << e.what () << '\n';
+      abort ();
+    }
+
+  try
+    {
+      result.jellies.numJellies
+          = data.at ("Jellies").at ("num").get<unsigned> ();
       result.jellies.maxNumJellies
-          = data["Jellies"][0]["numMax"].get<unsigned> ();
+          = data.at ("Jellies").at ("numMax").get<unsigned> ();
 
-      result.jellies.numJobNone
-          = data["Jellies"][0]["numJobNone"].get<unsigned> ();
-      result.jellies.numJobExploreTheDepths
-          = data["Jellies"][0]["numJobExplore"].get<unsigned> ();
-      result.jellies.numJobMining
-          = data["Jellies"][0]["numJobMining"].get<unsigned> ();
-      result.jellies.numJobFocusing
-          = data["Jellies"][0]["numJobFocusing"].get<unsigned> ();
-      result.jellies.numJobCrafting
-          = data["Jellies"][0]["numJobCrafting"].get<unsigned> ();
+      for (const auto &job : data.at ("Jellies").at ("Jobs"))
+        {
+          result.jellies.jobNumbers.push_back (
+              { JellyJob (job.at ("id").get<int> ()),
+                job.at ("num").get<unsigned> () });
+        }
+    }
+  catch (nlohmann::json::exception &e)
+    {
+      std::cerr << "Error while parsing saved jellies & jobs :\n"
+                << e.what () << '\n';
+      abort ();
+    }
+
+  try
+    {
 
       result.depth.currentDepth
           = data["Depth"][0]["currentDepth"].get<unsigned> ();
@@ -185,7 +243,7 @@ SaveSystem::loadFromFile (std::string path)
     }
   catch (nlohmann::json::exception &e)
     {
-      std::cerr << "Error while parsing save :\n" << e.what () << '\n';
+      std::cerr << "Error while parsing the rest :\n" << e.what () << '\n';
       abort ();
     }
 }

@@ -1,0 +1,47 @@
+{
+  "Jobs": [
+    {
+      "Name": "None",
+      "Description": "",
+      "ID": 0
+    },
+    {
+      "Name": "Mining",
+      "Description": "Mining for stone",
+      "ID": 1,
+      "Effect": [
+        {
+          "RessourceID": 3,
+          "QuantityPerTick": 0.1
+        }
+      ]
+    },
+    {
+      "Name": "Explore",
+      "Description": "Explore the Depths",
+      "ID": 2,
+      "Effect": [
+        {}
+      ]
+    },
+    {
+      "Name": "Focus",
+      "Description": "Focus for Insight",
+      "ID": 3,
+      "Effect": [
+        {
+          "RessourceID": 4,
+          "QuantityPerTick": 0.16
+        }
+      ]
+    },
+    {
+      "Name": "Artisan",
+      "Description": "Crafting things",
+      "ID": 4,
+      "Effect": [
+        {}
+      ]
+    }
+  ]
+}

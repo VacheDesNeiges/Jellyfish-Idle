@@ -1,6 +1,6 @@
 #include "InputHandler.hpp"
+#include "GameIDsTypes.hpp"
 #include "GameSystems.hpp"
-#include "Jellyfish.hpp"
 #include "RecipeID.hpp"
 #include "UpgradeId.hpp"
 #include <memory>
@@ -29,21 +29,21 @@ InputHandler::useAbility (AbilityType t) const
 }
 
 bool
-InputHandler::assignJelly (JellyJobs j) const
+InputHandler::assignJelly (JellyJob j) const
 {
   bool ret = systems->jellies->assign (j);
 
-  if (j == JellyJobs::Artisan)
+  if (j == JobsAlias::ARTISAN)
     systems->crafts->updateAssignments ();
 
   return ret;
 }
 
 bool
-InputHandler::unassignJelly (JellyJobs j) const
+InputHandler::unassignJelly (JellyJob j) const
 {
 
-  if (j != JellyJobs::Artisan)
+  if (j != JobsAlias::ARTISAN)
     return systems->jellies->unasign (j);
 
   if (systems->crafts->getAssignedNumOfJellies (RecipeID::NoneRecipe))

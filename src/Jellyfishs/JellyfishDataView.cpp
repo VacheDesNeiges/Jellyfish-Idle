@@ -1,5 +1,5 @@
 #include "JellyfishDataView.hpp"
-#include "Jellyfish.hpp"
+#include "GameIDsTypes.hpp"
 #include "JellyfishManager.hpp"
 
 JellyFishDataView::JellyFishDataView (std::shared_ptr<JellyfishManager> j)
@@ -14,7 +14,7 @@ JellyFishDataView::getNumJellies () const
 }
 
 unsigned int
-JellyFishDataView::getNumJellies (JellyJobs j) const
+JellyFishDataView::getNumJellies (JellyJob j) const
 {
   return jellies->getNum (j);
 }
@@ -26,25 +26,25 @@ JellyFishDataView::getMaxNumJellies () const
 }
 
 std::string
-JellyFishDataView::getJobDescription (JellyJobs j) const
+JellyFishDataView::getJobDescription (JellyJob j) const
 {
   return jellies->getJobDescription (j);
 }
 
 unsigned
-JellyFishDataView::getJobLevel (JellyJobs j) const
+JellyFishDataView::getJobLevel (JellyJob j) const
 {
   return jellies->getJobLevel (j);
 }
 
 double
-JellyFishDataView::getCurrentProgress (JellyJobs j) const
+JellyFishDataView::getCurrentProgress (JellyJob j) const
 {
   return jellies->getJobProgress (j);
 }
 
 double
-JellyFishDataView::getProgressNeeded (JellyJobs j) const
+JellyFishDataView::getProgressNeeded (JellyJob j) const
 {
   return jellies->getJobProgressNeeded (j);
 }
@@ -59,4 +59,10 @@ std::pair<RessourceType, double>
 JellyFishDataView::getLureCost () const
 {
   return jellies->getLureCost ();
+}
+
+std::span<const JellyJob>
+JellyFishDataView::getAllJobsTypes () const
+{
+  return jellies->getAllJobsTypes ();
 }

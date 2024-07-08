@@ -121,6 +121,35 @@ struct std::hash<AbilityType>
   }
 };
 
+/**
+ * @brief ID for the achievement Type
+ * Implements comparaison operators and hash function for use in std::map
+ * the underlying value is an int
+ */
+struct JellyJob
+{
+  int value;
+  JellyJob () : value (0) {}
+  constexpr explicit JellyJob (int x) : value (x){};
+
+  friend std::strong_ordering operator<=> (const JellyJob &lhs,
+                                           const JellyJob &rhs)
+      = default;
+
+  constexpr explicit operator int () const { return value; }
+};
+
+template <>
+
+struct std::hash<JellyJob>
+{
+  std::size_t
+  operator() (const JellyJob &a) const noexcept
+  {
+    return std::hash<int>{}(a.value);
+  }
+};
+
 namespace RessourcesAlias
 {
 constexpr inline RessourceType FOOD{ 1 };
@@ -160,4 +189,13 @@ constexpr inline AchievementIDs ADVANCEDTELEKINESIS{ 5004 };
 constexpr inline AchievementIDs ANYRARERESSOURCE{ 6000 };
 constexpr inline AchievementIDs ANYMANUFACTUREDRESSOURCE{ 6001 };
 
+}
+
+namespace JobsAlias
+{
+constexpr inline JellyJob NONE{ 0 };
+constexpr inline JellyJob MINING{ 1 };
+constexpr inline JellyJob EXPLORE{ 2 };
+constexpr inline JellyJob FOCUS{ 3 };
+constexpr inline JellyJob ARTISAN{ 4 };
 }

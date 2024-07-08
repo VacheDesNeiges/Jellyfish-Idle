@@ -2,9 +2,9 @@
 #include "GameIDsTypes.hpp"
 
 #include <memory>
+#include <span>
 
 class JellyfishManager;
-enum class JellyJobs;
 
 class JellyFishDataView
 {
@@ -15,14 +15,16 @@ public:
   std::pair<RessourceType, double> getLureCost () const;
 
   unsigned int getNumJellies () const;
-  unsigned int getNumJellies (JellyJobs) const;
+  unsigned int getNumJellies (JellyJob) const;
   unsigned int getMaxNumJellies () const;
 
-  std::string getJobDescription (JellyJobs) const;
+  std::string getJobDescription (JellyJob) const;
 
-  unsigned getJobLevel (JellyJobs) const;
-  double getCurrentProgress (JellyJobs) const;
-  double getProgressNeeded (JellyJobs) const;
+  unsigned getJobLevel (JellyJob) const;
+  double getCurrentProgress (JellyJob) const;
+  double getProgressNeeded (JellyJob) const;
+
+  std::span<const JellyJob> getAllJobsTypes () const;
 
 private:
   std::shared_ptr<JellyfishManager> jellies;

@@ -3,7 +3,6 @@
 #include "GameSystems.hpp"
 #include <memory>
 
-enum class JellyJobs;
 enum class UpgradeID;
 enum class RecipeID;
 
@@ -17,8 +16,8 @@ public:
   void buy (BuildingType) const;
   void buy (UpgradeID) const;
 
-  bool unassignJelly (JellyJobs) const;
-  bool assignJelly (JellyJobs) const;
+  bool unassignJelly (JellyJob) const;
+  bool assignJelly (JellyJob) const;
 
   void useAbility (AbilityType) const;
 

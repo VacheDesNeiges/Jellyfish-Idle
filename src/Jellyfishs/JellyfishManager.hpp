@@ -1,21 +1,18 @@
 #pragma once
 #include "GameDataAccess.hpp"
+#include "GameIDsTypes.hpp"
 #include "Jellyfish.hpp"
-#include "MultipliersIDs.hpp"
 #include "SaveAndLoadable.hpp"
+#include <span>
 #include <unordered_map>
 #include <utility>
 #include <vector>
 
 struct JellyfishData
 {
-  unsigned maxNumJellies;
-  unsigned numJobNone;
-  unsigned numJobExploreTheDepths;
-  unsigned numJobMining;
-  unsigned numJobFocusing;
-  unsigned numJobCrafting;
   unsigned numJellies;
+  unsigned maxNumJellies;
+  std::vector<std::pair<JellyJob, unsigned> > jobNumbers;
 };
 
 struct JobLevel
@@ -32,7 +29,7 @@ class JellyfishManager : public GameDataAccess,
 {
 public:
   JellyfishManager ();
-  unsigned int getNum (JellyJobs);
+  unsigned int getNum (JellyJob);
   unsigned int getNumJellies () const;
   unsigned int getMaxNumJellies () const;
 
@@ -40,30 +37,32 @@ public:
   std::pair<RessourceType, double> getLureCost () const;
 
   void setBonusMaxJellies (unsigned);
-  bool assign (JellyJobs);
-  bool unasign (JellyJobs);
+  bool assign (JellyJob);
+  bool unasign (JellyJob);
   void createJellyfish ();
 
   std::unordered_map<RessourceType, double> getProductionRates () const;
 
-  std::string getJobDescription (JellyJobs) const;
+  std::string getJobDescription (JellyJob) const;
 
-  unsigned getJobLevel (JellyJobs) const;
-  double getJobProgress (JellyJobs) const;
-  double getJobProgressNeeded (JellyJobs) const;
+  unsigned getJobLevel (JellyJob) const;
+  double getJobProgress (JellyJob) const;
+  double getJobProgressNeeded (JellyJob) const;
   bool distributeJobExp ();
+
+  std::span<const JellyJob> getAllJobsTypes () const;
 
   JellyfishData getData () const override;
   void loadData (const JellyfishData &) override;
 
 private:
+  std::vector<JellyJob> allJobs;
   std::vector<Jellyfish> jellies;
-  std::unordered_map<JellyJobs, unsigned> jobNumbers;
+  std::unordered_map<JellyJob, unsigned> jobNumbers;
 
-  std::unordered_map<JellyJobs, JobLevel>
+  std::unordered_map<JellyJob, JobLevel>
       jobExp; // pair of current progress, progress neeeded
-
-  std::unordered_map<MultiplierID, double> multipliers;
+  std::unordered_map<JellyJob, std::string> jobDescripions;
 
   unsigned maxNumJellies = 1;
   bool numJobsUpToDate = false;

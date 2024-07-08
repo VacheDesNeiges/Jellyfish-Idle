@@ -2,8 +2,6 @@
 
 #include "AchievementSystem.hpp"
 #include "AquaCultureID.hpp"
-#include "InsightAbility.hpp"
-#include "Jellyfish.hpp"
 #include "UpgradeId.hpp"
 #include <optional>
 #include <string_view>
@@ -26,7 +24,7 @@ AchievementDataView::isUnlocked (BuildingType t) const
 }
 
 bool
-AchievementDataView::isUnlocked (JellyJobs j) const
+AchievementDataView::isUnlocked (JellyJob j) const
 {
   return achievements->isUnlocked (j);
 }

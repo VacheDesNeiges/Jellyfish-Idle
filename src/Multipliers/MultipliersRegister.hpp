@@ -2,7 +2,6 @@
 
 #include "GameDataAccess.hpp"
 #include "GameIDsTypes.hpp"
-#include "Jellyfish.hpp"
 #include "MultipliersIDs.hpp"
 
 #include <array>
@@ -16,7 +15,7 @@ public:
   double getMultiplier (MultiplierID) const;
 
   double getRessourceProdMultiplier (RessourceType) const;
-  double getJobLvlMultiplier (JellyJobs) const;
+  double getJobLvlMultiplier (JellyJob) const;
   double getBuildingMultiplier (BuildingType) const;
 
   void buildingBoughtUpdate (BuildingType);
@@ -27,9 +26,9 @@ private:
   std::unordered_map<MultiplierID, double> multipliers;
 
 public: // constexpr arrays
-  static constexpr std::array<std::pair<JellyJobs, MultiplierID>, 1>
+  static constexpr std::array<std::pair<JellyJob, MultiplierID>, 1>
       jobLevelMultipliers = {
-        std::pair{ JellyJobs::Mining, MultiplierID::MiningLevelMultiplier },
+        std::pair{ JobsAlias::MINING, MultiplierID::MiningLevelMultiplier },
       };
 
   static constexpr std::array<std::pair<BuildingType, MultiplierID>, 2>

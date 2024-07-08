@@ -2,6 +2,7 @@
 
 #include "Building.hpp"
 #include "GameDataView.hpp"
+#include "GameIDsTypes.hpp"
 #include "GameSystems.hpp"
 #include "UpgradeId.hpp"
 
@@ -33,8 +34,7 @@ GameSynchronizer::gameTick () const
         }
     }
 
-  systems->depth->ExploreDepth (
-      systems->jellies->getNum (JellyJobs::ExploreTheDepths));
+  systems->depth->ExploreDepth (systems->jellies->getNum (JobsAlias::EXPLORE));
 
   // Jobs experience, with bool value return to update multipliers
   distributeExp ();

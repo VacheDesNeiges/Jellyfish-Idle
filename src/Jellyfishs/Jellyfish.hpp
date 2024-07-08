@@ -1,32 +1,14 @@
 #pragma once
 
-#include <array>
-enum class JellyJobs
-{
-  None,
-  GatherFood,
-  GatherSand,
-  ExploreTheDepths,
-  Mining,
-  FocusForInsight,
-  Artisan
-};
+#include "GameIDsTypes.hpp"
 
 class Jellyfish
 {
 public:
-  void setJob (JellyJobs);
+  void setJob (JellyJob);
   void gainJobExp (unsigned);
-  JellyJobs getJob () const;
-
-  static constexpr std::array<JellyJobs, 5> JobsTypes = {
-    JellyJobs::None,
-    JellyJobs::Mining,
-    JellyJobs::ExploreTheDepths,
-    JellyJobs::FocusForInsight,
-    JellyJobs::Artisan,
-  };
+  JellyJob getJob () const;
 
 private:
-  JellyJobs currentJob = JellyJobs::None;
+  JellyJob currentJob = JobsAlias::NONE;
 };
