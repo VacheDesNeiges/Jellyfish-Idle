@@ -1,20 +1,49 @@
 #include "GardenManager.hpp"
 #include "AquaCulture.hpp"
-#include "AquaCultureID.hpp"
+#include "FilePaths.hpp"
+#include "GameIDsTypes.hpp"
 #include "MultiplierDataView.hpp"
 #include "MultipliersIDs.hpp"
+
+#include <cstdio>
+#include <fstream>
+#include <iostream>
+#include <nlohmann/json.hpp>
+#include <nlohmann/json_fwd.hpp>
+#include <span>
+#include <string>
 #include <utility>
 #include <vector>
 
 GardenManager::GardenManager ()
 {
-  cultures.reserve (AquaCulture::CultureTypes.size ());
-  for (const auto &ac : AquaCulture::CultureTypes)
+  const auto path = std::string (FilePaths::getPath ())
+                    + std::string (FilePaths::CulturesPath);
+  std::ifstream fstream (path);
+  try
     {
-      cultures.try_emplace (ac, ac);
-      assignedFieldsToCultures[ac] = 0;
+      auto culturesJson = nlohmann::json::parse (fstream);
+
+      const size_t numCultures = culturesJson.at ("Cultures").size ();
+      cultures.reserve (numCultures);
+      assignedFieldsToCultures.reserve (numCultures + 1);
+      cultureTypes.reserve (numCultures);
+
+      assignedFieldsToCultures[CulturesAlias::NONE] = 1;
+      for (const auto &culture : culturesJson["Cultures"])
+        {
+          cultures.try_emplace (AquaCultureID (culture.at ("ID")), culture);
+          assignedFieldsToCultures[AquaCultureID (culture.at ("ID"))] = 0;
+          cultureTypes.push_back (AquaCultureID (culture.at ("ID")));
+        }
     }
-  assignedFieldsToCultures[AquaCultureID::None] = 1;
+  catch (nlohmann::json::exception &e)
+    {
+      std::cerr << "Error while parsing cultures :\n" << e.what () << "\n";
+      abort ();
+    }
+
+  assignedFieldsToCultures[CulturesAlias::NONE] = 1;
 }
 
 void
@@ -40,7 +69,7 @@ GardenManager::getData () const
 {
   auto result = std::vector<std::pair<AquaCultureID, CultureData> > ();
 
-  for (const auto culture : AquaCulture::CultureTypes)
+  for (const auto culture : cultureTypes)
     {
       auto saveData = cultures.at (culture).getData ();
       saveData.fieldCount = getAssignedFieldsToCulture (culture);
@@ -121,7 +150,7 @@ GardenManager::getTotalFields () const
 unsigned
 GardenManager::getAssignedFields () const
 {
-  return maxFields - assignedFieldsToCultures.at (AquaCultureID::None);
+  return maxFields - assignedFieldsToCultures.at (CulturesAlias::NONE);
 }
 
 unsigned
@@ -133,11 +162,10 @@ GardenManager::getAssignedFieldsToCulture (AquaCultureID c) const
 bool
 GardenManager::assign (AquaCultureID id)
 {
-  using enum AquaCultureID;
-  if (assignedFieldsToCultures.at (None) > 0)
+  if (assignedFieldsToCultures.at (CulturesAlias::NONE) > 0)
     {
       assignedFieldsToCultures[id]++;
-      assignedFieldsToCultures[None]--;
+      assignedFieldsToCultures[CulturesAlias::NONE]--;
       return true;
     }
   return false;
@@ -146,12 +174,17 @@ GardenManager::assign (AquaCultureID id)
 bool
 GardenManager::unnasign (AquaCultureID id)
 {
-  using enum AquaCultureID;
   if (assignedFieldsToCultures.at (id) > 0)
     {
       assignedFieldsToCultures[id]--;
-      assignedFieldsToCultures[None]++;
+      assignedFieldsToCultures[CulturesAlias::NONE]++;
       return true;
     }
   return false;
+}
+
+std::span<const AquaCultureID>
+GardenManager::getCultureTypes () const
+{
+  return std::span (cultureTypes);
 }

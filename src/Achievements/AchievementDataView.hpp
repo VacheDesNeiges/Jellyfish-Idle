@@ -6,7 +6,6 @@
 
 class AchievementSystem;
 enum class UpgradeID;
-enum class AquaCultureID;
 
 class AchievementDataView
 {

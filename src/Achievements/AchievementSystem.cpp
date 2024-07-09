@@ -1,7 +1,6 @@
 #include "AchievementSystem.hpp"
 
 #include "AchievementDataView.hpp"
-#include "AquaCultureID.hpp"
 #include "FilePaths.hpp"
 #include "GameIDsTypes.hpp"
 #include "UpgradeId.hpp"
@@ -60,6 +59,10 @@ AchievementSystem::insertIdInSearchMaps (nlohmann::json achievement)
 
   if (achievement.at ("Type") == "JfishJob")
     idMaps.jobs.emplace (achievement.at ("JobID"), achievement.at ("ID"));
+
+  if (achievement.at ("Type") == "Garden")
+    idMaps.cultures.emplace (achievement.at ("CultureID"),
+                             achievement.at ("ID"));
 }
 
 bool

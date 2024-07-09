@@ -1,4 +1,5 @@
 #include "GardenDataView.hpp"
+#include "GameIDsTypes.hpp"
 #include "GardenManager.hpp"
 #include <memory>
 #include <optional>
@@ -36,4 +37,10 @@ GardenDataView::getFieldProduction (AquaCultureID id,
                                     std::optional<unsigned> nFields) const
 {
   return garden->getProduction (id, nFields);
+}
+
+std::span<const AquaCultureID>
+GardenDataView::getCultureTypes () const
+{
+  return garden->getCultureTypes ();
 }

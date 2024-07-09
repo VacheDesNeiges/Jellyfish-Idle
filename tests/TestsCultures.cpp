@@ -1,12 +1,12 @@
 #include "AquaCulture.hpp"
-#include "AquaCultureID.hpp"
+#include "GameIDsTypes.hpp"
 #include "GardenManager.hpp"
 #include "gtest/gtest.h"
 
 class AquaCultureFixture : public ::testing::Test
 {
 public:
-  AquaCulture ac{ AquaCultureID::Plankton };
+  AquaCulture ac;
 };
 
 TEST_F (AquaCultureFixture, initialization) { ASSERT_FALSE (ac.isOngoing ()); }
@@ -33,7 +33,7 @@ public:
 
 TEST_F (GardenManagerFixture, initialization)
 {
-  for (const auto &cultureID : AquaCulture::CultureTypes)
+  for (const auto &cultureID : gManager.getCultureTypes ())
     {
       ASSERT_EQ (false, gManager.isOngoing (cultureID));
     }

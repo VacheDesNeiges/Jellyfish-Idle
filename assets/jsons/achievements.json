@@ -105,7 +105,7 @@
       }
     },
     {
-      "Type": "Garden",
+      "Type": "System",
       "Name": "Garden System",
       "ID": 2000,
       "Condition": [
@@ -119,6 +119,7 @@
       "Type": "Garden",
       "Name": "CulturePlankton",
       "ID": 2001,
+      "CultureID": 1,
       "Condition": [
         {
           "AchievementID": 2000
@@ -129,6 +130,7 @@
       "Type": "Garden",
       "Name": "CultureSandworm",
       "ID": 2002,
+      "CultureID": 2,
       "Condition": [
         {
           "Depth": 20
@@ -139,6 +141,7 @@
       "Type": "Garden",
       "Name": "CultureOyster",
       "ID": 2003,
+      "CultureID": 3,
       "Condition": [
         {
           "Depth": 30

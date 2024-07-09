@@ -1,9 +1,10 @@
 #pragma once
 #include "AquaCulture.hpp"
-#include "AquaCultureID.hpp"
 #include "GameDataAccess.hpp"
+#include "GameIDsTypes.hpp"
 #include "SaveAndLoadable.hpp"
 
+#include <nlohmann/json_fwd.hpp>
 #include <optional>
 #include <unordered_map>
 #include <utility>
@@ -46,7 +47,10 @@ public:
   std::vector<std::pair<AquaCultureID, CultureData> >
   getData () const override;
 
+  std::span<const AquaCultureID> getCultureTypes () const;
+
 private:
+  std::vector<AquaCultureID> cultureTypes;
   std::unordered_map<AquaCultureID, AquaCulture> cultures;
   std::unordered_map<AquaCultureID, unsigned> assignedFieldsToCultures;
 

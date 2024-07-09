@@ -122,7 +122,7 @@ struct std::hash<AbilityType>
 };
 
 /**
- * @brief ID for the achievement Type
+ * @brief ID for the job Type
  * Implements comparaison operators and hash function for use in std::map
  * the underlying value is an int
  */
@@ -145,6 +145,35 @@ struct std::hash<JellyJob>
 {
   std::size_t
   operator() (const JellyJob &a) const noexcept
+  {
+    return std::hash<int>{}(a.value);
+  }
+};
+
+/**
+ * @brief ID for the job Type
+ * Implements comparaison operators and hash function for use in std::map
+ * the underlying value is an int
+ */
+struct AquaCultureID
+{
+  int value;
+  AquaCultureID () : value (0) {}
+  constexpr explicit AquaCultureID (int x) : value (x){};
+
+  friend std::strong_ordering operator<=> (const AquaCultureID &lhs,
+                                           const AquaCultureID &rhs)
+      = default;
+
+  constexpr explicit operator int () const { return value; }
+};
+
+template <>
+
+struct std::hash<AquaCultureID>
+{
+  std::size_t
+  operator() (const AquaCultureID &a) const noexcept
   {
     return std::hash<int>{}(a.value);
   }
@@ -198,4 +227,9 @@ constexpr inline JellyJob MINING{ 1 };
 constexpr inline JellyJob EXPLORE{ 2 };
 constexpr inline JellyJob FOCUS{ 3 };
 constexpr inline JellyJob ARTISAN{ 4 };
+}
+
+namespace CulturesAlias
+{
+constexpr inline AquaCultureID NONE{ 0 };
 }

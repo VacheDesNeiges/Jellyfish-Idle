@@ -87,7 +87,7 @@ SaveSystem::save (const SaveData &data)
   for (const auto &[id, cultureData] : data.cultures)
     {
       j["Culture"] += {
-        { "id", static_cast<unsigned> (id) },
+        { "id", static_cast<int> (id) },
         { "Fields", cultureData.fieldCount },
         { "Ongoing", cultureData.craftOngoing },
       };
@@ -224,11 +224,11 @@ SaveSystem::loadFromFile (std::string path)
               });
         }
 
-      result.cultures.reserve (AquaCulture::CultureTypes.size ());
+      result.cultures.reserve (data.at ("Culture").size ());
       for (const auto &c : data["Culture"])
         {
           result.cultures.emplace_back (
-              static_cast<AquaCultureID> (c["id"].get<unsigned> ()),
+              static_cast<AquaCultureID> (c["id"].get<int> ()),
               CultureData{
                   c["Ongoing"].get<bool> (),
                   c["Fields"].get<unsigned> (),

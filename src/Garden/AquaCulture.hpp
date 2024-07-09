@@ -1,10 +1,9 @@
 #pragma once
 
-#include "AquaCultureID.hpp"
 #include "GameIDsTypes.hpp"
 #include "SaveAndLoadable.hpp"
 
-#include <array>
+#include <nlohmann/json_fwd.hpp>
 #include <string>
 #include <utility>
 #include <vector>
@@ -18,7 +17,8 @@ struct CultureData
 class AquaCulture final : public SaveAndLoadable<CultureData>
 {
 public:
-  explicit AquaCulture (AquaCultureID);
+  AquaCulture () = default;
+  explicit AquaCulture (const nlohmann::json &);
   ~AquaCulture () override = default;
 
   void start ();
@@ -31,12 +31,6 @@ public:
 
   CultureData getData () const override;
   void loadData (const CultureData &) override;
-
-  static constexpr std::array<AquaCultureID, 3> CultureTypes = {
-    AquaCultureID::Plankton,
-    AquaCultureID::SandWorms,
-    AquaCultureID::Oysters,
-  };
 
 private:
   bool cultureOngoing = false;

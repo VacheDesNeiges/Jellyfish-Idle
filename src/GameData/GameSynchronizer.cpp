@@ -95,7 +95,7 @@ GameSynchronizer::convertRessources () const
       systems->ressources->tryConvert (cons, prod);
     }
 
-  for (const auto culture : AquaCulture::CultureTypes)
+  for (const auto culture : systems->garden->getCultureTypes ())
     {
       if (systems->garden->isOngoing (culture))
         {

@@ -1,6 +1,5 @@
 #include "UIGardenPanel.hpp"
-#include "AquaCulture.hpp"
-#include "GardenDataView.hpp"
+#include "GameIDsTypes.hpp"
 #include "UIUtils.hpp"
 #include "imgui.h"
 #include <fmt/core.h>
@@ -20,10 +19,10 @@ UIGardenPanel::render () const
 
   ImGui::Text ("Avaiables fields : %d",
                gData->getGardenView ()->getAssignedFieldsToCulture (
-                   AquaCultureID::None));
+                   CulturesAlias::NONE));
 
   ImGui::PushStyleColor (ImGuiCol_ChildBg, IM_COL32 (0, 0, 0, 180));
-  for (const auto &culture : AquaCulture::CultureTypes)
+  for (const auto &culture : gData->getGardenView ()->getCultureTypes ())
     {
       if (gData->getAchievementsView ()->isUnlocked (culture))
         {
@@ -98,7 +97,7 @@ UIGardenPanel::displayFieldsAssignmentArrows (const std::string &cultureName,
   ImGui::BeginDisabled (
       gData->getGardenView ()->isOngoing (id)
       || gData->getGardenView ()->getAssignedFieldsToCulture (
-             AquaCultureID::None)
+             CulturesAlias::NONE)
              == 0);
   if (ImGui::ArrowButton ((cultureName + "##right").c_str (), ImGuiDir_Right))
     {

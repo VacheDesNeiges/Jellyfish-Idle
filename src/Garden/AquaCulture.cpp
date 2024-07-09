@@ -1,40 +1,40 @@
 #include "AquaCulture.hpp"
-#include "AquaCultureID.hpp"
+#include "GameIDsTypes.hpp"
 #include <cassert>
+#include <iostream>
+#include <nlohmann/json.hpp>
 #include <vector>
 
-AquaCulture::AquaCulture (AquaCultureID id)
+AquaCulture::AquaCulture (const nlohmann::json &json)
 {
-  switch (id)
+  try
     {
-      using namespace RessourcesAlias;
-      using enum AquaCultureID;
+      name = json.at ("Name");
 
-    case Plankton:
-      name = "Plankton";
+      if (json.contains ("Production"))
+        {
+          for (const auto &prod : json.at ("Production"))
+            {
+              baseProduction.emplace_back (
+                  RessourceType (prod.at ("RessourceID")),
+                  prod.at ("Quantity"));
+            }
+        }
 
-      baseProduction.emplace_back (FOOD, 0.08);
-      break;
-
-    case SandWorms:
-      name = "Sand Worms";
-
-      baseConsumption.emplace_back (FOOD, 0.05);
-
-      baseProduction.emplace_back (SAND, 0.05);
-      break;
-
-    case Oysters:
-      name = "Oysters";
-
-      baseConsumption.emplace_back (FOOD, 0.05);
-      baseConsumption.emplace_back (SAND, 0.02);
-
-      baseProduction.emplace_back (PEARL, 0.0017);
-      break;
-
-    default:
-      assert (false);
+      if (json.contains ("Consumption"))
+        {
+          for (const auto &cons : json.at ("Consumption"))
+            {
+              baseConsumption.emplace_back (
+                  RessourceType (cons.at ("RessourceID")),
+                  cons.at ("Quantity"));
+            }
+        }
+    }
+  catch (nlohmann::json::exception &e)
+    {
+      std::cerr << "Error while parsing a culture :\n" << e.what () << "\n";
+      abort ();
     }
 }
 

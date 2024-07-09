@@ -1,0 +1,57 @@
+{
+  "Cultures": [
+    {
+      "Name": "None",
+      "ID": 0
+    },
+    {
+      "Name": "Plankton",
+      "ID": 1,
+      "RequiredAchievementID": 2001,
+      "Production": [
+        {
+          "RessourceID": 1,
+          "Quantity": 0.08
+        }
+      ]
+    },
+    {
+      "Name": "Sand Worms",
+      "ID": 2,
+      "RequiredAchievementID": 2002,
+      "Production": [
+        {
+          "RessourceID": 2,
+          "Quantity": 0.05
+        }
+      ],
+      "Consumption": [
+        {
+          "RessourceID": 1,
+          "Quantity": 0.05
+        }
+      ]
+    },
+    {
+      "Name": "Oysters",
+      "ID": 3,
+      "RequiredAchievementID": 2003,
+      "Production": [
+        {
+          "RessourceID": 1001,
+          "Quantity": 0.0017
+        }
+      ],
+      "Consumption": [
+        {
+          "RessourceID": 1,
+          "Quantity": 0.05
+        },
+        {
+          "RessourceID": 2,
+          "Quantity": 0.02
+        }
+      ]
+    }
+  ]
+}

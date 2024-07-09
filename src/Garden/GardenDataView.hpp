@@ -4,11 +4,11 @@
 
 #include <memory>
 #include <optional>
+#include <span>
 #include <utility>
 #include <vector>
 
 class GardenManager;
-enum class AquaCultureID;
 
 class GardenDataView
 {
@@ -24,6 +24,8 @@ public:
   std::vector<std::pair<RessourceType, double> >
       getFieldProduction (AquaCultureID,
                           std::optional<unsigned> = std::nullopt) const;
+
+  std::span<const AquaCultureID> getCultureTypes () const;
 
 private:
   std::shared_ptr<GardenManager> garden;
