@@ -151,7 +151,7 @@ struct std::hash<JellyJob>
 };
 
 /**
- * @brief ID for the job Type
+ * @brief ID for the Aquaculture Type
  * Implements comparaison operators and hash function for use in std::map
  * the underlying value is an int
  */
@@ -174,6 +174,35 @@ struct std::hash<AquaCultureID>
 {
   std::size_t
   operator() (const AquaCultureID &a) const noexcept
+  {
+    return std::hash<int>{}(a.value);
+  }
+};
+
+/**
+ * @brief ID for the Upgrade Type
+ * Implements comparaison operators and hash function for use in std::map
+ * the underlying value is an int
+ */
+struct UpgradeID
+{
+  int value;
+  UpgradeID () : value (0) {}
+  constexpr explicit UpgradeID (int x) : value (x){};
+
+  friend std::strong_ordering operator<=> (const UpgradeID &lhs,
+                                           const UpgradeID &rhs)
+      = default;
+
+  constexpr explicit operator int () const { return value; }
+};
+
+template <>
+
+struct std::hash<UpgradeID>
+{
+  std::size_t
+  operator() (const UpgradeID &a) const noexcept
   {
     return std::hash<int>{}(a.value);
   }
@@ -232,4 +261,10 @@ constexpr inline JellyJob ARTISAN{ 4 };
 namespace CulturesAlias
 {
 constexpr inline AquaCultureID NONE{ 0 };
+}
+
+namespace UpgradesAlias
+{
+constexpr inline UpgradeID ADVANCEDTELEKINESIS{ 3 };
+constexpr inline UpgradeID LEVELING{ 4 };
 }

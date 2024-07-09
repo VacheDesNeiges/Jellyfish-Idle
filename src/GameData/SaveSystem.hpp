@@ -1,12 +1,10 @@
 #pragma once
 
 #include "AquaCulture.hpp"
-#include "Building.hpp"
 #include "CraftingRecipe.hpp"
 #include "DepthSystem.hpp"
 #include "GameIDsTypes.hpp"
 #include "JellyfishManager.hpp"
-#include "UpgradeId.hpp"
 #include <string>
 #include <utility>
 #include <vector>

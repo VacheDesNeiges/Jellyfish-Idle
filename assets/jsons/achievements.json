@@ -101,7 +101,7 @@
       "Name": "Mines Building",
       "ID": 1002,
       "Condition": {
-        "AchievementID": "REMPLACER PAR JOB MINING ID"
+        "AchievementID": 3004
       }
     },
     {
@@ -231,7 +231,7 @@
       "Notification": true,
       "Condition": [
         {
-          "Job": "Explore Depths",
+          "Job": 2,
           "NumAssigned": 1
         }
       ]

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "UIElement.hpp"
-#include "UpgradeId.hpp"
 class UIOctopusPanel : public UIElement
 {
 public:

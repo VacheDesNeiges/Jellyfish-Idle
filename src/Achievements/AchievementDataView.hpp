@@ -5,7 +5,6 @@
 #include <string_view>
 
 class AchievementSystem;
-enum class UpgradeID;
 
 class AchievementDataView
 {

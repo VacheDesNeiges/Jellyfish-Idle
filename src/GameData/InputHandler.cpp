@@ -2,7 +2,6 @@
 #include "GameIDsTypes.hpp"
 #include "GameSystems.hpp"
 #include "RecipeID.hpp"
-#include "UpgradeId.hpp"
 #include <memory>
 
 InputHandler::InputHandler (std::shared_ptr<SystemPtrs> sy)

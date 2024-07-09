@@ -6,9 +6,6 @@
 #include "GameIDsTypes.hpp"
 #include "JellyfishManager.hpp"
 #include "RecipeID.hpp"
-#include "UpgradeDataView.hpp"
-#include "UpgradeId.hpp"
-#include "UpgradeManager.hpp"
 
 #include <fstream>
 #include <iostream>
@@ -66,7 +63,7 @@ SaveSystem::save (const SaveData &data)
   for (const auto &[id, val] : data.upgrades)
     {
       j["Upgrade"] += {
-        { "id", static_cast<unsigned> (id) },
+        { "id", static_cast<int> (id) },
         { "Bought", val },
       };
     }
@@ -200,11 +197,11 @@ SaveSystem::loadFromFile (std::string path)
           = data["Depth"][0]["currentDepth"].get<unsigned> ();
       result.depth.currentProg = data["Depth"][0]["currentProg"].get<float> ();
 
-      result.upgrades.reserve (UpgradeManager::UpgradesTypes.size ());
+      result.upgrades.reserve (data.at ("Upgrade").size ());
       for (const auto &d : data["Upgrade"])
         {
           result.upgrades.emplace_back (
-              static_cast<UpgradeID> (d["id"].get<unsigned> ()),
+              static_cast<UpgradeID> (d["id"].get<int> ()),
               d["Bought"].get<bool> ());
         }
 

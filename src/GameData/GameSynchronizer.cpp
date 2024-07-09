@@ -3,7 +3,6 @@
 #include "GameDataView.hpp"
 #include "GameIDsTypes.hpp"
 #include "GameSystems.hpp"
-#include "UpgradeId.hpp"
 
 #include <memory>
 
@@ -72,7 +71,7 @@ GameSynchronizer::synchronizeSystems () const
 void
 GameSynchronizer::distributeExp () const
 {
-  if (systems->achievements->isUnlocked (UpgradeID::Leveling))
+  if (systems->achievements->isUnlocked (UpgradesAlias::LEVELING))
     {
 
       bool hasLeveledUp = systems->jellies->distributeJobExp ();

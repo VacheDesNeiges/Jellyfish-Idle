@@ -1,4 +1,5 @@
 #include "Achievement.hpp"
+#include "GameIDsTypes.hpp"
 
 #include <algorithm>
 #include <nlohmann/json.hpp>
@@ -7,6 +8,14 @@ Achievement::Achievement (const nlohmann::json &json)
 {
   for (const auto &condition : json.at ("Condition"))
     {
+
+      if (condition.contains ("Job"))
+        {
+          jobsCondition.push_back ({ JellyJob{ condition.at ("Job") },
+                                     condition.at ("NumAssigned") });
+          continue;
+        }
+
       if (condition.contains ("NumJfish"))
         {
           jfishNumCondition = condition.at ("NumJfish");
@@ -28,7 +37,7 @@ Achievement::Achievement (const nlohmann::json &json)
 
       if (condition.contains ("UpgradeID"))
         {
-          upgradeCondition.push_back (condition.at ("UpgradeID"));
+          upgradeCondition.push_back (UpgradeID (condition.at ("UpgradeID")));
           continue;
         }
 
@@ -82,28 +91,44 @@ Achievement::setState (bool b)
 bool
 Achievement::ressourcesConditionsMet () const
 {
-  return std::ranges::none_of (ressourceCondition, [this] (const auto &pair) {
+  return std::ranges::all_of (ressourceCondition, [this] (const auto &pair) {
     const auto &[rType, requirement] = pair;
-    return ressourcesView ()->getRessourceQuantity (rType) <= requirement;
+    return ressourcesView ()->getRessourceQuantity (rType) > requirement;
   });
 }
 
 bool
 Achievement::buildingConditionsMet () const
 {
-  return std::ranges::none_of (buildingsCondition, [this] (const auto &pair) {
+  return std::ranges::all_of (buildingsCondition, [this] (const auto &pair) {
     const auto &[bType, requirement] = pair;
-    return buildingsView ()->getBuildingQuantity (bType) < requirement;
+    return buildingsView ()->getBuildingQuantity (bType) >= requirement;
   });
 }
 
 bool
 Achievement::achievementConditionsMet () const
 {
-  return std::ranges::none_of (achievementsCondition,
-                               [this] (const auto &ach) {
-                                 return !achievementsView ()->isUnlocked (ach);
-                               });
+  return std::ranges::all_of (achievementsCondition, [this] (const auto &ach) {
+    return achievementsView ()->isUnlocked (ach);
+  });
+}
+
+bool
+Achievement::jobsConditionsMet () const
+{
+  return std::ranges::all_of (jobsCondition, [this] (const auto &pair) {
+    const auto &[job, numRequired] = pair;
+    return jelliesView ()->getNumJellies (job) >= numRequired;
+  });
+}
+
+bool
+Achievement::upgradeConditionMet () const
+{
+  return std::ranges::all_of (upgradeCondition, [this] (const auto &upgrID) {
+    return upgradeView ()->isBought (upgrID);
+  });
 }
 
 bool
@@ -113,6 +138,11 @@ Achievement::unlockConditionMet () const
   if (jelliesView ()->getNumJellies () < jfishNumCondition)
     return false;
 
+  if (depthCondition > depthView ()->getCurrentDepth ())
+    {
+      return false;
+    }
+
   if (!ressourceCondition.empty () && !ressourcesConditionsMet ())
     return false;
 
@@ -120,6 +150,12 @@ Achievement::unlockConditionMet () const
     return false;
 
   if (!achievementsCondition.empty () && !achievementConditionsMet ())
+    return false;
+
+  if (!jobsCondition.empty () && !jobsConditionsMet ())
+    return false;
+
+  if (!upgradeCondition.empty () && !upgradeConditionMet ())
     return false;
 
   if (anyRareRessource)

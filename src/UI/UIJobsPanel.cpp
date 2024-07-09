@@ -6,7 +6,6 @@
 #include "InputHandler.hpp"
 #include "RecipeID.hpp"
 #include "UIUtils.hpp"
-#include "UpgradeId.hpp"
 #include "fmt/core.h"
 #include "imgui.h"
 #include "imgui_internal.h"
@@ -29,7 +28,7 @@ UIJobsPanel::render () const
 
   renderJobsControls ();
 
-  if (gData->getUpgradeView ()->isBought (UpgradeID::AdvancedTelekinesis))
+  if (gData->getUpgradeView ()->isBought (UpgradesAlias::ADVANCEDTELEKINESIS))
     {
       ImGui::SeparatorText ("Recipes");
 
@@ -72,7 +71,8 @@ UIJobsPanel::renderJobsControls () const
             }
           ImGui::PopButtonRepeat ();
 
-          if (gData->getAchievementsView ()->isUnlocked (UpgradeID::Leveling))
+          if (gData->getAchievementsView ()->isUnlocked (
+                  UpgradesAlias::LEVELING))
             {
               ImGui::SameLine ();
               ImGui::Text ("lvl %u",
@@ -80,7 +80,8 @@ UIJobsPanel::renderJobsControls () const
             }
           ImGui::NextColumn ();
 
-          if (gData->getAchievementsView ()->isUnlocked (UpgradeID::Leveling))
+          if (gData->getAchievementsView ()->isUnlocked (
+                  UpgradesAlias::LEVELING))
             {
               auto lvlProgress
                   = gData->getJelliesView ()->getCurrentProgress (job)

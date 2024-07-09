@@ -1,10 +1,9 @@
 #pragma once
 
 #include "GameDataAccess.hpp"
-#include "Ressource.hpp"
+#include "GameIDsTypes.hpp"
 #include "SaveAndLoadable.hpp"
 #include "Upgrade.hpp"
-#include "UpgradeId.hpp"
 #include <functional>
 #include <unordered_map>
 
@@ -24,13 +23,10 @@ public:
   std::vector<std::pair<UpgradeID, bool> > getData () const override;
   void loadData (const std::vector<std::pair<UpgradeID, bool> > &) override;
 
-  static constexpr std::array<UpgradeID, 6> UpgradesTypes = {
-    UpgradeID::Focusing,         UpgradeID::Telekinesis,
-    UpgradeID::AbilityLightning, UpgradeID::AdvancedTelekinesis,
-    UpgradeID::Writing,          UpgradeID::Leveling,
-  };
+  std::span<const UpgradeID> getUpgradesTypes () const;
 
 private:
+  std::vector<UpgradeID> upgradeTypes;
   std::unordered_map<UpgradeID, Upgrade> upgrades;
   std::unordered_map<UpgradeID, std::function<bool ()> > upgradesConditions;
 };

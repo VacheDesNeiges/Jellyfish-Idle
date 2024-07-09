@@ -1,11 +1,11 @@
 #pragma once
 #include "GameIDsTypes.hpp"
 #include <memory>
+#include <span>
 #include <vector>
 
 class UpgradeManager;
 class RessourceManager;
-enum class UpgradeID;
 
 class UpgradeDataView
 {
@@ -19,6 +19,7 @@ public:
   std::string_view getName (UpgradeID) const;
   std::string_view getDescription (UpgradeID) const;
   std::vector<std::pair<RessourceType, double> > getCost (UpgradeID) const;
+  std::span<const UpgradeID> getUpgradesTypes () const;
 
 private:
   std::shared_ptr<UpgradeManager> upgrades;

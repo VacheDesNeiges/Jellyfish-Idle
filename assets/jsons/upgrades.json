@@ -3,7 +3,7 @@
     {
       "ID": 0,
       "Name": "Focusing",
-      "Description": "Blablabla",
+      "Description": "The Octopus tells you that you have a hidden potential, they propose to teach you how to use it in exchange for some food.",
       "Cost": [
         {
           "RessourceID": 1,
@@ -14,7 +14,8 @@
     {
       "ID": 1,
       "Name": "Telekinesis",
-      "Description": "Blablabla",
+      "Description": "The octopus teaches you how to use insight to move heavy objects. This will allow you to do basic manual labour such as mining",
+      "UpgradeDependencyID": 0,
       "Cost": [
         {
           "RessourceID": 4,
@@ -26,6 +27,7 @@
       "ID": 2,
       "Name": "Writing",
       "Description": "Blablabla",
+      "UpgradeDependencyID": 3,
       "Cost": [
         {
           "RessourceID": 4,
@@ -36,7 +38,8 @@
     {
       "ID": 3,
       "Name": "Advanced Telekinesis",
-      "Description": "Blablabla",
+      "Description": "Refine your control of Telekinesis, enabling you to manufacture more complex items",
+      "UpgradeDependencyID": 1,
       "Cost": [
         {
           "RessourceID": 4,
@@ -47,7 +50,8 @@
     {
       "ID": 4,
       "Name": "Long Term Memory",
-      "Description": "Blablabla",
+      "Description": "Enhances your knowledge of things over time, making your jellyfishs more effective",
+      "UpgradeDependencyID": 2,
       "Cost": [
         {
           "RessourceID": 2003,
@@ -58,7 +62,8 @@
     {
       "ID": 1001,
       "Name": "Lightning Ability",
-      "Description": "Blablabla",
+      "Description": "Allows you to use your insight to call a lightning strike. Useful to rapidly melt some sand into glass",
+      "UpgradeDependencyID": 0,
       "Cost": [
         {
           "RessourceID": 1,

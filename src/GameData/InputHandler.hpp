@@ -3,7 +3,6 @@
 #include "GameSystems.hpp"
 #include <memory>
 
-enum class UpgradeID;
 enum class RecipeID;
 
 class InputHandler

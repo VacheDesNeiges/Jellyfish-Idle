@@ -1,6 +1,8 @@
 #pragma once
 
 #include "GameIDsTypes.hpp"
+#include <nlohmann/json.hpp>
+#include <optional>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -10,8 +12,8 @@ class Upgrade
 {
 public:
   Upgrade () = default;
-  Upgrade (const std::string &name, const std::string &desc,
-           const std::vector<std::pair<RessourceType, double> > &cost);
+  explicit Upgrade (const nlohmann::json &);
+
   bool isUnlocked () const;
   void unlock ();
   std::string_view getName () const;
@@ -19,8 +21,9 @@ public:
   std::vector<std::pair<RessourceType, double> > getCost () const;
 
 private:
-  bool bought = false;
+  bool bought{ false };
   std::string name;
   std::string description;
   std::vector<std::pair<RessourceType, double> > cost;
+  std::optional<UpgradeID> dependency;
 };

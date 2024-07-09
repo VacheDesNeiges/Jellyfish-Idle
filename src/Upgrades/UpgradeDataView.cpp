@@ -1,8 +1,7 @@
 #include "UpgradeDataView.hpp"
 
-#include "Ressource.hpp"
+#include "GameIDsTypes.hpp"
 #include "RessourceManager.hpp"
-#include "UpgradeId.hpp"
 #include "UpgradeManager.hpp"
 
 #include <memory>
@@ -56,4 +55,10 @@ bool
 UpgradeDataView::isAvailableForBuying (UpgradeID id) const
 {
   return upgrades->isAvailableForBuying (id);
+}
+
+std::span<const UpgradeID>
+UpgradeDataView::getUpgradesTypes () const
+{
+  return upgrades->getUpgradesTypes ();
 }

@@ -3,7 +3,6 @@
 #include "AchievementDataView.hpp"
 #include "FilePaths.hpp"
 #include "GameIDsTypes.hpp"
-#include "UpgradeId.hpp"
 
 #include <fstream>
 #include <iostream>

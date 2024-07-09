@@ -1,40 +1,41 @@
 #include "UpgradeManager.hpp"
 
+#include "FilePaths.hpp"
+#include "GameIDsTypes.hpp"
 #include "UpgradeDataView.hpp"
-#include "UpgradeFactory.hpp"
-#include "UpgradeId.hpp"
 
+#include <fstream>
+#include <iostream>
+#include <nlohmann/json.hpp>
+#include <span>
+#include <string>
 #include <string_view>
 #include <utility>
 #include <vector>
 
 UpgradeManager::UpgradeManager ()
 {
-  upgrades.reserve (UpgradesTypes.size ());
-  upgradesConditions.reserve (UpgradesTypes.size ());
-  for (const auto &id : UpgradesTypes)
+  const auto path = std::string (FilePaths::getPath ())
+                    + std::string (FilePaths::UpgradesPath);
+  std::ifstream fstream (path);
+
+  try
     {
-      upgrades.try_emplace (id, UpgradeFactory::createUpgrade (id));
+      auto upgradesJson = nlohmann::json::parse (fstream);
+      upgrades.reserve (upgradesJson.at ("Upgrades").size ());
+      upgradeTypes.reserve (upgradesJson.at ("Upgrades").size ());
+
+      for (const auto &upgrade : upgradesJson["Upgrades"])
+        {
+          upgrades.try_emplace (UpgradeID (upgrade.at ("ID")), upgrade);
+          upgradeTypes.push_back (UpgradeID (upgrade.at ("ID")));
+        }
     }
-
-  using enum UpgradeID;
-  upgradesConditions = {
-    { Focusing, [] () { return true; } },
-
-    { AbilityLightning,
-      [this] () { return upgrades.at (Focusing).isUnlocked (); } },
-
-    { Telekinesis,
-      [this] () { return upgrades.at (Focusing).isUnlocked (); } },
-
-    { AdvancedTelekinesis,
-      [this] () { return upgrades.at (Telekinesis).isUnlocked (); } },
-
-    { Writing,
-      [this] () { return upgrades.at (AdvancedTelekinesis).isUnlocked (); } },
-
-    { Leveling, [this] () { return upgrades.at (Leveling).isUnlocked (); } }
-  };
+  catch (nlohmann::json::exception &e)
+    {
+      std::cerr << "Error while parsing upgrades :\n" << e.what () << "\n";
+      abort ();
+    }
 }
 
 bool
@@ -77,7 +78,7 @@ std::vector<std::pair<UpgradeID, bool> >
 UpgradeManager::getData () const
 {
   std::vector<std::pair<UpgradeID, bool> > data;
-  data.reserve (UpgradesTypes.size ());
+  data.reserve (upgrades.size ());
   for (const auto &[id, upgrade] : upgrades)
     {
       data.emplace_back (id, upgrade.isUnlocked ());
@@ -95,4 +96,10 @@ UpgradeManager::loadData (const std::vector<std::pair<UpgradeID, bool> > &data)
           upgrades[id].unlock ();
         }
     }
+}
+
+std::span<const UpgradeID>
+UpgradeManager::getUpgradesTypes () const
+{
+  return std::span (upgradeTypes);
 }

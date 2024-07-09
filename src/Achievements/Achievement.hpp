@@ -26,10 +26,13 @@ private:
   bool AnyManufacturedRessource = false;
   std::vector<std::pair<RessourceType, int> > ressourceCondition;
   std::vector<std::pair<BuildingType, unsigned> > buildingsCondition;
+  std::vector<std::pair<JellyJob, unsigned> > jobsCondition;
   std::vector<AchievementIDs> achievementsCondition;
   std::vector<UpgradeID> upgradeCondition;
 
   bool ressourcesConditionsMet () const;
   bool buildingConditionsMet () const;
   bool achievementConditionsMet () const;
+  bool jobsConditionsMet () const;
+  bool upgradeConditionMet () const;
 };

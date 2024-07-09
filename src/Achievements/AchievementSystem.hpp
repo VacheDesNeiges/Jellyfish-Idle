@@ -5,7 +5,6 @@
 #include "GameIDsTypes.hpp"
 #include "Notification.hpp"
 #include "SaveAndLoadable.hpp"
-#include "UpgradeId.hpp"
 
 #include <optional>
 #include <queue>
