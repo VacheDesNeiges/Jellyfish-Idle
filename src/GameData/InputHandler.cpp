@@ -97,7 +97,7 @@ void
 InputHandler::updateMaxNumJellies () const
 {
   unsigned n = 0;
-  for (const auto &b : Building::getBuildingTypes ())
+  for (const auto &b : systems->buildings->getBuildingTypes ())
     {
       n += systems->buildings->getIncreaseToMaxJfish (b);
     }

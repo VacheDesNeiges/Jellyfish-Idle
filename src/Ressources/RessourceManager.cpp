@@ -1,7 +1,6 @@
 #include "RessourceManager.hpp"
 #include "FilePaths.hpp"
 #include "GameIDsTypes.hpp"
-#include "Ressource.hpp"
 
 #include <fstream>
 #include <iostream>
@@ -27,34 +26,27 @@ RessourceManager::init ()
           + ressourcesJson.at ("RareRessources").size ()
           + ressourcesJson.at ("ManufacturedRessources").size ());
 
-      Ressource::ressourceTypes.reserve (
-          ressourcesJson.at ("Ressources").size ());
-
+      regularRessourceTypes.reserve (ressourcesJson.at ("Ressources").size ());
       for (const auto &resData : ressourcesJson["Ressources"])
         {
           ressources.try_emplace (RessourceType (resData.at ("Id")), resData);
-          Ressource::ressourceTypes.push_back (
-              RessourceType (resData.at ("Id")));
+          regularRessourceTypes.push_back (RessourceType (resData.at ("Id")));
         }
 
-      Ressource::rareRessourceTypes.reserve (
-          ressourcesJson["RareRessources"].size ());
-
+      rareRessourceTypes.reserve (ressourcesJson["RareRessources"].size ());
       for (const auto &resData : ressourcesJson["RareRessources"])
         {
           ressources.try_emplace (RessourceType (resData.at ("Id")), resData);
-          Ressource::rareRessourceTypes.push_back (
-              RessourceType (resData.at ("Id")));
+          rareRessourceTypes.push_back (RessourceType (resData.at ("Id")));
         }
 
-      Ressource::craftableRessourceTypes.reserve (
+      craftableRessourceTypes.reserve (
           ressourcesJson["ManufacturedRessources"].size ());
-
       for (const auto &resData : ressourcesJson["ManufacturedRessources"])
         {
           ressources.try_emplace (RessourceType (resData.at ("Id")), resData);
 
-          Ressource::craftableRessourceTypes.push_back (
+          craftableRessourceTypes.push_back (
               RessourceType (resData.at ("Id")));
         }
     }
@@ -205,4 +197,21 @@ double
 RessourceManager::getConsumption (RessourceType r)
 {
   return ressources[r].getConsumption ();
+}
+
+std::span<const RessourceType>
+RessourceManager::getRegularRessourceTypes () const
+{
+  return std::span (regularRessourceTypes);
+}
+
+std::span<const RessourceType>
+RessourceManager::getRareRessourceTypes () const
+{
+  return std::span (rareRessourceTypes);
+}
+std::span<const RessourceType>
+RessourceManager::getCraftableRessourceTypes () const
+{
+  return std::span (craftableRessourceTypes);
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "GameIDsTypes.hpp"
 #include <memory>
+#include <span>
 #include <vector>
 
 class AbilityManager;
@@ -15,6 +16,7 @@ public:
   std::string getAbilityName (AbilityType) const;
   std::string getAbilityDescription (AbilityType) const;
   std::vector<std::pair<RessourceType, double> > getCost (AbilityType) const;
+  std::span<const AbilityType> getAbilityTypes () const;
   bool isUsable (AbilityType) const;
 
 private:

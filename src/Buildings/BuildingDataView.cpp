@@ -1,7 +1,7 @@
 #include "BuildingDataView.hpp"
 
-#include "Building.hpp"
 #include "BuildingManager.hpp"
+#include "GameIDsTypes.hpp"
 #include "RessourceManager.hpp"
 #include <string>
 
@@ -57,4 +57,16 @@ std::vector<std::pair<RessourceType, double> >
 BuildingDataView::getNextBuyCost (BuildingType b) const
 {
   return buildings->nextBuyCost (b);
+}
+
+std::span<const BuildingType>
+BuildingDataView::getBuildingTypes () const
+{
+  return buildings->getBuildingTypes ();
+}
+
+std::span<const BuildingType>
+BuildingDataView::getConversionBuildingTypes () const
+{
+  return buildings->getConversionBuildingTypes ();
 }

@@ -35,3 +35,20 @@ RessourceDataView::getRessourceMaxQuantity (RessourceType t) const
 {
   return ressources->getMaxQuantity (t);
 }
+
+std::span<const RessourceType>
+RessourceDataView::getRegularRessourceTypes () const
+{
+  return ressources->getRegularRessourceTypes ();
+}
+
+std::span<const RessourceType>
+RessourceDataView::getRareRessourceTypes () const
+{
+  return ressources->getRareRessourceTypes ();
+}
+std::span<const RessourceType>
+RessourceDataView::getCraftableRessourceTypes () const
+{
+  return ressources->getCraftableRessourceTypes ();
+}

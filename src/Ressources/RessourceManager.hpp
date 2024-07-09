@@ -39,6 +39,13 @@ public:
   void
   loadData (const std::vector<std::pair<RessourceType, double> > &) override;
 
+  std::span<const RessourceType> getRegularRessourceTypes () const;
+  std::span<const RessourceType> getRareRessourceTypes () const;
+  std::span<const RessourceType> getCraftableRessourceTypes () const;
+
 private:
   std::unordered_map<RessourceType, Ressource> ressources;
+  std::vector<RessourceType> regularRessourceTypes;
+  std::vector<RessourceType> rareRessourceTypes;
+  std::vector<RessourceType> craftableRessourceTypes;
 };

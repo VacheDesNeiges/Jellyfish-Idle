@@ -2,6 +2,7 @@
 #include "GameIDsTypes.hpp"
 
 #include <memory>
+#include <span>
 #include <vector>
 
 class BuildingManager;
@@ -24,6 +25,9 @@ public:
   std::string getAdvancedBuildingDescription (BuildingType) const;
   std::vector<std::pair<RessourceType, double> >
       getNextBuyCost (BuildingType) const;
+
+  std::span<const BuildingType> getBuildingTypes () const;
+  std::span<const BuildingType> getConversionBuildingTypes () const;
 
 private:
   std::shared_ptr<BuildingManager> buildings;

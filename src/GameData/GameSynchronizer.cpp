@@ -1,6 +1,5 @@
 #include "GameSynchronizer.hpp"
 
-#include "Building.hpp"
 #include "GameDataView.hpp"
 #include "GameIDsTypes.hpp"
 #include "GameSystems.hpp"
@@ -89,7 +88,7 @@ GameSynchronizer::distributeExp () const
 void
 GameSynchronizer::convertRessources () const
 {
-  for (const auto building : Building::getConversionBuildingTypes ())
+  for (const auto building : systems->buildings->getConversionBuildingTypes ())
     {
       const auto &prod = systems->buildings->getProduction (building);
       const auto &cons = systems->buildings->getConsumption (building);

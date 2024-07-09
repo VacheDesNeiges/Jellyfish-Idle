@@ -2,10 +2,10 @@
 
 #include "FilePaths.hpp"
 #include "GameIDsTypes.hpp"
-#include "InsightAbility.hpp"
 #include <cstdio>
 #include <fstream>
 #include <iostream>
+#include <span>
 
 AbilityManager::AbilityManager ()
 {
@@ -17,14 +17,12 @@ AbilityManager::AbilityManager ()
     {
       auto abilitiesJson = nlohmann::json::parse (fstream);
       abilities.reserve (abilitiesJson.at ("Ability").size ());
-      InsightAbility::abilitiesTypes.reserve (
-          abilitiesJson.at ("Ability").size ());
+      abilitiesTypes.reserve (abilitiesJson.at ("Ability").size ());
 
       for (const auto &ability : abilitiesJson["Ability"])
         {
           abilities.try_emplace (AbilityType (ability.at ("ID")), ability);
-          InsightAbility::abilitiesTypes.push_back (
-              AbilityType (ability.at ("ID")));
+          abilitiesTypes.push_back (AbilityType (ability.at ("ID")));
         }
     }
   catch (nlohmann::json::exception &e)
@@ -74,4 +72,10 @@ std::string
 AbilityManager::getAbilityDescription (AbilityType t)
 {
   return abilities[t].getDescription ();
+}
+
+std::span<const AbilityType>
+AbilityManager::getAllAbilityTypes () const
+{
+  return std::span (abilitiesTypes);
 }

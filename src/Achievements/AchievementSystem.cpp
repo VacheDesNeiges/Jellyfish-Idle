@@ -195,6 +195,5 @@ AchievementSystem::pushNotification (AchievementIDs id)
 std::span<const AchievementIDs>
 AchievementSystem::getAchievementsIDs () const
 {
-  return std::span<const AchievementIDs> (idMaps.allAchievementsIDs.data (),
-                                          idMaps.allAchievementsIDs.size ());
+  return std::span (idMaps.allAchievementsIDs);
 }

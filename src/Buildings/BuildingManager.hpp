@@ -34,6 +34,12 @@ public:
   void
   loadData (const std::vector<std::pair<BuildingType, unsigned> > &) override;
 
+  std::span<const BuildingType> getBuildingTypes () const;
+  std::span<const BuildingType> getConversionBuildingTypes () const;
+
 private:
   std::unordered_map<BuildingType, Building> buildings;
+
+  std::vector<BuildingType> buildingTypes;
+  std::vector<BuildingType> conversionBuildingsTypes;
 };

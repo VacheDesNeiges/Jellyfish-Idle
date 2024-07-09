@@ -280,5 +280,5 @@ JellyfishManager::getLureCost () const
 std::span<const JellyJob>
 JellyfishManager::getAllJobsTypes () const
 {
-  return std::span<const JellyJob> (allJobs.data (), allJobs.size ());
+  return std::span (allJobs);
 }

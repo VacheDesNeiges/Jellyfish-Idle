@@ -1,9 +1,7 @@
 #include "Achievement.hpp"
-#include "GameIDsTypes.hpp"
-#include "Ressource.hpp"
 
 #include <algorithm>
-#include <nlohmann/json_fwd.hpp>
+#include <nlohmann/json.hpp>
 
 Achievement::Achievement (const nlohmann::json &json)
 {
@@ -127,7 +125,8 @@ Achievement::unlockConditionMet () const
   if (anyRareRessource)
     {
       return std::ranges::any_of (
-          Ressource::getRareRessourcesTypes (), [this] (const auto &rType) {
+          ressourcesView ()->getRareRessourceTypes (),
+          [this] (const auto &rType) {
             return ressourcesView ()->getRessourceQuantity (rType) > 0;
           });
     }
@@ -135,7 +134,7 @@ Achievement::unlockConditionMet () const
   if (AnyManufacturedRessource)
     {
       return std::ranges::any_of (
-          Ressource::getCraftableRessourcesTypes (),
+          ressourcesView ()->getCraftableRessourceTypes (),
           [this] (const auto &rType) {
             return ressourcesView ()->getRessourceQuantity (rType) > 0;
           });

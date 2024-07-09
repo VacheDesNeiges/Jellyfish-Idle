@@ -3,11 +3,6 @@
 #include <cfloat>
 #include <nlohmann/json_fwd.hpp>
 #include <string_view>
-#include <vector>
-
-std::vector<RessourceType> Ressource::ressourceTypes = {};
-std::vector<RessourceType> Ressource::rareRessourceTypes = {};
-std::vector<RessourceType> Ressource::craftableRessourceTypes = {};
 
 Ressource::Ressource (const nlohmann::json &resData)
     : name (resData.at ("Name")),
@@ -101,22 +96,4 @@ double
 Ressource::getConsumption () const
 {
   return consumptionPerTick;
-}
-
-const std::vector<RessourceType> &
-Ressource::getRessourcesTypes ()
-{
-  return ressourceTypes;
-}
-
-const std::vector<RessourceType> &
-Ressource::getRareRessourcesTypes ()
-{
-  return rareRessourceTypes;
-}
-
-const std::vector<RessourceType> &
-Ressource::getCraftableRessourcesTypes ()
-{
-  return craftableRessourceTypes;
 }

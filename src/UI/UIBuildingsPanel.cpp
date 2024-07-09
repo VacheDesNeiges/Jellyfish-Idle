@@ -1,6 +1,5 @@
 #include "UIBuildingsPanel.hpp"
 
-#include "Building.hpp"
 #include "GameIDsTypes.hpp"
 #include "UIUtils.hpp"
 
@@ -28,7 +27,7 @@ UIBuildingPanel::render () const
   if (!odd)
     ImGui::SetCursorPosX (50);
 
-  for (const auto &building : Building::getBuildingTypes ())
+  for (const auto &building : gData->getBuildingsView ()->getBuildingTypes ())
     {
       if (renderBuildingButton (building))
         {

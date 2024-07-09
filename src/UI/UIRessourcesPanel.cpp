@@ -1,7 +1,6 @@
 #include "UIRessourcesPanel.hpp"
 
 #include "GameIDsTypes.hpp"
-#include "Ressource.hpp"
 #include "fmt/core.h"
 #include "imgui.h"
 #include "imgui_internal.h"
@@ -46,7 +45,8 @@ UIRessourcesPanel::renderRessources () const
   ImGui::SeparatorText ("");
 
   setupColumns ();
-  for (const auto &ressource : Ressource::getRessourcesTypes ())
+  for (const auto &ressource :
+       gData->getRessourcesView ()->getRegularRessourceTypes ())
     {
       if (!gData->getAchievementsView ()->isUnlocked (ressource))
         continue;
@@ -59,7 +59,8 @@ UIRessourcesPanel::renderRessources () const
     {
       ImGui::SeparatorText ("Rare Ressources");
       setupColumns ();
-      for (const auto &rareRessource : Ressource::getRareRessourcesTypes ())
+      for (const auto &rareRessource :
+           gData->getRessourcesView ()->getRareRessourceTypes ())
         {
           if (!gData->getAchievementsView ()->isUnlocked (rareRessource))
             continue;
@@ -82,7 +83,8 @@ UIRessourcesPanel::renderManufacturedRessources () const
     }
 
   setupColumns ();
-  for (const auto &ressource : Ressource::getCraftableRessourcesTypes ())
+  for (const auto &ressource :
+       gData->getRessourcesView ()->getCraftableRessourceTypes ())
     {
       if (!gData->getAchievementsView ()->isUnlocked (ressource))
         continue;

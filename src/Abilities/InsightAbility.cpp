@@ -3,8 +3,6 @@
 
 #include <iostream>
 
-std::vector<AbilityType> InsightAbility::abilitiesTypes = {};
-
 InsightAbility::InsightAbility (const nlohmann::json &data)
 {
   try

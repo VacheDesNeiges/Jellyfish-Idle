@@ -6,7 +6,6 @@
 #include "GameIDsTypes.hpp"
 #include "JellyfishManager.hpp"
 #include "RecipeID.hpp"
-#include "Ressource.hpp"
 #include "UpgradeDataView.hpp"
 #include "UpgradeId.hpp"
 #include "UpgradeManager.hpp"
@@ -157,10 +156,7 @@ SaveSystem::loadFromFile (std::string path)
 
   try
     {
-      result.ressources.reserve (
-          Ressource::getRessourcesTypes ().size ()
-          + Ressource::getCraftableRessourcesTypes ().size ()
-          + Ressource::getRareRessourcesTypes ().size ());
+      result.ressources.reserve (data.at ("Ressource").size ());
       for (const auto &d : data["Ressource"])
         {
           result.ressources.emplace_back (

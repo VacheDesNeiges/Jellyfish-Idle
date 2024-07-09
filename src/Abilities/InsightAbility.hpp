@@ -17,8 +17,6 @@ public:
   std::vector<std::pair<RessourceType, double> > getCost () const;
   std::vector<std::pair<RessourceType, double> > getProduction () const;
 
-  static std::vector<AbilityType> abilitiesTypes;
-
 private:
   std::string name;
   std::string description;

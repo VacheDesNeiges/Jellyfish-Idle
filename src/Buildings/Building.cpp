@@ -8,9 +8,6 @@
 #include <utility>
 #include <vector>
 
-std::vector<BuildingType> Building::buildingTypes = {};
-std::vector<BuildingType> Building::conversionBuildings = {};
-
 Building::Building (const nlohmann::json &data)
 {
   try
@@ -139,16 +136,4 @@ std::string
 Building::getDescription () const
 {
   return description;
-}
-
-const std::vector<BuildingType> &
-Building::getBuildingTypes ()
-{
-  return buildingTypes;
-}
-
-const std::vector<BuildingType> &
-Building::getConversionBuildingTypes ()
-{
-  return conversionBuildings;
 }

@@ -1,5 +1,4 @@
 #include "UIAbilitiesPanel.hpp"
-#include "InsightAbility.hpp"
 #include "UIUtils.hpp"
 #include "imgui.h"
 
@@ -14,7 +13,7 @@ UIAbilitiesPanel::render () const
       return;
     }
 
-  for (const auto &ability : InsightAbility::abilitiesTypes)
+  for (const auto &ability : gData->getAbilitiesView ()->getAbilityTypes ())
     {
       renderAbilityButton (ability);
     }

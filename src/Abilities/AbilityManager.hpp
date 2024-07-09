@@ -16,7 +16,9 @@ public:
   std::string getAbilityDescription (AbilityType);
   std::string getAbilityName (AbilityType);
 
+  std::span<const AbilityType> getAllAbilityTypes () const;
+
 private:
-  friend InsightAbility;
+  std::vector<AbilityType> abilitiesTypes;
   std::unordered_map<AbilityType, InsightAbility> abilities;
 };

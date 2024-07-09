@@ -1,6 +1,7 @@
 #include "AbilityDataView.hpp"
 
 #include "AbilityManager.hpp"
+#include "GameIDsTypes.hpp"
 #include "RessourceManager.hpp"
 #include <memory>
 
@@ -39,4 +40,10 @@ std::vector<std::pair<RessourceType, double> >
 AbilityDataView::getCost (AbilityType t) const
 {
   return abilities->getAbilityCost (t);
+}
+
+std::span<const AbilityType>
+AbilityDataView::getAbilityTypes () const
+{
+  return abilities->getAllAbilityTypes ();
 }

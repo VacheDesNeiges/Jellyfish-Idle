@@ -1,6 +1,5 @@
 #include "BuildingManager.hpp"
 
-#include "Building.hpp"
 #include "FilePaths.hpp"
 #include "GameIDsTypes.hpp"
 
@@ -22,19 +21,18 @@ BuildingManager::BuildingManager ()
       auto buildingsJson = nlohmann::json::parse (fstream);
 
       buildings.reserve (buildingsJson["Buildings"].size ());
-      Building::buildingTypes.reserve (buildingsJson["Buildings"].size ());
+      buildingTypes.reserve (buildingsJson["Buildings"].size ());
 
       for (const auto &building : buildingsJson["Buildings"])
         {
           buildings.try_emplace (BuildingType (building["BuildingID"]),
                                  building);
 
-          Building::buildingTypes.emplace_back (building["BuildingID"]);
+          buildingTypes.emplace_back (building["BuildingID"]);
 
           if (building.contains ("Conversion"))
             {
-              Building::conversionBuildings.emplace_back (
-                  building["BuildingID"]);
+              conversionBuildingsTypes.emplace_back (building["BuildingID"]);
             }
         }
     }
@@ -105,8 +103,8 @@ BuildingManager::getProductionRates () const
   std::unordered_map<RessourceType, double> result;
   for (const auto &[bType, b] : buildings)
     {
-      if (std::ranges::find (Building::getConversionBuildingTypes (), bType)
-          != Building::getConversionBuildingTypes ().end ())
+      if (std::ranges::find (conversionBuildingsTypes, bType)
+          != conversionBuildingsTypes.end ())
         continue;
 
       for (const auto &[rType, productionRate] : b.getProdPerTick ())
@@ -125,8 +123,8 @@ BuildingManager::getConsumptionRates () const
   std::unordered_map<RessourceType, double> result;
   for (const auto &[bType, b] : buildings)
     {
-      if (std::ranges::find (Building::getConversionBuildingTypes (), bType)
-          != Building::getConversionBuildingTypes ().end ())
+      if (std::ranges::find (conversionBuildingsTypes, bType)
+          != conversionBuildingsTypes.end ())
         continue;
 
       for (const auto &[rType, consumptionRate] : b.getConsumPerTick ())
@@ -171,4 +169,15 @@ BuildingManager::loadData (
       buildings[type].setQuantity (quant);
       buildings[type].update ();
     }
+}
+
+std::span<const BuildingType>
+BuildingManager::getBuildingTypes () const
+{
+  return std::span (buildingTypes);
+}
+std::span<const BuildingType>
+BuildingManager::getConversionBuildingTypes () const
+{
+  return std::span (conversionBuildingsTypes);
 }

@@ -4,7 +4,6 @@
 #include "CraftingRecipe.hpp"
 #include "GameIDsTypes.hpp"
 #include "InputHandler.hpp"
-#include "Jellyfish.hpp"
 #include "RecipeID.hpp"
 #include "UIUtils.hpp"
 #include "UpgradeId.hpp"
@@ -43,9 +42,10 @@ void
 UIJobsPanel::renderJobsControls () const
 {
   ImGui::Columns (3, nullptr, false);
-  ImGui::SetColumnWidth (0, ImGui::GetWindowWidth () / 6);
-  ImGui::SetColumnWidth (1, ImGui::GetWindowWidth () / 6);
-  ImGui::SetColumnWidth (2, ImGui::GetWindowWidth () / 6);
+  const auto columnWidth = ImGui::GetWindowWidth () / 6;
+  ImGui::SetColumnWidth (0, columnWidth);
+  ImGui::SetColumnWidth (1, columnWidth);
+  ImGui::SetColumnWidth (2, columnWidth);
 
   for (const auto job : gData->getJelliesView ()->getAllJobsTypes ())
     {
