@@ -78,7 +78,7 @@ Game::initialize ()
   if (SDL_Init (SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER)
       != 0)
     {
-      std::printf ("Error: %s\n", SDL_GetError ());
+      std::cerr << "Error: %s\n" << SDL_GetError ();
       throw std::system_error ();
     }
 

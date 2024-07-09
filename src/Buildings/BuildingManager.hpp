@@ -14,21 +14,23 @@ class BuildingManager
 public:
   BuildingManager ();
   ~BuildingManager () override = default;
+
   unsigned getCurrentQuantity (BuildingType);
+
   bool doesIncreasesMaxJellies (BuildingType);
   unsigned getIncreaseToMaxJfish (BuildingType);
+
   void buy (BuildingType);
   std::vector<std::pair<RessourceType, double> > nextBuyCost (BuildingType);
 
   std::vector<std::pair<RessourceType, double> > getProduction (BuildingType);
   std::vector<std::pair<RessourceType, double> > getConsumption (BuildingType);
+  std::unordered_map<RessourceType, double> getProductionRates () const;
+  std::unordered_map<RessourceType, double> getConsumptionRates () const;
 
   std::string getBuildingName (BuildingType) const;
   std::string getBuildingDescription (BuildingType) const;
   std::string getAdvancedDescription (BuildingType);
-
-  std::unordered_map<RessourceType, double> getProductionRates () const;
-  std::unordered_map<RessourceType, double> getConsumptionRates () const;
 
   std::vector<std::pair<BuildingType, unsigned> > getData () const override;
   void
