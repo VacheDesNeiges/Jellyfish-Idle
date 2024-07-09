@@ -149,8 +149,7 @@ bool
 CraftingManager::canAfford (RecipeID id) const
 {
   bool ret = true;
-  const auto recipe = getRecipe (id);
-  for (const auto &[rType, quant] : recipe)
+  for (const auto &[rType, quant] : getRecipe (id))
     {
       if (ressourcesView ()->getRessourceQuantity (rType)
           < quant * assignedJelliesToRecipes.at (id))
