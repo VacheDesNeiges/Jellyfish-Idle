@@ -27,8 +27,7 @@ UIOctopusPanel::render () const
         }
       else
         {
-          if (gData->getUpgradeView ()->isAvailableForBuying (upgradeID)
-              && gData->getAchievementsView ()->isUnlocked (upgradeID))
+          if (gData->getUpgradeView ()->isAvailableForBuying (upgradeID))
 
             renderTradeButton (upgradeID);
         }

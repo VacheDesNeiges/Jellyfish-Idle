@@ -3,7 +3,7 @@
     {
       "Type": "Ressource",
       "Name": "Food Ressource",
-      "ID": 0,
+      "ID": 1,
       "RessourceID": 1,
       "Condition": [
         {
@@ -14,9 +14,40 @@
     },
     {
       "Type": "Ressource",
+      "RessourceID": 2,
+      "Name": "Sand Ressource",
+      "ID": 2,
+      "Condition": []
+    },
+    {
+      "Type": "Ressource",
+      "RessourceID": 3,
+      "Name": "Stone Ressource",
+      "ID": 3,
+      "Condition": [
+        {
+          "RessourceID": 3,
+          "Quantity_GT": 0
+        }
+      ]
+    },
+    {
+      "Type": "Ressource",
+      "RessourceID": 4,
+      "Name": "Insight Ressource",
+      "ID": 4,
+      "Condition": [
+        {
+          "RessourceID": 4,
+          "Quantity_GT": 0
+        }
+      ]
+    },
+    {
+      "Type": "Ressource",
       "RessourceID": 5,
       "Name": "Glass Ressource",
-      "ID": 1,
+      "ID": 5,
       "Condition": [
         {
           "RessourceID": 5,
@@ -26,9 +57,21 @@
     },
     {
       "Type": "Ressource",
+      "RessourceID": 1001,
+      "Name": "Pearl Ressource",
+      "ID": 6,
+      "Condition": [
+        {
+          "RessourceID": 1001,
+          "Quantity_GT": 0
+        }
+      ]
+    },
+    {
+      "Type": "Ressource",
       "RessourceID": 2001,
       "Name": "Glass Pane Ressource",
-      "ID": 2,
+      "ID": 201,
       "Condition": [
         {
           "RessourceID": 2001,
@@ -40,7 +83,7 @@
       "Type": "Ressource",
       "RessourceID": 2002,
       "Name": "Stone Slab Ressource",
-      "ID": 3,
+      "ID": 202,
       "Condition": [
         {
           "RessourceID": 2002,
@@ -100,9 +143,23 @@
       "BuildingID": 3,
       "Name": "Mines Building",
       "ID": 1002,
-      "Condition": {
-        "AchievementID": 3004
-      }
+      "Condition": [
+        {
+          "AchievementID": 3004
+        }
+      ]
+    },
+    {
+      "Type": "Building",
+      "BuildingID": 4,
+      "Name": "Glass Nest Building",
+      "ID": 1003,
+      "Condition": [
+        {
+          "RessourceID": 2001,
+          "Quantity_GT": 5
+        }
+      ]
     },
     {
       "Type": "System",
@@ -110,7 +167,7 @@
       "ID": 2000,
       "Condition": [
         {
-          "BuildingID": 2,
+          "BuildingID": 1,
           "MinQuantity": 1
         }
       ]

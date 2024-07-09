@@ -58,8 +58,14 @@ Upgrade::getDescription () const
   return description;
 }
 
-std::vector<std::pair<RessourceType, double> >
+const std::vector<std::pair<RessourceType, double> > &
 Upgrade::getCost () const
 {
   return cost;
+}
+
+const std::optional<UpgradeID> &
+Upgrade::getDependency () const
+{
+  return dependency;
 }

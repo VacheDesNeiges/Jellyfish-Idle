@@ -18,7 +18,8 @@ public:
   void unlock ();
   std::string_view getName () const;
   std::string_view getDescription () const;
-  std::vector<std::pair<RessourceType, double> > getCost () const;
+  const std::vector<std::pair<RessourceType, double> > &getCost () const;
+  const std::optional<UpgradeID> &getDependency () const;
 
 private:
   bool bought{ false };

@@ -47,7 +47,19 @@ UpgradeManager::isBought (UpgradeID id) const
 bool
 UpgradeManager::isAvailableForBuying (UpgradeID id) const
 {
-  return (!(upgrades.at (id).isUnlocked ()) && upgradesConditions.at (id));
+  if (!upgrades.at (id).isUnlocked ())
+    {
+      if (const auto &depend = upgrades.at (id).getDependency ();
+          depend.has_value ())
+        {
+          return isBought (depend.value ());
+        }
+      else
+        {
+          return true;
+        }
+    }
+  return false;
 }
 
 std::string_view

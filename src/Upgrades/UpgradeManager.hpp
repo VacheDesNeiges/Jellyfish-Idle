@@ -4,7 +4,6 @@
 #include "GameIDsTypes.hpp"
 #include "SaveAndLoadable.hpp"
 #include "Upgrade.hpp"
-#include <functional>
 #include <unordered_map>
 
 class UpgradeManager
@@ -28,5 +27,4 @@ public:
 private:
   std::vector<UpgradeID> upgradeTypes;
   std::unordered_map<UpgradeID, Upgrade> upgrades;
-  std::unordered_map<UpgradeID, std::function<bool ()> > upgradesConditions;
 };
