@@ -92,6 +92,18 @@
       ]
     },
     {
+      "Type": "Ressource",
+      "RessourceID": 2003,
+      "Name": "Knowledge Tablet Ressource",
+      "ID": 203,
+      "Condition": [
+        {
+          "RessourceID": 2003,
+          "Quantity_GT": 0
+        }
+      ]
+    },
+    {
       "Type": "Special",
       "Name": "Any Rare ressource",
       "ID": 6000,
