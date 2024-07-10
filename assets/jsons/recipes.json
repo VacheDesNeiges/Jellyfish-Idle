@@ -1,0 +1,38 @@
+{
+  "Recipes": [
+    {
+      "Name": "Stone Slab",
+      "ID": 1,
+      "BaseTicksRequired": 120,
+      "Cost": [
+        {
+          "RessourceID": 3,
+          "Quantity": 50
+        }
+      ],
+      "Result": [
+        {
+          "RessourceID": 2002,
+          "Quantity": 1
+        }
+      ]
+    },
+    {
+      "Name": "Glass Pane",
+      "ID": 2,
+      "BaseTicksRequired": 240,
+      "Cost": [
+        {
+          "RessourceID": 5,
+          "Quantity": 50
+        }
+      ],
+      "Result": [
+        {
+          "RessourceID": 2001,
+          "Quantity": 1
+        }
+      ]
+    }
+  ]
+}
