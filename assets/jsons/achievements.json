@@ -162,6 +162,65 @@
       ]
     },
     {
+      "Type": "Building",
+      "BuildingID": 5,
+      "Name": "Glass Tower Building",
+      "ID": 1004,
+      "Condition": [
+        {
+          "RessourceID": 2001,
+          "Quantity_GT": 20
+        }
+      ]
+    },
+    {
+      "Type": "Building",
+      "BuildingID": 6,
+      "Name": "Marine Stockroom Building",
+      "ID": 1005,
+      "Condition": [
+        {
+          "AchievementID": 3005
+        }
+      ]
+    },
+    {
+      "Type": "Building",
+      "BuildingID": 7,
+      "Name": "Submerged Library Building",
+      "ID": 1006,
+      "Condition": [
+        {
+          "RessourceID": 2003,
+          "Quantity_GT": 2
+        }
+      ]
+    },
+    {
+      "Type": "Building",
+      "BuildingID": 8,
+      "Name": "Glassblower's Atelier Building",
+      "ID": 1007,
+      "Condition": [
+        {
+          "RessourceID": 5,
+          "Quantity_GT": 20
+        }
+      ]
+    },
+    {
+      "Type": "Building",
+      "BuildingID": 9,
+      "Name": "Solar Lens Furnace Building",
+      "ID": 1008,
+      "Condition": [
+        {
+          "RessourceID": 2001,
+          "Quantity_GT": 1
+        }
+      ]
+    },
+    {
       "Type": "System",
       "Name": "Garden System",
       "ID": 2000,
@@ -190,7 +249,7 @@
       "CultureID": 2,
       "Condition": [
         {
-          "Depth": 20
+          "Depth": 15
         }
       ]
     },
