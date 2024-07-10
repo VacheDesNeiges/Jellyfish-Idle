@@ -70,3 +70,9 @@ BuildingDataView::getConversionBuildingTypes () const
 {
   return buildings->getConversionBuildingTypes ();
 }
+
+std::span<const std::pair<RessourceType, double> >
+BuildingDataView::getIncreasedStorage (BuildingType b) const
+{
+  return buildings->getIncreasedStorage (b);
+}

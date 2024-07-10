@@ -1,12 +1,14 @@
 #include "Ressource.hpp"
 
 #include <cfloat>
+#include <iostream>
 #include <nlohmann/json_fwd.hpp>
 #include <string_view>
 
 Ressource::Ressource (const nlohmann::json &resData)
     : name (resData.at ("Name")),
-      max_quantity (resData.value ("Max_Quantity", DBL_MAX))
+      baseMaxQuantity (resData.value ("Max_Quantity", DBL_MAX)),
+      maxQuantity (baseMaxQuantity)
 {
 }
 
@@ -15,13 +17,13 @@ Ressource::add (double n)
 {
   if (n >= 0)
     {
-      if (quantity + n <= max_quantity)
+      if (quantity + n <= maxQuantity)
         {
           quantity += n;
         }
       else
         {
-          quantity = max_quantity;
+          quantity = maxQuantity;
         }
     }
   else
@@ -46,7 +48,7 @@ Ressource::getCurrentQuantity () const
 double
 Ressource::getMaxQuantity () const
 {
-  return max_quantity;
+  return maxQuantity;
 }
 
 std::string_view
@@ -96,4 +98,10 @@ double
 Ressource::getConsumption () const
 {
   return consumptionPerTick;
+}
+
+void
+Ressource::setBonusMaxQuantity (double n)
+{
+  maxQuantity = baseMaxQuantity + n;
 }

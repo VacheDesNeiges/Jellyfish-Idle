@@ -180,8 +180,8 @@
       "ID": 1004,
       "Condition": [
         {
-          "RessourceID": 2001,
-          "Quantity_GT": 20
+          "RessourceID": 5,
+          "Quantity_GT": 5
         }
       ]
     },

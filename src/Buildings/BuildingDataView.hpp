@@ -20,6 +20,9 @@ public:
   std::vector<std::pair<RessourceType, double> >
       getBuildingProduction (BuildingType) const;
 
+  std::span<const std::pair<RessourceType, double> >
+      getIncreasedStorage (BuildingType) const;
+
   std::string getBuildingName (BuildingType) const;
   std::string getBuildingDescription (BuildingType) const;
   std::string getAdvancedBuildingDescription (BuildingType) const;

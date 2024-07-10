@@ -54,13 +54,14 @@ GameSystems::loadSave (const std::string &path) const
   auto loadedData = SaveSystem::loadFromFile (path);
   systems->buildings->loadData (loadedData.buildings);
   systems->achievements->loadData (loadedData.achievements);
-  systems->ressources->loadData (loadedData.ressources);
   systems->jellies->loadData (loadedData.jellies);
   systems->depth->loadData (loadedData.depth);
   systems->upgrades->loadData (loadedData.upgrades);
   systems->garden->loadData (loadedData.cultures);
 
   synchronizer->synchronizeSystems ();
+
+  systems->ressources->loadData (loadedData.ressources);
   systems->crafts->loadData (loadedData.crafts);
 }
 

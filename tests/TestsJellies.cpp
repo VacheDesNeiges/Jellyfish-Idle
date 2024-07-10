@@ -59,7 +59,6 @@ TEST (TestsJelliesManager, jobAssignement)
     {
       if (job != JobsAlias::NONE)
         {
-          std::cout << job.value;
           manager.createJellyfish ();
           manager.assign (job);
           ASSERT_EQ (1, manager.getNum (job));

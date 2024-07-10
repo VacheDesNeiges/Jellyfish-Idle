@@ -65,6 +65,7 @@ GameSynchronizer::synchronizeSystems () const
 {
   systems->crafts->updateAssignments ();
   systems->multipliers->recomputeMultipliers ();
+  systems->ressources->recomputeMaxQuantities ();
   gameTick ();
 }
 

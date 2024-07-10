@@ -22,11 +22,13 @@ public:
   void addToConsumptionPerTick (double);
   void addToProdPerTick (double);
   void setQuantity (double);
+  void setBonusMaxQuantity (double);
 
 private:
   std::string name;
   double quantity = 0;
-  double max_quantity = -1;
+  double baseMaxQuantity = -1;
+  double maxQuantity = -1;
 
   double prodPerTick = 0;
   double consumptionPerTick = 0;

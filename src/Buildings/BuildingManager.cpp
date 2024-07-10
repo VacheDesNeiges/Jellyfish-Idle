@@ -136,9 +136,9 @@ BuildingManager::getConsumptionRates () const
 }
 
 bool
-BuildingManager::doesIncreasesMaxJellies (BuildingType t)
+BuildingManager::doesIncreasesMaxJellies (BuildingType t) const
 {
-  return buildings[t].getIncreaseToMaxJfish () > 0;
+  return buildings.at (t).getIncreaseToMaxJfish () > 0;
 }
 
 unsigned
@@ -176,8 +176,21 @@ BuildingManager::getBuildingTypes () const
 {
   return std::span (buildingTypes);
 }
+
 std::span<const BuildingType>
 BuildingManager::getConversionBuildingTypes () const
 {
   return std::span (conversionBuildingsTypes);
+}
+
+bool
+BuildingManager::doesIncreasesRessourcesMaxQuantities (BuildingType b) const
+{
+  return !buildings.at (b).getIncreasedStorage ().empty ();
+}
+
+std::span<const std::pair<RessourceType, double> >
+BuildingManager::getIncreasedStorage (BuildingType b) const
+{
+  return buildings.at (b).getIncreasedStorage ();
 }

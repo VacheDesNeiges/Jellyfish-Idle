@@ -2,9 +2,11 @@
 #include "FilePaths.hpp"
 #include "GameIDsTypes.hpp"
 
+#include <cmath>
 #include <fstream>
 #include <iostream>
 #include <nlohmann/json.hpp>
+#include <unordered_map>
 #include <vector>
 
 RessourceManager::RessourceManager () { init (); }
@@ -214,4 +216,30 @@ std::span<const RessourceType>
 RessourceManager::getCraftableRessourceTypes () const
 {
   return std::span (craftableRessourceTypes);
+}
+
+void
+RessourceManager::updateMaxRessourcesQuantities (
+    const std::unordered_map<RessourceType, double> &newQuantities)
+{
+  for (const auto &[rType, quant] : newQuantities)
+    {
+      ressources.at (rType).setBonusMaxQuantity (quant);
+    }
+}
+
+void
+RessourceManager::recomputeMaxQuantities ()
+{
+  std::unordered_map<RessourceType, double> newQuantities;
+  for (const auto b : buildingsView ()->getBuildingTypes ())
+    {
+      for (const auto &[rType, quant] :
+           buildingsView ()->getIncreasedStorage (b))
+        {
+
+          newQuantities[rType] += quant;
+        }
+    }
+  updateMaxRessourcesQuantities (newQuantities);
 }

@@ -17,8 +17,12 @@ public:
 
   unsigned getCurrentQuantity (BuildingType);
 
-  bool doesIncreasesMaxJellies (BuildingType);
+  bool doesIncreasesMaxJellies (BuildingType) const;
   unsigned getIncreaseToMaxJfish (BuildingType);
+
+  bool doesIncreasesRessourcesMaxQuantities (BuildingType) const;
+  std::span<const std::pair<RessourceType, double> >
+      getIncreasedStorage (BuildingType) const;
 
   void buy (BuildingType);
   std::vector<std::pair<RessourceType, double> > nextBuyCost (BuildingType);

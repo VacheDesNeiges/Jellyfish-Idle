@@ -2,6 +2,7 @@
 #include "GameIDsTypes.hpp"
 #include "GameSystems.hpp"
 #include <memory>
+#include <unordered_map>
 
 InputHandler::InputHandler (std::shared_ptr<SystemPtrs> sy)
 
@@ -79,6 +80,9 @@ InputHandler::buy (BuildingType t) const
 
   if (systems->buildings->doesIncreasesMaxJellies (t))
     updateMaxNumJellies ();
+
+  if (systems->buildings->doesIncreasesRessourcesMaxQuantities (t))
+    updateMaxRessourcesQuantities ();
 }
 
 void
@@ -100,6 +104,21 @@ InputHandler::updateMaxNumJellies () const
       n += systems->buildings->getIncreaseToMaxJfish (b);
     }
   systems->jellies->setBonusMaxJellies (n);
+}
+
+void
+InputHandler::updateMaxRessourcesQuantities () const
+{
+  std::unordered_map<RessourceType, double> newQuantities;
+  for (const auto &b : systems->buildings->getBuildingTypes ())
+    {
+      for (const auto &[rType, quant] :
+           systems->buildings->getIncreasedStorage (b))
+        {
+          newQuantities[rType] += quant;
+        }
+    }
+  systems->ressources->updateMaxRessourcesQuantities (newQuantities);
 }
 
 void

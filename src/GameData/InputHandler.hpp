@@ -34,4 +34,5 @@ private:
   std::shared_ptr<SystemPtrs> systems;
 
   void updateMaxNumJellies () const;
+  void updateMaxRessourcesQuantities () const;
 };

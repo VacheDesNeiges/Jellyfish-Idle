@@ -6,6 +6,7 @@
 #include "SaveAndLoadable.hpp"
 
 #include "unordered_map"
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -29,6 +30,11 @@ public:
 
   void add (RessourceType, double);
   void addToProdPerTick (RessourceType, double);
+
+  void updateMaxRessourcesQuantities (
+      const std::unordered_map<RessourceType, double> &);
+
+  void recomputeMaxQuantities ();
 
   void consume (const std::unordered_map<RessourceType, double> &);
   void produce (const std::unordered_map<RessourceType, double> &);

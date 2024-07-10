@@ -25,7 +25,10 @@ public:
 
   std::vector<std::pair<RessourceType, double> > getProdPerTick () const;
   std::vector<std::pair<RessourceType, double> > getConsumPerTick () const;
-  std::vector<std::pair<RessourceType, double> > getNextBuyCost ();
+  std::vector<std::pair<RessourceType, double> > getNextBuyCost () const;
+
+  std::span<const std::pair<RessourceType, double> >
+  getIncreasedStorage () const;
 
   std::string getDescription () const;
   std::string getAdvancedDescription () const;
@@ -37,9 +40,9 @@ private:
   unsigned increaseToMaxJfish = 0;
   double priceMultiplier = 1;
   std::vector<std::pair<RessourceType, double> > basePrice;
-  std::unordered_map<RessourceType, const double> baseProductionPerTick;
-  std::unordered_map<RessourceType, const double> baseConsumptionPerTick;
-  std::unordered_map<RessourceType, const double> baseIncreasedStorage;
+  std::unordered_map<RessourceType, double> baseProductionPerTick;
+  std::unordered_map<RessourceType, double> baseConsumptionPerTick;
+  std::unordered_map<RessourceType, double> baseIncreasedStorage;
 
   std::vector<std::pair<RessourceType, double> > prodPerTick;
   std::vector<std::pair<RessourceType, double> > consumPerTick;

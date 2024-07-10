@@ -47,6 +47,9 @@ Building::Building (const nlohmann::json &data)
               baseIncreasedStorage.try_emplace (
                   RessourceType (storage.at ("RessourceID")),
                   storage.at ("Quantity"));
+              increasedStorage.push_back (
+                  { RessourceType (storage.at ("RessourceID")),
+                    storage.at ("Quantity") });
             }
         }
     }
@@ -71,7 +74,7 @@ Building::getCurrentQuantity () const
 }
 
 std::vector<std::pair<RessourceType, double> >
-Building::getNextBuyCost ()
+Building::getNextBuyCost () const
 {
   std::vector<std::pair<RessourceType, double> > ret;
   for (auto &[ressource, cost] : basePrice)
@@ -146,4 +149,10 @@ std::string
 Building::getDescription () const
 {
   return description;
+}
+
+std::span<const std::pair<RessourceType, double> >
+Building::getIncreasedStorage () const
+{
+  return std::span (increasedStorage);
 }
