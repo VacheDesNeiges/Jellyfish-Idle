@@ -1,36 +1,38 @@
 #include "CraftingRecipe.hpp"
 #include "GameIDsTypes.hpp"
-#include "RecipeID.hpp"
 
 #include <cassert>
 #include <cmath>
+#include <iostream>
 #include <string>
 
-CraftingRecipe::CraftingRecipe (RecipeID id)
+CraftingRecipe::CraftingRecipe (const nlohmann::json &recipeData)
 {
-  switch (id)
+  try
     {
-      using namespace RessourcesAlias;
+      recipeName = recipeData.at ("Name");
+      baseTicksForCraft = recipeData.at ("BaseTicksRequired");
+      remainingTicksToCraft = baseTicksForCraft;
+      level = { 1, 0, 100 };
 
-    case RecipeID::StoneSlabRecipe:
-      recipeName = "Stone Slab";
-      baseTicksForCraft = 120;
-      recipe.emplace_back (STONE, 5);
-      baseResult.emplace_back (STONESLAB, 1);
-      break;
+      for (const auto &cost : recipeData.at ("Cost"))
+        {
+          recipe.emplace_back (RessourceType (cost.at ("RessourceID")),
+                               cost.at ("Quantity"));
+        }
 
-    case RecipeID::GlassPanelRecipe:
-      recipeName = "Glass Pane";
-      baseTicksForCraft = 300;
-      recipe.emplace_back (GLASS, 100);
-      baseResult.emplace_back (GLASSPANE, 1);
-      break;
-
-    default:
-      assert (false);
+      for (const auto &production : recipeData.at ("Result"))
+        {
+          baseResult.emplace_back (
+              RessourceType (production.at ("RessourceID")),
+              production.at ("Quantity"));
+        }
     }
-  remainingTicksToCraft = baseTicksForCraft;
-  level = { 1, 0, 100 };
+  catch (nlohmann::json::exception &e)
+    {
+      std::cerr << "Error while parsing a recipe :\n" << e.what () << "\n";
+      abort ();
+    }
 }
 
 void

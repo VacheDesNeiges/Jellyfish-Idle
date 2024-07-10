@@ -1,10 +1,6 @@
 #include "UIJobsPanel.hpp"
 
-#include "CraftingDataView.hpp"
-#include "CraftingRecipe.hpp"
 #include "GameIDsTypes.hpp"
-#include "InputHandler.hpp"
-#include "RecipeID.hpp"
 #include "UIUtils.hpp"
 #include "fmt/core.h"
 #include "imgui.h"
@@ -101,11 +97,11 @@ UIJobsPanel::renderRecipes () const
   ImGui::Text ("%s",
                fmt::format ("Available Artisans : {}",
                             gData->getCraftView ()->getAssignedNumOfJellies (
-                                RecipeID::NoneRecipe))
+                                RecipesAlias::NONE))
                    .c_str ());
 
   ImGui::PushStyleColor (ImGuiCol_ChildBg, IM_COL32 (0, 0, 0, 180));
-  for (const auto &recipe : CraftingRecipe::RecipeTypes)
+  for (const auto &recipe : gData->getCraftView ()->getRecipeTypes ())
     {
       renderRecipe (recipe);
       ImGui::SameLine ();
@@ -148,10 +144,10 @@ UIJobsPanel::renderRecipe (RecipeID id) const
   ImGui::Text ("%d", gData->getCraftView ()->getAssignedNumOfJellies (id));
   ImGui::SameLine ();
 
-  ImGui::BeginDisabled (gData->getCraftView ()->craftIsOngoing (id)
-                        || (gData->getCraftView ()->getAssignedNumOfJellies (
-                                RecipeID::NoneRecipe)
-                            == 0));
+  ImGui::BeginDisabled (
+      gData->getCraftView ()->craftIsOngoing (id)
+      || (gData->getCraftView ()->getAssignedNumOfJellies (RecipesAlias::NONE)
+          == 0));
   if (ImGui::ArrowButton ((recipeName + "##right").c_str (), ImGuiDir_Right))
     {
       inputHandler->assignToRecipe (id);

@@ -1,7 +1,6 @@
 #include "InputHandler.hpp"
 #include "GameIDsTypes.hpp"
 #include "GameSystems.hpp"
-#include "RecipeID.hpp"
 #include <memory>
 
 InputHandler::InputHandler (std::shared_ptr<SystemPtrs> sy)
@@ -45,7 +44,7 @@ InputHandler::unassignJelly (JellyJob j) const
   if (j != JobsAlias::ARTISAN)
     return systems->jellies->unasign (j);
 
-  if (systems->crafts->getAssignedNumOfJellies (RecipeID::NoneRecipe))
+  if (systems->crafts->getAssignedNumOfJellies (RecipesAlias::NONE))
     {
       systems->jellies->unasign (j);
       systems->crafts->updateAssignments ();

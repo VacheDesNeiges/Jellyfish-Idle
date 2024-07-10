@@ -12,11 +12,11 @@ UIManager::bindGameData (std::shared_ptr<GameDataView> viewPtr,
 {
   gData = viewPtr;
   inputHandler = inputPtr;
+
   ressourcesPanel.bindGameData (viewPtr, inputPtr);
   buildingsPanel.bindGameData (viewPtr, inputPtr);
   jobsPanel.bindGameData (viewPtr, inputPtr);
   abilitiesPanel.bindGameData (viewPtr, inputPtr);
-  ressourcesPanel.bindGameData (viewPtr, inputPtr);
   depthPanel.bindGameData (viewPtr, inputPtr);
   octopusPanel.bindGameData (viewPtr, inputPtr);
   gardenPanel.bindGameData (viewPtr, inputPtr);

@@ -2,11 +2,11 @@
 #include "GameIDsTypes.hpp"
 
 #include <memory>
+#include <span>
 #include <utility>
 #include <vector>
 
 class CraftingManager;
-enum class RecipeID;
 
 class CraftDataView
 {
@@ -23,6 +23,8 @@ public:
   std::vector<std::pair<RessourceType, double> > getRecipe (RecipeID) const;
   std::vector<std::pair<RessourceType, double> >
       getCraftResults (RecipeID) const;
+
+  std::span<const RecipeID> getRecipeTypes () const;
 
 private:
   std::shared_ptr<CraftingManager> crafts;

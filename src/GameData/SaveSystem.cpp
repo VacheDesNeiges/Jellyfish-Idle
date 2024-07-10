@@ -5,7 +5,6 @@
 #include "DepthSystem.hpp"
 #include "GameIDsTypes.hpp"
 #include "JellyfishManager.hpp"
-#include "RecipeID.hpp"
 
 #include <fstream>
 #include <iostream>
@@ -71,7 +70,7 @@ SaveSystem::save (const SaveData &data)
   for (const auto &[id, craftData] : data.crafts)
     {
       j["Craft"] += {
-        { "id", static_cast<unsigned> (id) },
+        { "id", static_cast<int> (id) },
         { "Workers", craftData.numAssignedWorkers },
         { "Done", craftData.craftDone },
         { "Ongoing", craftData.craftOngoing },
@@ -196,7 +195,15 @@ SaveSystem::loadFromFile (std::string path)
       result.depth.currentDepth
           = data["Depth"][0]["currentDepth"].get<unsigned> ();
       result.depth.currentProg = data["Depth"][0]["currentProg"].get<float> ();
+    }
+  catch (nlohmann::json::exception &e)
+    {
+      std::cerr << "Error while parsing saved depth :\n" << e.what () << '\n';
+      abort ();
+    }
 
+  try
+    {
       result.upgrades.reserve (data.at ("Upgrade").size ());
       for (const auto &d : data["Upgrade"])
         {
@@ -204,12 +211,21 @@ SaveSystem::loadFromFile (std::string path)
               static_cast<UpgradeID> (d["id"].get<int> ()),
               d["Bought"].get<bool> ());
         }
+    }
+  catch (nlohmann::json::exception &e)
+    {
+      std::cerr << "Error while parsing saved upgrades :\n"
+                << e.what () << '\n';
+      abort ();
+    }
 
-      result.crafts.reserve (CraftingRecipe::RecipeTypes.size ());
+  try
+    {
+      result.crafts.reserve (data.at ("Craft").size ());
       for (const auto &c : data["Craft"])
         {
           result.crafts.emplace_back (
-              static_cast<RecipeID> (c["id"].get<unsigned> ()),
+              static_cast<RecipeID> (c["id"].get<int> ()),
               RecipeSaveData{
                   c["Level"].get<unsigned> (),
                   c["CurrentProg"].get<double> (),
@@ -220,7 +236,15 @@ SaveSystem::loadFromFile (std::string path)
                   c["Workers"].get<unsigned> (),
               });
         }
+    }
+  catch (nlohmann::json::exception &e)
+    {
+      std::cerr << "Error while parsing saved crafts :\n" << e.what () << '\n';
+      abort ();
+    }
 
+  try
+    {
       result.cultures.reserve (data.at ("Culture").size ());
       for (const auto &c : data["Culture"])
         {
@@ -236,7 +260,8 @@ SaveSystem::loadFromFile (std::string path)
     }
   catch (nlohmann::json::exception &e)
     {
-      std::cerr << "Error while parsing the rest :\n" << e.what () << '\n';
+      std::cerr << "Error while parsing saved cultures :\n"
+                << e.what () << '\n';
       abort ();
     }
 }

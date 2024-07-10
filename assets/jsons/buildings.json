@@ -61,7 +61,17 @@
       "BasePrice": [
         {
           "RessourceID": 5,
-          "Quantity": 50
+          "Quantity": 30
+        },
+        {
+          "RessourceID": 2002,
+          "Quantity": 3
+        }
+      ],
+      "StorageIncrease": [
+        {
+          "RessourceID": 4,
+          "Quantity": 300
         }
       ]
     },
@@ -75,10 +85,6 @@
         {
           "RessourceID": 2002,
           "Quantity": 12
-        },
-        {
-          "RessourceID": 2001,
-          "Quantity": 10
         }
       ]
     },

@@ -1,7 +1,7 @@
 #include "CraftingDataView.hpp"
 
 #include "CraftingManager.hpp"
-#include "RecipeID.hpp"
+#include "GameIDsTypes.hpp"
 
 #include <memory>
 
@@ -61,4 +61,10 @@ unsigned
 CraftDataView::getAssignedNumOfJelliesOnOngoingCrafts () const
 {
   return crafts->getAssignedNumOfJelliesOnOngoingCrafts ();
+}
+
+std::span<const RecipeID>
+CraftDataView::getRecipeTypes () const
+{
+  return crafts->getRecipeTypes ();
 }

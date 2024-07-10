@@ -1,5 +1,4 @@
 #pragma once
-#include "RecipeID.hpp"
 #include "UIElement.hpp"
 
 class UIJobsPanel : public UIElement

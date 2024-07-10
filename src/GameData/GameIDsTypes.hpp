@@ -208,6 +208,37 @@ struct std::hash<UpgradeID>
   }
 };
 
+/**
+ * @brief ID for the ressources type
+ * Implements comparaison operators and hash function for use in std::map
+ * the underlying value is an int
+ *
+ */
+struct RecipeID
+{
+  int value;
+
+  RecipeID () : value (0) {}
+  constexpr explicit RecipeID (int x) : value (x){};
+
+  friend std::strong_ordering operator<=> (const RecipeID &lhs,
+                                           const RecipeID &rhs)
+      = default;
+
+  constexpr explicit operator int () const { return value; }
+};
+
+template <>
+
+struct std::hash<RecipeID>
+{
+  std::size_t
+  operator() (const RecipeID &r) const noexcept
+  {
+    return std::hash<int>{}(r.value);
+  }
+};
+
 namespace RessourcesAlias
 {
 constexpr inline RessourceType FOOD{ 1 };
@@ -267,4 +298,11 @@ namespace UpgradesAlias
 {
 constexpr inline UpgradeID ADVANCEDTELEKINESIS{ 3 };
 constexpr inline UpgradeID LEVELING{ 4 };
+}
+
+namespace RecipesAlias
+{
+constexpr inline RecipeID NONE{ 0 };
+constexpr inline RecipeID STONESLAB{ 1 };
+constexpr inline RecipeID GLASSPANE{ 2 };
 }

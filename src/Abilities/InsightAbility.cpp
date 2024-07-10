@@ -17,6 +17,13 @@ InsightAbility::InsightAbility (const nlohmann::json &data)
           castingCost.push_back ({ RessourceType (cost.at ("RessourceID")),
                                    cost.at ("Quantity") });
         }
+
+      for (const auto &effect : data.at ("Effect"))
+        {
+          ressourcesGained.push_back (
+              { RessourceType (effect.at ("RessourceID")),
+                effect.at ("Quantity") });
+        }
     }
   catch (nlohmann::json::exception &e)
     {

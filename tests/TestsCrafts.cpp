@@ -1,12 +1,11 @@
 #include "CraftingManager.hpp"
 #include "CraftingRecipe.hpp"
-#include "RecipeID.hpp"
 #include "gtest/gtest.h"
 
 class CraftingRecipesFixture : public ::testing::Test
 {
 public:
-  CraftingRecipe c{ RecipeID::StoneSlabRecipe };
+  CraftingRecipe c{ nlohmann::json () };
 };
 
 TEST_F (CraftingRecipesFixture, initialization)
@@ -64,7 +63,7 @@ public:
 
 TEST_F (CraftingManagerFixture, initialization)
 {
-  for (const auto &recipeID : CraftingRecipe::RecipeTypes)
+  for (const auto &recipeID : cManager.getRecipeTypes ())
     {
       ASSERT_EQ (0, cManager.getAssignedNumOfJellies (recipeID));
       ASSERT_EQ (false, cManager.craftIsOngoing (recipeID));

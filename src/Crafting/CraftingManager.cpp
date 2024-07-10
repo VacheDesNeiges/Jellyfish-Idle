@@ -1,30 +1,54 @@
 #include "CraftingManager.hpp"
 
 #include "CraftingRecipe.hpp"
+#include "FilePaths.hpp"
 #include "GameIDsTypes.hpp"
-#include "RecipeID.hpp"
 
+#include <cstddef>
+#include <fstream>
+#include <iostream>
+#include <nlohmann/json.hpp>
+#include <string>
 #include <utility>
 #include <vector>
 
 CraftingManager::CraftingManager ()
 {
-  recipes.reserve (CraftingRecipe::RecipeTypes.size ());
-  for (const auto &c : CraftingRecipe::RecipeTypes)
+  const auto path = std::string (FilePaths::getPath ())
+                    + std::string (FilePaths::RecipesPath);
+
+  std::ifstream fstream (path);
+  try
     {
-      recipes.try_emplace (c, c);
-      assignedJelliesToRecipes[c] = 0;
+      auto recipesJson = nlohmann::json::parse (fstream);
+
+      const auto numRecipes = recipesJson.at ("Recipes").size ();
+      recipes.reserve (numRecipes);
+      recipeTypes.reserve (numRecipes);
+      assignedJelliesToRecipes.reserve (numRecipes + 1);
+
+      for (const auto &recipeData : recipesJson.at ("Recipes"))
+        {
+          recipes.try_emplace (RecipeID (recipeData.at ("ID")), recipeData);
+          recipeTypes.push_back (RecipeID (recipeData.at ("ID")));
+          assignedJelliesToRecipes[RecipeID (recipeData.at ("ID"))] = 0;
+        }
+      assignedJelliesToRecipes[RecipesAlias::NONE] = 0;
     }
-  assignedJelliesToRecipes[RecipeID::NoneRecipe] = 0;
+  catch (nlohmann::json::exception &e)
+    {
+      std::cerr << "Error while parsing recipes :\n" << e.what () << "\n";
+      abort ();
+    }
 }
 
 bool
 CraftingManager::assign (RecipeID id)
 {
-  if (assignedJelliesToRecipes[RecipeID::NoneRecipe] > 0)
+  if (assignedJelliesToRecipes[RecipesAlias::NONE] > 0)
     {
       assignedJelliesToRecipes[id]++;
-      assignedJelliesToRecipes[RecipeID::NoneRecipe]--;
+      assignedJelliesToRecipes[RecipesAlias::NONE]--;
       return true;
     }
   return false;
@@ -36,7 +60,7 @@ CraftingManager::unasign (RecipeID id)
   if (assignedJelliesToRecipes[id] > 0)
     {
       assignedJelliesToRecipes[id]--;
-      assignedJelliesToRecipes[RecipeID::NoneRecipe]++;
+      assignedJelliesToRecipes[RecipesAlias::NONE]++;
       return true;
     }
   return false;
@@ -134,13 +158,13 @@ CraftingManager::updateAssignments ()
     {
       const auto dif = asssignedToJob - assignedJelliesToCrafting;
 
-      assignedJelliesToRecipes[RecipeID::NoneRecipe] += dif;
+      assignedJelliesToRecipes[RecipesAlias::NONE] += dif;
       assignedJelliesToCrafting += dif;
     }
   else
     {
       const auto dif = assignedJelliesToCrafting - asssignedToJob;
-      assignedJelliesToRecipes[RecipeID::NoneRecipe] -= dif;
+      assignedJelliesToRecipes[RecipesAlias::NONE] -= dif;
       assignedJelliesToCrafting -= dif;
     }
 }
@@ -181,7 +205,7 @@ CraftingManager::getData () const
 {
   auto result = std::vector<std::pair<RecipeID, RecipeSaveData> > ();
 
-  for (const auto craft : CraftingRecipe::RecipeTypes)
+  for (const auto craft : recipeTypes)
     {
       auto saveData = recipes.at (craft).getData ();
       saveData.numAssignedWorkers = getAssignedNumOfJellies (craft);
@@ -216,4 +240,10 @@ CraftingManager::getAssignedNumOfJelliesOnOngoingCrafts () const
         }
     }
   return result;
+}
+
+std::span<const RecipeID>
+CraftingManager::getRecipeTypes () const
+{
+  return std::span (recipeTypes);
 }

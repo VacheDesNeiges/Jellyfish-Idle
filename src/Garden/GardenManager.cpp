@@ -9,7 +9,6 @@
 #include <fstream>
 #include <iostream>
 #include <nlohmann/json.hpp>
-#include <nlohmann/json_fwd.hpp>
 #include <span>
 #include <string>
 #include <utility>

@@ -1,11 +1,10 @@
 #pragma once
-#include <array>
+#include <nlohmann/json.hpp>
 #include <string>
 #include <utility>
 #include <vector>
 
 #include "GameIDsTypes.hpp"
-#include "RecipeID.hpp"
 #include "SaveAndLoadable.hpp"
 
 struct RecipeSaveData
@@ -29,7 +28,7 @@ struct RecipeLevel
 class CraftingRecipe : public SaveAndLoadable<RecipeSaveData>
 {
 public:
-  explicit CraftingRecipe (RecipeID);
+  explicit CraftingRecipe (const nlohmann::json &);
   ~CraftingRecipe () override = default;
 
   unsigned getRecipelvl () const;
@@ -49,11 +48,6 @@ public:
 
   RecipeSaveData getData () const override;
   void loadData (const RecipeSaveData &) override;
-
-  static constexpr std::array<RecipeID, 2> RecipeTypes = {
-    RecipeID::StoneSlabRecipe,
-    RecipeID::GlassPanelRecipe,
-  };
 
 private:
   RecipeLevel getLevelData () const;

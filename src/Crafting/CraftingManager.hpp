@@ -1,7 +1,6 @@
 #pragma once
 #include "CraftingRecipe.hpp"
 #include "GameDataAccess.hpp"
-#include "RecipeID.hpp"
 #include "SaveAndLoadable.hpp"
 
 #include <unordered_map>
@@ -35,6 +34,8 @@ public:
   std::vector<std::pair<RessourceType, double> > getCraftResults ();
   std::vector<std::pair<RessourceType, double> > getCraftResult (RecipeID);
 
+  std::span<const RecipeID> getRecipeTypes () const;
+
   std::vector<std::pair<RecipeID, RecipeSaveData> > getData () const override;
   void loadData (
       const std::vector<std::pair<RecipeID, RecipeSaveData> > &) override;
@@ -43,4 +44,5 @@ private:
   unsigned assignedJelliesToCrafting = 0;
   std::unordered_map<RecipeID, unsigned> assignedJelliesToRecipes;
   std::unordered_map<RecipeID, CraftingRecipe> recipes;
+  std::vector<RecipeID> recipeTypes;
 };

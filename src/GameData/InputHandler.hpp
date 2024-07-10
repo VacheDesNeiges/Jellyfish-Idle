@@ -3,8 +3,6 @@
 #include "GameSystems.hpp"
 #include <memory>
 
-enum class RecipeID;
-
 class InputHandler
 {
 public:
