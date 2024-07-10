@@ -39,6 +39,16 @@ Building::Building (const nlohmann::json &data)
                   prod.at ("Quantity"));
             }
         }
+
+      if (data.contains ("StorageIncrease"))
+        {
+          for (const auto &storage : data["StorageIncrease"])
+            {
+              baseIncreasedStorage.try_emplace (
+                  RessourceType (storage.at ("RessourceID")),
+                  storage.at ("Quantity"));
+            }
+        }
     }
   catch (nlohmann::json::exception &e)
     {
