@@ -1,85 +1,130 @@
+#include "FilePaths.hpp"
 #include "Ressource.hpp"
 #include "RessourceManager.hpp"
 #include "gtest/gtest.h"
 #include <cassert>
+#include <fstream>
+#include <nlohmann/json_fwd.hpp>
+#include <string>
+#include <vector>
 
-/* FIXME : Rewrite the tests
-
-TEST (TestsRessources, initialization)
+class RessourcesTests_Fixture : public ::testing::Test
 {
-  Ressource r (RessourceType::Food);
-  ASSERT_EQ (0, r.getCurrentQuantity ());
+public:
+  std::vector<Ressource> ressources;
+
+  void
+  SetUp () override
+  {
+    const auto path = std::string (FilePaths::getPath ())
+                      + std::string (FilePaths::RessourcesPath);
+    std::fstream fstream (path);
+    const auto &json = nlohmann::json::parse (fstream);
+    for (const auto &ressource : json.at ("Ressources"))
+      {
+        ressources.emplace_back (ressource);
+      }
+
+    for (const auto &rare : json.at ("RareRessources"))
+      {
+        ressources.emplace_back (rare);
+      }
+
+    for (const auto &manufactured : json.at ("ManufacturedRessources"))
+      {
+        ressources.emplace_back (manufactured);
+      }
+  }
+};
+
+TEST_F (RessourcesTests_Fixture, initialization)
+{
+  for (const auto &r : ressources)
+    {
+      ASSERT_EQ (0, r.getCurrentQuantity ());
+    }
 }
 
-TEST (TestsRessources, addAndSubstract)
+TEST_F (RessourcesTests_Fixture, addAndSubstract)
 {
-  Ressource r (RessourceType::Food);
-  ASSERT_LT (10, r.getMaxQuantity ());
-  r.add (10);
-  ASSERT_EQ (10, r.getCurrentQuantity ());
-  r.add (-5);
-  ASSERT_EQ (5, r.getCurrentQuantity ());
+  for (auto &r : ressources)
+    {
+      ASSERT_LT (10, r.getMaxQuantity ());
+      r.add (10);
+      ASSERT_EQ (10, r.getCurrentQuantity ());
+      r.add (-5);
+      ASSERT_EQ (5, r.getCurrentQuantity ());
+    }
 }
 
-TEST (TestsRessources, overflow)
+TEST_F (RessourcesTests_Fixture, overflow)
 {
-  Ressource r (RessourceType::Food);
-  auto max = r.getMaxQuantity ();
-  r.add (max + 10);
-  ASSERT_EQ (max, r.getCurrentQuantity ());
+  for (auto &r : ressources)
+    {
+      auto max = r.getMaxQuantity ();
+      r.add (max + 10);
+      ASSERT_EQ (max, r.getCurrentQuantity ());
+    }
 }
 
-TEST (TestsRessources, underflow)
+TEST_F (RessourcesTests_Fixture, underflow)
 {
-  Ressource r (RessourceType::Food);
-  r.add (-5);
-  ASSERT_EQ (0, r.getCurrentQuantity ());
+  for (auto &r : ressources)
+    {
+      r.add (-5);
+      ASSERT_EQ (0, r.getCurrentQuantity ());
+    }
 }
 
-TEST (TestsRessources, setQuant)
+TEST_F (RessourcesTests_Fixture, setQuant)
 {
-  Ressource r (RessourceType::Food);
-  r.setQuantity (25);
-  ASSERT_EQ (25, r.getCurrentQuantity ());
+  for (auto &r : ressources)
+    {
+      r.setQuantity (25);
+      ASSERT_EQ (25, r.getCurrentQuantity ());
+    }
 }
 
-TEST (TestsRessources, productionFunctions)
+TEST_F (RessourcesTests_Fixture, productionFunctions)
 {
-  Ressource r (RessourceType::Food);
-  ASSERT_EQ (0, r.getProduction ());
-  ASSERT_EQ (0, r.getConsumption ());
-  ASSERT_EQ (0, r.getNetProduction ());
+  for (auto &r : ressources)
+    {
 
-  r.addToProdPerTick (25);
-  ASSERT_EQ (25, r.getNetProduction ());
-  ASSERT_EQ (25, r.getProduction ());
-  ASSERT_EQ (0, r.getConsumption ());
+      ASSERT_EQ (0, r.getProduction ());
+      ASSERT_EQ (0, r.getConsumption ());
+      ASSERT_EQ (0, r.getNetProduction ());
 
-  r.addToConsumptionPerTick (10);
-  ASSERT_EQ (15, r.getNetProduction ());
-  ASSERT_EQ (25, r.getProduction ());
-  ASSERT_EQ (10, r.getConsumption ());
+      r.addToProdPerTick (25);
+      ASSERT_EQ (25, r.getNetProduction ());
+      ASSERT_EQ (25, r.getProduction ());
+      ASSERT_EQ (0, r.getConsumption ());
 
-  r.addToProdPerTick (25);
-  ASSERT_EQ (40, r.getNetProduction ());
-  ASSERT_EQ (50, r.getProduction ());
-  ASSERT_EQ (10, r.getConsumption ());
+      r.addToConsumptionPerTick (10);
+      ASSERT_EQ (15, r.getNetProduction ());
+      ASSERT_EQ (25, r.getProduction ());
+      ASSERT_EQ (10, r.getConsumption ());
 
-  r.addToConsumptionPerTick (10);
-  ASSERT_EQ (30, r.getNetProduction ());
-  ASSERT_EQ (50, r.getProduction ());
-  ASSERT_EQ (20, r.getConsumption ());
+      r.addToProdPerTick (25);
+      ASSERT_EQ (40, r.getNetProduction ());
+      ASSERT_EQ (50, r.getProduction ());
+      ASSERT_EQ (10, r.getConsumption ());
 
-  r.resetValuesPerTick ();
-  ASSERT_EQ (0, r.getNetProduction ());
-  ASSERT_EQ (0, r.getProduction ());
-  ASSERT_EQ (0, r.getConsumption ());
+      r.addToConsumptionPerTick (10);
+      ASSERT_EQ (30, r.getNetProduction ());
+      ASSERT_EQ (50, r.getProduction ());
+      ASSERT_EQ (20, r.getConsumption ());
+
+      r.resetValuesPerTick ();
+      ASSERT_EQ (0, r.getNetProduction ());
+      ASSERT_EQ (0, r.getProduction ());
+      ASSERT_EQ (0, r.getConsumption ());
+    }
 }
 
 TEST (TestsRessourceManager, initialization)
 {
   RessourceManager rManager;
-  for (const auto &r : Ressource::RessourceTypes)
+  for (const auto &r : rManager.getAllRessourceTypes ())
     {
       ASSERT_EQ (0, rManager.getCurrentQuantity (r));
     }
@@ -88,7 +133,7 @@ TEST (TestsRessourceManager, initialization)
 TEST (TestsRessourceManager, addFunction)
 {
   RessourceManager rManager;
-  for (const auto &r : Ressource::RessourceTypes)
+  for (const auto &r : rManager.getAllRessourceTypes ())
     {
       assert (rManager.getMaxQuantity (r) > 10);
 
@@ -103,7 +148,7 @@ TEST (TestsRessourceManager, addFunction)
 TEST (TestsRessourceManager, addOverflow)
 {
   RessourceManager rManager;
-  for (const auto &r : Ressource::RessourceTypes)
+  for (const auto &r : rManager.getAllRessourceTypes ())
     {
       const auto rMax = rManager.getMaxQuantity (r);
       rManager.add (r, rMax);
@@ -119,7 +164,7 @@ TEST (TestsRessourceManager, addOverflow)
 TEST (TestsRessourceManager, addUnderflow)
 {
   RessourceManager rManager;
-  for (const auto &r : Ressource::RessourceTypes)
+  for (const auto &r : rManager.getAllRessourceTypes ())
     {
       ASSERT_EQ (0, rManager.getCurrentQuantity (r));
       rManager.add (r, -5);
@@ -133,7 +178,7 @@ TEST (TestsRessourceManager, addUnderflow)
 TEST (TestsRessourceManager, productionFunctions)
 {
   RessourceManager rManager;
-  for (const auto &r : Ressource::RessourceTypes)
+  for (const auto &r : rManager.getAllRessourceTypes ())
     {
       ASSERT_EQ (0, rManager.getProduction (r));
       ASSERT_EQ (0, rManager.getConsumption (r));
@@ -165,8 +210,3 @@ TEST (TestsRessourceManager, productionFunctions)
       ASSERT_EQ (0, rManager.getConsumption (r));
     }
 }
-
-// TODO : Consume & Produce Tests
-
-
-*/

@@ -57,6 +57,21 @@ RessourceManager::init ()
       std::cerr << "Error while parsing ressources :\n" << e.what () << "\n";
       abort ();
     }
+  allRessourceTypes.reserve (regularRessourceTypes.size ()
+                             + rareRessourceTypes.size ()
+                             + craftableRessourceTypes.size ());
+
+  allRessourceTypes.insert (allRessourceTypes.end (),
+                            regularRessourceTypes.begin (),
+                            regularRessourceTypes.end ());
+
+  allRessourceTypes.insert (allRessourceTypes.end (),
+                            rareRessourceTypes.begin (),
+                            rareRessourceTypes.end ());
+
+  allRessourceTypes.insert (allRessourceTypes.end (),
+                            craftableRessourceTypes.begin (),
+                            craftableRessourceTypes.end ());
 }
 
 void
@@ -199,6 +214,12 @@ double
 RessourceManager::getConsumption (RessourceType r)
 {
   return ressources[r].getConsumption ();
+}
+
+std::span<const RessourceType>
+RessourceManager::getAllRessourceTypes () const
+{
+  return std::span (allRessourceTypes);
 }
 
 std::span<const RessourceType>
