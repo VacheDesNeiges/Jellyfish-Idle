@@ -8,7 +8,7 @@
 
 AbilityManager::AbilityManager ()
 {
-  const auto fstream = FilePaths::getFileStream (FilePaths::AbilitiesPath);
+  auto fstream = FilePaths::getFileStream (FilePaths::AbilitiesPath);
 
   try
     {

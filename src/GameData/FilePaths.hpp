@@ -46,11 +46,11 @@ getPath ()
   assert (false);
 }
 
-inline std::fstream
+inline std::ifstream
 getFileStream (std::string_view jsonPath)
 {
-  const auto path = std::string (getPath ()) + std::string (jsonPath);
-  return std::fstream (path);
+  const auto path{ std::string (getPath ()) + std::string (jsonPath) };
+  return std::ifstream (path);
 }
 
 }

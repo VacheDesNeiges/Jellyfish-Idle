@@ -15,7 +15,7 @@
 JellyfishManager::JellyfishManager ()
 {
 
-  const auto fstream = FilePaths::getFileStream (FilePaths::JobsPath);
+  auto fstream = FilePaths::getFileStream (FilePaths::JobsPath);
 
   try
     {

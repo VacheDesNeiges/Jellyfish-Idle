@@ -14,7 +14,7 @@ public:
   void
   SetUp () override
   {
-    const auto fstream = FilePaths::getFileStream (FilePaths::RessourcesPath);
+    auto fstream = FilePaths::getFileStream (FilePaths::RessourcesPath);
     const auto &json = nlohmann::json::parse (fstream);
 
     for (const auto &ressource : json.at ("Ressources"))

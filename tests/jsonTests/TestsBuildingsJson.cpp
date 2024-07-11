@@ -1,7 +1,6 @@
 #include "FilePaths.hpp"
 #include "GameIDsTypes.hpp"
 #include "gtest/gtest.h"
-#include <fstream>
 #include <nlohmann/detail/value_t.hpp>
 #include <nlohmann/json.hpp>
 #include <nlohmann/json_fwd.hpp>
@@ -9,7 +8,7 @@
 
 TEST (jsonTests, BuildingFileCanBeRead)
 {
-  const auto fstream = FilePaths::getFileStream (FilePaths::BuildingsPath);
+  auto fstream = FilePaths::getFileStream (FilePaths::BuildingsPath);
   ASSERT_NO_THROW (nlohmann::json json = nlohmann::json::parse (fstream));
 }
 
@@ -21,10 +20,7 @@ public:
   void
   SetUp () override
   {
-    const auto path = std::string (FilePaths::getPath ())
-                      + std::string (FilePaths::BuildingsPath);
-
-    std::fstream fstream (path);
+    auto fstream = FilePaths::getFileStream (FilePaths::BuildingsPath);
     json = nlohmann::json::parse (fstream);
   }
 };
@@ -38,6 +34,12 @@ TEST_F (BuildingJson_Fixture, HasAllRequiredFields)
       ASSERT_TRUE (building.contains ("IncreaseToJfish"));
       ASSERT_TRUE (building.contains ("PriceMultiplier"));
       ASSERT_TRUE (building.contains ("BasePrice"));
+      ASSERT_LE (1, building.at ("BasePrice").size ());
+      for (const auto &price : building.at ("BasePrice"))
+        {
+          ASSERT_TRUE (price.contains ("RessourceID"));
+          ASSERT_TRUE (price.contains ("Quantity"));
+        }
     }
 }
 

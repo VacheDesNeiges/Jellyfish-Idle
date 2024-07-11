@@ -13,7 +13,7 @@
 
 CraftingManager::CraftingManager ()
 {
-  const auto fstream = FilePaths::getFileStream (FilePaths::RecipesPath);
+  auto fstream = FilePaths::getFileStream (FilePaths::RecipesPath);
 
   try
     {

@@ -12,7 +12,7 @@
 
 BuildingManager::BuildingManager ()
 {
-  const auto fstream = FilePaths::getFileStream (FilePaths::BuildingsPath);
+  auto fstream = FilePaths::getFileStream (FilePaths::BuildingsPath);
 
   try
     {

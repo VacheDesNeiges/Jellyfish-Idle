@@ -13,7 +13,7 @@
 
 GardenManager::GardenManager ()
 {
-  const auto fstream = FilePaths::getFileStream (FilePaths::CulturesPath);
+  auto fstream = FilePaths::getFileStream (FilePaths::CulturesPath);
 
   try
     {

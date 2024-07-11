@@ -13,7 +13,7 @@
 
 AchievementSystem::AchievementSystem ()
 {
-  const auto fstream = FilePaths::getFileStream (FilePaths::AchievementsPath);
+  auto fstream = FilePaths::getFileStream (FilePaths::AchievementsPath);
 
   try
     {

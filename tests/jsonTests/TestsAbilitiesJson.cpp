@@ -7,7 +7,7 @@
 
 TEST (jsonTests, AbilityFileCanBeRead)
 {
-  const auto fstream = FilePaths::getFileStream (FilePaths::AbilitiesPath);
+  auto fstream = FilePaths::getFileStream (FilePaths::AbilitiesPath);
   ASSERT_NO_THROW (nlohmann::json json = nlohmann::json::parse (fstream));
 }
 
@@ -19,7 +19,7 @@ public:
   void
   SetUp () override
   {
-    const auto fstream = FilePaths::getFileStream (FilePaths::AbilitiesPath);
+    auto fstream = FilePaths::getFileStream (FilePaths::AbilitiesPath);
     json = nlohmann::json::parse (fstream);
   }
 };

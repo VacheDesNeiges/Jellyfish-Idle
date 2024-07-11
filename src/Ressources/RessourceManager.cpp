@@ -13,7 +13,7 @@ RessourceManager::RessourceManager () { init (); }
 void
 RessourceManager::init ()
 {
-  const auto fstream = FilePaths::getFileStream (FilePaths::RessourcesPath);
+  auto fstream = FilePaths::getFileStream (FilePaths::RessourcesPath);
 
   try
     {

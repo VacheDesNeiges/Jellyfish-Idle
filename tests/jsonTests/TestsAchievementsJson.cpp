@@ -7,7 +7,7 @@
 
 TEST (jsonTests, AchievementFileCanBeRead)
 {
-  const auto fstream = FilePaths::getFileStream (FilePaths::AchievementsPath);
+  auto fstream = FilePaths::getFileStream (FilePaths::AchievementsPath);
   ASSERT_NO_THROW (nlohmann::json json = nlohmann::json::parse (fstream));
 }
 
@@ -19,8 +19,7 @@ public:
   void
   SetUp () override
   {
-    const auto fstream
-        = FilePaths::getFileStream (FilePaths::AchievementsPath);
+    auto fstream = FilePaths::getFileStream (FilePaths::AchievementsPath);
 
     json = nlohmann::json::parse (fstream);
   }

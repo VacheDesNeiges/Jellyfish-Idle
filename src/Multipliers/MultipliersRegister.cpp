@@ -12,7 +12,7 @@
 
 MultipliersRegister::MultipliersRegister ()
 {
-  const auto fstream = FilePaths::getFileStream (FilePaths::MultipliersPath);
+  auto fstream = FilePaths::getFileStream (FilePaths::MultipliersPath);
 
   try
     {

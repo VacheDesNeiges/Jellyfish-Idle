@@ -8,13 +8,12 @@
 class BuildingTests_Fixture : public ::testing::Test
 {
 public:
-  nlohmann::json json;
   std::vector<Building> buildings;
   void
   SetUp () override
   {
-    const auto fstream = FilePaths::getFileStream (FilePaths::BuildingsPath);
-    json = nlohmann::json::parse (fstream);
+    auto fstream = FilePaths::getFileStream (FilePaths::BuildingsPath);
+    auto json = nlohmann::json::parse (fstream);
 
     for (const auto &building : json.at ("Buildings"))
       {

@@ -13,7 +13,7 @@
 
 UpgradeManager::UpgradeManager ()
 {
-  const auto fstream = FilePaths::getFileStream (FilePaths::UpgradesPath);
+  auto fstream = FilePaths::getFileStream (FilePaths::UpgradesPath);
 
   try
     {
