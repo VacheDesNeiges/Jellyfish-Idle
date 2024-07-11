@@ -13,7 +13,7 @@ UIRessourcesPanel::render () const
 {
   renderRessources ();
   if (gData->getAchievementsView ()->isUnlocked (
-          AchievementsAlias::ADVANCEDTELEKINESIS))
+          AchievementsAlias::ANYMANUFACTUREDRESSOURCE))
     renderManufacturedRessources ();
 }
 
