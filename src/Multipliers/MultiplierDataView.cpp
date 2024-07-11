@@ -1,5 +1,4 @@
 #include "MultiplierDataView.hpp"
-#include "MultipliersIDs.hpp"
 #include "MultipliersRegister.hpp"
 #include <memory>
 
@@ -16,13 +15,19 @@ MultiplierDataView::getMultiplier (MultiplierID id) const
 }
 
 double
-MultiplierDataView::getMultiplier (RessourceType rtype) const
+MultiplierDataView::getProductionMultiplier (RessourceType rtype) const
 {
   return multipliers->getRessourceProdMultiplier (rtype);
 }
 
 double
-MultiplierDataView::getBuildingMultiplier (BuildingType bType) const
+MultiplierDataView::getProductionMultiplier (BuildingType bType) const
 {
-  return multipliers->getBuildingMultiplier (bType);
+  return multipliers->getBuildingProdMultiplier (bType);
+}
+
+double
+MultiplierDataView::getAllFieldsMultiplier () const
+{
+  return multipliers->getAllFieldsMultiplier ();
 }

@@ -2,8 +2,6 @@
 #include "AquaCulture.hpp"
 #include "FilePaths.hpp"
 #include "GameIDsTypes.hpp"
-#include "MultiplierDataView.hpp"
-#include "MultipliersIDs.hpp"
 
 #include <cstdio>
 #include <fstream>
@@ -108,10 +106,9 @@ GardenManager::getProduction (AquaCultureID id,
 {
   auto vec = cultures.at (id).getBaseProduction ();
 
-  using enum MultiplierID;
   for (auto &[rType, val] : vec)
     {
-      val *= multipliersView ()->getMultiplier (FieldsProductivityMultiplier);
+      val *= multipliersView ()->getAllFieldsMultiplier ();
       val *= (nFields.value_or (assignedFieldsToCultures.at (id)));
     }
 

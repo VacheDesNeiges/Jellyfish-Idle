@@ -62,7 +62,7 @@ BuildingManager::getProduction (BuildingType t)
   auto result = buildings[t].getProdPerTick ();
   for (auto &[rType, prod] : result)
     {
-      prod *= multipliersView ()->getBuildingMultiplier (t);
+      prod *= multipliersView ()->getProductionMultiplier (t);
     }
   return result;
 }
@@ -111,7 +111,7 @@ BuildingManager::getProductionRates () const
         {
           result[rType]
               += (productionRate
-                  * multipliersView ()->getBuildingMultiplier (bType));
+                  * multipliersView ()->getProductionMultiplier (bType));
         }
     }
   return result;

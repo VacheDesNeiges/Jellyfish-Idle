@@ -2,9 +2,8 @@
 
 #include "GameDataAccess.hpp"
 #include "GameIDsTypes.hpp"
-#include "MultipliersIDs.hpp"
+#include "Multiplier.hpp"
 
-#include <array>
 #include <unordered_map>
 
 class MultipliersRegister : public GameDataAccess
@@ -13,35 +12,20 @@ public:
   MultipliersRegister ();
 
   double getMultiplier (MultiplierID) const;
-
   double getRessourceProdMultiplier (RessourceType) const;
   double getJobLvlMultiplier (JellyJob) const;
-  double getBuildingMultiplier (BuildingType) const;
-
-  void buildingBoughtUpdate (BuildingType);
-  void addToMulitplier (MultiplierID, double);
-  void recomputeMultipliers ();
+  double getBuildingProdMultiplier (BuildingType) const;
+  double getAllFieldsMultiplier () const;
 
 private:
-  std::unordered_map<MultiplierID, double> multipliers;
+  std::unordered_map<MultiplierID, std::unique_ptr<Multiplier> > multipliers;
 
-public: // constexpr arrays
-  static constexpr std::array<std::pair<JellyJob, MultiplierID>, 1>
-      jobLevelMultipliers = {
-        std::pair{ JobsAlias::MINING, MultiplierID::MiningLevelMultiplier },
-      };
-
-  static constexpr std::array<std::pair<BuildingType, MultiplierID>, 2>
-      buildingMultipliers = {
-        std::pair{ BuildingsAlias::MINES,
-                   MultiplierID::StoneProdPerMineMultiplier },
-        std::pair{ BuildingsAlias::AQUATICFIELD,
-                   MultiplierID::FieldsProductivityMultiplier },
-      };
-
-  static constexpr std::array<MultiplierID, 3> allMultipliers = {
-    MultiplierID::StoneProdPerMineMultiplier,
-    MultiplierID::MiningLevelMultiplier,
-    MultiplierID::FieldsProductivityMultiplier,
-  };
+  struct
+  {
+    std::vector<MultiplierID> allFieldsProd;
+    std::unordered_map<RessourceType, std::vector<MultiplierID> >
+        ressourceProd;
+    std::unordered_map<BuildingType, std::vector<MultiplierID> > buildingProd;
+    std::unordered_map<JellyJob, std::vector<MultiplierID> > jobLvlProd;
+  } multipliersCategories;
 };

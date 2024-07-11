@@ -209,7 +209,7 @@ struct std::hash<UpgradeID>
 };
 
 /**
- * @brief ID for the ressources type
+ * @brief ID for the recipe id type
  * Implements comparaison operators and hash function for use in std::map
  * the underlying value is an int
  *
@@ -234,6 +234,37 @@ struct std::hash<RecipeID>
 {
   std::size_t
   operator() (const RecipeID &r) const noexcept
+  {
+    return std::hash<int>{}(r.value);
+  }
+};
+
+/**
+ * @brief ID for the multiplier ID type
+ * Implements comparaison operators and hash function for use in std::map
+ * the underlying value is an int
+ *
+ */
+struct MultiplierID
+{
+  int value;
+
+  MultiplierID () : value (0) {}
+  constexpr explicit MultiplierID (int x) : value (x){};
+
+  friend std::strong_ordering operator<=> (const MultiplierID &lhs,
+                                           const MultiplierID &rhs)
+      = default;
+
+  constexpr explicit operator int () const { return value; }
+};
+
+template <>
+
+struct std::hash<MultiplierID>
+{
+  std::size_t
+  operator() (const MultiplierID &r) const noexcept
   {
     return std::hash<int>{}(r.value);
   }

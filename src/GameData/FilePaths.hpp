@@ -20,8 +20,9 @@ inline constexpr std::string_view UpgradesPath = "/assets/jsons/upgrades.json";
 inline constexpr std::string_view AbilitiesPath
     = "/assets/jsons/abilities.json";
 inline constexpr std::string_view CulturesPath = "/assets/jsons/cultures.json";
-
 inline constexpr std::string_view RecipesPath = "/assets/jsons/recipes.json";
+inline constexpr std::string_view MultipliersPath
+    = "/assets/jsons/multipliers.json";
 
 inline std::string_view
 getPath ()

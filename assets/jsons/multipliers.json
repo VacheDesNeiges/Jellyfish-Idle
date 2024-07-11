@@ -1,0 +1,26 @@
+{
+  "Multipliers": [
+    {
+      "Name": "Stone Production Per Mine",
+      "ID": 1,
+      "BaseMultiplier": 0.10,
+      "Multiplies": {
+        "ProdOfRessourceID": 3
+      },
+      "Source": {
+        "PerBuildingID": 3
+      }
+    },
+    {
+      "Name": "Field Production Per Aquatic Field",
+      "ID": 1,
+      "BaseMultiplier": 0.08,
+      "Multiplies": {
+        "ProdOfAllFields": true
+      },
+      "Source": {
+        "PerBuildingID": 1
+      }
+    }
+  ]
+}

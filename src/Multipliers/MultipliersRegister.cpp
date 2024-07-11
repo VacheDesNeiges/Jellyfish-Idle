@@ -1,110 +1,101 @@
 #include "MultipliersRegister.hpp"
 
+#include "FilePaths.hpp"
 #include "GameIDsTypes.hpp"
-#include "MultipliersConstants.hpp"
-#include "MultipliersIDs.hpp"
+#include "Multiplier.hpp"
+
+#include "fstream"
+#include "nlohmann/json.hpp"
+#include <iostream>
 #include <linux/limits.h>
+#include <memory>
+#include <nlohmann/json_fwd.hpp>
 
 MultipliersRegister::MultipliersRegister ()
 {
-  for (const auto &multi : allMultipliers)
+  const auto path = std::string (FilePaths::getPath ())
+                    + std::string (FilePaths::MultipliersPath);
+  std::ifstream fstream (path);
+  try
     {
-      multipliers[multi] = 1;
+      auto multipliersJson = nlohmann::json::parse (fstream);
+
+      multipliers.reserve (multipliersJson.at ("Multipliers").size ());
+
+      for (const auto &mult : multipliersJson["Multipliers"])
+        {
+          MultiplierID multID{ mult.at ("ID") };
+
+          if (mult.at ("Source").contains ("PerBuildingID"))
+            {
+              multipliers[multID] = std::make_unique<PerBuildingMultiplier> (
+                  mult.at ("BaseMultiplier"),
+                  BuildingType (mult.at ("Source").at ("PerBuildingID")));
+            }
+
+          if (mult.at ("Multiplies").contains ("ProdOfRessourceID"))
+            {
+              RessourceType rType{
+                mult.at ("Multiplies").at ("ProdOfRessourceID")
+              };
+              multipliersCategories.ressourceProd[rType].push_back (multID);
+            }
+          else if (mult.at ("Multiplies").contains ("ProdOfAllFields"))
+            {
+              multipliersCategories.allFieldsProd.push_back (multID);
+            }
+        }
+    }
+  catch (nlohmann::json::exception &e)
+    {
+      std::cerr << "Error while parsing multipliers :\n" << e.what () << "\n";
+      abort ();
     }
 }
 
 double
 MultipliersRegister::getMultiplier (MultiplierID id) const
 {
-  return multipliers.at (id);
+  return 1 + multipliers.at (id)->getMultValue ();
 }
 
-void
-MultipliersRegister::addToMulitplier (MultiplierID id, double val)
+double
+MultipliersRegister::getRessourceProdMultiplier (RessourceType rType) const
 {
-  multipliers[id] += val;
-}
-
-void
-MultipliersRegister::recomputeMultipliers ()
-{
-  for (const auto &multi : allMultipliers)
+  double result = 1;
+  const auto &multVectorIt = multipliersCategories.ressourceProd.find (rType);
+  if (multVectorIt != multipliersCategories.ressourceProd.end ())
     {
-      multipliers.at (multi) = 1;
-
-      switch (multi)
+      for (const auto mult : multVectorIt->second)
         {
-        case MultiplierID::StoneProdPerMineMultiplier:
-          {
-            auto minesQuant = buildingsView ()->getBuildingQuantity (
-                BuildingsAlias::MINES);
-
-            multipliers[multi]
-                += MultipliersConstants::StoneProdPerMine * minesQuant;
-          }
-          break;
-
-        case MultiplierID::FieldsProductivityMultiplier:
-          {
-            auto fieldsQuantity = buildingsView ()->getBuildingQuantity (
-                BuildingsAlias::AQUATICFIELD);
-
-            multipliers[multi]
-                += MultipliersConstants::FieldsProductivityMultiplier
-                   * (fieldsQuantity - 1);
-          }
-          break;
-
-        default:
-          continue;
+          result += multipliers.at (mult)->getMultValue ();
         }
     }
-}
-
-void
-MultipliersRegister::buildingBoughtUpdate (BuildingType t)
-{
-  switch (static_cast<int> (t))
-    {
-
-    case static_cast<int> (BuildingsAlias::MINES):
-
-      multipliers.at (MultiplierID::StoneProdPerMineMultiplier)
-          += MultipliersConstants::StoneProdPerMine;
-      break;
-
-    case static_cast<int> (BuildingsAlias::AQUATICFIELD):
-      multipliers.at (MultiplierID::FieldsProductivityMultiplier)
-          += MultipliersConstants::FieldsProductivityMultiplier;
-      break;
-
-    default:
-      return;
-    }
+  return result;
 }
 
 double
-MultipliersRegister::getRessourceProdMultiplier (RessourceType rtype) const
+MultipliersRegister::getBuildingProdMultiplier (BuildingType bType) const
 {
-  switch (static_cast<int> (rtype))
+  double result = 1;
+  const auto &multVectorIt = multipliersCategories.buildingProd.find (bType);
+  if (multVectorIt != multipliersCategories.buildingProd.end ())
     {
-    case static_cast<int> (RessourcesAlias::STONE):
-      return multipliers.at (MultiplierID::StoneProdPerMineMultiplier);
-
-    default:
-      return 1;
+      for (const auto mult : multVectorIt->second)
+        {
+          result += multipliers.at (mult)->getMultValue ();
+        }
     }
+  return result;
 }
 
 double
-MultipliersRegister::getBuildingMultiplier (BuildingType bType) const
+MultipliersRegister::getAllFieldsMultiplier () const
 {
-  switch (static_cast<int> (bType))
+  double result = 1;
+  for (const auto &mult : multipliersCategories.allFieldsProd)
     {
-    case static_cast<int> (BuildingsAlias::AQUATICFIELD):
-      return multipliers.at (MultiplierID::FieldsProductivityMultiplier);
-
-    default:
-      return 1;
+      result += multipliers.at (mult)->getMultValue ();
     }
+  return result;
 }

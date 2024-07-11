@@ -76,7 +76,6 @@ InputHandler::buy (BuildingType t) const
       systems->ressources->add (rType, -quant);
     }
   systems->buildings->buy (t);
-  systems->multipliers->buildingBoughtUpdate (t);
 
   if (systems->buildings->doesIncreasesMaxJellies (t))
     updateMaxNumJellies ();

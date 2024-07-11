@@ -155,7 +155,7 @@ JellyfishManager::getProductionRates () const
   std::unordered_map<RessourceType, double> result;
 
   result[STONE] = (jobNumbers.at (JobsAlias::MINING) * 0.1)
-                  * multipliersView ()->getMultiplier (STONE);
+                  * multipliersView ()->getProductionMultiplier (STONE);
 
   result[INSIGHT] = jobNumbers.at (JobsAlias::FOCUS) * 0.16;
 

@@ -64,7 +64,6 @@ void
 GameSynchronizer::synchronizeSystems () const
 {
   systems->crafts->updateAssignments ();
-  systems->multipliers->recomputeMultipliers ();
   systems->ressources->recomputeMaxQuantities ();
   gameTick ();
 }
@@ -75,13 +74,9 @@ GameSynchronizer::distributeExp () const
   if (systems->achievements->isUnlocked (UpgradesAlias::LEVELING))
     {
 
-      bool hasLeveledUp = systems->jellies->distributeJobExp ();
+      systems->jellies->distributeJobExp ();
 
-      if (systems->crafts->distributeCraftsExp ())
-        hasLeveledUp = true;
-
-      if (hasLeveledUp)
-        systems->multipliers->recomputeMultipliers ();
+      systems->crafts->distributeCraftsExp ();
     }
 }
 
