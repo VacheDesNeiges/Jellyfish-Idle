@@ -61,8 +61,10 @@ double
 MultipliersRegister::getRessourceProdMultiplier (RessourceType rType) const
 {
   double result = 1;
-  const auto &multVectorIt = multipliersCategories.ressourceProd.find (rType);
-  if (multVectorIt != multipliersCategories.ressourceProd.end ())
+
+  if (const auto &multVectorIt
+      = multipliersCategories.ressourceProd.find (rType);
+      multVectorIt != multipliersCategories.ressourceProd.end ())
     {
       for (const auto mult : multVectorIt->second)
         {
@@ -76,8 +78,9 @@ double
 MultipliersRegister::getBuildingProdMultiplier (BuildingType bType) const
 {
   double result = 1;
-  const auto &multVectorIt = multipliersCategories.buildingProd.find (bType);
-  if (multVectorIt != multipliersCategories.buildingProd.end ())
+  if (const auto &multVectorIt
+      = multipliersCategories.buildingProd.find (bType);
+      multVectorIt != multipliersCategories.buildingProd.end ())
     {
       for (const auto mult : multVectorIt->second)
         {
