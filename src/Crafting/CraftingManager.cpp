@@ -5,7 +5,6 @@
 #include "GameIDsTypes.hpp"
 
 #include <cstddef>
-#include <fstream>
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <string>
@@ -14,10 +13,8 @@
 
 CraftingManager::CraftingManager ()
 {
-  const auto path = std::string (FilePaths::getPath ())
-                    + std::string (FilePaths::RecipesPath);
+  const auto fstream = FilePaths::getFileStream (FilePaths::RecipesPath);
 
-  std::ifstream fstream (path);
   try
     {
       auto recipesJson = nlohmann::json::parse (fstream);

@@ -9,10 +9,7 @@
 
 TEST (jsonTests, BuildingFileCanBeRead)
 {
-  const auto path = std::string (FilePaths::getPath ())
-                    + std::string (FilePaths::BuildingsPath);
-
-  std::fstream fstream (path);
+  const auto fstream = FilePaths::getFileStream (FilePaths::BuildingsPath);
   ASSERT_NO_THROW (nlohmann::json json = nlohmann::json::parse (fstream));
 }
 

@@ -3,7 +3,6 @@
 #include "GameIDsTypes.hpp"
 
 #include <cmath>
-#include <fstream>
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <unordered_map>
@@ -14,10 +13,7 @@ RessourceManager::RessourceManager () { init (); }
 void
 RessourceManager::init ()
 {
-  const auto path = std::string (FilePaths::getPath ())
-                    + std::string (FilePaths::RessourcesPath);
-
-  std::ifstream fstream (path);
+  const auto fstream = FilePaths::getFileStream (FilePaths::RessourcesPath);
 
   try
     {

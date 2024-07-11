@@ -4,7 +4,6 @@
 #include "GameIDsTypes.hpp"
 #include "Multiplier.hpp"
 
-#include "fstream"
 #include "nlohmann/json.hpp"
 #include <iostream>
 #include <linux/limits.h>
@@ -13,9 +12,8 @@
 
 MultipliersRegister::MultipliersRegister ()
 {
-  const auto path = std::string (FilePaths::getPath ())
-                    + std::string (FilePaths::MultipliersPath);
-  std::ifstream fstream (path);
+  const auto fstream = FilePaths::getFileStream (FilePaths::MultipliersPath);
+
   try
     {
       auto multipliersJson = nlohmann::json::parse (fstream);

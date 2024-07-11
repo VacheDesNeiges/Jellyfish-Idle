@@ -4,20 +4,16 @@
 #include "GameIDsTypes.hpp"
 #include "UpgradeDataView.hpp"
 
-#include <fstream>
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <span>
-#include <string>
 #include <string_view>
 #include <utility>
 #include <vector>
 
 UpgradeManager::UpgradeManager ()
 {
-  const auto path = std::string (FilePaths::getPath ())
-                    + std::string (FilePaths::UpgradesPath);
-  std::ifstream fstream (path);
+  const auto fstream = FilePaths::getFileStream (FilePaths::UpgradesPath);
 
   try
     {

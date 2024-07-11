@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cassert>
+#include <fstream>
 #include <linux/limits.h>
 #include <string>
 #include <string_view>
@@ -43,6 +44,13 @@ getPath ()
       return path;
     }
   assert (false);
+}
+
+inline std::fstream
+getFileStream (std::string_view jsonPath)
+{
+  const auto path = std::string (getPath ()) + std::string (jsonPath);
+  return std::fstream (path);
 }
 
 }

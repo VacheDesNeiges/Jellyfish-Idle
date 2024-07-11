@@ -2,7 +2,6 @@
 #include "BuildingManager.hpp"
 #include "FilePaths.hpp"
 #include "GameIDsTypes.hpp"
-#include "fstream"
 #include "gtest/gtest.h"
 #include <vector>
 
@@ -14,11 +13,9 @@ public:
   void
   SetUp () override
   {
-    const auto path = std::string (FilePaths::getPath ())
-                      + std::string (FilePaths::BuildingsPath);
-
-    std::fstream fstream (path);
+    const auto fstream = FilePaths::getFileStream (FilePaths::BuildingsPath);
     json = nlohmann::json::parse (fstream);
+
     for (const auto &building : json.at ("Buildings"))
       {
         buildings.emplace_back (building);

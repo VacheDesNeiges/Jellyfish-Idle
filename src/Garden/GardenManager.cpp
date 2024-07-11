@@ -4,7 +4,6 @@
 #include "GameIDsTypes.hpp"
 
 #include <cstdio>
-#include <fstream>
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <span>
@@ -14,9 +13,8 @@
 
 GardenManager::GardenManager ()
 {
-  const auto path = std::string (FilePaths::getPath ())
-                    + std::string (FilePaths::CulturesPath);
-  std::ifstream fstream (path);
+  const auto fstream = FilePaths::getFileStream (FilePaths::CulturesPath);
+
   try
     {
       auto culturesJson = nlohmann::json::parse (fstream);

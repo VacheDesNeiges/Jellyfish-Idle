@@ -5,7 +5,6 @@
 
 #include <algorithm>
 #include <cmath>
-#include <fstream>
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <nlohmann/json_fwd.hpp>
@@ -16,9 +15,7 @@
 JellyfishManager::JellyfishManager ()
 {
 
-  const auto path = std::string (FilePaths::getPath ())
-                    + std::string (FilePaths::JobsPath);
-  std::ifstream fstream (path);
+  const auto fstream = FilePaths::getFileStream (FilePaths::JobsPath);
 
   try
     {

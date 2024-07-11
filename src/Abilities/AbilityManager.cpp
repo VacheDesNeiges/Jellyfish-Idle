@@ -3,15 +3,12 @@
 #include "FilePaths.hpp"
 #include "GameIDsTypes.hpp"
 #include <cstdio>
-#include <fstream>
 #include <iostream>
 #include <span>
 
 AbilityManager::AbilityManager ()
 {
-  const auto path = std::string (FilePaths::getPath ())
-                    + std::string (FilePaths::AbilitiesPath);
-  std::ifstream fstream (path);
+  const auto fstream = FilePaths::getFileStream (FilePaths::AbilitiesPath);
 
   try
     {

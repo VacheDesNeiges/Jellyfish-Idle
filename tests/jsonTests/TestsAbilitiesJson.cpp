@@ -1,17 +1,13 @@
 #include "FilePaths.hpp"
 #include "GameIDsTypes.hpp"
 #include "gtest/gtest.h"
-#include <fstream>
 #include <nlohmann/json.hpp>
 #include <nlohmann/json_fwd.hpp>
 #include <set>
 
 TEST (jsonTests, AbilityFileCanBeRead)
 {
-  const auto path = std::string (FilePaths::getPath ())
-                    + std::string (FilePaths::AbilitiesPath);
-
-  std::fstream fstream (path);
+  const auto fstream = FilePaths::getFileStream (FilePaths::AbilitiesPath);
   ASSERT_NO_THROW (nlohmann::json json = nlohmann::json::parse (fstream));
 }
 
@@ -23,10 +19,7 @@ public:
   void
   SetUp () override
   {
-    const auto path = std::string (FilePaths::getPath ())
-                      + std::string (FilePaths::AbilitiesPath);
-
-    std::fstream fstream (path);
+    const auto fstream = FilePaths::getFileStream (FilePaths::AbilitiesPath);
     json = nlohmann::json::parse (fstream);
   }
 };

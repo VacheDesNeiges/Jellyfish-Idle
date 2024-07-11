@@ -4,7 +4,6 @@
 #include "GameIDsTypes.hpp"
 
 #include <algorithm>
-#include <fstream>
 #include <iostream>
 #include <string>
 #include <unordered_map>
@@ -13,9 +12,8 @@
 
 BuildingManager::BuildingManager ()
 {
-  const auto path = std::string (FilePaths::getPath ())
-                    + std::string (FilePaths::BuildingsPath);
-  std::ifstream fstream (path);
+  const auto fstream = FilePaths::getFileStream (FilePaths::BuildingsPath);
+
   try
     {
       auto buildingsJson = nlohmann::json::parse (fstream);

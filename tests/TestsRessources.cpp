@@ -3,9 +3,7 @@
 #include "RessourceManager.hpp"
 #include "gtest/gtest.h"
 #include <cassert>
-#include <fstream>
 #include <nlohmann/json_fwd.hpp>
-#include <string>
 #include <vector>
 
 class RessourcesTests_Fixture : public ::testing::Test
@@ -16,10 +14,9 @@ public:
   void
   SetUp () override
   {
-    const auto path = std::string (FilePaths::getPath ())
-                      + std::string (FilePaths::RessourcesPath);
-    std::fstream fstream (path);
+    const auto fstream = FilePaths::getFileStream (FilePaths::RessourcesPath);
     const auto &json = nlohmann::json::parse (fstream);
+
     for (const auto &ressource : json.at ("Ressources"))
       {
         ressources.emplace_back (ressource);

@@ -4,7 +4,6 @@
 #include "FilePaths.hpp"
 #include "GameIDsTypes.hpp"
 
-#include <fstream>
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <optional>
@@ -14,10 +13,8 @@
 
 AchievementSystem::AchievementSystem ()
 {
-  const auto path = std::string (FilePaths::getPath ())
-                    + std::string (FilePaths::AchievementsPath);
+  const auto fstream = FilePaths::getFileStream (FilePaths::AchievementsPath);
 
-  std::ifstream fstream (path);
   try
     {
       auto json = nlohmann::json::parse (fstream);
