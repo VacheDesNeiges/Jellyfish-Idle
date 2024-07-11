@@ -3,7 +3,7 @@
     {
       "Name": "Food",
       "Id": 1,
-      "Max_Quantity": 2000
+      "Max_Quantity": 500
     },
     {
       "Name": "Sand",

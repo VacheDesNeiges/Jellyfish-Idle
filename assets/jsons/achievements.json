@@ -280,7 +280,7 @@
       "Type": "Jfish",
       "Name": "First Jelly",
       "ID": 3000,
-      "Notification": true,
+      "Notification": "You lured your first jellyfish. You can now assign it a job in the job tab. For now, you can only choose to explore the sea, maybe you'll find something interesting!",
       "Condition": [
         {
           "NumJfish": 1
@@ -356,7 +356,7 @@
       "Type": "Depth",
       "Name": "Depth System",
       "ID": 4000,
-      "Notification": true,
+      "Notification": "With time, your jellies assigned to exploring will discover many useful things that will help your progression. You can see what they have found so far in the depth tab",
       "Condition": [
         {
           "Job": 2,

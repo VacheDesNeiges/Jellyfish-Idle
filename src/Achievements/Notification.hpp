@@ -1,14 +1,13 @@
 #pragma once
 
-#include "GameIDsTypes.hpp"
-#include <string_view>
+#include <string>
 
 class Notification
 {
 public:
-  explicit Notification (AchievementIDs);
+  explicit Notification (const std::string &);
   std::string_view getNotificationText () const;
 
 private:
-  std::string_view text;
+  std::string text;
 };

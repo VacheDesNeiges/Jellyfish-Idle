@@ -32,7 +32,7 @@ AchievementSystem::AchievementSystem ()
           if (achiev.contains ("Notification"))
             {
               notifications.try_emplace (AchievementIDs (achiev.at ("ID")),
-                                         AchievementIDs (achiev.at ("ID")));
+                                         achiev.at ("Notification"));
             }
         }
     }
