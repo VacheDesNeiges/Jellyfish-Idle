@@ -14,7 +14,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}\
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 if(DEBUG_MODE)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g" )
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
 else()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 endif()
@@ -43,9 +43,8 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/src/Multipliers
     ${CMAKE_SOURCE_DIR}/src/Depth
     ${CMAKE_SOURCE_DIR}/src/Garden
-
 )
-    
+
 file(GLOB_RECURSE SRCS ${CMAKE_SOURCE_DIR}/src/*.cpp ${CMAKE_SOURCE_DIR}/imgui/*.cpp)
 list(FILTER SRCS EXCLUDE REGEX "Main.cpp|TestsMain.cpp")
 
@@ -61,7 +60,9 @@ set_target_properties(game PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${BUILD_DIR}
 )
 
-file(GLOB_RECURSE TEST_SRCS ${CMAKE_SOURCE_DIR}/tests/*.cpp)
+file(GLOB_RECURSE TEST_SRCS
+    ${CMAKE_SOURCE_DIR}/tests/*.cpp
+    ${CMAKE_SOURCE_DIR}/tests/jsonTests/*.cpp)
 list(FILTER TEST_SRCS EXCLUDE REGEX "Main.cpp|TestsMain.cpp")
 
 set(TEST_BUILD_DIR ${CMAKE_BINARY_DIR})
