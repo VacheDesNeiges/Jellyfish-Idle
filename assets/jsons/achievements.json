@@ -263,7 +263,11 @@
         {
           "Depth": 15
         }
-      ]
+      ],
+      "DepthReward": {
+        "Name": "Sand Worms",
+        "Description": "Those helpful critters will produce sand for you!"
+      }
     },
     {
       "Type": "Garden",
@@ -274,7 +278,11 @@
         {
           "Depth": 30
         }
-      ]
+      ],
+      "DepthReward": {
+        "Name": "Oysters",
+        "Description": "Those cute molluscs can produce pearls for you!"
+      }
     },
     {
       "Type": "Jfish",
@@ -372,7 +380,11 @@
         {
           "Depth": 10
         }
-      ]
+      ],
+      "DepthReward": {
+        "Name": "Ancient Octopus",
+        "Description": "You've found a wise and ageless octopus, maybe they can teach you a thing or two!"
+      }
     },
     {
       "Type": "Upgrade",

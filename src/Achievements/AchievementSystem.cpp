@@ -4,10 +4,12 @@
 #include "FilePaths.hpp"
 #include "GameIDsTypes.hpp"
 
+#include <algorithm>
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <optional>
 #include <ranges>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -31,6 +33,11 @@ AchievementSystem::AchievementSystem ()
               notifications.try_emplace (AchievementIDs (achiev.at ("ID")),
                                          achiev.at ("Notification"));
             }
+
+          if (achiev.contains ("DepthReward"))
+            {
+              parseDepthReward (achiev);
+            }
         }
     }
   catch (nlohmann::json::exception &e)
@@ -38,10 +45,25 @@ AchievementSystem::AchievementSystem ()
       std::cerr << "Error while parsing achievements :\n" << e.what () << "\n";
       abort ();
     }
+
+  auto comparator = [] (const auto &lhs, const auto &rhs) {
+    return std::get<1> (lhs) > std::get<1> (rhs);
+  };
+  std::ranges::sort (depthRewards, comparator);
 }
 
 void
-AchievementSystem::insertIdInSearchMaps (nlohmann::json achievement)
+AchievementSystem::parseDepthReward (const nlohmann::json &achiev)
+{
+  depthRewards.emplace_back (
+      std::tuple{ AchievementIDs (achiev.at ("ID")),
+                  achiev.at ("Condition")[0].at ("Depth"),
+                  achiev.at ("DepthReward").at ("Name"),
+                  achiev.at ("DepthReward").at ("Description") });
+}
+
+void
+AchievementSystem::insertIdInSearchMaps (const nlohmann::json &achievement)
 {
   idMaps.allAchievementsIDs.push_back (AchievementIDs (achievement.at ("ID")));
 
@@ -195,4 +217,11 @@ std::span<const AchievementIDs>
 AchievementSystem::getAchievementsIDs () const
 {
   return std::span (idMaps.allAchievementsIDs);
+}
+
+std::span<
+    const std::tuple<AchievementIDs, unsigned, std::string, std::string> >
+AchievementSystem::getDepthRewards () const
+{
+  return std::span (depthRewards);
 }

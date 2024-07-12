@@ -45,6 +45,15 @@ UIUtils::setBaseUITheme ()
 
   colors[ImGuiCol_Tab] = UIColors::UnfocusedTransparentElement;
   colors[ImGuiCol_TabHovered] = UIColors::ActivatedElement;
+
+  colors[ImGuiCol_HeaderHovered] = UIColors::Buttons;
+  colors[ImGuiCol_HeaderActive] = UIColors::Buttons;
+
+  colors[ImGuiCol_TableHeaderBg] = UIColors::Buttons;
+  colors[ImGuiCol_TableBorderLight] = UIColors::UnfocusedTransparentElement;
+  colors[ImGuiCol_TableBorderStrong] = UIColors::UnfocusedTransparentElement;
+  colors[ImGuiCol_TableRowBg] = UIColors::FullyTransparent;
+  colors[ImGuiCol_TableRowBgAlt] = UIColors::Dimming;
 }
 
 void

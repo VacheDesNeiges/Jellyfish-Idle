@@ -1,6 +1,7 @@
 #include "AchievementDataView.hpp"
 
 #include "AchievementSystem.hpp"
+#include "GameIDsTypes.hpp"
 #include <optional>
 #include <string_view>
 
@@ -55,4 +56,11 @@ std::optional<std::string_view>
 AchievementDataView::getNextNotification () const
 {
   return achievements->getNotification ();
+}
+
+std::span<
+    const std::tuple<AchievementIDs, unsigned, std::string, std::string> >
+AchievementDataView::getDepthRewards () const
+{
+  return achievements->getDepthRewards ();
 }

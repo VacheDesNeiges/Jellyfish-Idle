@@ -41,12 +41,20 @@ public:
 
   std::span<const AchievementIDs> getAchievementsIDs () const;
 
+  std::span<
+      const std::tuple<AchievementIDs, unsigned, std::string, std::string> >
+  getDepthRewards () const;
+
 private:
-  void insertIdInSearchMaps (nlohmann::json);
+  void insertIdInSearchMaps (const nlohmann::json &);
+  void parseDepthReward (const nlohmann::json &);
   std::unordered_map<AchievementIDs, Achievement> achievements;
 
   std::unordered_map<AchievementIDs, Notification> notifications;
   std::queue<Notification> notificationQueue;
+
+  std::vector<std::tuple<AchievementIDs, unsigned, std::string, std::string> >
+      depthRewards;
 
   struct
   {

@@ -2,6 +2,7 @@
 #include "GameIDsTypes.hpp"
 #include <memory>
 #include <optional>
+#include <span>
 #include <string_view>
 
 class AchievementSystem;
@@ -20,6 +21,10 @@ public:
   bool isUnlocked (AquaCultureID) const;
 
   std::optional<std::string_view> getNextNotification () const;
+
+  std::span<
+      const std::tuple<AchievementIDs, unsigned, std::string, std::string> >
+  getDepthRewards () const;
 
 private:
   std::shared_ptr<AchievementSystem> achievements;
