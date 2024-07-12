@@ -17,6 +17,7 @@ UIUtils::setBaseUITheme ()
 
   ImVec4 *colors = ImGui::GetStyle ().Colors;
 
+  colors[ImGuiCol_Border] = UIColors::UnfocusedTransparentElement;
   colors[ImGuiCol_Text] = UIColors::RegularText;
 
   colors[ImGuiCol_ModalWindowDimBg] = UIColors::Dimming;

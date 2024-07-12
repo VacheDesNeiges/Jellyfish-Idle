@@ -20,11 +20,14 @@ constexpr ImVec4 ValidText (0, 1, 0, 1);
 constexpr ImVec4 FullyTransparent (0, 0, 0, 0);
 constexpr ImVec4 Buttons (0.069f, 0.071f, 0.109f, 1.000f);
 
+constexpr ImVec4 CardElements (0, 0, 0, 0.85f);
+
 constexpr ImVec4 HoveredElements (0.642f, 0.000f, 0.116f, 1.000f);
 constexpr ImVec4 ActivatedElement (0.896f, 0.000f, 0.162f, 1.000f);
 
 constexpr ImVec4 ActivatedTransparentElement (0.796f, 0.039f, 0.176f, 0.494f);
 constexpr ImVec4 UnfocusedTransparentElement (0.134f, 0.000f, 0.000f, 0.826f);
+
 constexpr ImVec4 Dimming (0.174f, 0.085f, 0.117f, 0.478f);
 constexpr ImVec4 NotificationBG (0.682f, 0.295f, 0.210f, 1.000f);
 }

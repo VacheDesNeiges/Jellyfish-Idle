@@ -100,7 +100,7 @@ UIJobsPanel::renderRecipes () const
                                 RecipesAlias::NONE))
                    .c_str ());
 
-  ImGui::PushStyleColor (ImGuiCol_ChildBg, IM_COL32 (0, 0, 0, 220));
+  ImGui::PushStyleColor (ImGuiCol_ChildBg, UIColors::CardElements);
   ImGui::PushStyleColor (ImGuiCol_Separator,
                          ImVec4 (0.791f, 0.130f, 0.130f, 0.652f));
   for (const auto &recipe : gData->getCraftView ()->getRecipeTypes ())

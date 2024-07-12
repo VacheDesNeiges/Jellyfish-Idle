@@ -1,5 +1,6 @@
 #include "UIGardenPanel.hpp"
 #include "GameIDsTypes.hpp"
+#include "UIUtils.hpp"
 #include "imgui.h"
 #include <fmt/core.h>
 #include <string>
@@ -20,7 +21,7 @@ UIGardenPanel::render () const
                gData->getGardenView ()->getAssignedFieldsToCulture (
                    CulturesAlias::NONE));
 
-  ImGui::PushStyleColor (ImGuiCol_ChildBg, IM_COL32 (0, 0, 0, 220));
+  ImGui::PushStyleColor (ImGuiCol_ChildBg, UIColors::CardElements);
   ImGui::PushStyleColor (ImGuiCol_Separator,
                          ImVec4 (0.791f, 0.130f, 0.130f, 0.652f));
   for (const auto &culture : gData->getGardenView ()->getCultureTypes ())
