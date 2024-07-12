@@ -3,6 +3,9 @@
 
 This repository contains a work-in-progress jellyfish themed incremental game
 
+![Screenshot](https://github.com/VacheDesNeiges/Jellyfish-Idle/assets/jfishGame.png)
+
+
 # Installation
 Install the required dependencies, then run the command
 ```
