@@ -8,7 +8,7 @@ UINotification::render () const
       notif.has_value ())
     {
 
-      ImGui::SetNextWindowSize (ImGui::GetMainViewport ()->GetCenter ());
+      ImGui::SetNextWindowSize ({ 400, 250 });
 
       ImGui::OpenPopup ("Notification");
       if (ImGui::BeginPopupModal (

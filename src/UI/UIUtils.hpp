@@ -23,5 +23,5 @@ void printCostsImGui (
 
 namespace UIConstants
 {
-constexpr auto UIBuildingButtonSize = ImVec2{ 300.f, 45.f };
+constexpr auto UIBuildingButtonSize = ImVec2{ 300.f, 35.f };
 }

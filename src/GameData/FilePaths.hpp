@@ -9,7 +9,7 @@
 
 namespace FilePaths
 {
-inline constexpr std::string_view FontPath = "/assets/font/OpenSans-Bold.ttf";
+inline constexpr std::string_view FontPath = "/assets/font/asap.ttf";
 inline constexpr std::string_view RessourcesPath
     = "/assets/jsons/ressources.json";
 inline constexpr std::string_view BuildingsPath

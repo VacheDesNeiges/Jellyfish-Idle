@@ -1,5 +1,4 @@
 #pragma once
-#include "InsightAbility.hpp"
 #include "UIElement.hpp"
 
 class UIAbilitiesPanel : public UIElement

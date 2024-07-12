@@ -127,7 +127,7 @@ Game::loadFont ()
 {
   std::string path (FilePaths::getPath ());
   path += FilePaths::FontPath;
-  io->Fonts->AddFontFromFileTTF (path.c_str (), 17);
+  io->Fonts->AddFontFromFileTTF (path.c_str (), 15);
 }
 
 void
@@ -135,27 +135,35 @@ Game::setImguiStyle () const
 {
   ImGuiStyle &style = ImGui::GetStyle ();
   style.SeparatorTextAlign = { 0.5, 0.5 };
-  style.FrameRounding = 12.f;
+  style.FrameRounding = 5.f;
   style.FramePadding = { 20.f, 3.f };
-  style.WindowRounding = 12.f;
+  style.WindowRounding = 5.f;
   style.WindowMenuButtonPosition = ImGuiDir_None;
   style.TabBarBorderSize = 0;
 
   ImVec4 *colors = ImGui::GetStyle ().Colors;
+
+  colors[ImGuiCol_Text] = ImVec4 (1, 1, 1, 1);
+
+  colors[ImGuiCol_ModalWindowDimBg] = ImVec4 (0.123f, 0.687f, 0.493f, 0.350f);
+
   colors[ImGuiCol_WindowBg] = ImVec4 (0.010f, 0.019f, 0.060f, 0.000f);
   colors[ImGuiCol_PopupBg] = ImVec4 (0.2f, 0.2f, 0.2f, 0.8f);
-  colors[ImGuiCol_Button] = ImVec4 (0.31f, 0.76f, 0.83f, 0.41f);
-  colors[ImGuiCol_ButtonHovered] = ImVec4 (0.20f, 0.49f, 0.50f, 1.00f);
+  colors[ImGuiCol_Button] = ImVec4 (0.137f, 0.144f, 0.176f, 0.620f);
+  colors[ImGuiCol_ButtonHovered] = ImVec4 (0.182f, 0.733f, 0.546f, 0.790f);
+  colors[ImGuiCol_ButtonActive] = ImVec4 (0.182f, 0.733f, 0.546f, 1);
 
   colors[ImGuiCol_TitleBg] = ImVec4 (0.040f, 0.040f, 0.040f, 1.000f);
   colors[ImGuiCol_TitleBgActive] = ImVec4 (0.040f, 0.040f, 0.040f, 1.000f);
 
-  colors[ImGuiCol_TabUnfocused] = ImVec4 (0.011f, 0.017f, 0.774f, 0.972f);
+  colors[ImGuiCol_TabUnfocused] = ImVec4 (0.137f, 0.144f, 0.176f, 0.620f);
+
   colors[ImGuiCol_TabUnfocusedActive]
-      = ImVec4 (0.011f, 0.017f, 0.774f, 0.972f);
-  colors[ImGuiCol_TabActive] = ImVec4 (0.011f, 0.017f, 0.774f, 0.972f);
-  colors[ImGuiCol_Tab] = ImVec4 (0.011f, 0.017f, 0.774f, 0.972f);
-  colors[ImGuiCol_TabHovered] = ImVec4 (1.000f, 0.462f, 0.000f, 0.800f);
+      = ImVec4 (0.137f, 0.144f, 0.176f, 0.620f);
+  colors[ImGuiCol_TabActive] = ImVec4 (0.137f, 0.144f, 0.176f, 0.620f);
+
+  colors[ImGuiCol_Tab] = ImVec4 (0.137f, 0.144f, 0.176f, 0.620f);
+  colors[ImGuiCol_TabHovered] = ImVec4 (0.182f, 0.733f, 0.546f, 0.790f);
 }
 
 void
