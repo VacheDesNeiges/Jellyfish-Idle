@@ -70,12 +70,15 @@ UIBuildingPanel::renderBuildingButton (BuildingType building) const
 void
 UIBuildingPanel::setToolTip (BuildingType building) const
 {
+  ImGui::PushStyleColor (ImGuiCol_Separator,
+                         ImVec4 (0.766f, 0.720f, 0.741f, 0.224f));
   ImGui::SetNextWindowSize ({ 300, -1 });
 
   if (ImGui::IsItemHovered (ImGuiHoveredFlags_DelayNone
                             | ImGuiHoveredFlags_AllowWhenDisabled)
       && ImGui::BeginTooltip ())
     {
+
       ImGui::SeparatorText ("Description");
       ImGui::TextWrapped ("%s\n", gData->getBuildingsView ()
                                       ->getBuildingDescription (building)
@@ -88,6 +91,7 @@ UIBuildingPanel::setToolTip (BuildingType building) const
 
       ImGui::EndTooltip ();
     }
+  ImGui::PopStyleColor ();
 }
 
 bool

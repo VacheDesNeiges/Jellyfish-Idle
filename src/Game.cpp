@@ -156,6 +156,7 @@ Game::setImguiStyle () const
 
   colors[ImGuiCol_TitleBg] = ImVec4 (0.000f, 0.000f, 0.000f, 0.000f);
   colors[ImGuiCol_TitleBgActive] = ImVec4 (0.000f, 0.000f, 0.000f, 0.000f);
+  colors[ImGuiCol_Separator] = ImVec4 (0.133f, 0.000f, 0.000f, 0.827f);
 
   colors[ImGuiCol_FrameBg] = ImVec4 (0.134f, 0.000f, 0.000f, 0.826f);
   colors[ImGuiCol_PlotHistogram] = ImVec4 (0.796f, 0.039f, 0.176f, 0.494f);
