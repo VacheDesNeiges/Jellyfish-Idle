@@ -140,6 +140,7 @@ Game::setImguiStyle () const
   style.WindowRounding = 5.f;
   style.WindowMenuButtonPosition = ImGuiDir_None;
   style.TabBarBorderSize = 0;
+  style.TabRounding = 0;
 
   ImVec4 *colors = ImGui::GetStyle ().Colors;
 
@@ -149,27 +150,32 @@ Game::setImguiStyle () const
 
   colors[ImGuiCol_WindowBg] = ImVec4 (0.010f, 0.019f, 0.060f, 0.000f);
   colors[ImGuiCol_PopupBg] = ImVec4 (0.2f, 0.2f, 0.2f, 0.8f);
-  colors[ImGuiCol_Button] = ImVec4 (0.137f, 0.144f, 0.176f, 0.620f);
-  colors[ImGuiCol_ButtonHovered] = ImVec4 (0.182f, 0.733f, 0.546f, 0.790f);
-  colors[ImGuiCol_ButtonActive] = ImVec4 (0.182f, 0.733f, 0.546f, 1);
+  colors[ImGuiCol_Button] = ImVec4 (0.069f, 0.071f, 0.109f, 1.000f);
+  colors[ImGuiCol_ButtonHovered] = ImVec4 (0.642f, 0.000f, 0.116f, 1.000f);
+  colors[ImGuiCol_ButtonActive] = ImVec4 (0.896f, 0.000f, 0.162f, 1.000f);
 
-  colors[ImGuiCol_TitleBg] = ImVec4 (0.040f, 0.040f, 0.040f, 1.000f);
-  colors[ImGuiCol_TitleBgActive] = ImVec4 (0.040f, 0.040f, 0.040f, 1.000f);
+  colors[ImGuiCol_TitleBg] = ImVec4 (0.000f, 0.000f, 0.000f, 0.000f);
+  colors[ImGuiCol_TitleBgActive] = ImVec4 (0.000f, 0.000f, 0.000f, 0.000f);
 
-  colors[ImGuiCol_TabUnfocused] = ImVec4 (0.137f, 0.144f, 0.176f, 0.620f);
+  colors[ImGuiCol_FrameBg] = ImVec4 (0.134f, 0.000f, 0.000f, 0.826f);
+  colors[ImGuiCol_PlotHistogram] = ImVec4 (0.796f, 0.039f, 0.176f, 0.494f);
 
+  colors[ImGuiCol_TitleBgActive] = ImVec4 (0.000f, 0.000f, 0.000f, 0.000f);
+
+  colors[ImGuiCol_TabUnfocused] = ImVec4 (0.134f, 0.000f, 0.000f, 0.826f);
   colors[ImGuiCol_TabUnfocusedActive]
-      = ImVec4 (0.137f, 0.144f, 0.176f, 0.620f);
-  colors[ImGuiCol_TabActive] = ImVec4 (0.137f, 0.144f, 0.176f, 0.620f);
+      = ImVec4 (0.796f, 0.039f, 0.176f, 0.494f);
 
-  colors[ImGuiCol_Tab] = ImVec4 (0.137f, 0.144f, 0.176f, 0.620f);
-  colors[ImGuiCol_TabHovered] = ImVec4 (0.182f, 0.733f, 0.546f, 0.790f);
+  colors[ImGuiCol_TabActive] = ImVec4 (0.796f, 0.039f, 0.176f, 0.494f);
+
+  colors[ImGuiCol_Tab] = ImVec4 (0.133f, 0.000f, 0.000f, 0.827f);
+  colors[ImGuiCol_TabHovered] = ImVec4 (0.896f, 0.000f, 0.162f, 1.000f);
 }
 
 void
 Game::loadBackgroundImage ()
 {
-  SDL_Surface *surface = SDL_LoadBMP ("./assets/placeholder.bmp");
+  SDL_Surface *surface = SDL_LoadBMP ("./assets/otherjfish.bmp");
   assert (surface != nullptr);
   backgroundPicture = SDL_CreateTextureFromSurface (renderer, surface);
   SDL_FreeSurface (surface);
