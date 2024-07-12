@@ -19,7 +19,8 @@ public:
   bool isOngoing (AquaCultureID) const;
 
   std::vector<std::pair<RessourceType, double> >
-      getFieldConsumption (AquaCultureID) const;
+      getFieldConsumption (AquaCultureID,
+                           std::optional<unsigned> = std::nullopt) const;
 
   std::vector<std::pair<RessourceType, double> >
       getFieldProduction (AquaCultureID,

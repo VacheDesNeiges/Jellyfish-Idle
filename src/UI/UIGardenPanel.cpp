@@ -1,6 +1,5 @@
 #include "UIGardenPanel.hpp"
 #include "GameIDsTypes.hpp"
-#include "UIUtils.hpp"
 #include "imgui.h"
 #include <fmt/core.h>
 #include <string>
@@ -51,8 +50,8 @@ UIGardenPanel::renderCulture (AquaCultureID id) const
   displayFieldsAssignmentArrows (cultureName, id);
   displayGrowAndStopButtons (id);
 
-  ImGui::SeparatorText ("Cost");
-  displayCultureCost (id);
+  ImGui::SeparatorText ("Cost per Field");
+  displayCultureConsumption (id);
 
   ImGui::EndChild ();
 }
@@ -71,6 +70,28 @@ UIGardenPanel::displayCultureProduction (AquaCultureID id) const
       quant * 2);
 
   ImGui::Text ("%s", quantity.c_str ());
+}
+
+void
+UIGardenPanel::displayCultureConsumption (AquaCultureID id) const
+{
+  const auto &costData = gData->getGardenView ()->getFieldConsumption (id, 1);
+  if (costData.empty ())
+    {
+      ImGui::Text ("Nothing");
+    }
+  else
+    {
+      for (const auto &[rType, quant] : costData)
+        {
+          const std::string displayedText = fmt::format (
+              "{} x {:.3f}/sec",
+              gData->getRessourcesView ()->getRessourceName (rType),
+              quant * 2);
+
+          ImGui::Text ("%s", displayedText.c_str ());
+        }
+    }
 }
 
 void
@@ -106,22 +127,6 @@ UIGardenPanel::displayFieldsAssignmentArrows (const std::string &cultureName,
       inputHandler->assignToField (id);
     }
   ImGui::EndDisabled ();
-}
-
-void
-UIGardenPanel::displayCultureCost (
-    AquaCultureID id) const // TODO write garden own function instead of
-                            // reusing the one from crafting
-{
-  const auto &costData = gData->getGardenView ()->getFieldConsumption (id);
-  if (costData.empty ())
-    {
-      ImGui::Text ("Nothing");
-    }
-  else
-    {
-      UIUtils::printCostsImGui (gData, costData);
-    }
 }
 
 void

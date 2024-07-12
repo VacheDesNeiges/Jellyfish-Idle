@@ -25,15 +25,15 @@ UIUtils::printCostsImGui (
       if (cost
           > gData->getRessourcesView ()->getRessourceMaxQuantity (ressource))
         {
-          textColor = UIColors::redText;
+          textColor = UIColors::errorText;
         }
       else if (cost <= requestedQuantity)
         {
-          textColor = UIColors::greenText;
+          textColor = UIColors::validText;
         }
       else
         {
-          textColor = UIColors::greyText;
+          textColor = UIColors::greyedText;
 
           timeToBuyable += "( ";
           // TODO move to a function somewhere, also take care of the tick per

@@ -27,9 +27,10 @@ GardenDataView::isOngoing (AquaCultureID id) const
 }
 
 std::vector<std::pair<RessourceType, double> >
-GardenDataView::getFieldConsumption (AquaCultureID id) const
+GardenDataView::getFieldConsumption (AquaCultureID id,
+                                     std::optional<unsigned> nFields) const
 {
-  return garden->getConsumption (id);
+  return garden->getConsumption (id, nFields);
 }
 
 std::vector<std::pair<RessourceType, double> >

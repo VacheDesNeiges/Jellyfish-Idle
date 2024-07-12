@@ -36,7 +36,8 @@ public:
   unsigned getAssignedFieldsToCulture (AquaCultureID) const;
 
   std::vector<std::pair<RessourceType, double> >
-      getConsumption (AquaCultureID) const;
+      getConsumption (AquaCultureID,
+                      std::optional<unsigned> = std::nullopt) const;
   std::vector<std::pair<RessourceType, double> >
       getProduction (AquaCultureID,
                      std::optional<unsigned> = std::nullopt) const;

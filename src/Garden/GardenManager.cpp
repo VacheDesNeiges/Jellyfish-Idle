@@ -88,12 +88,13 @@ GardenManager::loadData (
 }
 
 std::vector<std::pair<RessourceType, double> >
-GardenManager::getConsumption (AquaCultureID id) const
+GardenManager::getConsumption (AquaCultureID id,
+                               std::optional<unsigned> nFields) const
 {
   auto vec = cultures.at (id).getBaseConsumption ();
   for (auto &[rType, val] : vec)
     {
-      val *= assignedFieldsToCultures.at (id);
+      val *= nFields.value_or (assignedFieldsToCultures.at (id));
     }
   return vec;
 }
@@ -107,7 +108,7 @@ GardenManager::getProduction (AquaCultureID id,
   for (auto &[rType, val] : vec)
     {
       val *= multipliersView ()->getAllFieldsMultiplier ();
-      val *= (nFields.value_or (assignedFieldsToCultures.at (id)));
+      val *= nFields.value_or (assignedFieldsToCultures.at (id));
     }
 
   return vec;
