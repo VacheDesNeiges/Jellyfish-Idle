@@ -29,7 +29,7 @@ constexpr ImVec4 ActivatedTransparentElement (0.796f, 0.039f, 0.176f, 0.494f);
 constexpr ImVec4 UnfocusedTransparentElement (0.134f, 0.000f, 0.000f, 0.826f);
 
 constexpr ImVec4 Dimming (0.174f, 0.085f, 0.117f, 0.478f);
-constexpr ImVec4 NotificationBG (0.682f, 0.295f, 0.210f, 1.000f);
+constexpr ImVec4 NotificationBG (0.132f, 0.132f, 0.209f, 1.000f);
 }
 
 namespace UIConstants

@@ -45,32 +45,28 @@ TEST_F (BuildingJson_Fixture, HasAllRequiredFields)
 
 TEST_F (BuildingJson_Fixture, ValuesHaveCorrectTypes)
 {
+  using nlohmann::detail::value_t;
   for (const auto &building : json.at ("Buildings"))
     {
-      ASSERT_EQ (building.at ("BuildingID").type (),
-                 nlohmann::detail::value_t::number_unsigned);
-
-      ASSERT_EQ (building.at ("Name").type (),
-                 nlohmann::detail::value_t::string);
-
-      ASSERT_EQ (building.at ("Description").type (),
-                 nlohmann::detail::value_t::string);
+      ASSERT_EQ (building.at ("BuildingID").type (), value_t::number_unsigned);
+      ASSERT_EQ (building.at ("Name").type (), value_t::string);
+      ASSERT_EQ (building.at ("Description").type (), value_t::string);
 
       ASSERT_EQ (building.at ("IncreaseToJfish").type (),
-                 nlohmann::detail::value_t::number_unsigned);
+                 value_t::number_unsigned);
 
       ASSERT_TRUE (building.at ("PriceMultiplier").type ()
-                       == nlohmann::detail::value_t::number_float
+                       == value_t::number_float
                    || building.at ("PriceMultiplier").type ()
-                          == nlohmann::detail::value_t::number_unsigned);
+                          == value_t::number_unsigned);
 
       for (const auto &basePrice : building.at ("BasePrice"))
         {
           ASSERT_EQ (basePrice.at ("RessourceID").type (),
-                     nlohmann::detail::value_t::number_unsigned);
+                     value_t::number_unsigned);
 
           ASSERT_EQ (basePrice.at ("Quantity").type (),
-                     nlohmann::detail::value_t::number_unsigned);
+                     value_t::number_unsigned);
         }
     }
 }

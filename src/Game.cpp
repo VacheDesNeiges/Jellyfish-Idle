@@ -14,6 +14,7 @@
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_surface.h>
 
+#include <SDL2/SDL_video.h>
 #include <cassert>
 #include <chrono>
 #include <cstdio>
