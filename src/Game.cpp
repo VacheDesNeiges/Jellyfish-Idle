@@ -4,6 +4,7 @@
 #include "GameSystems.hpp"
 #include "SaveSystem.hpp"
 
+#include "UIUtils.hpp"
 #include "imgui.h"
 #include "imgui_impl_sdl2.h"
 #include "imgui_impl_sdlrenderer2.h"
@@ -113,7 +114,7 @@ Game::initialize ()
   // --------------- Code from this project
   loadBackgroundImage ();
   loadFont ();
-  setImguiStyle ();
+  UIUtils::setBaseUITheme ();
 
   UI = std::make_unique<UIManager> ();
   gameSystems = std::make_unique<GameSystems> ();
@@ -128,49 +129,6 @@ Game::loadFont ()
   std::string path (FilePaths::getPath ());
   path += FilePaths::FontPath;
   io->Fonts->AddFontFromFileTTF (path.c_str (), 15);
-}
-
-void
-Game::setImguiStyle () const
-{
-  ImGuiStyle &style = ImGui::GetStyle ();
-  style.SeparatorTextAlign = { 0.5, 0.5 };
-  style.FrameRounding = 5.f;
-  style.FramePadding = { 20.f, 3.f };
-  style.WindowRounding = 5.f;
-  style.WindowMenuButtonPosition = ImGuiDir_None;
-  style.TabBarBorderSize = 0;
-  style.TabRounding = 0;
-
-  ImVec4 *colors = ImGui::GetStyle ().Colors;
-
-  colors[ImGuiCol_Text] = ImVec4 (1, 1, 1, 1);
-
-  colors[ImGuiCol_ModalWindowDimBg] = ImVec4 (0.123f, 0.687f, 0.493f, 0.350f);
-
-  colors[ImGuiCol_WindowBg] = ImVec4 (0.010f, 0.019f, 0.060f, 0.000f);
-  colors[ImGuiCol_PopupBg] = ImVec4 (0.2f, 0.2f, 0.2f, 0.8f);
-  colors[ImGuiCol_Button] = ImVec4 (0.069f, 0.071f, 0.109f, 1.000f);
-  colors[ImGuiCol_ButtonHovered] = ImVec4 (0.642f, 0.000f, 0.116f, 1.000f);
-  colors[ImGuiCol_ButtonActive] = ImVec4 (0.896f, 0.000f, 0.162f, 1.000f);
-
-  colors[ImGuiCol_TitleBg] = ImVec4 (0.000f, 0.000f, 0.000f, 0.000f);
-  colors[ImGuiCol_TitleBgActive] = ImVec4 (0.000f, 0.000f, 0.000f, 0.000f);
-  colors[ImGuiCol_Separator] = ImVec4 (0.133f, 0.000f, 0.000f, 0.827f);
-
-  colors[ImGuiCol_FrameBg] = ImVec4 (0.134f, 0.000f, 0.000f, 0.826f);
-  colors[ImGuiCol_PlotHistogram] = ImVec4 (0.796f, 0.039f, 0.176f, 0.494f);
-
-  colors[ImGuiCol_TitleBgActive] = ImVec4 (0.000f, 0.000f, 0.000f, 0.000f);
-
-  colors[ImGuiCol_TabUnfocused] = ImVec4 (0.134f, 0.000f, 0.000f, 0.826f);
-  colors[ImGuiCol_TabUnfocusedActive]
-      = ImVec4 (0.796f, 0.039f, 0.176f, 0.494f);
-
-  colors[ImGuiCol_TabActive] = ImVec4 (0.796f, 0.039f, 0.176f, 0.494f);
-
-  colors[ImGuiCol_Tab] = ImVec4 (0.133f, 0.000f, 0.000f, 0.827f);
-  colors[ImGuiCol_TabHovered] = ImVec4 (0.896f, 0.000f, 0.162f, 1.000f);
 }
 
 void

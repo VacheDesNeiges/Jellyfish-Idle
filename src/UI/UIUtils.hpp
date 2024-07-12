@@ -7,10 +7,26 @@
 
 namespace UIColors
 {
-constexpr ImVec4 errorText (1, 0, 0, 1);
-constexpr ImVec4 greyedText (0.8f, 0.8f, 0.8f, 1);
-constexpr ImVec4 validText (0, 1, 0, 1);
 
+// Text Colors
+//-------------------------------------------------
+constexpr ImVec4 RegularText (1, 1, 1, 1);
+constexpr ImVec4 ErrorText (1, 0, 0, 1);
+constexpr ImVec4 GreyedText (0.8f, 0.8f, 0.8f, 1);
+constexpr ImVec4 ValidText (0, 1, 0, 1);
+
+// UI Elements Colors
+//-------------------------------------------------
+constexpr ImVec4 FullyTransparent (0, 0, 0, 0);
+constexpr ImVec4 Buttons (0.069f, 0.071f, 0.109f, 1.000f);
+
+constexpr ImVec4 HoveredElements (0.642f, 0.000f, 0.116f, 1.000f);
+constexpr ImVec4 ActivatedElement (0.896f, 0.000f, 0.162f, 1.000f);
+
+constexpr ImVec4 ActivatedTransparentElement (0.796f, 0.039f, 0.176f, 0.494f);
+constexpr ImVec4 UnfocusedTransparentElement (0.134f, 0.000f, 0.000f, 0.826f);
+constexpr ImVec4 Dimming (0.174f, 0.085f, 0.117f, 0.478f);
+constexpr ImVec4 NotificationBG (0.682f, 0.295f, 0.210f, 1.000f);
 }
 
 namespace UIConstants
@@ -20,6 +36,8 @@ constexpr auto UIBuildingButtonSize = ImVec2{ 300.f, 35.f };
 
 namespace UIUtils
 {
+
+void setBaseUITheme ();
 
 void printCostsImGui (
     std::shared_ptr<GameDataView> gData,

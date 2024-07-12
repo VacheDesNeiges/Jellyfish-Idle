@@ -121,7 +121,7 @@ UIBuildingPanel::renderJellyfishLuringButton () const
           if (gData->getJelliesView ()->getMaxNumJellies ()
               == gData->getJelliesView ()->getNumJellies ())
             {
-              ImGui::PushStyleColor (ImGuiCol_Text, UIColors::errorText);
+              ImGui::PushStyleColor (ImGuiCol_Text, UIColors::ErrorText);
               ImGui::TextWrapped ("Not enough room to host more jellies");
               ImGui::PopStyleColor ();
             }

@@ -4,6 +4,49 @@
 #include <cmath>
 
 void
+UIUtils::setBaseUITheme ()
+{
+  ImGuiStyle &style = ImGui::GetStyle ();
+  style.SeparatorTextAlign = { 0.5, 0.5 };
+  style.FrameRounding = 5.f;
+  style.FramePadding = { 20.f, 3.f };
+  style.WindowRounding = 5.f;
+  style.WindowMenuButtonPosition = ImGuiDir_None;
+  style.TabBarBorderSize = 0;
+  style.TabRounding = 0;
+
+  ImVec4 *colors = ImGui::GetStyle ().Colors;
+
+  colors[ImGuiCol_Text] = UIColors::RegularText;
+
+  colors[ImGuiCol_ModalWindowDimBg] = UIColors::Dimming;
+
+  colors[ImGuiCol_WindowBg] = UIColors::FullyTransparent;
+  colors[ImGuiCol_PopupBg] = UIColors::NotificationBG;
+
+  colors[ImGuiCol_Button] = UIColors::Buttons;
+  colors[ImGuiCol_ButtonHovered] = UIColors::HoveredElements;
+  colors[ImGuiCol_ButtonActive] = UIColors::ActivatedElement;
+
+  colors[ImGuiCol_TitleBg] = UIColors::FullyTransparent;
+  colors[ImGuiCol_TitleBgActive] = UIColors::FullyTransparent;
+  colors[ImGuiCol_Separator] = UIColors::UnfocusedTransparentElement;
+
+  colors[ImGuiCol_FrameBg] = UIColors::UnfocusedTransparentElement;
+  colors[ImGuiCol_PlotHistogram] = UIColors::ActivatedTransparentElement;
+
+  colors[ImGuiCol_TitleBgActive] = UIColors::FullyTransparent;
+
+  colors[ImGuiCol_TabUnfocused] = UIColors::UnfocusedTransparentElement;
+  colors[ImGuiCol_TabUnfocusedActive] = UIColors::ActivatedTransparentElement;
+
+  colors[ImGuiCol_TabActive] = UIColors::ActivatedTransparentElement;
+
+  colors[ImGuiCol_Tab] = UIColors::UnfocusedTransparentElement;
+  colors[ImGuiCol_TabHovered] = UIColors::ActivatedElement;
+}
+
+void
 UIUtils::printCostsImGui (
     std::shared_ptr<GameDataView> gData,
     const std::vector<std::pair<RessourceType, double> > &ressourcesNeeded)
@@ -25,15 +68,15 @@ UIUtils::printCostsImGui (
       if (cost
           > gData->getRessourcesView ()->getRessourceMaxQuantity (ressource))
         {
-          textColor = UIColors::errorText;
+          textColor = UIColors::ErrorText;
         }
       else if (cost <= requestedQuantity)
         {
-          textColor = UIColors::validText;
+          textColor = UIColors::ValidText;
         }
       else
         {
-          textColor = UIColors::greyedText;
+          textColor = UIColors::GreyedText;
 
           timeToBuyable += "( ";
           // TODO move to a function somewhere, also take care of the tick per

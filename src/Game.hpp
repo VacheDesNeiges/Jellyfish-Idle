@@ -28,8 +28,6 @@ private:
   bool processEvent (const SDL_Event &);
   void renderFrame ();
 
-  void setImguiStyle () const;
-
   SDL_Window *window;
   SDL_Renderer *renderer;
   SDL_Texture *backgroundPicture;
