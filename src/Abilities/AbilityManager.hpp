@@ -10,11 +10,13 @@ class AbilityManager : public GameDataAccess
 {
 public:
   AbilityManager ();
-  bool isUsable (AbilityType);
-  std::vector<std::pair<RessourceType, double> > getAbilityCost (AbilityType);
-  std::vector<std::pair<RessourceType, double> > getProduction (AbilityType);
-  std::string getAbilityDescription (AbilityType);
-  std::string getAbilityName (AbilityType);
+  bool isUsable (AbilityType) const;
+  std::vector<std::pair<RessourceType, double> >
+      getAbilityCost (AbilityType) const;
+  std::vector<std::pair<RessourceType, double> >
+      getProduction (AbilityType) const;
+  std::string getAbilityDescription (AbilityType) const;
+  std::string getAbilityName (AbilityType) const;
 
   std::span<const AbilityType> getAllAbilityTypes () const;
 

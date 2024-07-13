@@ -35,7 +35,7 @@ private:
   SDL_Texture *backgroundPicture;
   ImGuiIO *io;
 
-  std::atomic<bool> done;
+  std::atomic<bool> done = false;
 
   std::unique_ptr<UIManager> UI;
   std::unique_ptr<GameSystems> gameSystems;

@@ -20,6 +20,6 @@ public:
   bool isUsable (AbilityType) const;
 
 private:
-  std::shared_ptr<AbilityManager> abilities;
-  std::shared_ptr<RessourceManager> ressources;
+  std::shared_ptr<const AbilityManager> abilities;
+  std::shared_ptr<const RessourceManager> ressources;
 };

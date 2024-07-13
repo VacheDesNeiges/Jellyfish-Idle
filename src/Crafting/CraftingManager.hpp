@@ -38,7 +38,8 @@ public:
   bool tick ();
   std::vector<std::pair<RessourceType, double> > getRecipe (RecipeID) const;
   std::vector<std::pair<RessourceType, double> > getCraftResults ();
-  std::vector<std::pair<RessourceType, double> > getCraftResult (RecipeID);
+  std::vector<std::pair<RessourceType, double> >
+      getCraftResult (RecipeID) const;
 
   std::span<const RecipeID> getRecipeTypes () const;
 

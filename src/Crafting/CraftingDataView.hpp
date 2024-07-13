@@ -28,5 +28,5 @@ public:
   std::span<const RecipeID> getRecipeTypes () const;
 
 private:
-  std::shared_ptr<CraftingManager> crafts;
+  std::shared_ptr<const CraftingManager> crafts;
 };

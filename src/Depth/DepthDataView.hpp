@@ -14,5 +14,5 @@ public:
   unsigned getMaximumDepth () const;
 
 private:
-  std::shared_ptr<DepthSystem> depth;
+  std::shared_ptr<const DepthSystem> depth;
 };

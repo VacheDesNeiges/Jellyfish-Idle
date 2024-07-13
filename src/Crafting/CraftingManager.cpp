@@ -123,7 +123,7 @@ CraftingManager::getCraftResults ()
 }
 
 std::vector<std::pair<RessourceType, double> >
-CraftingManager::getCraftResult (RecipeID id)
+CraftingManager::getCraftResult (RecipeID id) const
 {
   return recipes.at (id).getBaseResult ();
 }

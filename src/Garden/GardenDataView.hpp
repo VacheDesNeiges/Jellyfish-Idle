@@ -29,5 +29,5 @@ public:
   std::span<const AquaCultureID> getCultureTypes () const;
 
 private:
-  std::shared_ptr<GardenManager> garden;
+  std::shared_ptr<const GardenManager> garden;
 };

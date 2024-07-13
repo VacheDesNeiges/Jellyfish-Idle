@@ -33,6 +33,6 @@ public:
   std::span<const BuildingType> getConversionBuildingTypes () const;
 
 private:
-  std::shared_ptr<BuildingManager> buildings;
-  std::shared_ptr<RessourceManager> ressources;
+  std::shared_ptr<const BuildingManager> buildings;
+  std::shared_ptr<const RessourceManager> ressources;
 };

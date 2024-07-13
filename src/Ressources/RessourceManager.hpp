@@ -19,12 +19,12 @@ public:
   void init ();
 
   void gatherSand ();
-  double getCurrentQuantity (RessourceType);
-  double getMaxQuantity (RessourceType);
-  double getNetProduction (RessourceType);
-  double getProduction (RessourceType);
-  double getConsumption (RessourceType);
-  std::string_view getName (RessourceType);
+  double getCurrentQuantity (RessourceType) const;
+  double getMaxQuantity (RessourceType) const;
+  double getNetProduction (RessourceType) const;
+  double getProduction (RessourceType) const;
+  double getConsumption (RessourceType) const;
+  std::string_view getName (RessourceType) const;
 
   void zerosValuePerTick ();
 

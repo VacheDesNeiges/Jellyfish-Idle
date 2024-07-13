@@ -49,15 +49,15 @@ BuildingManager::buy (BuildingType t)
 }
 
 unsigned
-BuildingManager::getCurrentQuantity (BuildingType t)
+BuildingManager::getCurrentQuantity (BuildingType t) const
 {
-  return buildings[t].getCurrentQuantity ();
+  return buildings.at (t).getCurrentQuantity ();
 }
 
 std::vector<std::pair<RessourceType, double> >
-BuildingManager::getProduction (BuildingType t)
+BuildingManager::getProduction (BuildingType t) const
 {
-  auto result = buildings[t].getProdPerTick ();
+  auto result = buildings.at (t).getProdPerTick ();
   for (auto &[rType, prod] : result)
     {
       prod *= multipliersView ()->getProductionMultiplier (t);
@@ -66,15 +66,15 @@ BuildingManager::getProduction (BuildingType t)
 }
 
 std::vector<std::pair<RessourceType, double> >
-BuildingManager::getConsumption (BuildingType t)
+BuildingManager::getConsumption (BuildingType t) const
 {
-  return buildings[t].getConsumPerTick ();
+  return buildings.at (t).getConsumPerTick ();
 }
 
 std::vector<std::pair<RessourceType, double> >
-BuildingManager::nextBuyCost (BuildingType t)
+BuildingManager::nextBuyCost (BuildingType t) const
 {
-  return buildings[t].getNextBuyCost ();
+  return buildings.at (t).getNextBuyCost ();
 }
 
 std::string
@@ -90,9 +90,9 @@ BuildingManager::getBuildingDescription (BuildingType t) const
 }
 
 std::string
-BuildingManager::getAdvancedDescription (BuildingType t)
+BuildingManager::getAdvancedDescription (BuildingType t) const
 {
-  return buildings[t].getAdvancedDescription ();
+  return buildings.at (t).getAdvancedDescription ();
 }
 
 std::unordered_map<RessourceType, double>

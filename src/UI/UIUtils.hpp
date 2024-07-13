@@ -21,7 +21,7 @@ constexpr ImVec4 ValidText (0, 1, 0, 1);
 constexpr ImVec4 FullyTransparent (0, 0, 0, 0);
 constexpr ImVec4 Buttons (0.069f, 0.071f, 0.109f, 1.000f);
 
-constexpr ImVec4 CardElements (0, 0, 0, 0.85f);
+constexpr ImVec4 CardElements (0, 0, 0, 0.7f);
 
 constexpr ImVec4 HoveredElements (0.642f, 0.000f, 0.116f, 1.000f);
 constexpr ImVec4 ActivatedElement (0.896f, 0.000f, 0.162f, 1.000f);

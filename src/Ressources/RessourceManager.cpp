@@ -77,15 +77,15 @@ RessourceManager::gatherSand ()
 }
 
 double
-RessourceManager::getCurrentQuantity (RessourceType t)
+RessourceManager::getCurrentQuantity (RessourceType t) const
 {
-  return ressources[t].getCurrentQuantity ();
+  return ressources.at (t).getCurrentQuantity ();
 }
 
 double
-RessourceManager::getMaxQuantity (RessourceType t)
+RessourceManager::getMaxQuantity (RessourceType t) const
 {
-  return ressources[t].getMaxQuantity ();
+  return ressources.at (t).getMaxQuantity ();
 }
 
 void
@@ -95,9 +95,9 @@ RessourceManager::add (RessourceType t, double n)
 }
 
 std::string_view
-RessourceManager::getName (RessourceType r)
+RessourceManager::getName (RessourceType t) const
 {
-  return ressources[r].getName ();
+  return ressources.at (t).getName ();
 }
 
 void
@@ -123,9 +123,9 @@ RessourceManager::addToProdPerTick (RessourceType t, double n)
 }
 
 double
-RessourceManager::getNetProduction (RessourceType t)
+RessourceManager::getNetProduction (RessourceType t) const
 {
-  return ressources[t].getNetProduction ();
+  return ressources.at (t).getNetProduction ();
 }
 
 void
@@ -201,15 +201,15 @@ RessourceManager::loadData (
 }
 
 double
-RessourceManager::getProduction (RessourceType r)
+RessourceManager::getProduction (RessourceType t) const
 {
-  return ressources[r].getProduction ();
+  return ressources.at (t).getProduction ();
 }
 
 double
-RessourceManager::getConsumption (RessourceType r)
+RessourceManager::getConsumption (RessourceType t) const
 {
-  return ressources[r].getConsumption ();
+  return ressources.at (t).getConsumption ();
 }
 
 std::span<const RessourceType>

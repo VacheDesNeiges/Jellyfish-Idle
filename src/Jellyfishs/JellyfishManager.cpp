@@ -50,12 +50,9 @@ JellyfishManager::JellyfishManager ()
 }
 
 unsigned int
-JellyfishManager::getNum (JellyJob job)
+JellyfishManager::getNum (JellyJob job) const
 {
-  if (!numJobsUpToDate)
-    updateNumJobs ();
-
-  return jobNumbers[job];
+  return jobNumbers.at (job);
 };
 
 void
@@ -75,7 +72,6 @@ JellyfishManager::updateNumJobs ()
     {
       jobNumbers[jfish.getJob ()] += 1;
     }
-  numJobsUpToDate = true;
 }
 
 bool

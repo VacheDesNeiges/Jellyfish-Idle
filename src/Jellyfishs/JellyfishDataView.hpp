@@ -27,5 +27,5 @@ public:
   std::span<const JellyJob> getAllJobsTypes () const;
 
 private:
-  std::shared_ptr<JellyfishManager> jellies;
+  std::shared_ptr<const JellyfishManager> jellies;
 };

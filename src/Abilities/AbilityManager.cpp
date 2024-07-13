@@ -30,10 +30,10 @@ AbilityManager::AbilityManager ()
 }
 
 bool
-AbilityManager::isUsable (AbilityType t)
+AbilityManager::isUsable (AbilityType t) const
 {
   bool buyable = true;
-  for (const auto &[ressource, cost] : abilities[t].getCost ())
+  for (const auto &[ressource, cost] : abilities.at (t).getCost ())
     {
 
       if (!buyable)
@@ -48,27 +48,27 @@ AbilityManager::isUsable (AbilityType t)
 }
 
 std::vector<std::pair<RessourceType, double> >
-AbilityManager::getAbilityCost (AbilityType t)
+AbilityManager::getAbilityCost (AbilityType t) const
 {
-  return abilities[t].getCost ();
+  return abilities.at (t).getCost ();
 }
 
 std::vector<std::pair<RessourceType, double> >
-AbilityManager::getProduction (AbilityType t)
+AbilityManager::getProduction (AbilityType t) const
 {
-  return abilities[t].getProduction ();
+  return abilities.at (t).getProduction ();
 }
 
 std::string
-AbilityManager::getAbilityName (AbilityType t)
+AbilityManager::getAbilityName (AbilityType t) const
 {
-  return abilities[t].getName ();
+  return abilities.at (t).getName ();
 }
 
 std::string
-AbilityManager::getAbilityDescription (AbilityType t)
+AbilityManager::getAbilityDescription (AbilityType t) const
 {
-  return abilities[t].getDescription ();
+  return abilities.at (t).getDescription ();
 }
 
 std::span<const AbilityType>

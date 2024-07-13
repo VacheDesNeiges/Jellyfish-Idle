@@ -29,7 +29,7 @@ class JellyfishManager : public GameDataAccess,
 {
 public:
   JellyfishManager ();
-  unsigned int getNum (JellyJob);
+  unsigned int getNum (JellyJob) const;
   unsigned int getNumJellies () const;
   unsigned int getMaxNumJellies () const;
 
@@ -65,7 +65,6 @@ private:
   std::unordered_map<JellyJob, std::string> jobDescripions;
 
   unsigned maxNumJellies = 1;
-  bool numJobsUpToDate = false;
   static constexpr double LurePrice = 10;
 
   void updateNumJobs ();

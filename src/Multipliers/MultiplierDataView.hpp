@@ -15,5 +15,5 @@ public:
   double getAllFieldsMultiplier () const;
 
 private:
-  std::shared_ptr<MultipliersRegister> multipliers;
+  std::shared_ptr<const MultipliersRegister> multipliers;
 };
