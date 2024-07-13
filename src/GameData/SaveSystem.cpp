@@ -74,6 +74,7 @@ SaveSystem::save (const SaveData &data)
         { "Workers", craftData.numAssignedWorkers },
         { "Done", craftData.craftDone },
         { "Ongoing", craftData.craftOngoing },
+        { "KeepCraftingMode", craftData.keepCraftingEnabled },
         { "RemainingTicks", craftData.remainingTicksToCraft },
         { "Level", craftData.lvl },
         { "CurrentProg", craftData.progressNeeded },
@@ -232,6 +233,7 @@ SaveSystem::loadFromFile (std::string path)
                   0,
                   c["Ongoing"].get<bool> (),
                   c["Done"].get<bool> (),
+                  c["KeepCraftingMode"].get<bool> (),
                   c["RemainingTicks"].get<unsigned> (),
                   c["Workers"].get<unsigned> (),
               });

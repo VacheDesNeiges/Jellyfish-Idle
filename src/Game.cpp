@@ -10,14 +10,17 @@
 #include "imgui_impl_sdlrenderer2.h"
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_audio.h>
+#include <SDL2/SDL_blendmode.h>
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_surface.h>
-
 #include <SDL2/SDL_video.h>
+
 #include <cassert>
 #include <chrono>
 #include <cstdio>
+#include <cstdlib>
 #include <filesystem>
 #include <gtest/gtest.h>
 #include <linux/limits.h>
@@ -82,6 +85,7 @@ Game::initialize ()
     {
       std::cerr << "Error: %s\n" << SDL_GetError ();
       throw std::system_error ();
+      abort ();
     }
 
 #ifdef SDL_HINT_IME_SHOW_UI
@@ -118,6 +122,7 @@ Game::initialize ()
   UIUtils::setBaseUITheme ();
 
   UI = std::make_unique<UIManager> ();
+  loadButtonImg ();
   gameSystems = std::make_unique<GameSystems> ();
 
   UI->bindGameData (gameSystems->getDataView (),
@@ -135,11 +140,28 @@ Game::loadFont ()
 void
 Game::loadBackgroundImage ()
 {
+  SDL_Surface *surfaceIcon = SDL_LoadBMP ("./assets/jellyfish64.bmp");
+  assert (surfaceIcon != nullptr);
+
+  SDL_SetWindowIcon (window, surfaceIcon);
+  SDL_FreeSurface (surfaceIcon);
+
   SDL_Surface *surface = SDL_LoadBMP ("./assets/otherjfish.bmp");
   assert (surface != nullptr);
   backgroundPicture = SDL_CreateTextureFromSurface (renderer, surface);
   SDL_FreeSurface (surface);
   assert (backgroundPicture != nullptr);
+}
+
+void
+Game::loadButtonImg ()
+{
+  SDL_Surface *surface = SDL_LoadBMP ("./assets/loopButton.bmp");
+  assert (surface != nullptr);
+  auto texture = SDL_CreateTextureFromSurface (renderer, surface);
+  SDL_FreeSurface (surface);
+  assert (texture != nullptr);
+  UI->loadTextures (texture);
 }
 
 void

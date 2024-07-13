@@ -20,6 +20,8 @@ public:
   void bindGameData (std::shared_ptr<GameDataView>,
                      std::shared_ptr<InputHandler>);
 
+  void loadTextures (SDL_Texture *);
+
 private:
   std::shared_ptr<GameDataView> gData = nullptr;
   std::shared_ptr<InputHandler> inputHandler = nullptr;

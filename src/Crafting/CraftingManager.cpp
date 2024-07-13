@@ -54,10 +54,13 @@ CraftingManager::assign (RecipeID id)
 bool
 CraftingManager::unasign (RecipeID id)
 {
-  if (assignedJelliesToRecipes[id] > 0)
+  if (assignedJelliesToRecipes.at (id) > 0)
     {
       assignedJelliesToRecipes[id]--;
       assignedJelliesToRecipes[RecipesAlias::NONE]++;
+      if (assignedJelliesToRecipes.at (id) == 0)
+        recipes.at (id).setKeepCraftingMode (false);
+
       return true;
     }
   return false;
@@ -243,4 +246,16 @@ std::span<const RecipeID>
 CraftingManager::getRecipeTypes () const
 {
   return std::span (recipeTypes);
+}
+
+bool
+CraftingManager::isKeepCraftingEnabled (RecipeID id) const
+{
+  return recipes.at (id).hasKeepCraftingEnabled ();
+}
+
+void
+CraftingManager::setKeepCraftingMode (RecipeID id, bool b)
+{
+  recipes.at (id).setKeepCraftingMode (b);
 }

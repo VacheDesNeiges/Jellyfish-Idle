@@ -31,6 +31,22 @@ GameSynchronizer::gameTick () const
           systems->ressources->add (ressource, prod);
         }
     }
+  for (const auto recipe : systems->crafts->getRecipeTypes ())
+    {
+      if (!systems->crafts->craftIsOngoing (recipe)
+          && systems->crafts->isKeepCraftingEnabled (recipe)
+          && systems->crafts->canAfford (recipe))
+        {
+          for (const auto &[rType, quant] :
+               systems->crafts->getRecipe (recipe))
+            {
+              systems->ressources->add (
+                  rType,
+                  -quant * systems->crafts->getAssignedNumOfJellies (recipe));
+            }
+          systems->crafts->startRecipe (recipe);
+        }
+    }
 
   systems->depth->ExploreDepth (systems->jellies->getNum (JobsAlias::EXPLORE));
 

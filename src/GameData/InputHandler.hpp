@@ -22,6 +22,7 @@ public:
   void cancelRecipe (RecipeID) const;
   void assignToRecipe (RecipeID) const;
   void unassignToRecipe (RecipeID) const;
+  void setKeepCraftingMode (RecipeID, bool) const;
 
   void startCulture (AquaCultureID) const;
   void cancelCulture (AquaCultureID) const;

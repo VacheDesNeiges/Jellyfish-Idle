@@ -3,6 +3,7 @@
 #include "GameSystems.hpp"
 #include "InputHandler.hpp"
 
+#include <SDL2/SDL_render.h>
 #include <memory>
 
 class UIElement
@@ -24,4 +25,6 @@ public:
 
   std::shared_ptr<GameDataView> gData;
   std::shared_ptr<InputHandler> inputHandler;
+
+  SDL_Texture *loopButtonTexture;
 };

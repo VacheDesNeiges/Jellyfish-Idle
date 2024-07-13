@@ -149,6 +149,7 @@ CraftingRecipe::getData () const
   RecipeSaveData result = {};
   result.craftDone = done;
   result.craftOngoing = craftOngoing;
+  result.keepCraftingEnabled = keepCraftingMode;
   result.remainingTicksToCraft = remainingTicksToCraft;
   result.lvl = level.lvl;
   result.currentProgress = level.currentProgress;
@@ -166,4 +167,17 @@ CraftingRecipe::loadData (const RecipeSaveData &data)
   level.lvl = data.lvl;
   level.currentProgress = data.currentProgress;
   level.progressNeeded = data.progressNeeded;
+  keepCraftingMode = data.keepCraftingEnabled;
+}
+
+bool
+CraftingRecipe::hasKeepCraftingEnabled () const
+{
+  return keepCraftingMode;
+}
+
+void
+CraftingRecipe::setKeepCraftingMode (bool b)
+{
+  keepCraftingMode = b;
 }

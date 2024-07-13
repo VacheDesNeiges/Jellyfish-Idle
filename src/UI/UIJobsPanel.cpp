@@ -114,7 +114,7 @@ UIJobsPanel::renderRecipes () const
 void
 UIJobsPanel::renderRecipe (RecipeID id) const
 {
-  constexpr auto size = ImVec2 (200, 300);
+  constexpr auto size = ImVec2 (220, 260);
   const auto &recipeName = gData->getCraftView ()->getName (id);
 
   ImGui::BeginChild (recipeName.c_str (), size);
@@ -164,7 +164,7 @@ UIJobsPanel::renderRecipe (RecipeID id) const
                             == 0
                         || (!gData->getCraftView ()->canAfford (id))
                         || gData->getCraftView ()->craftIsOngoing (id));
-  if (ImGui::Button ("Start"))
+  if (ImGui::Button ("Start", { 0, 30.f }))
     {
       inputHandler->startRecipe (id);
     }
@@ -172,11 +172,13 @@ UIJobsPanel::renderRecipe (RecipeID id) const
   ImGui::SameLine ();
   ImGui::BeginDisabled (!gData->getCraftView ()->craftIsOngoing (id));
 
-  if (ImGui::Button ("Cancel"))
+  if (ImGui::Button ("Cancel", { 0, 30.f }))
     {
       inputHandler->cancelRecipe (id);
     }
   ImGui::EndDisabled ();
+  ImGui::SameLine ();
+  renderLoopButton (id);
 
   const auto progress
       = 1.f
@@ -199,4 +201,50 @@ UIJobsPanel::displayRecipeText (RecipeID id) const
   std::string craftResultString;
 
   UIUtils::printCostsImGui (gData, craftRecipe);
+}
+
+void
+UIJobsPanel::renderLoopButton (RecipeID id) const
+{
+  ImVec2 size{ 24.f, 24.f };
+  ImVec2 uv0{ 0.0f, 0.0f };
+  ImVec2 uv1{ 1.0f, 1.0f };
+  auto bgColor = UIColors::Buttons;
+
+  ImVec4 tintColor;
+
+  bool isEnabled = gData->getCraftView ()->isKeepCraftingEnabled (id);
+  if (isEnabled)
+    {
+      tintColor = UIColors::ActivatedElement;
+    }
+  else
+    {
+      tintColor = UIColors::CardElements;
+    }
+
+  ImGui::PushStyleVar (ImGuiStyleVar_FramePadding, { 3, 3 });
+  ImGui::PushStyleColor (ImGuiCol_ButtonActive,
+                         ImGui::GetStyle ().Colors[ImGuiCol_Button]);
+  ImGui::PushStyleColor (ImGuiCol_ButtonHovered,
+                         ImGui::GetStyle ().Colors[ImGuiCol_Button]);
+
+  ImGui::BeginDisabled (gData->getCraftView ()->getAssignedNumOfJellies (id)
+                        == 0);
+
+  if (ImGui::ImageButton ("##", loopButtonTexture, size, uv0, uv1, bgColor,
+                          tintColor))
+    {
+      inputHandler->setKeepCraftingMode (id, !isEnabled);
+      if (ImGui::IsItemHovered (ImGuiHoveredFlags_DelayNone
+                                | ImGuiHoveredFlags_AllowWhenDisabled)
+          && ImGui::BeginTooltip ())
+        {
+          ImGui::TextWrapped ("Auto Recraft");
+          ImGui::EndTooltip ();
+        }
+    }
+  ImGui::EndDisabled ();
+  ImGui::PopStyleVar ();
+  ImGui::PopStyleColor (2);
 }

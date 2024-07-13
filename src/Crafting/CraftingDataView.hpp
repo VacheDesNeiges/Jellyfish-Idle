@@ -18,6 +18,7 @@ public:
   unsigned getAssignedNumOfJelliesOnOngoingCrafts () const;
   bool canAfford (RecipeID) const;
   bool craftIsOngoing (RecipeID) const;
+  bool isKeepCraftingEnabled (RecipeID) const;
   std::string getName (RecipeID) const;
 
   std::vector<std::pair<RessourceType, double> > getRecipe (RecipeID) const;

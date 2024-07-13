@@ -1,4 +1,5 @@
 #pragma once
+#include "GameIDsTypes.hpp"
 #include "UIElement.hpp"
 
 class UIJobsPanel : public UIElement
@@ -11,4 +12,5 @@ private:
   void renderRecipes () const;
   void renderRecipe (RecipeID) const;
   void displayRecipeText (RecipeID) const;
+  void renderLoopButton (RecipeID) const;
 };

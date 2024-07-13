@@ -23,6 +23,7 @@ public:
 private:
   void initialize ();
   void loadFont ();
+  void loadButtonImg ();
   void loadBackgroundImage ();
 
   bool processEvent (const SDL_Event &);

@@ -14,6 +14,7 @@ struct RecipeSaveData
   double progressNeeded;
   bool craftOngoing;
   bool craftDone;
+  bool keepCraftingEnabled;
   unsigned remainingTicksToCraft;
   unsigned numAssignedWorkers;
 };
@@ -39,6 +40,8 @@ public:
   bool isDone () const;
   bool applyExp ();
   void reset ();
+  bool hasKeepCraftingEnabled () const;
+  void setKeepCraftingMode (bool);
   unsigned getRemainingTicks () const;
   unsigned getTotalRequiredTicks () const;
   std::string getName () const;
@@ -54,6 +57,7 @@ private:
 
   bool craftOngoing = false;
   bool done = false;
+  bool keepCraftingMode = false;
   std::string recipeName;
   RecipeLevel level;
 

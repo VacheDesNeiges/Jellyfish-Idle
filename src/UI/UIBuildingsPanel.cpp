@@ -18,6 +18,8 @@ UIBuildingPanel::render () const
     }
 
   ImGui::SetCursorPosX (50);
+  ImGui::SetCursorPosY (40);
+
   if (ImGui::Button ("Gather Sand", UIConstants::UIBuildingButtonSize))
     {
       inputHandler->gatherSand ();

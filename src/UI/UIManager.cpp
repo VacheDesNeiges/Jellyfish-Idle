@@ -3,6 +3,7 @@
 #include "GameSystems.hpp"
 #include "imgui.h"
 
+#include <SDL2/SDL_render.h>
 #include <fmt/core.h>
 #include <memory>
 
@@ -51,4 +52,10 @@ UIManager::renderUI () const
 
   ImGui::ShowDemoWindow ();
   ImGui::ShowStyleEditor ();
+}
+
+void
+UIManager::loadTextures (SDL_Texture *texture)
+{
+  jobsPanel.loopButtonTexture = texture;
 }

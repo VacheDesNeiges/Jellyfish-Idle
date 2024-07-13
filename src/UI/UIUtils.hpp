@@ -3,6 +3,7 @@
 #include "GameDataView.hpp"
 #include "imgui.h"
 
+#include <SDL2/SDL_render.h>
 #include <memory>
 
 namespace UIColors

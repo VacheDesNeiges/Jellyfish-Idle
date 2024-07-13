@@ -1,6 +1,7 @@
 #pragma once
 #include "CraftingRecipe.hpp"
 #include "GameDataAccess.hpp"
+#include "GameIDsTypes.hpp"
 #include "SaveAndLoadable.hpp"
 
 #include <unordered_map>
@@ -18,10 +19,15 @@ public:
   bool assign (RecipeID);
   bool unasign (RecipeID);
   bool canAfford (RecipeID) const;
+
+  void setKeepCraftingMode (RecipeID, bool);
+  bool isKeepCraftingEnabled (RecipeID) const;
+
   bool craftIsOngoing (RecipeID) const;
   bool distributeCraftsExp ();
   void startRecipe (RecipeID);
   void cancelRecipe (RecipeID);
+
   unsigned getRemainingTicks (RecipeID) const;
   unsigned getTotalRequiredTicks (RecipeID) const;
   unsigned getAssignedNumOfJellies (RecipeID) const;

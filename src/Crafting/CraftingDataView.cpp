@@ -68,3 +68,9 @@ CraftDataView::getRecipeTypes () const
 {
   return crafts->getRecipeTypes ();
 }
+
+bool
+CraftDataView::isKeepCraftingEnabled (RecipeID id) const
+{
+  return crafts->isKeepCraftingEnabled (id);
+}

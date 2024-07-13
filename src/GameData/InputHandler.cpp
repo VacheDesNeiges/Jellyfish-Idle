@@ -193,3 +193,9 @@ InputHandler::removeCurrentNotification () const
 {
   systems->achievements->popNotification ();
 }
+
+void
+InputHandler::setKeepCraftingMode (RecipeID id, bool b) const
+{
+  systems->crafts->setKeepCraftingMode (id, b);
+}
