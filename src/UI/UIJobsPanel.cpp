@@ -236,13 +236,13 @@ UIJobsPanel::renderLoopButton (RecipeID id) const
                           tintColor))
     {
       inputHandler->setKeepCraftingMode (id, !isEnabled);
-      if (ImGui::IsItemHovered (ImGuiHoveredFlags_DelayNone
-                                | ImGuiHoveredFlags_AllowWhenDisabled)
-          && ImGui::BeginTooltip ())
-        {
-          ImGui::TextWrapped ("Auto Recraft");
-          ImGui::EndTooltip ();
-        }
+    }
+  if (ImGui::IsItemHovered (ImGuiHoveredFlags_DelayNone
+                            | ImGuiHoveredFlags_AllowWhenDisabled)
+      && ImGui::BeginTooltip ())
+    {
+      ImGui::SetTooltip ("Auto-Start when ressources are available");
+      ImGui::EndTooltip ();
     }
   ImGui::EndDisabled ();
   ImGui::PopStyleVar ();

@@ -77,8 +77,7 @@ CraftingRecipe::tick ()
         {
           craftOngoing = false;
           done = true;
-          level.currentProgress += 10; // Have the base xp values be global
-                                       // constexpr in their own file
+          level.currentProgress += 10;
         }
     }
   return done;
