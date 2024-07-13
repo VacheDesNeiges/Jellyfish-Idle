@@ -94,10 +94,8 @@ Game::initialize ()
       = (SDL_WindowFlags)(SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
   window = SDL_CreateWindow ("Jellyfish Idle", SDL_WINDOWPOS_CENTERED,
                              SDL_WINDOWPOS_CENTERED, 1280, 720, window_flags);
-  renderer = SDL_CreateRenderer (window, -1,
-                                 SDL_RENDERER_PRESENTVSYNC
-                                     | SDL_RENDERER_ACCELERATED
-                                     | SDL_RENDERER_TARGETTEXTURE);
+  renderer = SDL_CreateRenderer (
+      window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
   if (renderer == nullptr)
     {
       SDL_Log ("Error creating SDL_Renderer!");
