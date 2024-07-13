@@ -28,8 +28,13 @@
 #include <optional>
 #include <string_view>
 #include <system_error>
+#include <thread>
 
-Game::Game () { initialize (); };
+Game::Game ()
+{
+  done = false;
+  initialize ();
+};
 
 Game::~Game ()
 {
@@ -48,7 +53,6 @@ Game::run (std::optional<std::string_view> option)
 {
   constexpr std::chrono::milliseconds interval (500);
   auto nextTick = std::chrono::high_resolution_clock::now () + interval;
-  bool done = false;
 
   if (std::filesystem::exists (SaveSystem::saveFileName)
       && !(option.has_value () && option == "--noSave"))
@@ -56,22 +60,17 @@ Game::run (std::optional<std::string_view> option)
       gameSystems->loadSave (std::string (FilePaths::getPath ()));
     }
 
+  std::jthread eventHandler (&Game::eventThread, this);
+
   while (!done)
     {
-      SDL_Event event;
-
-      while (SDL_PollEvent (&event))
-        {
-          done = processEvent (event);
-        }
-
       if (std::chrono::high_resolution_clock::now () >= nextTick)
         {
           gameSystems->gameTick ();
           nextTick += interval;
         }
-
       renderFrame ();
+      std::this_thread::sleep_for (std::chrono::milliseconds (15));
     }
   gameSystems->save ();
 }
@@ -80,8 +79,7 @@ void
 Game::initialize ()
 {
   // --------------- Code from ImGui
-  if (SDL_Init (SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER)
-      != 0)
+  if (SDL_Init (SDL_INIT_VIDEO | SDL_INIT_TIMER) != 0)
     {
       std::cerr << "Error: %s\n" << SDL_GetError ();
       throw std::system_error ();
@@ -93,11 +91,13 @@ Game::initialize ()
 #endif
 
   auto window_flags
-      = (SDL_WindowFlags)(SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
+      = (SDL_WindowFlags)(SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
   window = SDL_CreateWindow ("Jellyfish Idle", SDL_WINDOWPOS_CENTERED,
                              SDL_WINDOWPOS_CENTERED, 1280, 720, window_flags);
-  renderer = SDL_CreateRenderer (
-      window, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
+  renderer = SDL_CreateRenderer (window, -1,
+                                 SDL_RENDERER_PRESENTVSYNC
+                                     | SDL_RENDERER_ACCELERATED
+                                     | SDL_RENDERER_TARGETTEXTURE);
   if (renderer == nullptr)
     {
       SDL_Log ("Error creating SDL_Renderer!");
@@ -109,7 +109,6 @@ Game::initialize ()
   io = &ImGui::GetIO ();
   (void)io;
   io->ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-  io->ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
   io->ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
   ImGui::StyleColorsDark ();
@@ -187,7 +186,9 @@ Game::renderFrame ()
 bool
 Game::processEvent (const SDL_Event &event)
 {
+
   ImGui_ImplSDL2_ProcessEvent (&event);
+
   if (event.type == SDL_QUIT)
     return true;
 
@@ -197,4 +198,19 @@ Game::processEvent (const SDL_Event &event)
     return true;
 
   return false;
+}
+
+void
+Game::eventThread ()
+{
+  SDL_Event event;
+
+  while (!done)
+    {
+      while (SDL_PollEvent (&event))
+        {
+          done = processEvent (event);
+        }
+      std::this_thread::sleep_for (std::chrono::milliseconds (1));
+    }
 }
