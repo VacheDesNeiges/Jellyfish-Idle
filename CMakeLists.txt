@@ -43,6 +43,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/src/Multipliers
     ${CMAKE_SOURCE_DIR}/src/Depth
     ${CMAKE_SOURCE_DIR}/src/Garden
+    ${CMAKE_SOURCE_DIR}/src/BackendRenderer
 )
 
 file(GLOB_RECURSE SRCS ${CMAKE_SOURCE_DIR}/src/*.cpp ${CMAKE_SOURCE_DIR}/imgui/*.cpp)

@@ -1,6 +1,7 @@
 #include "UIManager.hpp"
 #include "GameIDsTypes.hpp"
 #include "GameSystems.hpp"
+#include "TextureAtlas.hpp"
 #include "imgui.h"
 
 #include <SDL2/SDL_render.h>
@@ -55,7 +56,8 @@ UIManager::renderUI () const
 }
 
 void
-UIManager::loadTextures (SDL_Texture *texture)
+UIManager::setAtlas (TextureAtlas t)
 {
-  jobsPanel.loopButtonTexture = texture;
+  atlas = std::move (t);
+  jobsPanel.loopButtonTexture = atlas.loopButton;
 }

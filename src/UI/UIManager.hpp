@@ -1,6 +1,7 @@
 #include "GameDataView.hpp"
 #include "GameSystems.hpp"
 #include "InputHandler.hpp"
+#include "TextureAtlas.hpp"
 #include "UIAbilitiesPanel.hpp"
 #include "UIBuildingsPanel.hpp"
 #include "UIDepthPanel.hpp"
@@ -20,11 +21,13 @@ public:
   void bindGameData (std::shared_ptr<GameDataView>,
                      std::shared_ptr<InputHandler>);
 
-  void loadTextures (SDL_Texture *);
+  void setAtlas (TextureAtlas);
 
 private:
   std::shared_ptr<GameDataView> gData = nullptr;
   std::shared_ptr<InputHandler> inputHandler = nullptr;
+
+  TextureAtlas atlas;
 
   UIRessourcesPanel ressourcesPanel;
   UIBuildingPanel buildingsPanel;
