@@ -114,7 +114,7 @@ UIJobsPanel::renderRecipes () const
 void
 UIJobsPanel::renderRecipe (RecipeID id) const
 {
-  constexpr auto size = ImVec2 (220, 260);
+  constexpr auto size = ImVec2 (200, 260);
   const auto &recipeName = gData->getCraftView ()->getName (id);
 
   ImGui::BeginChild (recipeName.c_str (), size);
