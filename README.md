@@ -6,11 +6,6 @@ This repository contains a work-in-progress jellyfish themed incremental game
 ![Screenshot](https://github.com/VacheDesNeiges/Jellyfish-Idle/blob/main/assets/jfishGame.png)
 
 
-# Installation
-Install the required dependencies, then run the command
-```
-./build.sh
-```
 
 # Dependencies
 This program requires the following tools and libraries :
@@ -24,3 +19,26 @@ This program requires the following tools and libraries :
 - fmt
 - gtest
 - nlohmann (json)
+
+
+# Installation
+Install the required dependencies, then run the command
+```
+./build.sh
+```
+
+You may also build in debug mode by running 
+```
+./build.sh --debug
+```
+
+
+Then, to start the game, run 
+```
+./game
+```
+
+You may also start with no saved data by running
+```
+./game --noSave
+```
