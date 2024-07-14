@@ -23,7 +23,6 @@ public:
   void run (std::optional<std::string_view>);
 
 private:
-  void initialize ();
   void eventThread ();
   bool processEvent (const SDL_Event &) const;
   void renderFrame ();

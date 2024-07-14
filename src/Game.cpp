@@ -27,7 +27,20 @@
 #include <string_view>
 #include <thread>
 
-Game::Game () { initialize (); };
+Game::Game ()
+{
+  wrappedRenderer.setBackgroundImage ("./assets/otherjfish.bmp");
+  wrappedRenderer.setFont (std::string (FilePaths::getPath ())
+                           + std::string (FilePaths::FontPath));
+
+  UIUtils::setBaseUITheme ();
+  UI = std::make_unique<UIManager> ();
+  gameSystems = std::make_unique<GameSystems> ();
+  UI->bindGameData (gameSystems->getDataView (),
+                    gameSystems->getInputHandler ());
+
+  UI->setAtlas (wrappedRenderer.loadTextures ());
+};
 
 void
 Game::run (std::optional<std::string_view> option)
@@ -54,22 +67,6 @@ Game::run (std::optional<std::string_view> option)
       std::this_thread::sleep_for (std::chrono::milliseconds (15));
     }
   gameSystems->save ();
-}
-
-void
-Game::initialize ()
-{
-  wrappedRenderer.setBackgroundImage ("./assets/otherjfish.bmp");
-  wrappedRenderer.setFont (std::string (FilePaths::getPath ())
-                           + std::string (FilePaths::FontPath));
-
-  UIUtils::setBaseUITheme ();
-  UI = std::make_unique<UIManager> ();
-  gameSystems = std::make_unique<GameSystems> ();
-  UI->bindGameData (gameSystems->getDataView (),
-                    gameSystems->getInputHandler ());
-
-  UI->setAtlas (wrappedRenderer.loadTextures ());
 }
 
 void
