@@ -1,6 +1,7 @@
 #include "FilePaths.hpp"
 #include "GameIDsTypes.hpp"
 #include "gtest/gtest.h"
+#include <array>
 #include <nlohmann/detail/value_t.hpp>
 #include <nlohmann/json.hpp>
 #include <nlohmann/json_fwd.hpp>
@@ -70,6 +71,56 @@ TEST_F (AbilitiesJson_Fixture, ValuesHaveCorrectTypes)
           ASSERT_EQ (effect.at ("RessourceID").type (),
                      value_t::number_unsigned);
           ASSERT_EQ (effect.at ("Quantity").type (), value_t::number_unsigned);
+        }
+    }
+}
+
+TEST_F (AbilitiesJson_Fixture, OnlyContainsAllowedKeys)
+{
+
+  for (auto it = json.begin (); it != json.end (); it++)
+    {
+      ASSERT_EQ (it.key (), "Ability") << "Key not allowed : " << it.key ();
+    }
+
+  const std::set<std::string, std::less<> > allowedKeys{ "ID", "Name",
+                                                         "Description", "Cost",
+                                                         "Effect" };
+
+  const std::set<std::string, std::less<> > allowedCostKeys{ "RessourceID",
+                                                             "Quantity" };
+
+  const std::set<std::string, std::less<> > allowedEffectKeys{ "RessourceID",
+                                                               "Quantity" };
+
+  for (const auto &ability : json.at ("Ability"))
+    {
+      for (auto it = ability.begin (); it != ability.end (); it++)
+        {
+          ASSERT_NE (allowedKeys.find (it.key ()), allowedKeys.end ())
+              << "Key " << it.key () << " Not in the allowed set of keys";
+        }
+
+      for (const auto &cost : ability.at ("Cost"))
+        {
+          for (auto it = cost.begin (); it != cost.end (); it++)
+            {
+              ASSERT_NE (allowedCostKeys.find (it.key ()),
+                         allowedCostKeys.end ())
+                  << "Key " << it.key ()
+                  << " Not in the allowed set of cost keys";
+            }
+        }
+
+      for (const auto &effect : ability.at ("Effect"))
+        {
+          for (auto it = effect.begin (); it != effect.end (); it++)
+            {
+              ASSERT_NE (allowedCostKeys.find (it.key ()),
+                         allowedCostKeys.end ())
+                  << "Key " << it.key ()
+                  << " Not in the allowed set of cost keys";
+            }
         }
     }
 }

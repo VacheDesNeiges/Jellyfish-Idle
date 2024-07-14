@@ -22,7 +22,7 @@ This program requires the following tools and libraries :
 
 
 # Installation
-Install the required dependencies, then run the command
+Make sure that you have installed the required dependencies, then run the command
 ```
 ./build.sh
 ```
@@ -33,7 +33,8 @@ You may also build in debug mode by running
 ```
 
 
-Then, to start the game, run 
+
+Once this is done, you can start the game by running the command 
 ```
 ./game
 ```

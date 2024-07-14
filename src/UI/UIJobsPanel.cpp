@@ -237,8 +237,7 @@ UIJobsPanel::renderLoopButton (RecipeID id) const
     {
       inputHandler->setKeepCraftingMode (id, !isEnabled);
     }
-  if (ImGui::IsItemHovered (ImGuiHoveredFlags_DelayNone
-                            | ImGuiHoveredFlags_AllowWhenDisabled)
+  if (ImGui::IsItemHovered (ImGuiHoveredFlags_DelayNone)
       && ImGui::BeginTooltip ())
     {
       ImGui::SetTooltip ("Auto-Start when ressources are available");
