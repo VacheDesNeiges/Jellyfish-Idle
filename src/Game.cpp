@@ -29,9 +29,8 @@
 
 Game::Game ()
 {
-  wrappedRenderer.setBackgroundImage ("./assets/otherjfish.bmp");
-  wrappedRenderer.setFont (std::string (FilePaths::getPath ())
-                           + std::string (FilePaths::FontPath));
+  wrappedRenderer.setBackgroundImage ();
+  wrappedRenderer.setFont ();
 
   UIUtils::setBaseUITheme ();
   UI = std::make_unique<UIManager> ();

@@ -5,7 +5,6 @@
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_video.h>
-#include <string>
 
 class RendererWrapper
 {
@@ -17,8 +16,8 @@ public:
   void finalizeRenderingNewFrame ();
   bool processEvent (const SDL_Event &);
 
-  void setBackgroundImage (const std::string &);
-  void setFont (const std::string &);
+  void setBackgroundImage ();
+  void setFont ();
   TextureAtlas loadTextures ();
 
 private:

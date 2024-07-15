@@ -1,5 +1,6 @@
 #include "RendererWrapper.hpp"
 
+#include "FilePaths.hpp"
 #include "TextureAtlas.hpp"
 
 #include "SDL2/SDL.h"
@@ -110,21 +111,24 @@ RendererWrapper::processEvent (const SDL_Event &event)
 }
 
 void
-RendererWrapper::setFont (const std::string &path)
+RendererWrapper::setFont ()
 {
-  io->Fonts->AddFontFromFileTTF (path.c_str (), 15);
+  io->Fonts->AddFontFromFileTTF (
+      (std::string (FilePaths::getPath ()) + std::string (FilePaths::FontPath))
+          .c_str (),
+      15);
 }
 
 void
-RendererWrapper::setBackgroundImage (const std::string &path)
+RendererWrapper::setBackgroundImage ()
 {
-  SDL_Surface *surfaceIcon = SDL_LoadBMP ("./assets/jellyfish64.bmp");
+  SDL_Surface *surfaceIcon = SDL_LoadBMP ("./assets/images/jellyfish64.bmp");
   assert (surfaceIcon != nullptr);
 
   SDL_SetWindowIcon (window, surfaceIcon);
   SDL_FreeSurface (surfaceIcon);
 
-  SDL_Surface *surface = SDL_LoadBMP (path.c_str ());
+  SDL_Surface *surface = SDL_LoadBMP ("./assets/images/otherjfish.bmp");
   assert (surface != nullptr);
   backgroundPicture = SDL_CreateTextureFromSurface (renderer, surface);
   SDL_FreeSurface (surface);
@@ -134,7 +138,7 @@ RendererWrapper::setBackgroundImage (const std::string &path)
 TextureAtlas
 RendererWrapper::loadTextures ()
 {
-  SDL_Surface *surface = SDL_LoadBMP ("./assets/loopButton.bmp");
+  SDL_Surface *surface = SDL_LoadBMP ("./assets/images/loopButton.bmp");
   assert (surface != nullptr);
   auto texture = SDL_CreateTextureFromSurface (renderer, surface);
   SDL_FreeSurface (surface);
