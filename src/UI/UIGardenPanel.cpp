@@ -17,16 +17,16 @@ UIGardenPanel::render () const
       return;
     }
 
-  ImGui::Text ("Avaiables fields : %d",
-               gData->getGardenView ()->getAssignedFieldsToCulture (
-                   CulturesAlias::NONE));
+  ImGui::Text (
+      "Avaiables fields : %d",
+      gardenView ()->getAssignedFieldsToCulture (CulturesAlias::NONE));
 
   ImGui::PushStyleColor (ImGuiCol_ChildBg, UIColors::CardElements);
   ImGui::PushStyleColor (ImGuiCol_Separator,
                          ImVec4 (0.791f, 0.130f, 0.130f, 0.652f));
-  for (const auto &culture : gData->getGardenView ()->getCultureTypes ())
+  for (const auto &culture : gardenView ()->getCultureTypes ())
     {
-      if (gData->getAchievementsView ()->isUnlocked (culture))
+      if (achievementsView ()->isUnlocked (culture))
         {
           renderCulture (culture);
           ImGui::SameLine ();
@@ -40,7 +40,7 @@ void
 UIGardenPanel::renderCulture (AquaCultureID id) const
 {
   constexpr auto size = ImVec2 (200, 270);
-  const auto &cultureName = gData->getGardenView ()->getName (id);
+  const auto &cultureName = gardenView ()->getName (id);
 
   ImGui::BeginChild (cultureName.c_str (), size);
 
@@ -63,12 +63,11 @@ UIGardenPanel::displayCultureProduction (AquaCultureID id) const
   ImGui::Text ("Each field produces :");
   ImGui::NewLine ();
 
-  const auto [rType, quant]
-      = gData->getGardenView ()->getFieldProduction (id, 1).at (0);
+  const auto [rType, quant] = gardenView ()->getFieldProduction (id, 1).at (0);
 
-  const std::string quantity = fmt::format (
-      "{} x {:.3f}/sec", gData->getRessourcesView ()->getRessourceName (rType),
-      quant * 2);
+  const std::string quantity
+      = fmt::format ("{} x {:.3f}/sec",
+                     ressourcesView ()->getRessourceName (rType), quant * 2);
 
   ImGui::Text ("%s", quantity.c_str ());
 }
@@ -76,7 +75,7 @@ UIGardenPanel::displayCultureProduction (AquaCultureID id) const
 void
 UIGardenPanel::displayCultureConsumption (AquaCultureID id) const
 {
-  const auto &costData = gData->getGardenView ()->getFieldConsumption (id, 1);
+  const auto &costData = gardenView ()->getFieldConsumption (id, 1);
   if (costData.empty ())
     {
       ImGui::Text ("Nothing");
@@ -86,8 +85,7 @@ UIGardenPanel::displayCultureConsumption (AquaCultureID id) const
       for (const auto &[rType, quant] : costData)
         {
           const std::string displayedText = fmt::format (
-              "{} x {:.3f}/sec",
-              gData->getRessourcesView ()->getRessourceName (rType),
+              "{} x {:.3f}/sec", ressourcesView ()->getRessourceName (rType),
               quant * 2);
 
           ImGui::Text ("%s", displayedText.c_str ());
@@ -100,8 +98,8 @@ UIGardenPanel::displayFieldsAssignmentArrows (const std::string &cultureName,
                                               AquaCultureID id) const
 {
   ImGui::BeginDisabled (
-      gData->getGardenView ()->isOngoing (id)
-      || (gData->getGardenView ()->getAssignedFieldsToCulture (id) == 0));
+      gardenView ()->isOngoing (id)
+      || (gardenView ()->getAssignedFieldsToCulture (id) == 0));
 
   ImGui::SetCursorPosX (ImGui::GetCursorPosX () + 67);
 
@@ -114,15 +112,13 @@ UIGardenPanel::displayFieldsAssignmentArrows (const std::string &cultureName,
 
   ImGui::SameLine ();
 
-  ImGui::Text ("%d", gData->getGardenView ()->getAssignedFieldsToCulture (id));
+  ImGui::Text ("%d", gardenView ()->getAssignedFieldsToCulture (id));
 
   ImGui::SameLine ();
 
   ImGui::BeginDisabled (
-      gData->getGardenView ()->isOngoing (id)
-      || gData->getGardenView ()->getAssignedFieldsToCulture (
-             CulturesAlias::NONE)
-             == 0);
+      gardenView ()->isOngoing (id)
+      || gardenView ()->getAssignedFieldsToCulture (CulturesAlias::NONE) == 0);
   if (ImGui::ArrowButton ((cultureName + "##right").c_str (), ImGuiDir_Right))
     {
       inputHandler->assignToField (id);
@@ -133,9 +129,8 @@ UIGardenPanel::displayFieldsAssignmentArrows (const std::string &cultureName,
 void
 UIGardenPanel::displayGrowAndStopButtons (AquaCultureID id) const
 {
-  ImGui::BeginDisabled (
-      gData->getGardenView ()->getAssignedFieldsToCulture (id) == 0
-      || (gData->getGardenView ()->isOngoing (id)));
+  ImGui::BeginDisabled (gardenView ()->getAssignedFieldsToCulture (id) == 0
+                        || (gardenView ()->isOngoing (id)));
 
   ImGui::SetCursorPosX (ImGui::GetCursorPosX () + 25);
 
@@ -147,7 +142,7 @@ UIGardenPanel::displayGrowAndStopButtons (AquaCultureID id) const
 
   ImGui::SameLine ();
 
-  ImGui::BeginDisabled (!gData->getGardenView ()->isOngoing (id));
+  ImGui::BeginDisabled (!gardenView ()->isOngoing (id));
   if (ImGui::Button ("Stop"))
     {
       inputHandler->cancelCulture (id);

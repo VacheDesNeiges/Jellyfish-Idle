@@ -13,7 +13,7 @@ UIAbilitiesPanel::render () const
       return;
     }
 
-  for (const auto &ability : gData->getAbilitiesView ()->getAbilityTypes ())
+  for (const auto &ability : abilitiesView ()->getAbilityTypes ())
     {
       renderAbilityButton (ability);
     }
@@ -25,12 +25,11 @@ void
 UIAbilitiesPanel::renderAbilityButton (AbilityType ability) const
 {
   constexpr auto size = ImVec2 (300.f, 45.f);
-  if (gData->getAchievementsView ()->isUnlocked (ability))
+  if (achievementsView ()->isUnlocked (ability))
     {
 
-      if (ImGui::Button (
-              gData->getAbilitiesView ()->getAbilityName (ability).c_str (),
-              size))
+      if (ImGui::Button (abilitiesView ()->getAbilityName (ability).c_str (),
+                         size))
         {
           inputHandler->useAbility (ability);
         }
@@ -46,13 +45,12 @@ UIAbilitiesPanel::setToolTip (AbilityType ability) const
                             | ImGuiHoveredFlags_AllowWhenDisabled)
       && ImGui::BeginTooltip ())
     {
-      ImGui::Text ("%s\n", gData->getAbilitiesView ()
-                               ->getAbilityDescription (ability)
-                               .c_str ());
+      ImGui::Text ("%s\n",
+                   abilitiesView ()->getAbilityDescription (ability).c_str ());
 
-      auto ressourcesNeeded = gData->getAbilitiesView ()->getCost (ability);
+      auto ressourcesNeeded = abilitiesView ()->getCost (ability);
 
-      UIUtils::printCostsImGui (gData, ressourcesNeeded);
+      UIUtils::printCostsImGui (ressourcesView (), ressourcesNeeded);
 
       ImGui::EndTooltip ();
     }

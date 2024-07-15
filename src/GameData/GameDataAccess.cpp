@@ -1,4 +1,5 @@
 #include "GameDataAccess.hpp"
+#include "AbilityDataView.hpp"
 #include "AchievementDataView.hpp"
 #include "BuildingDataView.hpp"
 #include "CraftingDataView.hpp"
@@ -85,4 +86,10 @@ std::shared_ptr<const GardenDataView>
 GameDataAccess::gardenView () const
 {
   return view->getGardenView ();
+}
+
+std::shared_ptr<const AbilityDataView>
+GameDataAccess::abilitiesView () const
+{
+  return view->getAbilitiesView ();
 }

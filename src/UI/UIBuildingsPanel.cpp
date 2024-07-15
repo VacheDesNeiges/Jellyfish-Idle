@@ -29,7 +29,7 @@ UIBuildingPanel::render () const
   if (!odd)
     ImGui::SetCursorPosX (50);
 
-  for (const auto &building : gData->getBuildingsView ()->getBuildingTypes ())
+  for (const auto &building : buildingsView ()->getBuildingTypes ())
     {
       if (renderBuildingButton (building))
         {
@@ -48,12 +48,11 @@ bool
 UIBuildingPanel::renderBuildingButton (BuildingType building) const
 {
 
-  if (gData->getAchievementsView ()->isUnlocked (building))
+  if (achievementsView ()->isUnlocked (building))
     {
-      ImGui::BeginDisabled (!gData->getBuildingsView ()->isBuyable (building));
-      auto name = gData->getBuildingsView ()->getBuildingName (building);
-      auto quantity
-          = gData->getBuildingsView ()->getBuildingQuantity (building);
+      ImGui::BeginDisabled (!buildingsView ()->isBuyable (building));
+      auto name = buildingsView ()->getBuildingName (building);
+      auto quantity = buildingsView ()->getBuildingQuantity (building);
       std::string buttonText = fmt::format ("{} lvl {}", name, quantity);
 
       if (ImGui::Button (buttonText.c_str (),
@@ -82,14 +81,13 @@ UIBuildingPanel::setToolTip (BuildingType building) const
     {
 
       ImGui::SeparatorText ("Description");
-      ImGui::TextWrapped ("%s\n", gData->getBuildingsView ()
-                                      ->getBuildingDescription (building)
-                                      .c_str ());
+      ImGui::TextWrapped (
+          "%s\n",
+          buildingsView ()->getBuildingDescription (building).c_str ());
 
-      auto ressourcesNeeded
-          = gData->getBuildingsView ()->getNextBuyCost (building);
+      auto ressourcesNeeded = buildingsView ()->getNextBuyCost (building);
       ImGui::SeparatorText ("Price");
-      UIUtils::printCostsImGui (gData, ressourcesNeeded);
+      UIUtils::printCostsImGui (ressourcesView (), ressourcesNeeded);
 
       ImGui::EndTooltip ();
     }
@@ -101,10 +99,9 @@ UIBuildingPanel::renderJellyfishLuringButton () const
 {
   ImGui::SameLine ();
 
-  if (gData->getAchievementsView ()->isUnlocked (
-          AchievementsAlias::JELLYFISHLURING))
+  if (achievementsView ()->isUnlocked (AchievementsAlias::JELLYFISHLURING))
     {
-      ImGui::BeginDisabled (!gData->getJelliesView ()->canLure ());
+      ImGui::BeginDisabled (!jelliesView ()->canLure ());
 
       if (ImGui::Button ("Lure Jellyfish", UIConstants::UIBuildingButtonSize))
         {
@@ -120,8 +117,8 @@ UIBuildingPanel::renderJellyfishLuringButton () const
           ImGui::TextWrapped (
               "Allows you to use some food to lure a jellyfish");
 
-          if (gData->getJelliesView ()->getMaxNumJellies ()
-              == gData->getJelliesView ()->getNumJellies ())
+          if (jelliesView ()->getMaxNumJellies ()
+              == jelliesView ()->getNumJellies ())
             {
               ImGui::PushStyleColor (ImGuiCol_Text, UIColors::ErrorText);
               ImGui::TextWrapped ("Not enough room to host more jellies");
@@ -129,8 +126,8 @@ UIBuildingPanel::renderJellyfishLuringButton () const
             }
 
           ImGui::SeparatorText ("Price :");
-          UIUtils::printCostsImGui (
-              gData, { gData->getJelliesView ()->getLureCost () });
+          UIUtils::printCostsImGui (ressourcesView (),
+                                    { jelliesView ()->getLureCost () });
 
           ImGui::EndTooltip ();
         }

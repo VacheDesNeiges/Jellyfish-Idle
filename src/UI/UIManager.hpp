@@ -1,4 +1,4 @@
-#include "GameDataView.hpp"
+#include "GameDataAccess.hpp"
 #include "GameSystems.hpp"
 #include "InputHandler.hpp"
 #include "TextureAtlas.hpp"
@@ -14,17 +14,15 @@
 
 #include <memory>
 
-class UIManager
+class UIManager : public GameDataAccess
 {
 public:
   void renderUI () const;
-  void bindGameData (std::shared_ptr<GameDataView>,
-                     std::shared_ptr<InputHandler>);
+  void bindInputHandler (std::shared_ptr<InputHandler>);
 
   void setAtlas (TextureAtlas);
 
 private:
-  std::shared_ptr<GameDataView> gData = nullptr;
   std::shared_ptr<InputHandler> inputHandler = nullptr;
 
   TextureAtlas atlas;

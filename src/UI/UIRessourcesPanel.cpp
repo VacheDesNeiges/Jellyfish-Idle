@@ -12,7 +12,7 @@ void
 UIRessourcesPanel::render () const
 {
   renderRessources ();
-  if (gData->getAchievementsView ()->isUnlocked (
+  if (achievementsView ()->isUnlocked (
           AchievementsAlias::ANYMANUFACTUREDRESSOURCE))
     renderManufacturedRessources ();
 }
@@ -26,12 +26,45 @@ UIRessourcesPanel::renderRessources () const
       return;
     }
 
+  renderJfishNumbers ();
+
+  ImGui::SeparatorText ("");
+
+  setupColumns ();
+  for (const auto &ressource : ressourcesView ()->getRegularRessourceTypes ())
+    {
+      if (!achievementsView ()->isUnlocked (ressource))
+        continue;
+      renderRessource (ressource);
+    }
+  ImGui::EndColumns ();
+
+  if (achievementsView ()->isUnlocked (AchievementsAlias::ANYRARERESSOURCE))
+    {
+      ImGui::SeparatorText ("Rare Ressources");
+      setupColumns ();
+      for (const auto &rareRessource :
+           ressourcesView ()->getRareRessourceTypes ())
+        {
+          if (!achievementsView ()->isUnlocked (rareRessource))
+            continue;
+          renderRessource (rareRessource);
+        }
+      ImGui::EndColumns ();
+    }
+
+  ImGui::End ();
+}
+
+void
+UIRessourcesPanel::renderJfishNumbers () const
+{
+
   ImGui::Text ("Jellyfish");
   ImGui::SameLine ();
-  // print the amount of jellies
   std::string jfishtxt
-      = fmt::format ("{}/{}", gData->getJelliesView ()->getNumJellies (),
-                     gData->getJelliesView ()->getMaxNumJellies ());
+      = fmt::format ("{}/{}", jelliesView ()->getNumJellies (),
+                     jelliesView ()->getMaxNumJellies ());
 
   auto x = (ImGui::GetCursorPosX () + ImGui::GetColumnWidth ()
             - ImGui::CalcTextSize (jfishtxt.c_str ()).x - ImGui::GetScrollX ()
@@ -41,35 +74,6 @@ UIRessourcesPanel::renderRessources () const
     ImGui::SetCursorPosX (x);
 
   ImGui::Text ("%s", jfishtxt.c_str ());
-
-  ImGui::SeparatorText ("");
-
-  setupColumns ();
-  for (const auto &ressource :
-       gData->getRessourcesView ()->getRegularRessourceTypes ())
-    {
-      if (!gData->getAchievementsView ()->isUnlocked (ressource))
-        continue;
-      renderRessource (ressource);
-    }
-  ImGui::EndColumns ();
-
-  if (gData->getAchievementsView ()->isUnlocked (
-          AchievementsAlias::ANYRARERESSOURCE))
-    {
-      ImGui::SeparatorText ("Rare Ressources");
-      setupColumns ();
-      for (const auto &rareRessource :
-           gData->getRessourcesView ()->getRareRessourceTypes ())
-        {
-          if (!gData->getAchievementsView ()->isUnlocked (rareRessource))
-            continue;
-          renderRessource (rareRessource);
-        }
-      ImGui::EndColumns ();
-    }
-
-  ImGui::End ();
 }
 
 void
@@ -84,9 +88,9 @@ UIRessourcesPanel::renderManufacturedRessources () const
 
   setupColumns ();
   for (const auto &ressource :
-       gData->getRessourcesView ()->getCraftableRessourceTypes ())
+       ressourcesView ()->getCraftableRessourceTypes ())
     {
-      if (!gData->getAchievementsView ()->isUnlocked (ressource))
+      if (!achievementsView ()->isUnlocked (ressource))
         continue;
       renderRessource (ressource);
     }
@@ -100,8 +104,7 @@ UIRessourcesPanel::renderRessource (RessourceType ressource) const
 {
   ImGui::SetCursorPosX (ImGui::GetCursorPosX ()
                         + ImGui::GetStyle ().ItemSpacing.x);
-  ImGui::Text (
-      "%s", gData->getRessourcesView ()->getRessourceName (ressource).data ());
+  ImGui::Text ("%s", ressourcesView ()->getRessourceName (ressource).data ());
 
   ImGui::SameLine ();
   ImGui::NextColumn ();
@@ -109,16 +112,12 @@ UIRessourcesPanel::renderRessource (RessourceType ressource) const
   std::ostringstream stream;
   stream << std::fixed;
   stream << std::setprecision (3);
-  stream << gData->getRessourcesView ()->getRessourceQuantity (ressource);
+  stream << ressourcesView ()->getRessourceQuantity (ressource);
 
-  if (!(gData->getRessourcesView ()->getRessourceMaxQuantity (ressource)
-        == DBL_MAX)
-      && !(gData->getRessourcesView ()->getRessourceMaxQuantity (ressource)
-           == -1))
+  if (!(ressourcesView ()->getRessourceMaxQuantity (ressource) == DBL_MAX)
+      && !(ressourcesView ()->getRessourceMaxQuantity (ressource) == -1))
     {
-      stream << " /"
-             << gData->getRessourcesView ()->getRessourceMaxQuantity (
-                    ressource);
+      stream << " /" << ressourcesView ()->getRessourceMaxQuantity (ressource);
     }
 
   std::string text = stream.str ();
@@ -132,10 +131,9 @@ UIRessourcesPanel::renderRessource (RessourceType ressource) const
   ImGui::NextColumn ();
 
   std::string production = fmt::format (
-      "{:.3f}/sec",
-      (gData->getRessourcesView ()->getRessourceProduction (ressource)
-       - gData->getRessourcesView ()->getRessourceConsumption (ressource))
-          * 2);
+      "{:.3f}/sec", (ressourcesView ()->getRessourceProduction (ressource)
+                     - ressourcesView ()->getRessourceConsumption (ressource))
+                        * 2);
   auto productionWidth = ImGui::CalcTextSize (production.c_str ()).x;
   ImGui::SetCursorPosX (ImGui::GetCursorPosX () + columnWidth - productionWidth
                         - 5);

@@ -4,7 +4,7 @@
 void
 UINotification::render () const
 {
-  if (auto notif = gData->getAchievementsView ()->getNextNotification ();
+  if (auto notif = achievementsView ()->getNextNotification ();
       notif.has_value ())
     {
 

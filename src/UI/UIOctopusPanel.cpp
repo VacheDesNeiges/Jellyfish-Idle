@@ -18,16 +18,16 @@ UIOctopusPanel::render () const
   static bool showBoughtUpgrades = false;
   ImGui::Checkbox ("Show bought upgrades", &showBoughtUpgrades);
 
-  for (const auto &upgradeID : gData->getUpgradeView ()->getUpgradesTypes ())
+  for (const auto &upgradeID : upgradeView ()->getUpgradesTypes ())
     {
       if (showBoughtUpgrades)
         {
-          if (gData->getUpgradeView ()->isBought (upgradeID))
+          if (upgradeView ()->isBought (upgradeID))
             renderTradeButton (upgradeID);
         }
       else
         {
-          if (gData->getUpgradeView ()->isAvailableForBuying (upgradeID))
+          if (upgradeView ()->isAvailableForBuying (upgradeID))
 
             renderTradeButton (upgradeID);
         }
@@ -41,9 +41,8 @@ UIOctopusPanel::renderTradeButton (UpgradeID id) const
 {
   auto size = ImVec2 (300.f, 45.f);
 
-  ImGui::BeginDisabled (!gData->getUpgradeView ()->isBuyable (id));
-  std::string buttonText
-      = fmt::format ("{}\n", gData->getUpgradeView ()->getName (id));
+  ImGui::BeginDisabled (!upgradeView ()->isBuyable (id));
+  std::string buttonText = fmt::format ("{}\n", upgradeView ()->getName (id));
 
   if (ImGui::Button (buttonText.c_str (), size))
     {
@@ -54,11 +53,11 @@ UIOctopusPanel::renderTradeButton (UpgradeID id) const
       && ImGui::BeginTooltip ())
     {
       std::string tooltipText
-          = fmt::format ("{}", gData->getUpgradeView ()->getDescription (id));
+          = fmt::format ("{}", upgradeView ()->getDescription (id));
       ImGui::Text ("%s", tooltipText.c_str ());
 
-      auto cost = gData->getUpgradeView ()->getCost (id);
-      UIUtils::printCostsImGui (gData, cost);
+      auto cost = upgradeView ()->getCost (id);
+      UIUtils::printCostsImGui (ressourcesView (), cost);
 
       ImGui::EndTooltip ();
     }

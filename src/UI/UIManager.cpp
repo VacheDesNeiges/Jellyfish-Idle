@@ -9,20 +9,18 @@
 #include <memory>
 
 void
-UIManager::bindGameData (std::shared_ptr<GameDataView> viewPtr,
-                         std::shared_ptr<InputHandler> inputPtr)
+UIManager::bindInputHandler (std::shared_ptr<InputHandler> inputPtr)
 {
-  gData = viewPtr;
   inputHandler = inputPtr;
 
-  ressourcesPanel.bindGameData (viewPtr, inputPtr);
-  buildingsPanel.bindGameData (viewPtr, inputPtr);
-  jobsPanel.bindGameData (viewPtr, inputPtr);
-  abilitiesPanel.bindGameData (viewPtr, inputPtr);
-  depthPanel.bindGameData (viewPtr, inputPtr);
-  octopusPanel.bindGameData (viewPtr, inputPtr);
-  gardenPanel.bindGameData (viewPtr, inputPtr);
-  notifications.bindGameData (viewPtr, inputPtr);
+  ressourcesPanel.bindInputHandler (inputPtr);
+  buildingsPanel.bindInputHandler (inputPtr);
+  jobsPanel.bindInputHandler (inputPtr);
+  abilitiesPanel.bindInputHandler (inputPtr);
+  depthPanel.bindInputHandler (inputPtr);
+  octopusPanel.bindInputHandler (inputPtr);
+  gardenPanel.bindInputHandler (inputPtr);
+  notifications.bindInputHandler (inputPtr);
 }
 
 void
@@ -33,19 +31,19 @@ UIManager::renderUI () const
   buildingsPanel.render ();
 
   using namespace AchievementsAlias;
-  if (gData->getAchievementsView ()->isUnlocked (JOBSYSTEM))
+  if (achievementsView ()->isUnlocked (JOBSYSTEM))
     jobsPanel.render ();
 
-  if (gData->getAchievementsView ()->isUnlocked (ABILITYSYSTEM))
+  if (achievementsView ()->isUnlocked (ABILITYSYSTEM))
     abilitiesPanel.render ();
 
-  if (gData->getAchievementsView ()->isUnlocked (DEPTHSYSTEM))
+  if (achievementsView ()->isUnlocked (DEPTHSYSTEM))
     depthPanel.render ();
 
-  if (gData->getAchievementsView ()->isUnlocked (OCTOPUS))
+  if (achievementsView ()->isUnlocked (OCTOPUS))
     octopusPanel.render ();
 
-  if (gData->getAchievementsView ()->isUnlocked (GARDENSYSTEM))
+  if (achievementsView ()->isUnlocked (GARDENSYSTEM))
     gardenPanel.render ();
 
   ressourcesPanel.render ();

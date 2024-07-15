@@ -1,4 +1,5 @@
 #include "UIUtils.hpp"
+#include "RessourceDataView.hpp"
 #include "fmt/core.h"
 #include "imgui.h"
 #include <cmath>
@@ -58,7 +59,7 @@ UIUtils::setBaseUITheme ()
 
 void
 UIUtils::printCostsImGui (
-    std::shared_ptr<GameDataView> gData,
+    std::shared_ptr<const RessourceDataView> rView,
     const std::vector<std::pair<RessourceType, double> > &ressourcesNeeded)
 
 {
@@ -69,14 +70,11 @@ UIUtils::printCostsImGui (
 
   for (const auto &[ressource, cost] : ressourcesNeeded)
     {
-      auto requestedQuantity
-          = gData->getRessourcesView ()->getRessourceQuantity (ressource);
-      auto ressourceName
-          = gData->getRessourcesView ()->getRessourceName (ressource);
+      auto requestedQuantity = rView->getRessourceQuantity (ressource);
+      auto ressourceName = rView->getRessourceName (ressource);
       std::string timeToBuyable = "";
 
-      if (cost
-          > gData->getRessourcesView ()->getRessourceMaxQuantity (ressource))
+      if (cost > rView->getRessourceMaxQuantity (ressource))
         {
           textColor = UIColors::ErrorText;
         }
@@ -91,17 +89,12 @@ UIUtils::printCostsImGui (
           timeToBuyable += "( ";
           // TODO move to a function somewhere, also take care of the tick per
           // sec value that might change
-          auto prodPerSec
-              = (gData->getRessourcesView ()->getRessourceProduction (
-                     ressource)
-                 - gData->getRessourcesView ()->getRessourceConsumption (
-                     ressource))
-                * 2;
+          auto prodPerSec = (rView->getRessourceProduction (ressource)
+                             - rView->getRessourceConsumption (ressource))
+                            * 2;
 
           auto missingRessources
-              = cost
-                - gData->getRessourcesView ()->getRessourceQuantity (
-                    ressource);
+              = cost - rView->getRessourceQuantity (ressource);
 
           auto secondsToRequestedQuantity = missingRessources / prodPerSec;
 

@@ -13,13 +13,12 @@ UIDepthPanel::render () const
       return;
     }
 
-  std::string depthString = fmt::format (
-      "Current Depth : {} meters", gData->getDepthView ()->getCurrentDepth ());
+  std::string depthString = fmt::format ("Current Depth : {} meters",
+                                         depthView ()->getCurrentDepth ());
   ImGui::Text ("%s", depthString.c_str ());
 
-  ImGui::ProgressBar (
-      gData->getDepthView ()->getCurrentProgress ()
-      / gData->getDepthView ()->getProgressNeededForNextIncrease ());
+  ImGui::ProgressBar (depthView ()->getCurrentProgress ()
+                      / depthView ()->getProgressNeededForNextIncrease ());
 
   ImGui::Separator ();
   displayDepthsRewards ();
@@ -30,7 +29,7 @@ UIDepthPanel::render () const
 void
 UIDepthPanel::displayDepthsRewards () const
 {
-  const auto &depthRewards = gData->getAchievementsView ()->getDepthRewards ();
+  const auto &depthRewards = achievementsView ()->getDepthRewards ();
   if (depthRewards.empty ())
     return;
 
@@ -50,7 +49,7 @@ UIDepthPanel::displayDepthsRewards () const
       for (const auto &[achievID, depth, name, description] : depthRewards)
         {
           ImGui::TableNextRow ();
-          if (gData->getAchievementsView ()->isUnlocked (achievID))
+          if (achievementsView ()->isUnlocked (achievID))
             {
               ImGui::TableSetColumnIndex (0);
               ImGui::Text ("%d", depth);

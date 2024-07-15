@@ -1,6 +1,6 @@
 #pragma once
 
-#include "GameDataView.hpp"
+#include "RessourceDataView.hpp"
 #include "imgui.h"
 
 #include <SDL2/SDL_render.h>
@@ -44,6 +44,6 @@ namespace UIUtils
 void setBaseUITheme ();
 
 void printCostsImGui (
-    std::shared_ptr<GameDataView> gData,
+    std::shared_ptr<const RessourceDataView> gData,
     const std::vector<std::pair<RessourceType, double> > &ressourcesNeeded);
 }

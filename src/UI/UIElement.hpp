@@ -1,12 +1,12 @@
 #pragma once
-#include "GameDataView.hpp"
+#include "GameDataAccess.hpp"
 #include "GameSystems.hpp"
 #include "InputHandler.hpp"
 
 #include <SDL2/SDL_render.h>
 #include <memory>
 
-class UIElement
+class UIElement : public GameDataAccess
 {
 
 public:
@@ -16,14 +16,11 @@ public:
   virtual void render () const = 0;
 
   void
-  bindGameData (std::shared_ptr<GameDataView> viewPtr,
-                std::shared_ptr<InputHandler> inputPtr)
+  bindInputHandler (std::shared_ptr<InputHandler> inputPtr)
   {
-    this->gData = viewPtr;
     this->inputHandler = inputPtr;
   }
 
-  std::shared_ptr<GameDataView> gData;
   std::shared_ptr<InputHandler> inputHandler;
 
   SDL_Texture *loopButtonTexture;
