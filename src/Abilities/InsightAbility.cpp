@@ -20,7 +20,7 @@ InsightAbility::InsightAbility (const nlohmann::json &data)
 
       for (const auto &effect : data.at ("Effect"))
         {
-          ressourcesGained.push_back (
+          baseRessourcesGained.push_back (
               { RessourceType (effect.at ("RessourceID")),
                 effect.at ("Quantity") });
         }
@@ -41,7 +41,12 @@ InsightAbility::getCost () const
 std::vector<std::pair<RessourceType, double> >
 InsightAbility::getProduction () const
 {
-  return ressourcesGained;
+  auto ret = baseRessourcesGained;
+  for (auto &[rType, quant] : ret)
+    {
+      quant *= multipliersView ()->getProductionMultiplier (rType);
+    }
+  return ret;
 }
 
 std::string

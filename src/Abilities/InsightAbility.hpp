@@ -1,4 +1,5 @@
 #pragma once
+#include "GameDataAccess.hpp"
 #include "GameIDsTypes.hpp"
 
 #include <memory>
@@ -6,7 +7,7 @@
 #include <string>
 #include <vector>
 
-class InsightAbility
+class InsightAbility : public GameDataAccess
 {
 public:
   InsightAbility () = default;
@@ -21,7 +22,7 @@ private:
   std::string name;
   std::string description;
   std::vector<std::pair<RessourceType, double> > castingCost;
-  std::vector<std::pair<RessourceType, double> > ressourcesGained;
+  std::vector<std::pair<RessourceType, double> > baseRessourcesGained;
 
   friend class CallThunder;
 };
