@@ -21,6 +21,17 @@
       "Source": {
         "PerBuildingID": 1
       }
+    },
+    {
+      "Name": "Glass Production Per Glassblower's Atelier",
+      "ID": 3,
+      "BaseMultiplier": 0.15,
+      "Multiplies": {
+        "ProdOfRessourceID": 5
+      },
+      "Source": {
+        "PerBuildingID": 8
+      }
     }
   ]
 }

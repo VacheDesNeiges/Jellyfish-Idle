@@ -1,5 +1,6 @@
 #pragma once
 
+#include "GameDataAccess.hpp"
 #include "GameIDsTypes.hpp"
 
 #include <nlohmann/json.hpp>
@@ -7,7 +8,7 @@
 #include <unordered_map>
 #include <vector>
 
-class Building
+class Building : public GameDataAccess
 {
 public:
   Building () = default;

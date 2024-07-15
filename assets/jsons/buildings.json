@@ -122,7 +122,7 @@
     {
       "Name": "Glassblower's Atelier",
       "BuildingID": 8,
-      "Description": "Atelier",
+      "Description": "This Atelier contains every tool needed to shape molten glass. Each level improves glass production by 10%",
       "IncreaseToJfish": 0,
       "PriceMultiplier": 1.5,
       "BasePrice": [

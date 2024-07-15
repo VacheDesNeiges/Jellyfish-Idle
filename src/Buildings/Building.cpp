@@ -136,7 +136,12 @@ Building::update ()
 std::vector<std::pair<RessourceType, double> >
 Building::getProdPerTick () const
 {
-  return prodPerTick;
+  auto ret = prodPerTick;
+  for (auto &[rType, quant] : ret)
+    {
+      quant *= multipliersView ()->getProductionMultiplier (rType);
+    }
+  return ret;
 }
 
 std::vector<std::pair<RessourceType, double> >
