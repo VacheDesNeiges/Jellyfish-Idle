@@ -1,9 +1,7 @@
 #include "FilePaths.hpp"
 #include "GameIDsTypes.hpp"
 #include "gtest/gtest.h"
-#include <nlohmann/detail/value_t.hpp>
 #include <nlohmann/json.hpp>
-#include <nlohmann/json_fwd.hpp>
 #include <set>
 
 TEST (jsonTests, AbilityFileCanBeRead)
@@ -77,9 +75,9 @@ TEST_F (AbilitiesJson_Fixture, ValuesHaveCorrectTypes)
 TEST_F (AbilitiesJson_Fixture, OnlyContainsAllowedKeys)
 {
 
-  for (auto it = json.begin (); it != json.end (); it++)
+  for (const auto &[key, value] : json.items ())
     {
-      ASSERT_EQ (it.key (), "Ability") << "Key not allowed : " << it.key ();
+      ASSERT_EQ (key, "Ability") << "Key not allowed : " << key;
     }
 
   const std::set<std::string, std::less<> > allowedKeys{ "ID", "Name",

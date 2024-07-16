@@ -30,6 +30,10 @@ jobs:
     - name: Install sdl2
       run: |
         sudo apt-get install libsdl2-dev
+
+    - name: Install jsonSchema
+      run: | 
+        sudo apt-get install python3-jsonschema
       
         
     - name: Configure CMake
@@ -38,6 +42,11 @@ jobs:
     - name: Build
       run: |
         ./build.sh
+    
+    - name: Validate Jsons
+      run: |
+        jsonschema -i assets/jsons/abilities.json tests/jsonTests/ValidationSchemas/abilitiesTest.json 
+
 
     - name: Test
       run: |

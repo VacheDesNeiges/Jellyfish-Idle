@@ -33,6 +33,10 @@ UIOctopusPanel::render () const
         }
     }
 
+  ImGui::SameLine ();
+  ImGui::SetCursorPosX (ImGui::GetCursorPosX () + 80);
+  renderQuestCard ();
+
   ImGui::End ();
 }
 
@@ -63,4 +67,15 @@ UIOctopusPanel::renderTradeButton (UpgradeID id) const
     }
 
   ImGui::EndDisabled ();
+}
+
+void
+UIOctopusPanel::renderQuestCard () const
+{
+  const ImVec2 size{ 400, 600 };
+  ImGui::PushStyleColor (ImGuiCol_ChildBg, UIColors::CardElements);
+  ImGui::BeginChild ("##", size);
+  ImGui::SeparatorText ("Octopus Request");
+  ImGui::EndChild ();
+  ImGui::PopStyleColor ();
 }

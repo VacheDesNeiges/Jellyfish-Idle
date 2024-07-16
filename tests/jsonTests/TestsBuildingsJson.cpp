@@ -1,9 +1,7 @@
 #include "FilePaths.hpp"
 #include "GameIDsTypes.hpp"
 #include "gtest/gtest.h"
-#include <nlohmann/detail/value_t.hpp>
 #include <nlohmann/json.hpp>
-#include <nlohmann/json_fwd.hpp>
 #include <set>
 
 TEST (jsonTests, BuildingFileCanBeRead)
