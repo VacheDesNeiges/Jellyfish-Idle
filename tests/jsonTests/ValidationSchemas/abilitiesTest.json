@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "Ability": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "ID": {
+              "type": "integer"
+            },
+            "Name": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "Cost": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "RessourceID": {
+                      "type": "integer"
+                    },
+                    "Quantity": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "RessourceID",
+                    "Quantity"
+                  ]
+                }
+              ]
+            },
+            "Effect": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "RessourceID": {
+                      "type": "integer"
+                    },
+                    "Quantity": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "RessourceID",
+                    "Quantity"
+                  ]
+                }
+              ]
+            }
+          },
+          "required": [
+            "ID",
+            "Name",
+            "Description",
+            "Cost",
+            "Effect"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "Ability"
+  ]
+}

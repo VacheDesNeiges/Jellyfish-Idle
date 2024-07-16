@@ -1,0 +1,1 @@
+jsonschema -i assets/jsons/abilities.json tests/jsonTests/ValidationSchemas/abilitiesTest.json

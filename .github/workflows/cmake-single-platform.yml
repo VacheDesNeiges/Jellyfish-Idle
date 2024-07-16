@@ -45,7 +45,7 @@ jobs:
     
     - name: Validate Jsons
       run: |
-        jsonschema -i assets/jsons/abilities.json tests/jsonTests/ValidationSchemas/abilitiesTest.json 
+        ./tests/jsonTests/ValidationSchemas/validateJsons.sh
 
 
     - name: Test
