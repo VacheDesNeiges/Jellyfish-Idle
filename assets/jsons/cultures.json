@@ -1,10 +1,6 @@
 {
   "Cultures": [
     {
-      "Name": "None",
-      "ID": 0
-    },
-    {
       "Name": "Plankton",
       "ID": 1,
       "RequiredAchievementID": 2001,

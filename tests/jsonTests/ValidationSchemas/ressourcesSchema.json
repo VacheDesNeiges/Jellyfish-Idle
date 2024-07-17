@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "Ressources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string"
+          },
+          "Id": {
+            "type": "number"
+          },
+          "Max_Quantity": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "Name",
+          "Id",
+          "Max_Quantity"
+        ]
+      }
+    },
+    "RareRessources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string"
+          },
+          "Id": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "Name",
+          "Id"
+        ]
+      }
+    },
+    "ManufacturedRessources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string"
+          },
+          "Id": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "Name",
+          "Id"
+        ]
+      }
+    }
+  },
+  "required": [
+    "Ressources",
+    "RareRessources",
+    "ManufacturedRessources"
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "Achievements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Type": {
+            "type": "string"
+          },
+          "Name": {
+            "type": "string"
+          },
+          "ID": {
+            "type": "number"
+          },
+          "RessourceID": {
+            "type": "number"
+          },
+          "Condition": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "RessourceID": {
+                  "type": "number"
+                },
+                "Quantity_GT": {
+                  "type": "number"
+                },
+                "AnyOf": {
+                  "type": "string"
+                },
+                "AchievementID": {
+                  "type": "number"
+                },
+                "BuildingID": {
+                  "type": "number"
+                },
+                "MinQuantity": {
+                  "type": "number"
+                },
+                "Depth": {
+                  "type": "number"
+                },
+                "NumJfish": {
+                  "type": "number"
+                },
+                "UpgradeID": {
+                  "type": "number"
+                },
+                "Job": {
+                  "type": "number"
+                },
+                "NumAssigned": {
+                  "type": "number"
+                }
+              },
+              "required": []
+            }
+          },
+          "BuildingID": {
+            "type": "number"
+          },
+          "CultureID": {
+            "type": "number"
+          },
+          "DepthReward": {
+            "type": "object",
+            "properties": {
+              "Name": {
+                "type": "string"
+              },
+              "Description": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "Name",
+              "Description"
+            ]
+          },
+          "Notification": {
+            "type": "string"
+          },
+          "JobID": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "Type",
+          "Name",
+          "ID",
+          "Condition"
+        ]
+      }
+    }
+  },
+  "required": [
+    "Achievements"
+  ]
+}

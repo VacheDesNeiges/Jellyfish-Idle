@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "Multipliers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string"
+          },
+          "ID": {
+            "type": "number"
+          },
+          "BaseMultiplier": {
+            "type": "number"
+          },
+          "Multiplies": {
+            "type": "object",
+            "properties": {
+              "ProdOfRessourceID": {
+                "type": "number"
+              },
+              "ProdOfAllFields": {
+                "type": "boolean"
+              }
+            },
+            "required": []
+          },
+          "Source": {
+            "type": "object",
+            "properties": {
+              "PerBuildingID": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "PerBuildingID"
+            ]
+          }
+        },
+        "required": [
+          "Name",
+          "ID",
+          "BaseMultiplier",
+          "Multiplies",
+          "Source"
+        ]
+      }
+    }
+  },
+  "required": [
+    "Multipliers"
+  ]
+}

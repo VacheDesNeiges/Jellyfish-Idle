@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "Recipes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string"
+          },
+          "ID": {
+            "type": "number"
+          },
+          "BaseTicksRequired": {
+            "type": "number"
+          },
+          "Cost": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "RessourceID": {
+                  "type": "number"
+                },
+                "Quantity": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "RessourceID",
+                "Quantity"
+              ]
+            }
+          },
+          "Result": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "RessourceID": {
+                  "type": "number"
+                },
+                "Quantity": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "RessourceID",
+                "Quantity"
+              ]
+            }
+          }
+        },
+        "required": [
+          "Name",
+          "ID",
+          "BaseTicksRequired",
+          "Cost",
+          "Result"
+        ]
+      }
+    }
+  },
+  "required": [
+    "Recipes"
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "Cultures": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string"
+          },
+          "ID": {
+            "type": "number"
+          },
+          "RequiredAchievementID": {
+            "type": "number"
+          },
+          "Production": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "RessourceID": {
+                  "type": "number"
+                },
+                "Quantity": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "RessourceID",
+                "Quantity"
+              ]
+            }
+          },
+          "Consumption": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "RessourceID": {
+                  "type": "number"
+                },
+                "Quantity": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "RessourceID",
+                "Quantity"
+              ]
+            }
+          }
+        },
+        "required": [
+          "Name",
+          "ID",
+          "RequiredAchievementID",
+          "Production"
+        ]
+      }
+    }
+  },
+  "required": [
+    "Cultures"
+  ]
+}

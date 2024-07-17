@@ -1,0 +1,121 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "Buildings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string"
+          },
+          "BuildingID": {
+            "type": "number"
+          },
+          "Description": {
+            "type": "string"
+          },
+          "IncreaseToJfish": {
+            "type": "number"
+          },
+          "PriceMultiplier": {
+            "type": "number"
+          },
+          "BasePrice": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "RessourceID": {
+                  "type": "number"
+                },
+                "Quantity": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "RessourceID",
+                "Quantity"
+              ]
+            }
+          },
+          "StorageIncrease": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "RessourceID": {
+                  "type": "number"
+                },
+                "Quantity": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "RessourceID",
+                "Quantity"
+              ]
+            }
+          },
+          "Conversion": {
+            "type": "object",
+            "properties": {
+              "Cost": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "RessourceID": {
+                      "type": "number"
+                    },
+                    "Quantity": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "RessourceID",
+                    "Quantity"
+                  ]
+                }
+              },
+              "Production": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "RessourceID": {
+                      "type": "number"
+                    },
+                    "Quantity": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "RessourceID",
+                    "Quantity"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "Cost",
+              "Production"
+            ]
+          }
+        },
+        "required": [
+          "Name",
+          "BuildingID",
+          "Description",
+          "IncreaseToJfish",
+          "PriceMultiplier",
+          "BasePrice"
+        ]
+      }
+    }
+  },
+  "required": [
+    "Buildings"
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "Jobs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string"
+          },
+          "Description": {
+            "type": "string"
+          },
+          "ID": {
+            "type": "number"
+          },
+          "Effect": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "RessourceID": {
+                  "type": "number"
+                },
+                "QuantityPerTick": {
+                  "type": "number"
+                }
+              },
+              "required": []
+            }
+          }
+        },
+        "required": [
+          "Name",
+          "Description",
+          "ID"
+        ]
+      }
+    }
+  },
+  "required": [
+    "Jobs"
+  ]
+}
