@@ -65,9 +65,9 @@ UIGardenPanel::displayCultureProduction (AquaCultureID id) const
 
   const auto [rType, quant] = gardenView ()->getFieldProduction (id, 1).at (0);
 
-  const std::string quantity
-      = fmt::format ("{} x {:.3f}/sec",
-                     ressourcesView ()->getRessourceName (rType), quant * 2);
+  const std::string quantity = fmt::format (
+      "{} x {}/sec", ressourcesView ()->getRessourceName (rType),
+      UIUtils::formatQuantity (quant * 2));
 
   ImGui::Text ("%s", quantity.c_str ());
 }
@@ -85,8 +85,8 @@ UIGardenPanel::displayCultureConsumption (AquaCultureID id) const
       for (const auto &[rType, quant] : costData)
         {
           const std::string displayedText = fmt::format (
-              "{} x {:.3f}/sec", ressourcesView ()->getRessourceName (rType),
-              quant * 2);
+              "{} x {}/sec", ressourcesView ()->getRessourceName (rType),
+              UIUtils::formatQuantity (quant * 2));
 
           ImGui::Text ("%s", displayedText.c_str ());
         }

@@ -89,12 +89,6 @@ BuildingManager::getBuildingDescription (BuildingType t) const
   return buildings.at (t).getDescription ();
 }
 
-std::string
-BuildingManager::getAdvancedDescription (BuildingType t) const
-{
-  return buildings.at (t).getAdvancedDescription ();
-}
-
 std::unordered_map<RessourceType, double>
 BuildingManager::getProductionRates () const
 {

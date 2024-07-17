@@ -10,6 +10,6 @@ private:
   void renderJfishNumbers () const;
   void renderRessources () const;
   void renderManufacturedRessources () const;
-  void renderRessource (RessourceType) const;
+  void renderRessource (RessourceType, bool hasMaxQuantity = false) const;
   void setupColumns () const;
 };

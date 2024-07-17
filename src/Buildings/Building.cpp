@@ -91,17 +91,6 @@ Building::getBuildingName () const
   return name;
 }
 
-std::string
-Building::getAdvancedDescription () const // TODO : Move to UI ?
-{
-  std::string s = "price :";
-  for (const auto &[ressource, price] : basePrice)
-    {
-      s += fmt::format ("\n{:.3f}", price * pow (priceMultiplier, quantity));
-    }
-  return s;
-}
-
 unsigned
 Building::getIncreaseToMaxJfish () const
 {

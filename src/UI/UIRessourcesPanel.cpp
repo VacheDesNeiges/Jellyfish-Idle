@@ -1,12 +1,11 @@
 #include "UIRessourcesPanel.hpp"
 
 #include "GameIDsTypes.hpp"
-#include "fmt/core.h"
+#include "UIUtils.hpp"
 #include "imgui.h"
 #include "imgui_internal.h"
 
 #include <cfloat>
-#include <iomanip>
 
 void
 UIRessourcesPanel::render () const
@@ -35,7 +34,7 @@ UIRessourcesPanel::renderRessources () const
     {
       if (!achievementsView ()->isUnlocked (ressource))
         continue;
-      renderRessource (ressource);
+      renderRessource (ressource, true);
     }
   ImGui::EndColumns ();
 
@@ -62,9 +61,8 @@ UIRessourcesPanel::renderJfishNumbers () const
 
   ImGui::Text ("Jellyfish");
   ImGui::SameLine ();
-  std::string jfishtxt
-      = fmt::format ("{}/{}", jelliesView ()->getNumJellies (),
-                     jelliesView ()->getMaxNumJellies ());
+  std::string jfishtxt = UIUtils::formatQuantity (
+      jelliesView ()->getNumJellies (), jelliesView ()->getMaxNumJellies ());
 
   auto x = (ImGui::GetCursorPosX () + ImGui::GetColumnWidth ()
             - ImGui::CalcTextSize (jfishtxt.c_str ()).x - ImGui::GetScrollX ()
@@ -100,7 +98,8 @@ UIRessourcesPanel::renderManufacturedRessources () const
 }
 
 void
-UIRessourcesPanel::renderRessource (RessourceType ressource) const
+UIRessourcesPanel::renderRessource (RessourceType ressource,
+                                    bool hasMaxQuantity) const
 {
   ImGui::SetCursorPosX (ImGui::GetCursorPosX ()
                         + ImGui::GetStyle ().ItemSpacing.x);
@@ -109,35 +108,38 @@ UIRessourcesPanel::renderRessource (RessourceType ressource) const
   ImGui::SameLine ();
   ImGui::NextColumn ();
 
-  std::ostringstream stream;
-  stream << std::fixed;
-  stream << std::setprecision (3);
-  stream << ressourcesView ()->getRessourceQuantity (ressource);
-
-  if (!(ressourcesView ()->getRessourceMaxQuantity (ressource) == DBL_MAX)
-      && !(ressourcesView ()->getRessourceMaxQuantity (ressource) == -1))
+  std::string quantityString;
+  if (hasMaxQuantity)
     {
-      stream << " /" << ressourcesView ()->getRessourceMaxQuantity (ressource);
+      quantityString = UIUtils::formatQuantity (
+          ressourcesView ()->getRessourceQuantity (ressource),
+          ressourcesView ()->getRessourceMaxQuantity (ressource));
+    }
+  else
+    {
+      quantityString = UIUtils::formatQuantity (
+          ressourcesView ()->getRessourceQuantity (ressource));
     }
 
-  std::string text = stream.str ();
-  auto textWidth = ImGui::CalcTextSize (text.c_str ()).x;
+  auto textWidth = ImGui::CalcTextSize (quantityString.c_str ()).x;
   auto columnWidth
       = ImGui::GetColumnWidth () - ImGui::GetStyle ().ItemSpacing.x;
   ImGui::SetCursorPosX (ImGui::GetCursorPosX () + columnWidth - textWidth);
-  ImGui::Text ("%s", text.c_str ());
+  ImGui::Text ("%s", quantityString.c_str ());
 
   ImGui::SameLine ();
   ImGui::NextColumn ();
 
-  std::string production = fmt::format (
-      "{:.3f}/sec", (ressourcesView ()->getRessourceProduction (ressource)
-                     - ressourcesView ()->getRessourceConsumption (ressource))
-                        * 2);
-  auto productionWidth = ImGui::CalcTextSize (production.c_str ()).x;
-  ImGui::SetCursorPosX (ImGui::GetCursorPosX () + columnWidth - productionWidth
-                        - 5);
-  ImGui::Text ("%s", production.c_str ());
+  const auto production
+      = ressourcesView ()->getRessourceProduction (ressource);
+  const auto consumption
+      = ressourcesView ()->getRessourceConsumption (ressource);
+  std::string formatedProd
+      = UIUtils::formatQuantity (2 * (production - consumption)) + "/sec";
+
+  auto prodWidth = ImGui::CalcTextSize (formatedProd.c_str ()).x;
+  ImGui::SetCursorPosX (ImGui::GetCursorPosX () + columnWidth - prodWidth - 5);
+  ImGui::Text ("%s", formatedProd.c_str ());
 
   ImGui::NextColumn ();
 }

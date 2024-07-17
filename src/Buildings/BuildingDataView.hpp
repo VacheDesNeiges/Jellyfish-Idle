@@ -25,7 +25,6 @@ public:
 
   std::string getBuildingName (BuildingType) const;
   std::string getBuildingDescription (BuildingType) const;
-  std::string getAdvancedBuildingDescription (BuildingType) const;
   std::vector<std::pair<RessourceType, double> >
       getNextBuyCost (BuildingType) const;
 

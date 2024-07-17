@@ -32,7 +32,6 @@ public:
   getIncreasedStorage () const;
 
   std::string getDescription () const;
-  std::string getAdvancedDescription () const;
 
 private:
   std::string name;

@@ -38,7 +38,6 @@ public:
 
   std::string getBuildingName (BuildingType) const;
   std::string getBuildingDescription (BuildingType) const;
-  std::string getAdvancedDescription (BuildingType) const;
 
   std::vector<std::pair<BuildingType, unsigned> > getData () const override;
   void

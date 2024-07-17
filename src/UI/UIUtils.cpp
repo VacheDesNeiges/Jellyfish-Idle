@@ -120,8 +120,26 @@ UIUtils::printCostsImGui (
           timeToBuyable += fmt::format (")");
         }
       ImGui::TextColored (textColor, "%s",
-                          fmt::format ("{} : {:.3f}/{:.3f}  {}", ressourceName,
+                          fmt::format ("{} : {:.3g}/{:.3g}  {}", ressourceName,
                                        requestedQuantity, cost, timeToBuyable)
                               .c_str ());
     }
+}
+
+std::string
+UIUtils::formatQuantity (double quantity)
+{
+  auto ret = fmt::format ("{:.3f}", quantity);
+  ret.erase (ret.find_last_not_of ('0') + 1, ret.size ());
+  if (ret.back () == '.')
+    ret.pop_back ();
+
+  return ret;
+}
+
+std::string
+UIUtils::formatQuantity (double quantity, double maxQuantity)
+{
+  return fmt::format ("{}/{}", formatQuantity (quantity),
+                      formatQuantity (maxQuantity));
 }

@@ -35,12 +35,6 @@ BuildingDataView::getBuildingDescription (BuildingType t) const
   return buildings->getBuildingDescription (t);
 }
 
-std::string
-BuildingDataView::getAdvancedBuildingDescription (BuildingType t) const
-{
-  return buildings->getAdvancedDescription (t);
-}
-
 unsigned
 BuildingDataView::getBuildingQuantity (BuildingType t) const
 {
