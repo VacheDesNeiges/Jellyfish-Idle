@@ -1,3 +1,5 @@
+#!/bin/bash
+
 rm -f game
 rm -f test
 

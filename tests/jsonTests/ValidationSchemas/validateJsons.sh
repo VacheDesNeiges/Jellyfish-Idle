@@ -1,3 +1,5 @@
+#!/bin/bash
+
 jsonschema -i assets/jsons/abilities.json tests/jsonTests/ValidationSchemas/abilitiesSchema.json
 jsonschema -i assets/jsons/achievements.json tests/jsonTests/ValidationSchemas/achievementsSchema.json
 jsonschema -i assets/jsons/buildings.json tests/jsonTests/ValidationSchemas/buildingsSchema.json
