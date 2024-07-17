@@ -1,7 +1,6 @@
 #include "Ressource.hpp"
 
 #include <cfloat>
-#include <iostream>
 #include <nlohmann/json_fwd.hpp>
 #include <string_view>
 

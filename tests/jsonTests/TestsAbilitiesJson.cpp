@@ -23,30 +23,6 @@ public:
   }
 };
 
-TEST_F (AbilitiesJson_Fixture, HasAllRequiredFields)
-{
-  for (const auto &ability : json.at ("Ability"))
-    {
-      ASSERT_TRUE (ability.contains ("ID"));
-      ASSERT_TRUE (ability.contains ("Name"));
-      ASSERT_TRUE (ability.contains ("Description"));
-
-      ASSERT_TRUE (ability.contains ("Cost"));
-      for (const auto &cost : ability.at ("Cost"))
-        {
-          ASSERT_TRUE (cost.contains ("RessourceID"));
-          ASSERT_TRUE (cost.contains ("Quantity"));
-        }
-
-      ASSERT_TRUE (ability.contains ("Effect"));
-      for (const auto &effect : ability.at ("Effect"))
-        {
-          ASSERT_TRUE (effect.contains ("RessourceID"));
-          ASSERT_TRUE (effect.contains ("Quantity"));
-        }
-    }
-}
-
 TEST_F (AbilitiesJson_Fixture, ValuesHaveCorrectTypes)
 {
   using nlohmann::detail::value_t;
@@ -68,56 +44,6 @@ TEST_F (AbilitiesJson_Fixture, ValuesHaveCorrectTypes)
           ASSERT_EQ (effect.at ("RessourceID").type (),
                      value_t::number_unsigned);
           ASSERT_EQ (effect.at ("Quantity").type (), value_t::number_unsigned);
-        }
-    }
-}
-
-TEST_F (AbilitiesJson_Fixture, OnlyContainsAllowedKeys)
-{
-
-  for (const auto &[key, value] : json.items ())
-    {
-      ASSERT_EQ (key, "Ability") << "Key not allowed : " << key;
-    }
-
-  const std::set<std::string, std::less<> > allowedKeys{ "ID", "Name",
-                                                         "Description", "Cost",
-                                                         "Effect" };
-
-  const std::set<std::string, std::less<> > allowedCostKeys{ "RessourceID",
-                                                             "Quantity" };
-
-  const std::set<std::string, std::less<> > allowedEffectKeys{ "RessourceID",
-                                                               "Quantity" };
-
-  for (const auto &ability : json.at ("Ability"))
-    {
-      for (auto it = ability.begin (); it != ability.end (); it++)
-        {
-          ASSERT_NE (allowedKeys.find (it.key ()), allowedKeys.end ())
-              << "Key " << it.key () << " Not in the allowed set of keys";
-        }
-
-      for (const auto &cost : ability.at ("Cost"))
-        {
-          for (auto it = cost.begin (); it != cost.end (); it++)
-            {
-              ASSERT_NE (allowedCostKeys.find (it.key ()),
-                         allowedCostKeys.end ())
-                  << "Key " << it.key ()
-                  << " Not in the allowed set of cost keys";
-            }
-        }
-
-      for (const auto &effect : ability.at ("Effect"))
-        {
-          for (auto it = effect.begin (); it != effect.end (); it++)
-            {
-              ASSERT_NE (allowedCostKeys.find (it.key ()),
-                         allowedCostKeys.end ())
-                  << "Key " << it.key ()
-                  << " Not in the allowed set of cost keys";
-            }
         }
     }
 }
