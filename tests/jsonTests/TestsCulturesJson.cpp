@@ -33,3 +33,35 @@ TEST_F (CulturesJson_Fixture, IDUniqueness)
       idSet.insert (id);
     }
 }
+
+TEST_F (CulturesJson_Fixture, reservedID)
+{
+  for (const auto &culture : json.at ("Cultures"))
+    {
+      const AquaCultureID id (culture.at ("ID"));
+      ASSERT_NE (CulturesAlias::NONE, id);
+    }
+}
+
+TEST_F (CulturesJson_Fixture, abherantValues)
+{
+  for (const auto &culture : json.at ("Cultures"))
+    {
+      ASSERT_GT (culture.at ("ID"), 0);
+
+      for (const auto &prod : culture.at ("Production"))
+        {
+          ASSERT_GT (prod.at ("RessourceID"), 0);
+          ASSERT_GT (prod.at ("Quantity"), 0);
+        }
+
+      if (!json.contains ("Consumption"))
+        continue;
+
+      for (const auto &cons : culture.at ("Consumption"))
+        {
+          ASSERT_GT (cons.at ("RessourceID"), 0);
+          ASSERT_GT (cons.at ("Quantity"), 0);
+        }
+    }
+}
