@@ -1,7 +1,9 @@
 #pragma once
 
 #include <cassert>
+#include <filesystem>
 #include <fstream>
+#include <iostream>
 #include <linux/limits.h>
 #include <string>
 #include <string_view>
@@ -32,18 +34,18 @@ getPath ()
   if (!path.empty ())
     return path;
 
-  path.resize (PATH_MAX);
-
-  if (ssize_t len = ::readlink ("/proc/self/exe\0", &path[0], PATH_MAX - 1);
-      len != -1)
+  try
     {
-      path.resize (static_cast<unsigned long> (len));
-
-      if (std::size_t found = path.rfind ('/'); found != std::string::npos)
-        path.resize (found);
-      return path;
+      const std::filesystem::path currentpath
+          = std::filesystem::read_symlink ("/proc/self/exe");
+      path += currentpath.parent_path ().c_str ();
     }
-  assert (false);
+  catch (const std::filesystem::filesystem_error &e)
+    {
+      std::cerr << "Error getting current path: " << e.what ();
+      abort ();
+    }
+  return path;
 }
 
 inline std::ifstream

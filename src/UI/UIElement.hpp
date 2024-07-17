@@ -23,5 +23,5 @@ public:
 
   std::shared_ptr<InputHandler> inputHandler;
 
-  SDL_Texture *loopButtonTexture;
+  SDL_Texture *loopButtonTexture = nullptr;
 };

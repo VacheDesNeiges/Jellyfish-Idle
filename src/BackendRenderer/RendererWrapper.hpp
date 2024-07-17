@@ -24,9 +24,9 @@ private:
   void initializeSDL ();
   void initializeImgui ();
 
-  SDL_Window *window;
-  SDL_Renderer *renderer;
-  ImGuiIO *io;
+  SDL_Window *window = nullptr;
+  SDL_Renderer *renderer = nullptr;
+  ImGuiIO *io = nullptr;
 
-  SDL_Texture *backgroundPicture;
+  SDL_Texture *backgroundPicture = nullptr;
 };
