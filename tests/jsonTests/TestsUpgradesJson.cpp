@@ -35,3 +35,14 @@ TEST_F (UpgradesJson_Fixture, IDUniqueness)
       idSet.insert (id);
     }
 }
+TEST_F (UpgradesJson_Fixture, abherantValue)
+{
+  for (const auto &upgrade : json.at ("Upgrades"))
+    {
+      for (const auto &cost : upgrade.at ("Cost"))
+        {
+          ASSERT_GT (cost.at ("Quantity"), 0);
+          ASSERT_GT (cost.at ("RessourceID"), 0);
+        }
+    }
+}

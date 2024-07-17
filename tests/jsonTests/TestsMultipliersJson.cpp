@@ -35,3 +35,11 @@ TEST_F (MultipliersJson_Fixture, IDUniqueness)
       idSet.insert (id);
     }
 }
+
+TEST_F (MultipliersJson_Fixture, abherantValues)
+{
+  for (const auto &multiplier : json.at ("Multipliers"))
+    {
+      ASSERT_GT (multiplier.at ("BaseMultiplier"), 0);
+    }
+}

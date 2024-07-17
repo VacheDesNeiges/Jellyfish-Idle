@@ -35,3 +35,12 @@ TEST_F (RessourceJson_Fixture, IDUniqueness)
       idSet.insert (id);
     }
 }
+
+TEST_F (RessourceJson_Fixture, abherantValue)
+{
+  for (const auto &ressource : json.at ("Ressources"))
+    {
+      ASSERT_GT (ressource.at ("Id"), 0);
+      ASSERT_GT (ressource.at ("Max_Quantity"), 0);
+    }
+}

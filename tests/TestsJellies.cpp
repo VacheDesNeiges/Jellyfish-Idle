@@ -23,8 +23,8 @@ TEST (TestsJellies, settingJob)
 TEST (TestsJelliesManager, initialization)
 {
   JellyfishManager manager;
-  ASSERT_EQ (0, manager.getNumJellies ());
-  ASSERT_EQ (1, manager.getMaxNumJellies ());
+  EXPECT_EQ (0, manager.getNumJellies ());
+  EXPECT_EQ (1, manager.getMaxNumJellies ());
   for (const auto &job : manager.getAllJobsTypes ())
     {
       ASSERT_EQ (0, manager.getNum (job));
@@ -45,7 +45,7 @@ TEST (TestsJelliesManager, overflow)
   manager.createJellyfish ();
   manager.createJellyfish ();
 
-  ASSERT_EQ (1, manager.getMaxNumJellies ());
+  EXPECT_EQ (1, manager.getMaxNumJellies ());
   ASSERT_EQ (1, manager.getNumJellies ());
 }
 

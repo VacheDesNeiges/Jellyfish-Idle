@@ -13,7 +13,7 @@ TEST_F (AquaCultureFixture, initialization) { ASSERT_FALSE (ac.isOngoing ()); }
 
 TEST_F (AquaCultureFixture, whenOngoing)
 {
-  ASSERT_FALSE (ac.isOngoing ());
+  EXPECT_FALSE (ac.isOngoing ());
   ac.start ();
   ASSERT_TRUE (ac.isOngoing ());
 }

@@ -1,7 +1,7 @@
 {
   "Ability": [
     {
-      "ID": 0,
+      "ID": 1,
       "Name": "Lightning",
       "Description": "Call a lightning to melt some sand into glass",
       "Cost": [

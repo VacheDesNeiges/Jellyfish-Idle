@@ -20,7 +20,7 @@ TEST (TestsAchievements, settingState)
 {
   Achievement a;
   a.setState (true);
-  ASSERT_EQ (true, a.isUnlocked ());
+  EXPECT_EQ (true, a.isUnlocked ());
   a.setState (false);
   ASSERT_EQ (false, a.isUnlocked ());
 }
