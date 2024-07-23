@@ -33,7 +33,6 @@ You may also build in debug mode by running
 ```
 
 
-
 Once this is done, you can start the game by running the command 
 ```
 ./game
