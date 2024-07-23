@@ -24,11 +24,26 @@
       "Name": "Glass",
       "Id": 5,
       "Max_Quantity": 75
+    },
+    {
+      "Name": "Pearl",
+      "Id": 6,
+      "Max_Quantity": 500
+    },
+    {
+      "Name": "Squid Ink",
+      "Id": 7,
+      "Max_Quantity": 100
+    },
+    {
+      "Name": "Gloom Kelp",
+      "Id": 8,
+      "Max_Quantity": 300
     }
   ],
   "RareRessources": [
     {
-      "Name": "Pearl",
+      "Name": "Infused Pearl",
       "Id": 1001
     }
   ],
@@ -42,8 +57,16 @@
       "Id": 2002
     },
     {
-      "Name": "Knowledge Tablet",
+      "Name": "Glass Vial",
       "Id": 2003
+    },
+    {
+      "Name": "Gloom Oil",
+      "Id": 2004
+    },
+    {
+      "Name": "Knowledge Tablet",
+      "Id": 2005
     }
   ]
 }

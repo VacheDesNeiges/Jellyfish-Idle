@@ -12,20 +12,29 @@
 namespace FilePaths
 {
 inline constexpr std::string_view FontPath = "/assets/font/asap.ttf";
+
 inline constexpr std::string_view RessourcesPath
     = "/assets/jsons/ressources.json";
+
 inline constexpr std::string_view BuildingsPath
     = "/assets/jsons/buildings.json";
 inline constexpr std::string_view JobsPath = "/assets/jsons/jobs.json";
+
 inline constexpr std::string_view AchievementsPath
     = "/assets/jsons/achievements.json";
+
 inline constexpr std::string_view UpgradesPath = "/assets/jsons/upgrades.json";
+
 inline constexpr std::string_view AbilitiesPath
     = "/assets/jsons/abilities.json";
+
 inline constexpr std::string_view CulturesPath = "/assets/jsons/cultures.json";
 inline constexpr std::string_view RecipesPath = "/assets/jsons/recipes.json";
+
 inline constexpr std::string_view MultipliersPath
     = "/assets/jsons/multipliers.json";
+
+inline constexpr std::string_view QuestsPath = "/assets/jsons/quests.json";
 
 inline std::string_view
 getPath ()

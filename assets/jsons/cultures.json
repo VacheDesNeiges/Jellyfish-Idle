@@ -34,7 +34,7 @@
       "RequiredAchievementID": 2003,
       "Production": [
         {
-          "RessourceID": 1001,
+          "RessourceID": 6,
           "Quantity": 0.0017
         }
       ],
@@ -46,6 +46,27 @@
         {
           "RessourceID": 2,
           "Quantity": 0.02
+        }
+      ]
+    },
+    {
+      "Name": "Friendly Squids",
+      "ID": 4,
+      "RequiredAchievementID": 2003,
+      "Production": [
+        {
+          "RessourceID": 7,
+          "Quantity": 0.001
+        }
+      ],
+      "Consumption": [
+        {
+          "RessourceID": 6,
+          "Quantity": 0.001
+        },
+        {
+          "RessourceID": 2003,
+          "Quantity": 0.05
         }
       ]
     }

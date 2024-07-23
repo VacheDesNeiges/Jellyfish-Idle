@@ -285,6 +285,21 @@
       }
     },
     {
+      "Type": "Garden",
+      "Name": "CultureSquids",
+      "ID": 2004,
+      "CultureID": 4,
+      "Condition": [
+        {
+          "Depth": 50
+        }
+      ],
+      "DepthReward": {
+        "Name": "Friendly Squids",
+        "Description": "Squids will hang out in your garden and exchange their ink for pearls"
+      }
+    },
+    {
       "Type": "Jfish",
       "Name": "First Jelly",
       "ID": 3000,

@@ -1,0 +1,25 @@
+{
+  "Questlines": [
+    {
+      "Name": "OctopusQuests",
+      "Quests": [
+        {
+          "ID": 0,
+          "Text": "The Octopus tells you that you have a hidden potential, cthey propose to teach you how to use it in exchange for some food.",
+          "CompletionRequirements": [
+            {
+              "RessourceID": 1,
+              "Quantity": 50
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "WhaleQuests",
+      "Quests": [
+        {}
+      ]
+    }
+  ]
+}

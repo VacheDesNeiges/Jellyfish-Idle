@@ -33,6 +33,23 @@
           "Quantity": 1
         }
       ]
+    },
+    {
+      "Name": "Glass Vial",
+      "ID": 3,
+      "BaseTicksRequired": 600,
+      "Cost": [
+        {
+          "RessourceID": 5,
+          "Quantity": 30
+        }
+      ],
+      "Result": [
+        {
+          "RessourceID": 2003,
+          "Quantity": 1
+        }
+      ]
     }
   ]
 }

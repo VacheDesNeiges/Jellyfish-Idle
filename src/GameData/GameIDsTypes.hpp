@@ -3,6 +3,12 @@
 #include <cstddef>
 #include <functional>
 
+enum class QuestLineEnum
+{
+  Octopus,
+  Whale,
+};
+
 /**
  * @brief ID for the ressources type
  * Implements comparaison operators and hash function for use in std::map
