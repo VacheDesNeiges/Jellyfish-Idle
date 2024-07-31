@@ -38,3 +38,23 @@ TEST_F (GardenManagerFixture, initialization)
       ASSERT_EQ (false, gManager.isOngoing (cultureID));
     }
 }
+
+TEST_F (GardenManagerFixture, assignementsAndUnasignements)
+{
+  ASSERT_GT (gManager.getTotalFields (), 0);
+  for (const auto &cultureID : gManager.getCultureTypes ())
+    {
+      for (size_t i = 0; i < gManager.getTotalFields (); i++)
+        {
+          gManager.assign (cultureID);
+        }
+      ASSERT_EQ (gManager.getAssignedFieldsToCulture (cultureID),
+                 gManager.getTotalFields ());
+
+      for (size_t i = 0; i < gManager.getTotalFields (); i++)
+        {
+          gManager.unnasign (cultureID);
+        }
+      ASSERT_EQ (gManager.getAssignedFieldsToCulture (cultureID), 0);
+    }
+}
