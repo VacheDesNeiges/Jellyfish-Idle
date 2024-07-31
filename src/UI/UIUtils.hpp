@@ -47,11 +47,6 @@ void printCostsImGui (
     std::shared_ptr<const RessourceDataView> gData,
     const std::vector<std::pair<RessourceType, double> > &ressourcesNeeded);
 
-/**
- * @brief formats a ressource value into a string, with at most three decimals
- * @param quantity the quantity of the ressource
- * @return const std::string
- */
 std::string formatQuantity (double quantity);
 std::string formatQuantity (double quantity, double maxQuantity);
 std::string formatRemainingTime (double currentQuantity, double target,

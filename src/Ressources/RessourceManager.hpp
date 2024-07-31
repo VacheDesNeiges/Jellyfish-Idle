@@ -29,6 +29,9 @@ public:
   void zerosValuePerTick ();
 
   void add (RessourceType, double);
+  void add (const std::vector<std::pair<RessourceType, double> > &);
+  void substract (const std::vector<std::pair<RessourceType, double> > &);
+
   void addToProdPerTick (RessourceType, double);
 
   void updateMaxRessourcesQuantities (

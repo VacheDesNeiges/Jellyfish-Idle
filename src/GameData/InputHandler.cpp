@@ -15,15 +15,8 @@ InputHandler::useAbility (AbilityType t) const
 {
   if (systems->abilities->isUsable (t))
     {
-      for (const auto &[rType, quant] : systems->abilities->getAbilityCost (t))
-        {
-          systems->ressources->add (rType, -quant);
-        }
-
-      for (const auto &[rType, quant] : systems->abilities->getProduction (t))
-        {
-          systems->ressources->add (rType, quant);
-        }
+      systems->ressources->substract (systems->abilities->getAbilityCost (t));
+      systems->ressources->add (systems->abilities->getProduction (t));
     }
 }
 
@@ -71,10 +64,7 @@ InputHandler::lureJellyfish () const
 void
 InputHandler::buy (BuildingType t) const
 {
-  for (const auto &[rType, quant] : systems->buildings->nextBuyCost (t))
-    {
-      systems->ressources->add (rType, -quant);
-    }
+  systems->ressources->substract (systems->buildings->nextBuyCost (t));
   systems->buildings->buy (t);
 
   if (systems->buildings->doesIncreasesMaxJellies (t))
@@ -87,10 +77,7 @@ InputHandler::buy (BuildingType t) const
 void
 InputHandler::buy (UpgradeID id) const
 {
-  for (const auto &[rType, quant] : systems->upgrades->getCost (id))
-    {
-      systems->ressources->add (rType, -quant);
-    }
+  systems->ressources->substract (systems->upgrades->getCost (id));
   systems->upgrades->buy (id);
 }
 
@@ -157,12 +144,7 @@ InputHandler::startCulture (AquaCultureID id) const
 {
   if (systems->garden->canAffordTick (id))
     {
-      // TODO : Add a function that takes a vector and does the following loop
-      // internaly
-      for (const auto &[rType, quant] : systems->garden->getConsumption (id))
-        {
-          systems->ressources->add (rType, -quant);
-        }
+      systems->ressources->substract (systems->garden->getConsumption (id));
       systems->garden->startCulture (id);
     }
 }

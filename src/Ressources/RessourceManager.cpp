@@ -6,6 +6,7 @@
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <unordered_map>
+#include <utility>
 #include <vector>
 
 RessourceManager::RessourceManager () { init (); }
@@ -91,7 +92,27 @@ RessourceManager::getMaxQuantity (RessourceType t) const
 void
 RessourceManager::add (RessourceType t, double n)
 {
-  ressources[t].add (n);
+  ressources.at (t).add (n);
+}
+
+void
+RessourceManager::add (
+    const std::vector<std::pair<RessourceType, double> > &vector)
+{
+  for (const auto &[rType, quant] : vector)
+    {
+      ressources.at (rType).add (quant);
+    }
+}
+
+void
+RessourceManager::substract (
+    const std::vector<std::pair<RessourceType, double> > &vector)
+{
+  for (const auto &[rType, quant] : vector)
+    {
+      ressources.at (rType).add (-quant);
+    }
 }
 
 std::string_view
