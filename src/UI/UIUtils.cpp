@@ -143,3 +143,30 @@ UIUtils::formatQuantity (double quantity, double maxQuantity)
   return fmt::format ("{}/{}", formatQuantity (quantity),
                       formatQuantity (maxQuantity));
 }
+
+std::string
+UIUtils::formatRemainingTime (double currentQuantity, double target,
+                              double progressionRate)
+{
+  if (progressionRate <= 0)
+    return "";
+
+  double missingRessources = target - currentQuantity;
+  double secondsUntilTargetMet = missingRessources / progressionRate;
+
+  auto hours = std::floor (secondsUntilTargetMet / 3600);
+  secondsUntilTargetMet -= (3600 * hours);
+  auto minutes = std::floor (secondsUntilTargetMet / 60);
+  secondsUntilTargetMet -= (60 * minutes);
+  auto seconds = std::floor (secondsUntilTargetMet / 60);
+
+  std::string formatedString = "";
+  if (hours > 0)
+    formatedString += fmt::format ("{} hours", hours);
+  if (minutes > 0)
+    formatedString += fmt::format ("{} minutes", minutes);
+  if (seconds > 0 || !formatedString.empty ())
+    formatedString += fmt::format ("{} seconds", std::floor (seconds));
+
+  return formatedString;
+}

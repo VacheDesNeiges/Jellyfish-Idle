@@ -54,5 +54,7 @@ void printCostsImGui (
  */
 std::string formatQuantity (double quantity);
 std::string formatQuantity (double quantity, double maxQuantity);
+std::string formatRemainingTime (double currentQuantity, double target,
+                                 double progressionRate);
 
 }
