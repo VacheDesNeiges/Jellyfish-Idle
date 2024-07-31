@@ -118,8 +118,7 @@ bool
 GardenManager::canAffordTick (AquaCultureID id) const
 {
   bool ret = true;
-  const auto cost = getConsumption (id);
-  for (const auto &[rType, quant] : cost)
+  for (const auto &[rType, quant] : getConsumption (id))
     {
       if (ressourcesView ()->getRessourceQuantity (rType)
           < quant * assignedFieldsToCultures.at (id))
