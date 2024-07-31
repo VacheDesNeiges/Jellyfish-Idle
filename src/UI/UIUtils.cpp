@@ -60,69 +60,46 @@ UIUtils::setBaseUITheme ()
 void
 UIUtils::printCostsImGui (
     std::shared_ptr<const RessourceDataView> rView,
-    const std::vector<std::pair<RessourceType, double> > &ressourcesNeeded)
+    const std::vector<std::pair<RessourceType, double> > &ressourcesCost)
 
 {
-  if (ressourcesNeeded.empty ())
+  if (ressourcesCost.empty ())
     return;
 
   ImVec4 textColor;
 
-  for (const auto &[ressource, cost] : ressourcesNeeded)
+  for (const auto &[ressource, cost] : ressourcesCost)
     {
-      auto requestedQuantity = rView->getRessourceQuantity (ressource);
+      auto currentQuantity = rView->getRessourceQuantity (ressource);
       auto ressourceName = rView->getRessourceName (ressource);
-      std::string timeToBuyable = "";
-
+      std::string formatedResourceQuant = "";
+      std::string formatedTime = "";
       if (cost > rView->getRessourceMaxQuantity (ressource))
         {
           textColor = UIColors::ErrorText;
         }
-      else if (cost <= requestedQuantity)
+      else if (cost <= currentQuantity)
         {
           textColor = UIColors::ValidText;
         }
       else
         {
           textColor = UIColors::GreyedText;
-
-          timeToBuyable += "( ";
-          // TODO move to a function somewhere, also take care of the tick per
-          // sec value that might change
           auto prodPerSec = (rView->getRessourceProduction (ressource)
                              - rView->getRessourceConsumption (ressource))
                             * 2;
 
-          auto missingRessources
-              = cost - rView->getRessourceQuantity (ressource);
-
-          auto secondsToRequestedQuantity = missingRessources / prodPerSec;
-
-          if (secondsToRequestedQuantity >= 3600)
-            {
-              auto nbHours = std::floor (secondsToRequestedQuantity / 3600);
-              secondsToRequestedQuantity -= (nbHours * 3600);
-              timeToBuyable += fmt::format ("{} Hours ", nbHours);
-            }
-
-          if (secondsToRequestedQuantity >= 60)
-            {
-              auto nbMinutes = std::floor (secondsToRequestedQuantity / 60);
-              secondsToRequestedQuantity -= (nbMinutes * 60);
-              timeToBuyable += fmt::format ("{} Minutes ", nbMinutes);
-            }
-
-          if (secondsToRequestedQuantity >= 1)
-            {
-              timeToBuyable += fmt::format (
-                  "{} Seconds ", std::floor (secondsToRequestedQuantity));
-            }
-          timeToBuyable += fmt::format (")");
+          formatedTime
+              = formatRemainingTime (currentQuantity, cost, prodPerSec);
         }
-      ImGui::TextColored (textColor, "%s",
-                          fmt::format ("{} : {:.3g}/{:.3g}  {}", ressourceName,
-                                       requestedQuantity, cost, timeToBuyable)
-                              .c_str ());
+
+      formatedResourceQuant = fmt::format (
+          "{} : {}", ressourceName, formatQuantity (currentQuantity, cost));
+
+      if (!formatedTime.empty ())
+        formatedResourceQuant += ('(' + formatedTime + ')');
+
+      ImGui::TextColored (textColor, "%s", formatedResourceQuant.c_str ());
     }
 }
 
@@ -158,15 +135,23 @@ UIUtils::formatRemainingTime (double currentQuantity, double target,
   secondsUntilTargetMet -= (3600 * hours);
   auto minutes = std::floor (secondsUntilTargetMet / 60);
   secondsUntilTargetMet -= (60 * minutes);
-  auto seconds = std::floor (secondsUntilTargetMet / 60);
+  auto seconds = std::floor (secondsUntilTargetMet);
 
   std::string formatedString = "";
   if (hours > 0)
     formatedString += fmt::format ("{} hours", hours);
   if (minutes > 0)
-    formatedString += fmt::format ("{} minutes", minutes);
+    {
+      if (!formatedString.empty ())
+        formatedString += " ";
+      formatedString += fmt::format ("{} minutes", minutes);
+    }
   if (seconds > 0 || !formatedString.empty ())
-    formatedString += fmt::format ("{} seconds", std::floor (seconds));
+    {
+      if (!formatedString.empty ())
+        formatedString += " ";
+      formatedString += fmt::format ("{} seconds", std::floor (seconds));
+    }
 
   return formatedString;
 }
