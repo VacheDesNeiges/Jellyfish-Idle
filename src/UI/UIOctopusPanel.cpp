@@ -1,5 +1,6 @@
 #include "UIOctopusPanel.hpp"
 
+#include "GameIDsTypes.hpp"
 #include "UIUtils.hpp"
 #include "fmt/core.h"
 #include "imgui.h"
@@ -76,6 +77,12 @@ UIOctopusPanel::renderQuestCard () const
   ImGui::PushStyleColor (ImGuiCol_ChildBg, UIColors::CardElements);
   ImGui::BeginChild ("##", size);
   ImGui::SeparatorText ("Octopus Request");
+  ImGui::TextWrapped (
+      "%s",
+      questsView ()->getCurrentQuestText (QuestLineEnum::Octopus).c_str ());
+
+  ImGui::SeparatorText ("Ressources Requested");
+
   ImGui::EndChild ();
   ImGui::PopStyleColor ();
 }

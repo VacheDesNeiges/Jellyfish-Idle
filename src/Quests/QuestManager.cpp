@@ -33,13 +33,13 @@ QuestManager::QuestManager ()
 }
 
 std::string
-QuestManager::getCurrentQuestText (QuestLineEnum ql)
+QuestManager::getCurrentQuestText (QuestLineEnum ql) const
 {
   return questlines.at (ql).getCurrentQuestText ();
 }
 
 std::vector<std::pair<RessourceType, double> >
-QuestManager::getCurrentQuestRequirements (QuestLineEnum ql)
+QuestManager::getCurrentQuestRequirements (QuestLineEnum ql) const
 {
   return questlines.at (ql).getCurrentQuestRequirements ();
 }

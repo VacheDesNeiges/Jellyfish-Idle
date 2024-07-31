@@ -7,9 +7,9 @@ class Questline
 {
 public:
   explicit Questline (const nlohmann::json &);
-  std::string getCurrentQuestText ();
+  std::string getCurrentQuestText () const;
   std::vector<std::pair<RessourceType, double> >
-  getCurrentQuestRequirements ();
+  getCurrentQuestRequirements () const;
 
 private:
   unsigned currentQuest = 0;

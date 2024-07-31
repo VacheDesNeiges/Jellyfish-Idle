@@ -34,9 +34,10 @@ Game::Game ()
 
   UIUtils::setBaseUITheme ();
   UI = std::make_unique<UIManager> ();
-  gameSystems = std::make_unique<GameSystems> ();
-  UI->bindInputHandler (gameSystems->getInputHandler ());
 
+  gameSystems = std::make_unique<GameSystems> ();
+
+  UI->bindInputHandler (gameSystems->getInputHandler ());
   UI->setAtlas (wrappedRenderer.loadTextures ());
 };
 

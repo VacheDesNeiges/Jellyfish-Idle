@@ -5,7 +5,7 @@
       "Quests": [
         {
           "ID": 0,
-          "Text": "The Octopus tells you that you have a hidden potential, cthey propose to teach you how to use it in exchange for some food.",
+          "Text": "The Octopus tells you that you have a hidden potential, they propose to teach you how to use it in exchange of some food.",
           "CompletionRequirements": [
             {
               "RessourceID": 1,
@@ -18,7 +18,16 @@
     {
       "Name": "WhaleQuests",
       "Quests": [
-        {}
+        {
+          "ID": 100,
+          "Text": "",
+          "CompletionRequirements": [
+            {
+              "RessourceID": 1,
+              "Quantity": 50
+            }
+          ]
+        }
       ]
     }
   ]

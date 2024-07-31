@@ -7,6 +7,7 @@
 #include "GardenDataView.hpp"
 #include "JellyfishDataView.hpp"
 #include "MultiplierDataView.hpp"
+#include "QuestDataView.hpp"
 #include "RessourceDataView.hpp"
 #include "UpgradeDataView.hpp"
 
@@ -32,6 +33,7 @@ public:
   std::shared_ptr<const MultiplierDataView> getMultiplierView () const;
   std::shared_ptr<const CraftDataView> getCraftView () const;
   std::shared_ptr<const GardenDataView> getGardenView () const;
+  std::shared_ptr<const QuestDataView> getQuestsView () const;
 
 private:
   std::shared_ptr<SystemPtrs> systems;
@@ -46,4 +48,5 @@ private:
   std::shared_ptr<const MultiplierDataView> multipliersView;
   std::shared_ptr<const CraftDataView> craftView;
   std::shared_ptr<const GardenDataView> gardenView;
+  std::shared_ptr<const QuestDataView> questsView;
 };

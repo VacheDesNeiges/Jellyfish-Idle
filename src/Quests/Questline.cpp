@@ -1,5 +1,8 @@
 #include "Questline.hpp"
+#include "GameIDsTypes.hpp"
 #include <nlohmann/json.hpp>
+#include <utility>
+#include <vector>
 
 Questline::Questline (const nlohmann::json &json)
 {
@@ -8,4 +11,16 @@ Questline::Questline (const nlohmann::json &json)
     {
       quests.emplace_back (quest);
     }
+}
+
+std::string
+Questline::getCurrentQuestText () const
+{
+  return quests.at (currentQuest).getDialogue ();
+}
+
+std::vector<std::pair<RessourceType, double> >
+Questline::getCurrentQuestRequirements () const
+{
+  return quests.at (currentQuest).getRequestedRessources ();
 }

@@ -6,6 +6,7 @@
 #include "GardenManager.hpp"
 #include "InputHandler.hpp"
 
+#include "QuestManager.hpp"
 #include "SaveSystem.hpp"
 #include <memory>
 #include <string>
@@ -22,13 +23,12 @@ GameSystems::GameSystems ()
   systems->multipliers = std::make_shared<MultipliersRegister> ();
   systems->crafts = std::make_shared<CraftingManager> ();
   systems->garden = std::make_shared<GardenManager> ();
+  systems->quests = std::make_shared<QuestManager> ();
 
   dataView = std::make_shared<GameDataView> (systems);
-
   GameDataAccess::bindDataView (dataView);
 
   inputHandler = std::make_shared<InputHandler> (systems);
-
   synchronizer = std::make_unique<GameSynchronizer> (systems);
 }
 

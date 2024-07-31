@@ -12,6 +12,7 @@
 #include "DepthSystem.hpp"
 #include "JellyfishManager.hpp"
 #include "MultipliersRegister.hpp"
+#include "QuestManager.hpp"
 #include "RessourceManager.hpp"
 #include "UpgradeManager.hpp"
 
@@ -31,6 +32,7 @@ struct SystemPtrs
   std::shared_ptr<MultipliersRegister> multipliers;
   std::shared_ptr<CraftingManager> crafts;
   std::shared_ptr<GardenManager> garden;
+  std::shared_ptr<QuestManager> quests;
 };
 
 class GameSystems

@@ -4,6 +4,7 @@
 #include "CraftingDataView.hpp"
 #include "DepthDataView.hpp"
 #include "GameDataView.hpp"
+#include "QuestDataView.hpp"
 #include "UpgradeDataView.hpp"
 #include <memory>
 
@@ -28,6 +29,7 @@ protected:
   std::shared_ptr<const UpgradeDataView> upgradeView () const;
   std::shared_ptr<const GardenDataView> gardenView () const;
   std::shared_ptr<const AbilityDataView> abilitiesView () const;
+  std::shared_ptr<const QuestDataView> questsView () const;
 
 private:
   static inline std::shared_ptr<GameDataView> view = nullptr;

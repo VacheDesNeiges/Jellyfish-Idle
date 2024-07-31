@@ -8,6 +8,7 @@
 #include "GardenDataView.hpp"
 #include "JellyfishDataView.hpp"
 #include "MultiplierDataView.hpp"
+#include "QuestDataView.hpp"
 #include "RessourceDataView.hpp"
 #include "UpgradeDataView.hpp"
 #include <cassert>
@@ -92,4 +93,10 @@ std::shared_ptr<const AbilityDataView>
 GameDataAccess::abilitiesView () const
 {
   return view->getAbilitiesView ();
+}
+
+std::shared_ptr<const QuestDataView>
+GameDataAccess::questsView () const
+{
+  return view->getQuestsView ();
 }
