@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.22.1)
 project(JellyfishIdle)
 
-set(CMAKE_CXX_COMPILER "g++-13")
+set(CMAKE_CXX_COMPILER "g++")
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}\
 -Wall \
