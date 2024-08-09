@@ -52,6 +52,18 @@ TEST_F (BuildingTests_Fixture, setQuantity)
     }
 }
 
+TEST_F(BuildingTests_Fixture, hasName){
+  for (const auto& building : buildings) {
+    ASSERT_GT(building.getBuildingName().size(), 0);
+  }
+}
+
+TEST_F(BuildingTests_Fixture,hasDescription){
+  for (const auto& building :buildings) {
+    ASSERT_GT(building.getDescription().size(), 0);
+  } 
+}
+
 TEST (TestsBuildingManager, initialization)
 {
   BuildingManager bManager;
