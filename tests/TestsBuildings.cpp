@@ -53,16 +53,20 @@ TEST_F (BuildingTests_Fixture, setQuantity)
     }
 }
 
-TEST_F(BuildingTests_Fixture, hasName){
-  for (const auto& building : buildings) {
-    ASSERT_GT(building.getBuildingName().size(), 0);
-  }
+TEST_F (BuildingTests_Fixture, hasName)
+{
+  for (const auto &building : buildings)
+    {
+      ASSERT_GT (building.getBuildingName ().size (), 0);
+    }
 }
 
-TEST_F(BuildingTests_Fixture,hasDescription){
-  for (const auto& building :buildings) {
-    ASSERT_GT(building.getDescription().size(), 0);
-  } 
+TEST_F (BuildingTests_Fixture, hasDescription)
+{
+  for (const auto &building : buildings)
+    {
+      ASSERT_GT (building.getDescription ().size (), 0);
+    }
 }
 
 TEST (TestsBuildingManager, initialization)
@@ -114,16 +118,29 @@ TEST (TestsBuildingManager, increaseToJfish)
     }
 }
 
-TEST(TestsBuildingManager, costIncreaseOnBuy){
+TEST (TestsBuildingManager, costIncreaseOnBuy)
+{
   BuildingManager bManager;
 
-  for (const auto&building : bManager.getBuildingTypes()) {
-    const auto& initialCost = bManager.nextBuyCost(building);
-    bManager.buy(building);
-    const auto& nextCost = bManager.nextBuyCost(building);
+  for (const auto &building : bManager.getBuildingTypes ())
+    {
+      const auto &initialCost = bManager.nextBuyCost (building);
+      bManager.buy (building);
+      const auto &nextCost = bManager.nextBuyCost (building);
 
-    for (size_t i = 0; i < initialCost.size(); i++) {
-      ASSERT_GT(nextCost.at(i).second, initialCost.at(i).second);
+      for (size_t i = 0; i < initialCost.size (); i++)
+        {
+          ASSERT_GT (nextCost.at (i).second, initialCost.at (i).second);
+        }
     }
-  }
+}
+
+TEST (TestsBuildingManager, ConsumptionIsZeroWhenNoBuildings)
+{
+  BuildingManager bManager;
+
+  for (const auto &[rType, quantity] : bManager.getConsumptionRates ())
+    {
+      ASSERT_EQ (0, quantity);
+    }
 }
