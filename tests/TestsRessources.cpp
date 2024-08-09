@@ -2,6 +2,7 @@
 #include "Ressource.hpp"
 #include "RessourceManager.hpp"
 #include "gtest/gtest.h"
+#include <algorithm>
 #include <cassert>
 #include <nlohmann/json_fwd.hpp>
 #include <vector>
@@ -205,5 +206,36 @@ TEST (TestsRessourceManager, productionFunctions)
       ASSERT_EQ (0, rManager.getNetProduction (r));
       ASSERT_EQ (0, rManager.getProduction (r));
       ASSERT_EQ (0, rManager.getConsumption (r));
+    }
+}
+
+TEST (TestsRessourceManager, ressourceTypesCoherence)
+{
+  RessourceManager rManager;
+  const auto &allRessources = rManager.getAllRessourceTypes ();
+  const auto &regularRessources = rManager.getRegularRessourceTypes ();
+  const auto &rareRessources = rManager.getRareRessourceTypes ();
+  const auto &craftableRessources = rManager.getCraftableRessourceTypes ();
+
+  ASSERT_GE (allRessources.size (), regularRessources.size ());
+  ASSERT_GE (allRessources.size (), rareRessources.size ());
+  ASSERT_GE (allRessources.size (), craftableRessources.size ());
+  ASSERT_EQ (allRessources.size (), regularRessources.size ()
+                                        + rareRessources.size ()
+                                        + craftableRessources.size ());
+
+  for (const auto ressource : regularRessources)
+    {
+      ASSERT_EQ (1, std::ranges::count (allRessources, ressource));
+    }
+
+  for (const auto ressource : rareRessources)
+    {
+      ASSERT_EQ (1, std::ranges::count (allRessources, ressource));
+    }
+
+  for (const auto ressource : craftableRessources)
+    {
+      ASSERT_EQ (1, std::ranges::count (allRessources, ressource));
     }
 }
