@@ -22,7 +22,6 @@
 #include <filesystem>
 #include <gtest/gtest.h>
 #include <linux/limits.h>
-#include <memory>
 #include <optional>
 #include <string_view>
 #include <thread>
@@ -33,12 +32,9 @@ Game::Game ()
   wrappedRenderer.setFont ();
 
   UIUtils::setBaseUITheme ();
-  UI = std::make_unique<UIManager> ();
 
-  gameSystems = std::make_unique<GameSystems> ();
-
-  UI->bindInputHandler (gameSystems->getInputHandler ());
-  UI->setAtlas (wrappedRenderer.loadTextures ());
+  UI.bindInputHandler (gameSystems.getInputHandler ());
+  UI.setAtlas (wrappedRenderer.loadTextures ());
 };
 
 void
@@ -47,7 +43,7 @@ Game::run (std::optional<std::string_view> option)
   if (std::filesystem::exists (SaveSystem::saveFileName)
       && !(option.has_value () && option == "--noSave"))
     {
-      gameSystems->loadSave (std::string (FilePaths::getPath ()));
+      gameSystems.loadSave (std::string (FilePaths::getPath ()));
     }
 
   constexpr std::chrono::milliseconds interval (500);
@@ -59,20 +55,20 @@ Game::run (std::optional<std::string_view> option)
     {
       if (std::chrono::high_resolution_clock::now () >= nextTick)
         {
-          gameSystems->gameTick ();
+          gameSystems.gameTick ();
           nextTick += interval;
         }
       renderFrame ();
       std::this_thread::sleep_for (std::chrono::milliseconds (15));
     }
-  gameSystems->save ();
+  gameSystems.save ();
 }
 
 void
 Game::renderFrame ()
 {
   wrappedRenderer.startRenderingNewFrame ();
-  UI->renderUI ();
+  UI.renderUI ();
   wrappedRenderer.finalizeRenderingNewFrame ();
 }
 
