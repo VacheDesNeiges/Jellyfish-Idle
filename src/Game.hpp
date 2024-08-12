@@ -8,7 +8,6 @@
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_video.h>
 #include <atomic>
-#include <memory>
 #include <optional>
 
 class Game
@@ -28,7 +27,7 @@ private:
   void renderFrame ();
   std::atomic<bool> done = false;
 
-  std::unique_ptr<UIManager> UI;
-  std::unique_ptr<GameSystems> gameSystems;
+  UIManager UI;
+  GameSystems gameSystems;
   RendererWrapper wrappedRenderer;
 };
