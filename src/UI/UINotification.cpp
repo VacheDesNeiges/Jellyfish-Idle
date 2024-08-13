@@ -1,30 +1,28 @@
 #include "UINotification.hpp"
 #include "imgui.h"
 
-void
-UINotification::render () const
+void UINotification::render() const
 {
-  if (auto notif = achievementsView ()->getNextNotification ();
-      notif.has_value ())
+    if (auto notif = achievementsView()->getNextNotification();
+        notif.has_value())
     {
 
-      ImGui::SetNextWindowSize ({ 400, 250 });
+        ImGui::SetNextWindowSize({400, 250});
 
-      ImGui::OpenPopup ("Notification");
-      if (ImGui::BeginPopupModal (
-              "Notification", nullptr,
-              ImGuiWindowFlags_NoMove
-                  & ImGuiWindowFlags_NoBringToFrontOnFocus))
+        ImGui::OpenPopup("Notification");
+        if (ImGui::BeginPopupModal("Notification", nullptr,
+                                   ImGuiWindowFlags_NoMove &
+                                       ImGuiWindowFlags_NoBringToFrontOnFocus))
         {
-          ImGui::TextWrapped ("%s", std::string (notif.value ()).c_str ());
+            ImGui::TextWrapped("%s", std::string(notif.value()).c_str());
 
-          if (ImGui::Button ("close"))
+            if (ImGui::Button("close"))
             {
-              inputHandler->removeCurrentNotification ();
-              ImGui::CloseCurrentPopup ();
+                inputHandler->removeCurrentNotification();
+                ImGui::CloseCurrentPopup();
             }
 
-          ImGui::EndPopup ();
+            ImGui::EndPopup();
         }
     }
 }

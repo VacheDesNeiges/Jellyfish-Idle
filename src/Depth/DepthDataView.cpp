@@ -2,28 +2,26 @@
 
 #include "DepthSystem.hpp"
 
-DepthDataView::DepthDataView (std::shared_ptr<DepthSystem> d) : depth (d) {}
-
-unsigned
-DepthDataView::getCurrentDepth () const
+DepthDataView::DepthDataView(std::shared_ptr<DepthSystem> d) : depth(d)
 {
-  return depth->getCurrentDepth ();
 }
 
-unsigned
-DepthDataView::getMaximumDepth () const
+unsigned DepthDataView::getCurrentDepth() const
 {
-  return depth->getMaximumDepth ();
+    return depth->getCurrentDepth();
 }
 
-float
-DepthDataView::getCurrentProgress () const
+unsigned DepthDataView::getMaximumDepth() const
 {
-  return depth->getCurrentProgress ();
+    return depth->getMaximumDepth();
 }
 
-float
-DepthDataView::getProgressNeededForNextIncrease () const
+float DepthDataView::getCurrentProgress() const
 {
-  return depth->getProgressNeededForNextIncrease ();
+    return depth->getCurrentProgress();
+}
+
+float DepthDataView::getProgressNeededForNextIncrease() const
+{
+    return depth->getProgressNeededForNextIncrease();
 }

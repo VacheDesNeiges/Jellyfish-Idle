@@ -3,10 +3,10 @@
 
 struct TextureAtlas
 {
-  TextureAtlas () = default;
-  ~TextureAtlas ();
-  TextureAtlas (TextureAtlas &&) noexcept;
-  TextureAtlas &operator= (TextureAtlas &&) noexcept;
+    TextureAtlas() = default;
+    ~TextureAtlas();
+    TextureAtlas(TextureAtlas &&) noexcept;
+    TextureAtlas &operator=(TextureAtlas &&) noexcept;
 
-  SDL_Texture *loopButton = nullptr;
+    SDL_Texture *loopButton = nullptr;
 };

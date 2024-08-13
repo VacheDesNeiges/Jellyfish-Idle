@@ -10,32 +10,32 @@
 
 struct CultureData
 {
-  bool craftOngoing;
-  unsigned fieldCount;
+    bool craftOngoing;
+    unsigned fieldCount;
 };
 
 class AquaCulture final : public SaveAndLoadable<CultureData>
 {
-public:
-  AquaCulture () = default;
-  explicit AquaCulture (const nlohmann::json &);
-  ~AquaCulture () override = default;
+  public:
+    AquaCulture() = default;
+    explicit AquaCulture(const nlohmann::json &);
+    ~AquaCulture() override = default;
 
-  void start ();
-  void cancel ();
-  bool isOngoing () const;
-  std::string getName () const;
+    void start();
+    void cancel();
+    bool isOngoing() const;
+    std::string getName() const;
 
-  std::vector<std::pair<RessourceType, double> > getBaseConsumption () const;
-  std::vector<std::pair<RessourceType, double> > getBaseProduction () const;
+    std::vector<std::pair<RessourceType, double>> getBaseConsumption() const;
+    std::vector<std::pair<RessourceType, double>> getBaseProduction() const;
 
-  CultureData getData () const override;
-  void loadData (const CultureData &) override;
+    CultureData getData() const override;
+    void loadData(const CultureData &) override;
 
-private:
-  bool cultureOngoing = false;
-  std::string name;
+  private:
+    bool cultureOngoing = false;
+    std::string name;
 
-  std::vector<std::pair<RessourceType, double> > baseProduction;
-  std::vector<std::pair<RessourceType, double> > baseConsumption;
+    std::vector<std::pair<RessourceType, double>> baseProduction;
+    std::vector<std::pair<RessourceType, double>> baseConsumption;
 };

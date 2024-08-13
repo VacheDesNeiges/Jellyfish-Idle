@@ -3,6 +3,6 @@
 
 class UIResearchPanel : public UIElement
 {
-public:
-  void render () const override;
+  public:
+    void render() const override;
 };

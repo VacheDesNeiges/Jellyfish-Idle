@@ -14,89 +14,78 @@
 #include <cassert>
 #include <memory>
 
-void
-GameDataAccess::bindDataView (std::shared_ptr<GameDataView> v)
+void GameDataAccess::bindDataView(std::shared_ptr<GameDataView> v)
 {
-  assert (view == nullptr);
-  view = v;
+    assert(view == nullptr);
+    view = v;
 }
 
-std::shared_ptr<const GameDataView>
-GameDataAccess::getDataView () const
+std::shared_ptr<const GameDataView> GameDataAccess::getDataView() const
 {
-  assert (view != nullptr);
-  return view;
+    assert(view != nullptr);
+    return view;
 }
 
-std::shared_ptr<const MultiplierDataView>
-GameDataAccess::multipliersView () const
+std::shared_ptr<const MultiplierDataView> GameDataAccess::multipliersView()
+    const
 {
-  assert (view != nullptr);
-  return view->getMultiplierView ();
+    assert(view != nullptr);
+    return view->getMultiplierView();
 }
 
-std::shared_ptr<const RessourceDataView>
-GameDataAccess::ressourcesView () const
+std::shared_ptr<const RessourceDataView> GameDataAccess::ressourcesView() const
 {
-  assert (view != nullptr);
-  return view->getRessourcesView ();
+    assert(view != nullptr);
+    return view->getRessourcesView();
 }
 
-std::shared_ptr<const JellyFishDataView>
-GameDataAccess::jelliesView () const
+std::shared_ptr<const JellyFishDataView> GameDataAccess::jelliesView() const
 {
-  assert (view != nullptr);
-  return view->getJelliesView ();
+    assert(view != nullptr);
+    return view->getJelliesView();
 }
 
-std::shared_ptr<const BuildingDataView>
-GameDataAccess::buildingsView () const
+std::shared_ptr<const BuildingDataView> GameDataAccess::buildingsView() const
 {
-  assert (view != nullptr);
-  return view->getBuildingsView ();
+    assert(view != nullptr);
+    return view->getBuildingsView();
 }
 
-std::shared_ptr<const AchievementDataView>
-GameDataAccess::achievementsView () const
+std::shared_ptr<const AchievementDataView> GameDataAccess::achievementsView()
+    const
 {
-  assert (view != nullptr);
-  return view->getAchievementsView ();
+    assert(view != nullptr);
+    return view->getAchievementsView();
 }
 
-std::shared_ptr<const DepthDataView>
-GameDataAccess::depthView () const
+std::shared_ptr<const DepthDataView> GameDataAccess::depthView() const
 {
-  assert (view != nullptr);
-  return view->getDepthView ();
+    assert(view != nullptr);
+    return view->getDepthView();
 }
 
-std::shared_ptr<const UpgradeDataView>
-GameDataAccess::upgradeView () const
+std::shared_ptr<const UpgradeDataView> GameDataAccess::upgradeView() const
 {
-  assert (view != nullptr);
-  return view->getUpgradeView ();
+    assert(view != nullptr);
+    return view->getUpgradeView();
 }
 
-std::shared_ptr<const CraftDataView>
-GameDataAccess::craftView () const
+std::shared_ptr<const CraftDataView> GameDataAccess::craftView() const
 {
-  return view->getCraftView ();
+    return view->getCraftView();
 }
 
-std::shared_ptr<const GardenDataView>
-GameDataAccess::gardenView () const
+std::shared_ptr<const GardenDataView> GameDataAccess::gardenView() const
 {
-  return view->getGardenView ();
+    return view->getGardenView();
 }
 
-std::shared_ptr<const AbilityDataView>
-GameDataAccess::abilitiesView () const
+std::shared_ptr<const AbilityDataView> GameDataAccess::abilitiesView() const
 {
-  return view->getAbilitiesView ();
+    return view->getAbilitiesView();
 }
 
-std::shared_ptr<const QuestDataView>
-GameDataAccess::questsView () const
+std::shared_ptr<const QuestDataView> GameDataAccess::questsView() const
 {
-  return view->getQuestsView ();
+    return view->getQuestsView();
 }

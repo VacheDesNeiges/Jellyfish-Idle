@@ -9,8 +9,8 @@
 
 template <typename T> class SaveAndLoadable
 {
-public:
-  virtual ~SaveAndLoadable () = default;
-  virtual void loadData (const T &) = 0;
-  virtual T getData () const = 0;
+  public:
+    virtual ~SaveAndLoadable() = default;
+    virtual void loadData(const T &) = 0;
+    virtual T getData() const = 0;
 };

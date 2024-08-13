@@ -5,62 +5,53 @@
 #include <optional>
 #include <string_view>
 
-AchievementDataView::AchievementDataView (std::shared_ptr<AchievementSystem> a)
-    : achievements (a)
+AchievementDataView::AchievementDataView(std::shared_ptr<AchievementSystem> a)
+    : achievements(a)
 {
 }
 
-bool
-AchievementDataView::isUnlocked (AchievementIDs id) const
+bool AchievementDataView::isUnlocked(AchievementIDs id) const
 {
-  return achievements->isUnlocked (id);
+    return achievements->isUnlocked(id);
 }
 
-bool
-AchievementDataView::isUnlocked (BuildingType t) const
+bool AchievementDataView::isUnlocked(BuildingType t) const
 {
-  return achievements->isUnlocked (t);
+    return achievements->isUnlocked(t);
 }
 
-bool
-AchievementDataView::isUnlocked (JellyJob j) const
+bool AchievementDataView::isUnlocked(JellyJob j) const
 {
-  return achievements->isUnlocked (j);
+    return achievements->isUnlocked(j);
 }
 
-bool
-AchievementDataView::isUnlocked (RessourceType r) const
+bool AchievementDataView::isUnlocked(RessourceType r) const
 {
-  return achievements->isUnlocked (r);
+    return achievements->isUnlocked(r);
 }
 
-bool
-AchievementDataView::isUnlocked (AbilityType t) const
+bool AchievementDataView::isUnlocked(AbilityType t) const
 {
-  return achievements->isUnlocked (t);
+    return achievements->isUnlocked(t);
 }
 
-bool
-AchievementDataView::isUnlocked (UpgradeID id) const
+bool AchievementDataView::isUnlocked(UpgradeID id) const
 {
-  return achievements->isUnlocked (id);
+    return achievements->isUnlocked(id);
 }
 
-bool
-AchievementDataView::isUnlocked (AquaCultureID id) const
+bool AchievementDataView::isUnlocked(AquaCultureID id) const
 {
-  return achievements->isUnlocked (id);
+    return achievements->isUnlocked(id);
 }
 
-std::optional<std::string_view>
-AchievementDataView::getNextNotification () const
+std::optional<std::string_view> AchievementDataView::getNextNotification() const
 {
-  return achievements->getNotification ();
+    return achievements->getNotification();
 }
 
-std::span<
-    const std::tuple<AchievementIDs, unsigned, std::string, std::string> >
-AchievementDataView::getDepthRewards () const
+std::span<const std::tuple<AchievementIDs, unsigned, std::string, std::string>>
+AchievementDataView::getDepthRewards() const
 {
-  return achievements->getDepthRewards ();
+    return achievements->getDepthRewards();
 }

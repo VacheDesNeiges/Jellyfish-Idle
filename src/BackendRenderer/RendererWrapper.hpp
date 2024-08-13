@@ -8,25 +8,25 @@
 
 class RendererWrapper
 {
-public:
-  RendererWrapper ();
-  ~RendererWrapper ();
+  public:
+    RendererWrapper();
+    ~RendererWrapper();
 
-  void startRenderingNewFrame () const;
-  void finalizeRenderingNewFrame ();
-  bool processEvent (const SDL_Event &);
+    void startRenderingNewFrame() const;
+    void finalizeRenderingNewFrame();
+    bool processEvent(const SDL_Event &);
 
-  void setBackgroundImage ();
-  void setFont ();
-  TextureAtlas loadTextures ();
+    void setBackgroundImage();
+    void setFont();
+    TextureAtlas loadTextures();
 
-private:
-  void initializeSDL ();
-  void initializeImgui ();
+  private:
+    void initializeSDL();
+    void initializeImgui();
 
-  SDL_Window *window = nullptr;
-  SDL_Renderer *renderer = nullptr;
-  ImGuiIO *io = nullptr;
+    SDL_Window *window = nullptr;
+    SDL_Renderer *renderer = nullptr;
+    ImGuiIO *io = nullptr;
 
-  SDL_Texture *backgroundPicture = nullptr;
+    SDL_Texture *backgroundPicture = nullptr;
 };

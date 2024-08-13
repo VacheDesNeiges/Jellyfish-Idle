@@ -5,8 +5,8 @@
 
 enum class QuestLineEnum
 {
-  Octopus,
-  Whale,
+    Octopus,
+    Whale,
 };
 
 /**
@@ -17,27 +17,30 @@ enum class QuestLineEnum
  */
 struct RessourceType
 {
-  int value;
+    int value;
 
-  RessourceType () : value (0) {}
-  constexpr explicit RessourceType (int x) : value (x){};
+    RessourceType() : value(0)
+    {
+    }
+    constexpr explicit RessourceType(int x) : value(x){};
 
-  friend std::strong_ordering operator<=> (const RessourceType &lhs,
-                                           const RessourceType &rhs)
-      = default;
+    friend std::strong_ordering operator<=>(const RessourceType &lhs,
+                                            const RessourceType &rhs) = default;
 
-  constexpr explicit operator int () const { return value; }
+    constexpr explicit operator int() const
+    {
+        return value;
+    }
 };
 
 template <>
 
 struct std::hash<RessourceType>
 {
-  std::size_t
-  operator() (const RessourceType &r) const noexcept
-  {
-    return std::hash<int>{}(r.value);
-  }
+    std::size_t operator()(const RessourceType &r) const noexcept
+    {
+        return std::hash<int>{}(r.value);
+    }
 };
 
 /**
@@ -48,25 +51,28 @@ struct std::hash<RessourceType>
  */
 struct BuildingType
 {
-  int value;
-  BuildingType () : value (0) {}
-  constexpr explicit BuildingType (int x) : value (x){};
+    int value;
+    BuildingType() : value(0)
+    {
+    }
+    constexpr explicit BuildingType(int x) : value(x){};
 
-  friend std::strong_ordering operator<=> (const BuildingType &lhs,
-                                           const BuildingType &rhs)
-      = default;
-  constexpr explicit operator int () const { return value; }
+    friend std::strong_ordering operator<=>(const BuildingType &lhs,
+                                            const BuildingType &rhs) = default;
+    constexpr explicit operator int() const
+    {
+        return value;
+    }
 };
 
 template <>
 
 struct std::hash<BuildingType>
 {
-  std::size_t
-  operator() (const BuildingType &b) const noexcept
-  {
-    return std::hash<int>{}(b.value);
-  }
+    std::size_t operator()(const BuildingType &b) const noexcept
+    {
+        return std::hash<int>{}(b.value);
+    }
 };
 
 /**
@@ -76,26 +82,29 @@ struct std::hash<BuildingType>
  */
 struct AchievementIDs
 {
-  int value;
-  AchievementIDs () : value (0) {}
-  constexpr explicit AchievementIDs (int x) : value (x){};
+    int value;
+    AchievementIDs() : value(0)
+    {
+    }
+    constexpr explicit AchievementIDs(int x) : value(x){};
 
-  friend std::strong_ordering operator<=> (const AchievementIDs &lhs,
-                                           const AchievementIDs &rhs)
-      = default;
+    friend std::strong_ordering operator<=>(
+        const AchievementIDs &lhs, const AchievementIDs &rhs) = default;
 
-  constexpr explicit operator int () const { return value; }
+    constexpr explicit operator int() const
+    {
+        return value;
+    }
 };
 
 template <>
 
 struct std::hash<AchievementIDs>
 {
-  std::size_t
-  operator() (const AchievementIDs &b) const noexcept
-  {
-    return std::hash<int>{}(b.value);
-  }
+    std::size_t operator()(const AchievementIDs &b) const noexcept
+    {
+        return std::hash<int>{}(b.value);
+    }
 };
 
 /**
@@ -105,26 +114,29 @@ struct std::hash<AchievementIDs>
  */
 struct AbilityType
 {
-  int value;
-  AbilityType () : value (0) {}
-  constexpr explicit AbilityType (int x) : value (x){};
+    int value;
+    AbilityType() : value(0)
+    {
+    }
+    constexpr explicit AbilityType(int x) : value(x){};
 
-  friend std::strong_ordering operator<=> (const AbilityType &lhs,
-                                           const AbilityType &rhs)
-      = default;
+    friend std::strong_ordering operator<=>(const AbilityType &lhs,
+                                            const AbilityType &rhs) = default;
 
-  constexpr explicit operator int () const { return value; }
+    constexpr explicit operator int() const
+    {
+        return value;
+    }
 };
 
 template <>
 
 struct std::hash<AbilityType>
 {
-  std::size_t
-  operator() (const AbilityType &a) const noexcept
-  {
-    return std::hash<int>{}(a.value);
-  }
+    std::size_t operator()(const AbilityType &a) const noexcept
+    {
+        return std::hash<int>{}(a.value);
+    }
 };
 
 /**
@@ -134,26 +146,29 @@ struct std::hash<AbilityType>
  */
 struct JellyJob
 {
-  int value;
-  JellyJob () : value (0) {}
-  constexpr explicit JellyJob (int x) : value (x){};
+    int value;
+    JellyJob() : value(0)
+    {
+    }
+    constexpr explicit JellyJob(int x) : value(x){};
 
-  friend std::strong_ordering operator<=> (const JellyJob &lhs,
-                                           const JellyJob &rhs)
-      = default;
+    friend std::strong_ordering operator<=>(const JellyJob &lhs,
+                                            const JellyJob &rhs) = default;
 
-  constexpr explicit operator int () const { return value; }
+    constexpr explicit operator int() const
+    {
+        return value;
+    }
 };
 
 template <>
 
 struct std::hash<JellyJob>
 {
-  std::size_t
-  operator() (const JellyJob &a) const noexcept
-  {
-    return std::hash<int>{}(a.value);
-  }
+    std::size_t operator()(const JellyJob &a) const noexcept
+    {
+        return std::hash<int>{}(a.value);
+    }
 };
 
 /**
@@ -163,26 +178,29 @@ struct std::hash<JellyJob>
  */
 struct AquaCultureID
 {
-  int value;
-  AquaCultureID () : value (0) {}
-  constexpr explicit AquaCultureID (int x) : value (x){};
+    int value;
+    AquaCultureID() : value(0)
+    {
+    }
+    constexpr explicit AquaCultureID(int x) : value(x){};
 
-  friend std::strong_ordering operator<=> (const AquaCultureID &lhs,
-                                           const AquaCultureID &rhs)
-      = default;
+    friend std::strong_ordering operator<=>(const AquaCultureID &lhs,
+                                            const AquaCultureID &rhs) = default;
 
-  constexpr explicit operator int () const { return value; }
+    constexpr explicit operator int() const
+    {
+        return value;
+    }
 };
 
 template <>
 
 struct std::hash<AquaCultureID>
 {
-  std::size_t
-  operator() (const AquaCultureID &a) const noexcept
-  {
-    return std::hash<int>{}(a.value);
-  }
+    std::size_t operator()(const AquaCultureID &a) const noexcept
+    {
+        return std::hash<int>{}(a.value);
+    }
 };
 
 /**
@@ -192,26 +210,29 @@ struct std::hash<AquaCultureID>
  */
 struct UpgradeID
 {
-  int value;
-  UpgradeID () : value (0) {}
-  constexpr explicit UpgradeID (int x) : value (x){};
+    int value;
+    UpgradeID() : value(0)
+    {
+    }
+    constexpr explicit UpgradeID(int x) : value(x){};
 
-  friend std::strong_ordering operator<=> (const UpgradeID &lhs,
-                                           const UpgradeID &rhs)
-      = default;
+    friend std::strong_ordering operator<=>(const UpgradeID &lhs,
+                                            const UpgradeID &rhs) = default;
 
-  constexpr explicit operator int () const { return value; }
+    constexpr explicit operator int() const
+    {
+        return value;
+    }
 };
 
 template <>
 
 struct std::hash<UpgradeID>
 {
-  std::size_t
-  operator() (const UpgradeID &a) const noexcept
-  {
-    return std::hash<int>{}(a.value);
-  }
+    std::size_t operator()(const UpgradeID &a) const noexcept
+    {
+        return std::hash<int>{}(a.value);
+    }
 };
 
 /**
@@ -222,27 +243,30 @@ struct std::hash<UpgradeID>
  */
 struct RecipeID
 {
-  int value;
+    int value;
 
-  RecipeID () : value (0) {}
-  constexpr explicit RecipeID (int x) : value (x){};
+    RecipeID() : value(0)
+    {
+    }
+    constexpr explicit RecipeID(int x) : value(x){};
 
-  friend std::strong_ordering operator<=> (const RecipeID &lhs,
-                                           const RecipeID &rhs)
-      = default;
+    friend std::strong_ordering operator<=>(const RecipeID &lhs,
+                                            const RecipeID &rhs) = default;
 
-  constexpr explicit operator int () const { return value; }
+    constexpr explicit operator int() const
+    {
+        return value;
+    }
 };
 
 template <>
 
 struct std::hash<RecipeID>
 {
-  std::size_t
-  operator() (const RecipeID &r) const noexcept
-  {
-    return std::hash<int>{}(r.value);
-  }
+    std::size_t operator()(const RecipeID &r) const noexcept
+    {
+        return std::hash<int>{}(r.value);
+    }
 };
 
 /**
@@ -253,93 +277,96 @@ struct std::hash<RecipeID>
  */
 struct MultiplierID
 {
-  int value;
+    int value;
 
-  MultiplierID () : value (0) {}
-  constexpr explicit MultiplierID (int x) : value (x){};
+    MultiplierID() : value(0)
+    {
+    }
+    constexpr explicit MultiplierID(int x) : value(x){};
 
-  friend std::strong_ordering operator<=> (const MultiplierID &lhs,
-                                           const MultiplierID &rhs)
-      = default;
+    friend std::strong_ordering operator<=>(const MultiplierID &lhs,
+                                            const MultiplierID &rhs) = default;
 
-  constexpr explicit operator int () const { return value; }
+    constexpr explicit operator int() const
+    {
+        return value;
+    }
 };
 
 template <>
 
 struct std::hash<MultiplierID>
 {
-  std::size_t
-  operator() (const MultiplierID &r) const noexcept
-  {
-    return std::hash<int>{}(r.value);
-  }
+    std::size_t operator()(const MultiplierID &r) const noexcept
+    {
+        return std::hash<int>{}(r.value);
+    }
 };
 
 namespace RessourcesAlias
 {
-constexpr inline RessourceType FOOD{ 1 };
-constexpr inline RessourceType SAND{ 2 };
-constexpr inline RessourceType STONE{ 3 };
-constexpr inline RessourceType INSIGHT{ 4 };
-constexpr inline RessourceType GLASS{ 5 };
+constexpr inline RessourceType FOOD{1};
+constexpr inline RessourceType SAND{2};
+constexpr inline RessourceType STONE{3};
+constexpr inline RessourceType INSIGHT{4};
+constexpr inline RessourceType GLASS{5};
 
-constexpr inline RessourceType PEARL{ 1001 };
+constexpr inline RessourceType PEARL{1001};
 
-constexpr inline RessourceType GLASSPANE{ 2001 };
-constexpr inline RessourceType STONESLAB{ 2002 };
-constexpr inline RessourceType KNOWLEDGETABLET{ 2003 };
-}
+constexpr inline RessourceType GLASSPANE{2001};
+constexpr inline RessourceType STONESLAB{2002};
+constexpr inline RessourceType KNOWLEDGETABLET{2003};
+} // namespace RessourcesAlias
 
 namespace BuildingsAlias
 {
-constexpr inline BuildingType AQUATICFIELD{ 1 };
-constexpr inline BuildingType DUNESHELTER{ 2 };
-constexpr inline BuildingType MINES{ 3 };
-constexpr inline BuildingType GLASSNESTS{ 4 };
-}
+constexpr inline BuildingType AQUATICFIELD{1};
+constexpr inline BuildingType DUNESHELTER{2};
+constexpr inline BuildingType MINES{3};
+constexpr inline BuildingType GLASSNESTS{4};
+} // namespace BuildingsAlias
 
 namespace AchievementsAlias
 {
-constexpr inline AchievementIDs JOBSYSTEM{ 3000 };
-constexpr inline AchievementIDs JELLYFISHLURING (3001);
+constexpr inline AchievementIDs JOBSYSTEM{3000};
+constexpr inline AchievementIDs JELLYFISHLURING(3001);
 
-constexpr inline AchievementIDs ABILITYSYSTEM{ 5006 };
+constexpr inline AchievementIDs ABILITYSYSTEM{5006};
 
-constexpr inline AchievementIDs DEPTHSYSTEM{ 4000 };
-constexpr inline AchievementIDs GARDENSYSTEM{ 2000 };
-constexpr inline AchievementIDs OCTOPUS{ 5000 };
+constexpr inline AchievementIDs DEPTHSYSTEM{4000};
+constexpr inline AchievementIDs GARDENSYSTEM{2000};
+constexpr inline AchievementIDs OCTOPUS{5000};
 
-constexpr inline AchievementIDs ADVANCEDTELEKINESIS{ 5004 };
+constexpr inline AchievementIDs ADVANCEDTELEKINESIS{5004};
 
-constexpr inline AchievementIDs ANYRARERESSOURCE{ 6000 };
-constexpr inline AchievementIDs ANYMANUFACTUREDRESSOURCE{ 6001 };
+constexpr inline AchievementIDs ANYRARERESSOURCE{6000};
+constexpr inline AchievementIDs ANYMANUFACTUREDRESSOURCE{6001};
 
-}
+} // namespace AchievementsAlias
 
 namespace JobsAlias
 {
-constexpr inline JellyJob NONE{ 0 };
-constexpr inline JellyJob MINING{ 1 };
-constexpr inline JellyJob EXPLORE{ 2 };
-constexpr inline JellyJob FOCUS{ 3 };
-constexpr inline JellyJob ARTISAN{ 4 };
-}
+constexpr inline JellyJob NONE{0};
+constexpr inline JellyJob MINING{1};
+constexpr inline JellyJob EXPLORE{2};
+constexpr inline JellyJob FOCUS{3};
+constexpr inline JellyJob ARTISAN{4};
+} // namespace JobsAlias
 
 namespace CulturesAlias
 {
-constexpr inline AquaCultureID NONE{ 0 };
+constexpr inline AquaCultureID NONE{0};
 }
 
 namespace UpgradesAlias
 {
-constexpr inline UpgradeID ADVANCEDTELEKINESIS{ 3 };
-constexpr inline UpgradeID LEVELING{ 4 };
-}
+constexpr inline UpgradeID ADVANCEDTELEKINESIS{3};
+constexpr inline UpgradeID LEVELING{4};
+} // namespace UpgradesAlias
 
 namespace RecipesAlias
 {
-constexpr inline RecipeID NONE{ 0 };
-constexpr inline RecipeID STONESLAB{ 1 };
-constexpr inline RecipeID GLASSPANE{ 2 };
-}
+constexpr inline RecipeID NONE{0};
+constexpr inline RecipeID STONESLAB{1};
+constexpr inline RecipeID GLASSPANE{2};
+} // namespace RecipesAlias

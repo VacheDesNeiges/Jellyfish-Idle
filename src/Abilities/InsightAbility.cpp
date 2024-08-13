@@ -3,60 +3,57 @@
 
 #include <iostream>
 
-InsightAbility::InsightAbility (const nlohmann::json &data)
+InsightAbility::InsightAbility(const nlohmann::json &data)
 {
-  try
+    try
     {
-      name = data.at ("Name");
-      description = data.at ("Description");
+        name = data.at("Name");
+        description = data.at("Description");
 
-      castingCost.reserve (data.at ("Cost").size ());
+        castingCost.reserve(data.at("Cost").size());
 
-      for (const auto &cost : data.at ("Cost"))
+        for (const auto &cost : data.at("Cost"))
         {
-          castingCost.push_back ({ RessourceType (cost.at ("RessourceID")),
-                                   cost.at ("Quantity") });
+            castingCost.push_back(
+                {RessourceType(cost.at("RessourceID")), cost.at("Quantity")});
         }
 
-      for (const auto &effect : data.at ("Effect"))
+        for (const auto &effect : data.at("Effect"))
         {
-          baseRessourcesGained.push_back (
-              { RessourceType (effect.at ("RessourceID")),
-                effect.at ("Quantity") });
+            baseRessourcesGained.push_back(
+                {RessourceType(effect.at("RessourceID")),
+                 effect.at("Quantity")});
         }
     }
-  catch (nlohmann::json::exception &e)
+    catch (nlohmann::json::exception &e)
     {
-      std::cerr << "Error while parsing an ability :\n" << e.what () << "\n";
-      abort ();
+        std::cerr << "Error while parsing an ability :\n" << e.what() << "\n";
+        abort();
     }
 }
 
-std::vector<std::pair<RessourceType, double> >
-InsightAbility::getCost () const
+std::vector<std::pair<RessourceType, double>> InsightAbility::getCost() const
 {
-  return castingCost;
+    return castingCost;
 }
 
-std::vector<std::pair<RessourceType, double> >
-InsightAbility::getProduction () const
+std::vector<std::pair<RessourceType, double>> InsightAbility::getProduction()
+    const
 {
-  auto ret = baseRessourcesGained;
-  for (auto &[rType, quant] : ret)
+    auto ret = baseRessourcesGained;
+    for (auto &[rType, quant] : ret)
     {
-      quant *= multipliersView ()->getProductionMultiplier (rType);
+        quant *= multipliersView()->getProductionMultiplier(rType);
     }
-  return ret;
+    return ret;
 }
 
-std::string
-InsightAbility::getName () const
+std::string InsightAbility::getName() const
 {
-  return name;
+    return name;
 }
 
-std::string
-InsightAbility::getDescription () const
+std::string InsightAbility::getDescription() const
 {
-  return description;
+    return description;
 }

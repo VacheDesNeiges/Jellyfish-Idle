@@ -8,54 +8,51 @@
 #include <fmt/core.h>
 #include <memory>
 
-void
-UIManager::bindInputHandler (std::shared_ptr<InputHandler> inputPtr)
+void UIManager::bindInputHandler(std::shared_ptr<InputHandler> inputPtr)
 {
-  inputHandler = inputPtr;
+    inputHandler = inputPtr;
 
-  ressourcesPanel.bindInputHandler (inputPtr);
-  buildingsPanel.bindInputHandler (inputPtr);
-  jobsPanel.bindInputHandler (inputPtr);
-  abilitiesPanel.bindInputHandler (inputPtr);
-  depthPanel.bindInputHandler (inputPtr);
-  octopusPanel.bindInputHandler (inputPtr);
-  gardenPanel.bindInputHandler (inputPtr);
-  notifications.bindInputHandler (inputPtr);
+    ressourcesPanel.bindInputHandler(inputPtr);
+    buildingsPanel.bindInputHandler(inputPtr);
+    jobsPanel.bindInputHandler(inputPtr);
+    abilitiesPanel.bindInputHandler(inputPtr);
+    depthPanel.bindInputHandler(inputPtr);
+    octopusPanel.bindInputHandler(inputPtr);
+    gardenPanel.bindInputHandler(inputPtr);
+    notifications.bindInputHandler(inputPtr);
 }
 
-void
-UIManager::renderUI () const
+void UIManager::renderUI() const
 {
-  ImGui::DockSpaceOverViewport (0, ImGui::GetMainViewport ());
+    ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport());
 
-  buildingsPanel.render ();
+    buildingsPanel.render();
 
-  using namespace AchievementsAlias;
-  if (achievementsView ()->isUnlocked (JOBSYSTEM))
-    jobsPanel.render ();
+    using namespace AchievementsAlias;
+    if (achievementsView()->isUnlocked(JOBSYSTEM))
+        jobsPanel.render();
 
-  if (achievementsView ()->isUnlocked (ABILITYSYSTEM))
-    abilitiesPanel.render ();
+    if (achievementsView()->isUnlocked(ABILITYSYSTEM))
+        abilitiesPanel.render();
 
-  if (achievementsView ()->isUnlocked (DEPTHSYSTEM))
-    depthPanel.render ();
+    if (achievementsView()->isUnlocked(DEPTHSYSTEM))
+        depthPanel.render();
 
-  if (achievementsView ()->isUnlocked (OCTOPUS))
-    octopusPanel.render ();
+    if (achievementsView()->isUnlocked(OCTOPUS))
+        octopusPanel.render();
 
-  if (achievementsView ()->isUnlocked (GARDENSYSTEM))
-    gardenPanel.render ();
+    if (achievementsView()->isUnlocked(GARDENSYSTEM))
+        gardenPanel.render();
 
-  ressourcesPanel.render ();
-  notifications.render ();
+    ressourcesPanel.render();
+    notifications.render();
 
-  ImGui::ShowDemoWindow ();
-  ImGui::ShowStyleEditor ();
+    ImGui::ShowDemoWindow();
+    ImGui::ShowStyleEditor();
 }
 
-void
-UIManager::setAtlas (TextureAtlas t)
+void UIManager::setAtlas(TextureAtlas t)
 {
-  atlas = std::move (t);
-  jobsPanel.loopButtonTexture = atlas.loopButton;
+    atlas = std::move(t);
+    jobsPanel.loopButtonTexture = atlas.loopButton;
 }

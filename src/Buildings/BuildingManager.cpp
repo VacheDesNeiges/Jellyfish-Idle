@@ -10,179 +10,169 @@
 #include <utility>
 #include <vector>
 
-BuildingManager::BuildingManager ()
+BuildingManager::BuildingManager()
 {
-  auto fstream = FilePaths::getFileStream (FilePaths::BuildingsPath);
+    auto fstream = FilePaths::getFileStream(FilePaths::BuildingsPath);
 
-  try
+    try
     {
-      auto buildingsJson = nlohmann::json::parse (fstream);
+        auto buildingsJson = nlohmann::json::parse(fstream);
 
-      buildings.reserve (buildingsJson["Buildings"].size ());
-      buildingTypes.reserve (buildingsJson["Buildings"].size ());
+        buildings.reserve(buildingsJson["Buildings"].size());
+        buildingTypes.reserve(buildingsJson["Buildings"].size());
 
-      for (const auto &building : buildingsJson["Buildings"])
+        for (const auto &building : buildingsJson["Buildings"])
         {
-          buildings.try_emplace (BuildingType (building["BuildingID"]),
-                                 building);
+            buildings.try_emplace(BuildingType(building["BuildingID"]),
+                                  building);
 
-          buildingTypes.emplace_back (building["BuildingID"]);
+            buildingTypes.emplace_back(building["BuildingID"]);
 
-          if (building.contains ("Conversion"))
+            if (building.contains("Conversion"))
             {
-              conversionBuildingsTypes.emplace_back (building["BuildingID"]);
+                conversionBuildingsTypes.emplace_back(building["BuildingID"]);
             }
         }
     }
 
-  catch (nlohmann::json::exception &e)
+    catch (nlohmann::json::exception &e)
     {
-      std::cerr << "Error while parsing buildings :\n" << e.what () << "\n";
-      abort ();
+        std::cerr << "Error while parsing buildings :\n" << e.what() << "\n";
+        abort();
     }
 }
 
-void
-BuildingManager::buy (BuildingType t)
+void BuildingManager::buy(BuildingType t)
 {
-  buildings[t].buy ();
+    buildings[t].buy();
 }
 
-unsigned
-BuildingManager::getCurrentQuantity (BuildingType t) const
+unsigned BuildingManager::getCurrentQuantity(BuildingType t) const
 {
-  return buildings.at (t).getCurrentQuantity ();
+    return buildings.at(t).getCurrentQuantity();
 }
 
-std::vector<std::pair<RessourceType, double> >
-BuildingManager::getProduction (BuildingType t) const
+std::vector<std::pair<RessourceType, double>> BuildingManager::getProduction(
+    BuildingType t) const
 {
-  auto result = buildings.at (t).getProdPerTick ();
-  for (auto &[rType, prod] : result)
+    auto result = buildings.at(t).getProdPerTick();
+    for (auto &[rType, prod] : result)
     {
-      prod *= multipliersView ()->getProductionMultiplier (t);
+        prod *= multipliersView()->getProductionMultiplier(t);
     }
-  return result;
+    return result;
 }
 
-std::vector<std::pair<RessourceType, double> >
-BuildingManager::getConsumption (BuildingType t) const
+std::vector<std::pair<RessourceType, double>> BuildingManager::getConsumption(
+    BuildingType t) const
 {
-  return buildings.at (t).getConsumPerTick ();
+    return buildings.at(t).getConsumPerTick();
 }
 
-std::vector<std::pair<RessourceType, double> >
-BuildingManager::nextBuyCost (BuildingType t) const
+std::vector<std::pair<RessourceType, double>> BuildingManager::nextBuyCost(
+    BuildingType t) const
 {
-  return buildings.at (t).getNextBuyCost ();
+    return buildings.at(t).getNextBuyCost();
 }
 
-std::string
-BuildingManager::getBuildingName (BuildingType t) const
+std::string BuildingManager::getBuildingName(BuildingType t) const
 {
-  return buildings.at (t).getBuildingName ();
+    return buildings.at(t).getBuildingName();
 }
 
-std::string
-BuildingManager::getBuildingDescription (BuildingType t) const
+std::string BuildingManager::getBuildingDescription(BuildingType t) const
 {
-  return buildings.at (t).getDescription ();
+    return buildings.at(t).getDescription();
 }
 
-std::unordered_map<RessourceType, double>
-BuildingManager::getProductionRates () const
+std::unordered_map<RessourceType, double> BuildingManager::getProductionRates()
+    const
 {
-  std::unordered_map<RessourceType, double> result;
-  for (const auto &[bType, b] : buildings)
+    std::unordered_map<RessourceType, double> result;
+    for (const auto &[bType, b] : buildings)
     {
-      if (std::ranges::find (conversionBuildingsTypes, bType)
-          != conversionBuildingsTypes.end ())
-        continue;
+        if (std::ranges::find(conversionBuildingsTypes, bType) !=
+            conversionBuildingsTypes.end())
+            continue;
 
-      for (const auto &[rType, productionRate] : b.getProdPerTick ())
+        for (const auto &[rType, productionRate] : b.getProdPerTick())
         {
-          result[rType]
-              += (productionRate
-                  * multipliersView ()->getProductionMultiplier (bType));
+            result[rType] +=
+                (productionRate *
+                 multipliersView()->getProductionMultiplier(bType));
         }
     }
-  return result;
+    return result;
 }
 
-std::unordered_map<RessourceType, double>
-BuildingManager::getConsumptionRates () const
+std::unordered_map<RessourceType, double> BuildingManager::getConsumptionRates()
+    const
 {
-  std::unordered_map<RessourceType, double> result;
-  for (const auto &[bType, b] : buildings)
+    std::unordered_map<RessourceType, double> result;
+    for (const auto &[bType, b] : buildings)
     {
-      if (std::ranges::find (conversionBuildingsTypes, bType)
-          != conversionBuildingsTypes.end ())
-        continue;
+        if (std::ranges::find(conversionBuildingsTypes, bType) !=
+            conversionBuildingsTypes.end())
+            continue;
 
-      for (const auto &[rType, consumptionRate] : b.getConsumPerTick ())
+        for (const auto &[rType, consumptionRate] : b.getConsumPerTick())
         {
-          result[rType] += consumptionRate;
+            result[rType] += consumptionRate;
         }
     }
-  return result;
+    return result;
 }
 
-bool
-BuildingManager::doesIncreasesMaxJellies (BuildingType t) const
+bool BuildingManager::doesIncreasesMaxJellies(BuildingType t) const
 {
-  return buildings.at (t).getIncreaseToMaxJfish () > 0;
+    return buildings.at(t).getIncreaseToMaxJfish() > 0;
 }
 
-unsigned
-BuildingManager::getIncreaseToMaxJfish (BuildingType t)
+unsigned BuildingManager::getIncreaseToMaxJfish(BuildingType t)
 {
-  return buildings[t].getIncreaseToMaxJfish ()
-         * buildings[t].getCurrentQuantity ();
+    return buildings[t].getIncreaseToMaxJfish() *
+           buildings[t].getCurrentQuantity();
 }
 
-std::vector<std::pair<BuildingType, unsigned> >
-BuildingManager::getData () const
+std::vector<std::pair<BuildingType, unsigned>> BuildingManager::getData() const
 {
-  std::vector<std::pair<BuildingType, unsigned> > result;
-  for (const auto &[type, building] : buildings)
+    std::vector<std::pair<BuildingType, unsigned>> result;
+    for (const auto &[type, building] : buildings)
     {
-      result.emplace_back (type, building.getCurrentQuantity ());
+        result.emplace_back(type, building.getCurrentQuantity());
     }
 
-  return result;
+    return result;
 }
 
-void
-BuildingManager::loadData (
-    const std::vector<std::pair<BuildingType, unsigned> > &data)
+void BuildingManager::loadData(
+    const std::vector<std::pair<BuildingType, unsigned>> &data)
 {
-  for (const auto &[type, quant] : data)
+    for (const auto &[type, quant] : data)
     {
-      buildings[type].setQuantity (quant);
-      buildings[type].update ();
+        buildings[type].setQuantity(quant);
+        buildings[type].update();
     }
 }
 
-std::span<const BuildingType>
-BuildingManager::getBuildingTypes () const
+std::span<const BuildingType> BuildingManager::getBuildingTypes() const
 {
-  return std::span (buildingTypes);
+    return std::span(buildingTypes);
 }
 
-std::span<const BuildingType>
-BuildingManager::getConversionBuildingTypes () const
+std::span<const BuildingType> BuildingManager::getConversionBuildingTypes()
+    const
 {
-  return std::span (conversionBuildingsTypes);
+    return std::span(conversionBuildingsTypes);
 }
 
-bool
-BuildingManager::doesIncreasesRessourcesMaxQuantities (BuildingType b) const
+bool BuildingManager::doesIncreasesRessourcesMaxQuantities(BuildingType b) const
 {
-  return !buildings.at (b).getIncreasedStorage ().empty ();
+    return !buildings.at(b).getIncreasedStorage().empty();
 }
 
-std::span<const std::pair<RessourceType, double> >
-BuildingManager::getIncreasedStorage (BuildingType b) const
+std::span<const std::pair<RessourceType, double>> BuildingManager::
+    getIncreasedStorage(BuildingType b) const
 {
-  return buildings.at (b).getIncreasedStorage ();
+    return buildings.at(b).getIncreasedStorage();
 }

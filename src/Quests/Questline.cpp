@@ -6,31 +6,30 @@
 #include <utility>
 #include <vector>
 
-Questline::Questline (const nlohmann::json &json)
+Questline::Questline(const nlohmann::json &json)
 {
-  try
+    try
     {
-      quests.reserve (json.at ("Quests").size ());
-      for (const auto &quest : json.at ("Quests"))
+        quests.reserve(json.at("Quests").size());
+        for (const auto &quest : json.at("Quests"))
         {
-          quests.emplace_back (quest);
+            quests.emplace_back(quest);
         }
     }
-  catch (nlohmann::json::exception &e)
+    catch (nlohmann::json::exception &e)
     {
-      std::cerr << "Error while parsing a questline :\n" << e.what () << '\n';
-      abort ();
+        std::cerr << "Error while parsing a questline :\n" << e.what() << '\n';
+        abort();
     }
 }
 
-std::string
-Questline::getCurrentQuestText () const
+std::string Questline::getCurrentQuestText() const
 {
-  return quests.at (currentQuest).getDialogue ();
+    return quests.at(currentQuest).getDialogue();
 }
 
-std::vector<std::pair<RessourceType, double> >
-Questline::getCurrentQuestRequirements () const
+std::vector<std::pair<RessourceType, double>> Questline::
+    getCurrentQuestRequirements() const
 {
-  return quests.at (currentQuest).getRequestedRessources ();
+    return quests.at(currentQuest).getRequestedRessources();
 }

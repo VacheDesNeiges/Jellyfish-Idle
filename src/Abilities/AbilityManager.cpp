@@ -6,73 +6,69 @@
 #include <iostream>
 #include <span>
 
-AbilityManager::AbilityManager ()
+AbilityManager::AbilityManager()
 {
-  auto fstream = FilePaths::getFileStream (FilePaths::AbilitiesPath);
+    auto fstream = FilePaths::getFileStream(FilePaths::AbilitiesPath);
 
-  try
+    try
     {
-      auto abilitiesJson = nlohmann::json::parse (fstream);
-      abilities.reserve (abilitiesJson.at ("Ability").size ());
-      abilitiesTypes.reserve (abilitiesJson.at ("Ability").size ());
+        auto abilitiesJson = nlohmann::json::parse(fstream);
+        abilities.reserve(abilitiesJson.at("Ability").size());
+        abilitiesTypes.reserve(abilitiesJson.at("Ability").size());
 
-      for (const auto &ability : abilitiesJson["Ability"])
+        for (const auto &ability : abilitiesJson["Ability"])
         {
-          abilities.try_emplace (AbilityType (ability.at ("ID")), ability);
-          abilitiesTypes.push_back (AbilityType (ability.at ("ID")));
+            abilities.try_emplace(AbilityType(ability.at("ID")), ability);
+            abilitiesTypes.push_back(AbilityType(ability.at("ID")));
         }
     }
-  catch (nlohmann::json::exception &e)
+    catch (nlohmann::json::exception &e)
     {
-      std::cerr << "Error while parsing abilities :\n" << e.what () << "\n";
-      abort ();
+        std::cerr << "Error while parsing abilities :\n" << e.what() << "\n";
+        abort();
     }
 }
 
-bool
-AbilityManager::isUsable (AbilityType t) const
+bool AbilityManager::isUsable(AbilityType t) const
 {
-  bool buyable = true;
-  for (const auto &[ressource, cost] : abilities.at (t).getCost ())
+    bool buyable = true;
+    for (const auto &[ressource, cost] : abilities.at(t).getCost())
     {
 
-      if (!buyable)
-        continue;
+        if (!buyable)
+            continue;
 
-      if (ressourcesView ()->getRessourceQuantity (ressource) < cost)
+        if (ressourcesView()->getRessourceQuantity(ressource) < cost)
         {
-          buyable = false;
+            buyable = false;
         }
     }
-  return buyable;
+    return buyable;
 }
 
-std::vector<std::pair<RessourceType, double> >
-AbilityManager::getAbilityCost (AbilityType t) const
+std::vector<std::pair<RessourceType, double>> AbilityManager::getAbilityCost(
+    AbilityType t) const
 {
-  return abilities.at (t).getCost ();
+    return abilities.at(t).getCost();
 }
 
-std::vector<std::pair<RessourceType, double> >
-AbilityManager::getProduction (AbilityType t) const
+std::vector<std::pair<RessourceType, double>> AbilityManager::getProduction(
+    AbilityType t) const
 {
-  return abilities.at (t).getProduction ();
+    return abilities.at(t).getProduction();
 }
 
-std::string
-AbilityManager::getAbilityName (AbilityType t) const
+std::string AbilityManager::getAbilityName(AbilityType t) const
 {
-  return abilities.at (t).getName ();
+    return abilities.at(t).getName();
 }
 
-std::string
-AbilityManager::getAbilityDescription (AbilityType t) const
+std::string AbilityManager::getAbilityDescription(AbilityType t) const
 {
-  return abilities.at (t).getDescription ();
+    return abilities.at(t).getDescription();
 }
 
-std::span<const AbilityType>
-AbilityManager::getAllAbilityTypes () const
+std::span<const AbilityType> AbilityManager::getAllAbilityTypes() const
 {
-  return std::span (abilitiesTypes);
+    return std::span(abilitiesTypes);
 }

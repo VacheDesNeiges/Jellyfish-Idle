@@ -6,133 +6,128 @@
 #include "imgui.h"
 #include <fmt/format.h>
 
-void
-UIBuildingPanel::render () const
+void UIBuildingPanel::render() const
 {
-  if (!ImGui::Begin ("Buildings", nullptr,
-                     ImGuiWindowFlags_NoMove
-                         & ImGuiWindowFlags_NoFocusOnAppearing))
+    if (!ImGui::Begin("Buildings", nullptr,
+                      ImGuiWindowFlags_NoMove &
+                          ImGuiWindowFlags_NoFocusOnAppearing))
     {
-      ImGui::End ();
-      return;
+        ImGui::End();
+        return;
     }
 
-  ImGui::SetCursorPosX (50);
-  ImGui::SetCursorPosY (40);
+    ImGui::SetCursorPosX(50);
+    ImGui::SetCursorPosY(40);
 
-  if (ImGui::Button ("Gather Sand", UIConstants::UIBuildingButtonSize))
+    if (ImGui::Button("Gather Sand", UIConstants::UIBuildingButtonSize))
     {
-      inputHandler->gatherSand ();
+        inputHandler->gatherSand();
     }
 
-  bool odd = !renderJellyfishLuringButton ();
-  if (!odd)
-    ImGui::SetCursorPosX (50);
+    bool odd = !renderJellyfishLuringButton();
+    if (!odd)
+        ImGui::SetCursorPosX(50);
 
-  for (const auto &building : buildingsView ()->getBuildingTypes ())
+    for (const auto &building : buildingsView()->getBuildingTypes())
     {
-      if (renderBuildingButton (building))
+        if (renderBuildingButton(building))
         {
-          odd = !odd;
-          ImGui::SetCursorPosX (50);
+            odd = !odd;
+            ImGui::SetCursorPosX(50);
         }
 
-      if (odd)
-        ImGui::SameLine ();
+        if (odd)
+            ImGui::SameLine();
     }
 
-  ImGui::End ();
+    ImGui::End();
 }
 
-bool
-UIBuildingPanel::renderBuildingButton (BuildingType building) const
+bool UIBuildingPanel::renderBuildingButton(BuildingType building) const
 {
 
-  if (achievementsView ()->isUnlocked (building))
+    if (achievementsView()->isUnlocked(building))
     {
-      ImGui::BeginDisabled (!buildingsView ()->isBuyable (building));
-      auto name = buildingsView ()->getBuildingName (building);
-      auto quantity = buildingsView ()->getBuildingQuantity (building);
-      std::string buttonText = fmt::format ("{} lvl {}", name, quantity);
+        ImGui::BeginDisabled(!buildingsView()->isBuyable(building));
+        auto name = buildingsView()->getBuildingName(building);
+        auto quantity = buildingsView()->getBuildingQuantity(building);
+        std::string buttonText = fmt::format("{} lvl {}", name, quantity);
 
-      if (ImGui::Button (buttonText.c_str (),
-                         UIConstants::UIBuildingButtonSize))
+        if (ImGui::Button(buttonText.c_str(),
+                          UIConstants::UIBuildingButtonSize))
         {
-          inputHandler->buy (building);
+            inputHandler->buy(building);
         }
-      ImGui::EndDisabled ();
-      setToolTip (building);
+        ImGui::EndDisabled();
+        setToolTip(building);
 
-      return true;
+        return true;
     }
-  return false;
+    return false;
 }
 
-void
-UIBuildingPanel::setToolTip (BuildingType building) const
+void UIBuildingPanel::setToolTip(BuildingType building) const
 {
-  ImGui::PushStyleColor (ImGuiCol_Separator,
-                         ImVec4 (0.766f, 0.720f, 0.741f, 0.224f));
-  ImGui::SetNextWindowSize ({ 300, -1 });
+    ImGui::PushStyleColor(ImGuiCol_Separator,
+                          ImVec4(0.766f, 0.720f, 0.741f, 0.224f));
+    ImGui::SetNextWindowSize({300, -1});
 
-  if (ImGui::IsItemHovered (ImGuiHoveredFlags_DelayNone
-                            | ImGuiHoveredFlags_AllowWhenDisabled)
-      && ImGui::BeginTooltip ())
+    if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNone |
+                             ImGuiHoveredFlags_AllowWhenDisabled) &&
+        ImGui::BeginTooltip())
     {
 
-      ImGui::SeparatorText ("Description");
-      ImGui::TextWrapped (
-          "%s\n",
-          buildingsView ()->getBuildingDescription (building).c_str ());
+        ImGui::SeparatorText("Description");
+        ImGui::TextWrapped(
+            "%s\n", buildingsView()->getBuildingDescription(building).c_str());
 
-      auto ressourcesNeeded = buildingsView ()->getNextBuyCost (building);
-      ImGui::SeparatorText ("Price");
-      UIUtils::printCostsImGui (ressourcesView (), ressourcesNeeded);
+        auto ressourcesNeeded = buildingsView()->getNextBuyCost(building);
+        ImGui::SeparatorText("Price");
+        UIUtils::printCostsImGui(ressourcesView(), ressourcesNeeded);
 
-      ImGui::EndTooltip ();
+        ImGui::EndTooltip();
     }
-  ImGui::PopStyleColor ();
+    ImGui::PopStyleColor();
 }
 
-bool
-UIBuildingPanel::renderJellyfishLuringButton () const
+bool UIBuildingPanel::renderJellyfishLuringButton() const
 {
-  ImGui::SameLine ();
+    ImGui::SameLine();
 
-  if (achievementsView ()->isUnlocked (AchievementsAlias::JELLYFISHLURING))
+    if (achievementsView()->isUnlocked(AchievementsAlias::JELLYFISHLURING))
     {
-      ImGui::BeginDisabled (!jelliesView ()->canLure ());
+        ImGui::BeginDisabled(!jelliesView()->canLure());
 
-      if (ImGui::Button ("Lure Jellyfish", UIConstants::UIBuildingButtonSize))
+        if (ImGui::Button("Lure Jellyfish", UIConstants::UIBuildingButtonSize))
         {
-          inputHandler->lureJellyfish ();
+            inputHandler->lureJellyfish();
         }
-      ImGui::EndDisabled ();
-      ImGui::SetNextWindowSize ({ 300, -1 });
+        ImGui::EndDisabled();
+        ImGui::SetNextWindowSize({300, -1});
 
-      if (ImGui::IsItemHovered (ImGuiHoveredFlags_DelayNone
-                                | ImGuiHoveredFlags_AllowWhenDisabled)
-          && ImGui::BeginTooltip ())
+        if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNone |
+                                 ImGuiHoveredFlags_AllowWhenDisabled) &&
+            ImGui::BeginTooltip())
         {
-          ImGui::TextWrapped (
-              "Allows you to use some food to lure a jellyfish");
+            ImGui::TextWrapped(
+                "Allows you to use some food to lure a jellyfish");
 
-          if (jelliesView ()->getMaxNumJellies ()
-              == jelliesView ()->getNumJellies ())
+            if (jelliesView()->getMaxNumJellies() ==
+                jelliesView()->getNumJellies())
             {
-              ImGui::PushStyleColor (ImGuiCol_Text, UIColors::ErrorText);
-              ImGui::TextWrapped ("Not enough room to host more jellies");
-              ImGui::PopStyleColor ();
+                ImGui::PushStyleColor(ImGuiCol_Text, UIColors::ErrorText);
+                ImGui::TextWrapped("Not enough room to host more jellies");
+                ImGui::PopStyleColor();
             }
 
-          ImGui::SeparatorText ("Price :");
-          UIUtils::printCostsImGui (ressourcesView (),
-                                    { jelliesView ()->getLureCost () });
+            ImGui::SeparatorText("Price :");
+            UIUtils::printCostsImGui(ressourcesView(),
+                                     {jelliesView()->getLureCost()});
 
-          ImGui::EndTooltip ();
+            ImGui::EndTooltip();
         }
 
-      return true;
+        return true;
     }
-  return false;
+    return false;
 }

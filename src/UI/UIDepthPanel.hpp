@@ -3,9 +3,9 @@
 
 class UIDepthPanel : public UIElement
 {
-public:
-  void render () const override;
+  public:
+    void render() const override;
 
-private:
-  void displayDepthsRewards () const;
+  private:
+    void displayDepthsRewards() const;
 };

@@ -10,93 +10,89 @@
 #include <memory>
 #include <nlohmann/json_fwd.hpp>
 
-MultipliersRegister::MultipliersRegister ()
+MultipliersRegister::MultipliersRegister()
 {
-  auto fstream = FilePaths::getFileStream (FilePaths::MultipliersPath);
+    auto fstream = FilePaths::getFileStream(FilePaths::MultipliersPath);
 
-  try
+    try
     {
-      auto multipliersJson = nlohmann::json::parse (fstream);
+        auto multipliersJson = nlohmann::json::parse(fstream);
 
-      multipliers.reserve (multipliersJson.at ("Multipliers").size ());
+        multipliers.reserve(multipliersJson.at("Multipliers").size());
 
-      for (const auto &mult : multipliersJson["Multipliers"])
+        for (const auto &mult : multipliersJson["Multipliers"])
         {
-          MultiplierID multID{ mult.at ("ID") };
+            MultiplierID multID{mult.at("ID")};
 
-          if (mult.at ("Source").contains ("PerBuildingID"))
+            if (mult.at("Source").contains("PerBuildingID"))
             {
-              multipliers[multID] = std::make_unique<PerBuildingMultiplier> (
-                  mult.at ("BaseMultiplier"),
-                  BuildingType (mult.at ("Source").at ("PerBuildingID")));
+                multipliers[multID] = std::make_unique<PerBuildingMultiplier>(
+                    mult.at("BaseMultiplier"),
+                    BuildingType(mult.at("Source").at("PerBuildingID")));
             }
 
-          if (mult.at ("Multiplies").contains ("ProdOfRessourceID"))
+            if (mult.at("Multiplies").contains("ProdOfRessourceID"))
             {
-              RessourceType rType{
-                mult.at ("Multiplies").at ("ProdOfRessourceID")
-              };
-              multipliersCategories.ressourceProd[rType].push_back (multID);
+                RessourceType rType{
+                    mult.at("Multiplies").at("ProdOfRessourceID")};
+                multipliersCategories.ressourceProd[rType].push_back(multID);
             }
-          else if (mult.at ("Multiplies").contains ("ProdOfAllFields"))
+            else if (mult.at("Multiplies").contains("ProdOfAllFields"))
             {
-              multipliersCategories.allFieldsProd.push_back (multID);
+                multipliersCategories.allFieldsProd.push_back(multID);
             }
         }
     }
-  catch (nlohmann::json::exception &e)
+    catch (nlohmann::json::exception &e)
     {
-      std::cerr << "Error while parsing multipliers :\n" << e.what () << "\n";
-      abort ();
+        std::cerr << "Error while parsing multipliers :\n" << e.what() << "\n";
+        abort();
     }
 }
 
-double
-MultipliersRegister::getMultiplier (MultiplierID id) const
+double MultipliersRegister::getMultiplier(MultiplierID id) const
 {
-  return 1 + multipliers.at (id)->getMultValue ();
+    return 1 + multipliers.at(id)->getMultValue();
 }
 
-double
-MultipliersRegister::getRessourceProdMultiplier (RessourceType rType) const
+double MultipliersRegister::getRessourceProdMultiplier(
+    RessourceType rType) const
 {
-  double result = 1;
+    double result = 1;
 
-  if (const auto &multVectorIt
-      = multipliersCategories.ressourceProd.find (rType);
-      multVectorIt != multipliersCategories.ressourceProd.end ())
+    if (const auto &multVectorIt =
+            multipliersCategories.ressourceProd.find(rType);
+        multVectorIt != multipliersCategories.ressourceProd.end())
     {
-      for (const auto mult : multVectorIt->second)
+        for (const auto mult : multVectorIt->second)
         {
-          result += multipliers.at (mult)->getMultValue ();
+            result += multipliers.at(mult)->getMultValue();
         }
     }
-  return result;
+    return result;
 }
 
-double
-MultipliersRegister::getBuildingProdMultiplier (BuildingType bType) const
+double MultipliersRegister::getBuildingProdMultiplier(BuildingType bType) const
 {
-  double result = 1;
-  if (const auto &multVectorIt
-      = multipliersCategories.buildingProd.find (bType);
-      multVectorIt != multipliersCategories.buildingProd.end ())
+    double result = 1;
+    if (const auto &multVectorIt =
+            multipliersCategories.buildingProd.find(bType);
+        multVectorIt != multipliersCategories.buildingProd.end())
     {
-      for (const auto mult : multVectorIt->second)
+        for (const auto mult : multVectorIt->second)
         {
-          result += multipliers.at (mult)->getMultValue ();
+            result += multipliers.at(mult)->getMultValue();
         }
     }
-  return result;
+    return result;
 }
 
-double
-MultipliersRegister::getAllFieldsMultiplier () const
+double MultipliersRegister::getAllFieldsMultiplier() const
 {
-  double result = 1;
-  for (const auto &mult : multipliersCategories.allFieldsProd)
+    double result = 1;
+    for (const auto &mult : multipliersCategories.allFieldsProd)
     {
-      result += multipliers.at (mult)->getMultValue ();
+        result += multipliers.at(mult)->getMultValue();
     }
-  return result;
+    return result;
 }

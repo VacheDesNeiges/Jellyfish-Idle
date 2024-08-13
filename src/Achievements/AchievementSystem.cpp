@@ -13,215 +13,196 @@
 #include <utility>
 #include <vector>
 
-AchievementSystem::AchievementSystem ()
+AchievementSystem::AchievementSystem()
 {
-  auto fstream = FilePaths::getFileStream (FilePaths::AchievementsPath);
+    auto fstream = FilePaths::getFileStream(FilePaths::AchievementsPath);
 
-  try
+    try
     {
-      auto json = nlohmann::json::parse (fstream);
+        auto json = nlohmann::json::parse(fstream);
 
-      achievements.reserve (json.at ("Achievements").size ());
-      idMaps.allAchievementsIDs.reserve (json.at ("Achievements").size ());
+        achievements.reserve(json.at("Achievements").size());
+        idMaps.allAchievementsIDs.reserve(json.at("Achievements").size());
 
-      for (const auto &achiev : json.at ("Achievements"))
+        for (const auto &achiev : json.at("Achievements"))
         {
-          achievements.try_emplace (AchievementIDs (achiev.at ("ID")), achiev);
-          insertIdInSearchMaps (achiev);
-          if (achiev.contains ("Notification"))
+            achievements.try_emplace(AchievementIDs(achiev.at("ID")), achiev);
+            insertIdInSearchMaps(achiev);
+            if (achiev.contains("Notification"))
             {
-              notifications.try_emplace (AchievementIDs (achiev.at ("ID")),
-                                         achiev.at ("Notification"));
+                notifications.try_emplace(AchievementIDs(achiev.at("ID")),
+                                          achiev.at("Notification"));
             }
 
-          if (achiev.contains ("DepthReward"))
+            if (achiev.contains("DepthReward"))
             {
-              parseDepthReward (achiev);
+                parseDepthReward(achiev);
             }
         }
     }
-  catch (nlohmann::json::exception &e)
+    catch (nlohmann::json::exception &e)
     {
-      std::cerr << "Error while parsing achievements :\n" << e.what () << "\n";
-      abort ();
+        std::cerr << "Error while parsing achievements :\n" << e.what() << "\n";
+        abort();
     }
 
-  auto comparator = [] (const auto &lhs, const auto &rhs) {
-    return std::get<1> (lhs) > std::get<1> (rhs);
-  };
-  std::ranges::sort (depthRewards, comparator);
+    auto comparator = [](const auto &lhs, const auto &rhs) {
+        return std::get<1>(lhs) > std::get<1>(rhs);
+    };
+    std::ranges::sort(depthRewards, comparator);
 }
 
-void
-AchievementSystem::parseDepthReward (const nlohmann::json &achiev)
+void AchievementSystem::parseDepthReward(const nlohmann::json &achiev)
 {
-  depthRewards.emplace_back (
-      std::tuple{ AchievementIDs (achiev.at ("ID")),
-                  achiev.at ("Condition")[0].at ("Depth"),
-                  achiev.at ("DepthReward").at ("Name"),
-                  achiev.at ("DepthReward").at ("Description") });
+    depthRewards.emplace_back(std::tuple{
+        AchievementIDs(achiev.at("ID")), achiev.at("Condition")[0].at("Depth"),
+        achiev.at("DepthReward").at("Name"),
+        achiev.at("DepthReward").at("Description")});
 }
 
-void
-AchievementSystem::insertIdInSearchMaps (const nlohmann::json &achievement)
+void AchievementSystem::insertIdInSearchMaps(const nlohmann::json &achievement)
 {
-  idMaps.allAchievementsIDs.push_back (AchievementIDs (achievement.at ("ID")));
+    idMaps.allAchievementsIDs.push_back(AchievementIDs(achievement.at("ID")));
 
-  if (achievement.at ("Type") == "Ressource")
-    idMaps.ressources.emplace (achievement.at ("RessourceID"),
-                               achievement.at ("ID"));
+    if (achievement.at("Type") == "Ressource")
+        idMaps.ressources.emplace(achievement.at("RessourceID"),
+                                  achievement.at("ID"));
 
-  if (achievement.at ("Type") == "Building")
-    idMaps.buildings.emplace (achievement.at ("BuildingID"),
-                              achievement.at ("ID"));
+    if (achievement.at("Type") == "Building")
+        idMaps.buildings.emplace(achievement.at("BuildingID"),
+                                 achievement.at("ID"));
 
-  if (achievement.at ("Type") == "JfishJob")
-    idMaps.jobs.emplace (achievement.at ("JobID"), achievement.at ("ID"));
+    if (achievement.at("Type") == "JfishJob")
+        idMaps.jobs.emplace(achievement.at("JobID"), achievement.at("ID"));
 
-  if (achievement.at ("Type") == "Garden")
-    idMaps.cultures.emplace (achievement.at ("CultureID"),
-                             achievement.at ("ID"));
+    if (achievement.at("Type") == "Garden")
+        idMaps.cultures.emplace(achievement.at("CultureID"),
+                                achievement.at("ID"));
 }
 
-bool
-AchievementSystem::isUnlocked (AchievementIDs id) const
+bool AchievementSystem::isUnlocked(AchievementIDs id) const
 {
-  return achievements.at (id).isUnlocked ();
+    return achievements.at(id).isUnlocked();
 }
 
-void
-AchievementSystem::unlock (AchievementIDs id)
+void AchievementSystem::unlock(AchievementIDs id)
 {
-  achievements.at (id).unlock ();
+    achievements.at(id).unlock();
 }
 
-std::vector<std::pair<AchievementIDs, bool> >
-AchievementSystem::getData () const
+std::vector<std::pair<AchievementIDs, bool>> AchievementSystem::getData() const
 {
-  std::vector<std::pair<AchievementIDs, bool> > result;
-  result.reserve (achievements.size ());
-  for (const auto &[id, val] : achievements)
+    std::vector<std::pair<AchievementIDs, bool>> result;
+    result.reserve(achievements.size());
+    for (const auto &[id, val] : achievements)
     {
-      result.emplace_back (id, val.isUnlocked ());
+        result.emplace_back(id, val.isUnlocked());
     }
-  return result;
+    return result;
 }
 
-void
-AchievementSystem::loadData (
-    const std::vector<std::pair<AchievementIDs, bool> > &data)
+void AchievementSystem::loadData(
+    const std::vector<std::pair<AchievementIDs, bool>> &data)
 {
-  for (const auto &[id, unlockedState] : data)
+    for (const auto &[id, unlockedState] : data)
     {
-      achievements[id].setState (unlockedState);
+        achievements[id].setState(unlockedState);
     }
 }
 
-void
-AchievementSystem::checkAchievements ()
+void AchievementSystem::checkAchievements()
 {
-  for (const auto &[id, _] : achievements)
+    for (const auto &[id, _] : achievements)
     {
-      if (isUnlocked (id))
-        continue;
+        if (isUnlocked(id))
+            continue;
 
-      if (achievements.at (id).unlockConditionMet ())
+        if (achievements.at(id).unlockConditionMet())
         {
-          unlock (id);
-          pushNotification (id);
+            unlock(id);
+            pushNotification(id);
         }
     }
 }
 
-bool
-AchievementSystem::isUnlocked (BuildingType t) const
+bool AchievementSystem::isUnlocked(BuildingType t) const
 {
-  if (const auto ach = idMaps.buildings.find (t);
-      ach != idMaps.buildings.end ())
+    if (const auto ach = idMaps.buildings.find(t);
+        ach != idMaps.buildings.end())
     {
-      return achievements.at (ach->second).isUnlocked ();
+        return achievements.at(ach->second).isUnlocked();
     }
-  return true;
+    return true;
 }
 
-bool
-AchievementSystem::isUnlocked (JellyJob j) const
+bool AchievementSystem::isUnlocked(JellyJob j) const
 {
-  if (idMaps.jobs.contains (j))
-    return achievements.at (idMaps.jobs.at (j)).isUnlocked ();
-  return false;
+    if (idMaps.jobs.contains(j))
+        return achievements.at(idMaps.jobs.at(j)).isUnlocked();
+    return false;
 }
 
-bool
-AchievementSystem::isUnlocked (RessourceType r) const
+bool AchievementSystem::isUnlocked(RessourceType r) const
 {
 
-  if (const auto ach = idMaps.ressources.find (r);
-      ach != idMaps.ressources.end ())
+    if (const auto ach = idMaps.ressources.find(r);
+        ach != idMaps.ressources.end())
     {
-      return achievements.at (ach->second).isUnlocked ();
+        return achievements.at(ach->second).isUnlocked();
     }
-  return true;
+    return true;
 }
 
-bool
-AchievementSystem::isUnlocked (AbilityType t) const
+bool AchievementSystem::isUnlocked(AbilityType t) const
 {
-  if (const auto ach = idMaps.abilities.find (t);
-      ach != idMaps.abilities.end ())
+    if (const auto ach = idMaps.abilities.find(t);
+        ach != idMaps.abilities.end())
     {
-      return achievements.at (ach->second).isUnlocked ();
+        return achievements.at(ach->second).isUnlocked();
     }
-  return true;
+    return true;
 }
 
-bool
-AchievementSystem::isUnlocked (UpgradeID id) const
+bool AchievementSystem::isUnlocked(UpgradeID id) const
 {
-  if (idMaps.upgrades.contains (id))
-    return achievements.at (idMaps.upgrades.at (id)).isUnlocked ();
-  return false;
+    if (idMaps.upgrades.contains(id))
+        return achievements.at(idMaps.upgrades.at(id)).isUnlocked();
+    return false;
 }
 
-bool
-AchievementSystem::isUnlocked (AquaCultureID id) const
+bool AchievementSystem::isUnlocked(AquaCultureID id) const
 {
-  if (idMaps.cultures.contains (id))
-    return achievements.at (idMaps.cultures.at (id)).isUnlocked ();
-  return false;
+    if (idMaps.cultures.contains(id))
+        return achievements.at(idMaps.cultures.at(id)).isUnlocked();
+    return false;
 }
 
-std::optional<std::string_view>
-AchievementSystem::getNotification () const
+std::optional<std::string_view> AchievementSystem::getNotification() const
 {
-  if (!notificationQueue.empty ())
-    return notificationQueue.front ().getNotificationText ();
+    if (!notificationQueue.empty())
+        return notificationQueue.front().getNotificationText();
 
-  return std::nullopt;
+    return std::nullopt;
 }
 
-void
-AchievementSystem::popNotification ()
+void AchievementSystem::popNotification()
 {
-  notificationQueue.pop ();
+    notificationQueue.pop();
 }
 
-void
-AchievementSystem::pushNotification (AchievementIDs id)
+void AchievementSystem::pushNotification(AchievementIDs id)
 {
-  if (const auto it = notifications.find (id); it != notifications.end ())
-    notificationQueue.push (it->second);
+    if (const auto it = notifications.find(id); it != notifications.end())
+        notificationQueue.push(it->second);
 }
 
-std::span<const AchievementIDs>
-AchievementSystem::getAchievementsIDs () const
+std::span<const AchievementIDs> AchievementSystem::getAchievementsIDs() const
 {
-  return std::span (idMaps.allAchievementsIDs);
+    return std::span(idMaps.allAchievementsIDs);
 }
 
-std::span<
-    const std::tuple<AchievementIDs, unsigned, std::string, std::string> >
-AchievementSystem::getDepthRewards () const
+std::span<const std::tuple<AchievementIDs, unsigned, std::string, std::string>>
+AchievementSystem::getDepthRewards() const
 {
-  return std::span (depthRewards);
+    return std::span(depthRewards);
 }

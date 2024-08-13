@@ -4,61 +4,54 @@
 #include <utility>
 #include <vector>
 
-RessourceDataView::RessourceDataView (std::shared_ptr<RessourceManager> r)
-    : ressources (r)
+RessourceDataView::RessourceDataView(std::shared_ptr<RessourceManager> r)
+    : ressources(r)
 {
 }
 
-double
-RessourceDataView::getRessourceProduction (RessourceType r) const
+double RessourceDataView::getRessourceProduction(RessourceType r) const
 {
-  return ressources->getProduction (r);
+    return ressources->getProduction(r);
 }
 
-double
-RessourceDataView::getRessourceConsumption (RessourceType r) const
+double RessourceDataView::getRessourceConsumption(RessourceType r) const
 {
-  return ressources->getConsumption (r);
+    return ressources->getConsumption(r);
 }
 
-std::string_view
-RessourceDataView::getRessourceName (RessourceType r) const
+std::string_view RessourceDataView::getRessourceName(RessourceType r) const
 {
-  return ressources->getName (r);
+    return ressources->getName(r);
 }
 
-double
-RessourceDataView::getRessourceQuantity (RessourceType t) const
+double RessourceDataView::getRessourceQuantity(RessourceType t) const
 {
-  return ressources->getCurrentQuantity (t);
+    return ressources->getCurrentQuantity(t);
 }
 
-double
-RessourceDataView::getRessourceMaxQuantity (RessourceType t) const
+double RessourceDataView::getRessourceMaxQuantity(RessourceType t) const
 {
-  return ressources->getMaxQuantity (t);
+    return ressources->getMaxQuantity(t);
 }
 
-std::span<const RessourceType>
-RessourceDataView::getRegularRessourceTypes () const
+std::span<const RessourceType> RessourceDataView::getRegularRessourceTypes()
+    const
 {
-  return ressources->getRegularRessourceTypes ();
+    return ressources->getRegularRessourceTypes();
 }
 
-std::span<const RessourceType>
-RessourceDataView::getRareRessourceTypes () const
+std::span<const RessourceType> RessourceDataView::getRareRessourceTypes() const
 {
-  return ressources->getRareRessourceTypes ();
+    return ressources->getRareRessourceTypes();
 }
-std::span<const RessourceType>
-RessourceDataView::getCraftableRessourceTypes () const
+std::span<const RessourceType> RessourceDataView::getCraftableRessourceTypes()
+    const
 {
-  return ressources->getCraftableRessourceTypes ();
+    return ressources->getCraftableRessourceTypes();
 }
 
-bool
-RessourceDataView::canAfford (
-    const std::vector<std::pair<RessourceType, double> > &vector) const
+bool RessourceDataView::canAfford(
+    const std::vector<std::pair<RessourceType, double>> &vector) const
 {
-  return ressources->canAfford (vector);
+    return ressources->canAfford(vector);
 }

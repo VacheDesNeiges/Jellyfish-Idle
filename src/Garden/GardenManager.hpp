@@ -12,48 +12,44 @@
 
 class GardenManager final
     : public GameDataAccess,
-      public SaveAndLoadable<
-          std::vector<std::pair<AquaCultureID, CultureData> > >
+      public SaveAndLoadable<std::vector<std::pair<AquaCultureID, CultureData>>>
 {
 
-public:
-  GardenManager ();
-  ~GardenManager () override = default;
+  public:
+    GardenManager();
+    ~GardenManager() override = default;
 
-  void startCulture (AquaCultureID);
-  void cancelCulture (AquaCultureID);
+    void startCulture(AquaCultureID);
+    void cancelCulture(AquaCultureID);
 
-  bool assign (AquaCultureID);
-  bool unnasign (AquaCultureID);
+    bool assign(AquaCultureID);
+    bool unnasign(AquaCultureID);
 
-  bool canAffordTick (AquaCultureID) const;
-  bool isOngoing (AquaCultureID) const;
+    bool canAffordTick(AquaCultureID) const;
+    bool isOngoing(AquaCultureID) const;
 
-  std::string getName (AquaCultureID) const;
+    std::string getName(AquaCultureID) const;
 
-  unsigned getTotalFields () const;
-  unsigned getAssignedFields () const;
-  unsigned getAssignedFieldsToCulture (AquaCultureID) const;
+    unsigned getTotalFields() const;
+    unsigned getAssignedFields() const;
+    unsigned getAssignedFieldsToCulture(AquaCultureID) const;
 
-  std::vector<std::pair<RessourceType, double> >
-      getConsumption (AquaCultureID,
-                      std::optional<unsigned> = std::nullopt) const;
-  std::vector<std::pair<RessourceType, double> >
-      getProduction (AquaCultureID,
-                     std::optional<unsigned> = std::nullopt) const;
+    std::vector<std::pair<RessourceType, double>> getConsumption(
+        AquaCultureID, std::optional<unsigned> = std::nullopt) const;
+    std::vector<std::pair<RessourceType, double>> getProduction(
+        AquaCultureID, std::optional<unsigned> = std::nullopt) const;
 
-  void loadData (
-      const std::vector<std::pair<AquaCultureID, CultureData> > &) override;
+    void loadData(
+        const std::vector<std::pair<AquaCultureID, CultureData>> &) override;
 
-  std::vector<std::pair<AquaCultureID, CultureData> >
-  getData () const override;
+    std::vector<std::pair<AquaCultureID, CultureData>> getData() const override;
 
-  std::span<const AquaCultureID> getCultureTypes () const;
+    std::span<const AquaCultureID> getCultureTypes() const;
 
-private:
-  std::vector<AquaCultureID> cultureTypes;
-  std::unordered_map<AquaCultureID, AquaCulture> cultures;
-  std::unordered_map<AquaCultureID, unsigned> assignedFieldsToCultures;
+  private:
+    std::vector<AquaCultureID> cultureTypes;
+    std::unordered_map<AquaCultureID, AquaCulture> cultures;
+    std::unordered_map<AquaCultureID, unsigned> assignedFieldsToCultures;
 
-  unsigned maxFields = 1;
+    unsigned maxFields = 1;
 };

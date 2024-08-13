@@ -2,32 +2,27 @@
 #include "MultipliersRegister.hpp"
 #include <memory>
 
-MultiplierDataView::MultiplierDataView (
-    std::shared_ptr<MultipliersRegister> ptr)
-    : multipliers (ptr)
+MultiplierDataView::MultiplierDataView(std::shared_ptr<MultipliersRegister> ptr)
+    : multipliers(ptr)
 {
 }
 
-double
-MultiplierDataView::getMultiplier (MultiplierID id) const
+double MultiplierDataView::getMultiplier(MultiplierID id) const
 {
-  return multipliers->getMultiplier (id);
+    return multipliers->getMultiplier(id);
 }
 
-double
-MultiplierDataView::getProductionMultiplier (RessourceType rtype) const
+double MultiplierDataView::getProductionMultiplier(RessourceType rtype) const
 {
-  return multipliers->getRessourceProdMultiplier (rtype);
+    return multipliers->getRessourceProdMultiplier(rtype);
 }
 
-double
-MultiplierDataView::getProductionMultiplier (BuildingType bType) const
+double MultiplierDataView::getProductionMultiplier(BuildingType bType) const
 {
-  return multipliers->getBuildingProdMultiplier (bType);
+    return multipliers->getBuildingProdMultiplier(bType);
 }
 
-double
-MultiplierDataView::getAllFieldsMultiplier () const
+double MultiplierDataView::getAllFieldsMultiplier() const
 {
-  return multipliers->getAllFieldsMultiplier ();
+    return multipliers->getAllFieldsMultiplier();
 }

@@ -2,66 +2,64 @@
 #include "fmt/core.h"
 #include "imgui.h"
 
-void
-UIDepthPanel::render () const
+void UIDepthPanel::render() const
 {
-  if (!ImGui::Begin ("Depth", nullptr,
-                     ImGuiWindowFlags_NoMove
-                         & ImGuiWindowFlags_NoFocusOnAppearing))
+    if (!ImGui::Begin("Depth", nullptr,
+                      ImGuiWindowFlags_NoMove &
+                          ImGuiWindowFlags_NoFocusOnAppearing))
     {
-      ImGui::End ();
-      return;
+        ImGui::End();
+        return;
     }
 
-  std::string depthString = fmt::format ("Current Depth : {} meters",
-                                         depthView ()->getCurrentDepth ());
-  ImGui::Text ("%s", depthString.c_str ());
+    std::string depthString = fmt::format("Current Depth : {} meters",
+                                          depthView()->getCurrentDepth());
+    ImGui::Text("%s", depthString.c_str());
 
-  ImGui::ProgressBar (depthView ()->getCurrentProgress ()
-                      / depthView ()->getProgressNeededForNextIncrease ());
+    ImGui::ProgressBar(depthView()->getCurrentProgress() /
+                       depthView()->getProgressNeededForNextIncrease());
 
-  ImGui::Separator ();
-  displayDepthsRewards ();
+    ImGui::Separator();
+    displayDepthsRewards();
 
-  ImGui::End ();
+    ImGui::End();
 }
 
-void
-UIDepthPanel::displayDepthsRewards () const
+void UIDepthPanel::displayDepthsRewards() const
 {
-  const auto &depthRewards = achievementsView ()->getDepthRewards ();
-  if (depthRewards.empty ())
-    return;
+    const auto &depthRewards = achievementsView()->getDepthRewards();
+    if (depthRewards.empty())
+        return;
 
-  ImGui::SetCursorPosY (100);
-  ImGui::SetCursorPosX (50);
-  if (ImGui::BeginTable ("Depth Rewards Table", 3,
-                         ImGuiTableFlags_RowBg | ImGuiTableFlags_NoHostExtendX
-                             | ImGuiTableFlags_SizingFixedFit
-                             | ImGuiTableFlags_Borders))
+    ImGui::SetCursorPosY(100);
+    ImGui::SetCursorPosX(50);
+    if (ImGui::BeginTable(
+            "Depth Rewards Table", 3,
+            ImGuiTableFlags_RowBg | ImGuiTableFlags_NoHostExtendX |
+                ImGuiTableFlags_SizingFixedFit | ImGuiTableFlags_Borders))
     {
-      ImGui::TableSetupScrollFreeze (0, 1);
-      ImGui::TableSetupColumn ("Depth");
-      ImGui::TableSetupColumn ("Reward");
-      ImGui::TableSetupColumn ("Description");
-      ImGui::TableHeadersRow ();
+        ImGui::TableSetupScrollFreeze(0, 1);
+        ImGui::TableSetupColumn("Depth");
+        ImGui::TableSetupColumn("Reward");
+        ImGui::TableSetupColumn("Description");
+        ImGui::TableHeadersRow();
 
-      for (const auto &[achievID, depth, name, description] : depthRewards)
+        for (const auto &[achievID, depth, name, description] : depthRewards)
         {
-          ImGui::TableNextRow ();
-          if (achievementsView ()->isUnlocked (achievID))
+            ImGui::TableNextRow();
+            if (achievementsView()->isUnlocked(achievID))
             {
-              ImGui::TableSetColumnIndex (0);
-              ImGui::Text ("%d", depth);
+                ImGui::TableSetColumnIndex(0);
+                ImGui::Text("%d", depth);
 
-              ImGui::TableSetColumnIndex (1);
-              ImGui::Text ("%s", name.c_str ());
+                ImGui::TableSetColumnIndex(1);
+                ImGui::Text("%s", name.c_str());
 
-              ImGui::TableSetColumnIndex (2);
-              ImGui::Text ("%s", description.c_str ());
+                ImGui::TableSetColumnIndex(2);
+                ImGui::Text("%s", description.c_str());
             }
         }
 
-      ImGui::EndTable ();
+        ImGui::EndTable();
     }
 }

@@ -6,177 +6,159 @@
 #include <iostream>
 #include <string>
 
-CraftingRecipe::CraftingRecipe (const nlohmann::json &recipeData)
+CraftingRecipe::CraftingRecipe(const nlohmann::json &recipeData)
 {
-  try
+    try
     {
-      recipeName = recipeData.at ("Name");
-      baseTicksForCraft = recipeData.at ("BaseTicksRequired");
-      remainingTicksToCraft = baseTicksForCraft;
-      level = { 1, 0, 100 };
+        recipeName = recipeData.at("Name");
+        baseTicksForCraft = recipeData.at("BaseTicksRequired");
+        remainingTicksToCraft = baseTicksForCraft;
+        level = {1, 0, 100};
 
-      for (const auto &cost : recipeData.at ("Cost"))
+        for (const auto &cost : recipeData.at("Cost"))
         {
-          recipe.emplace_back (RessourceType (cost.at ("RessourceID")),
-                               cost.at ("Quantity"));
+            recipe.emplace_back(RessourceType(cost.at("RessourceID")),
+                                cost.at("Quantity"));
         }
 
-      for (const auto &production : recipeData.at ("Result"))
+        for (const auto &production : recipeData.at("Result"))
         {
-          baseResult.emplace_back (
-              RessourceType (production.at ("RessourceID")),
-              production.at ("Quantity"));
+            baseResult.emplace_back(RessourceType(production.at("RessourceID")),
+                                    production.at("Quantity"));
         }
     }
-  catch (nlohmann::json::exception &e)
+    catch (nlohmann::json::exception &e)
     {
-      std::cerr << "Error while parsing a recipe :\n" << e.what () << "\n";
-      abort ();
+        std::cerr << "Error while parsing a recipe :\n" << e.what() << "\n";
+        abort();
     }
 }
 
-void
-CraftingRecipe::start ()
+void CraftingRecipe::start()
 {
-  craftOngoing = true;
-  remainingTicksToCraft = baseTicksForCraft;
+    craftOngoing = true;
+    remainingTicksToCraft = baseTicksForCraft;
 }
 
-void
-CraftingRecipe::cancel ()
+void CraftingRecipe::cancel()
 {
-  craftOngoing = false;
-  remainingTicksToCraft = baseTicksForCraft;
+    craftOngoing = false;
+    remainingTicksToCraft = baseTicksForCraft;
 }
 
-unsigned
-CraftingRecipe::getRemainingTicks () const
+unsigned CraftingRecipe::getRemainingTicks() const
 {
-  return remainingTicksToCraft;
+    return remainingTicksToCraft;
 }
 
-std::vector<std::pair<RessourceType, double> >
-CraftingRecipe::getRecipe () const
+std::vector<std::pair<RessourceType, double>> CraftingRecipe::getRecipe() const
 {
-  return recipe;
+    return recipe;
 }
 
-std::vector<std::pair<RessourceType, double> >
-CraftingRecipe::getBaseResult () const
+std::vector<std::pair<RessourceType, double>> CraftingRecipe::getBaseResult()
+    const
 {
-  return baseResult;
+    return baseResult;
 }
 
-bool
-CraftingRecipe::tick ()
+bool CraftingRecipe::tick()
 {
-  if (craftOngoing)
+    if (craftOngoing)
     {
-      remainingTicksToCraft--;
-      if (remainingTicksToCraft == 0)
+        remainingTicksToCraft--;
+        if (remainingTicksToCraft == 0)
         {
-          craftOngoing = false;
-          done = true;
-          level.currentProgress += 10;
+            craftOngoing = false;
+            done = true;
+            level.currentProgress += 10;
         }
     }
-  return done;
+    return done;
 }
 
-bool
-CraftingRecipe::isDone () const
+bool CraftingRecipe::isDone() const
 {
-  return done;
+    return done;
 }
 
-unsigned
-CraftingRecipe::getTotalRequiredTicks () const
+unsigned CraftingRecipe::getTotalRequiredTicks() const
 {
-  return baseTicksForCraft;
+    return baseTicksForCraft;
 }
 
-std::string
-CraftingRecipe::getName () const
+std::string CraftingRecipe::getName() const
 {
-  return recipeName;
+    return recipeName;
 }
 
-bool
-CraftingRecipe::isOngoing () const
+bool CraftingRecipe::isOngoing() const
 {
-  return craftOngoing;
+    return craftOngoing;
 }
 
-void
-CraftingRecipe::reset ()
+void CraftingRecipe::reset()
 {
-  done = false;
-  craftOngoing = false;
-  remainingTicksToCraft = baseTicksForCraft;
+    done = false;
+    craftOngoing = false;
+    remainingTicksToCraft = baseTicksForCraft;
 }
 
-unsigned
-CraftingRecipe::getRecipelvl () const
+unsigned CraftingRecipe::getRecipelvl() const
 {
-  return level.lvl;
+    return level.lvl;
 }
 
-bool
-CraftingRecipe::applyExp ()
+bool CraftingRecipe::applyExp()
 {
-  bool hasLeveledUp = false;
-  while (level.currentProgress >= level.progressNeeded)
+    bool hasLeveledUp = false;
+    while (level.currentProgress >= level.progressNeeded)
     {
-      hasLeveledUp = true;
-      level.lvl += 1;
-      level.currentProgress -= level.progressNeeded;
-      level.progressNeeded
-          = 10 * level.lvl * (level.lvl / std::log (level.lvl));
+        hasLeveledUp = true;
+        level.lvl += 1;
+        level.currentProgress -= level.progressNeeded;
+        level.progressNeeded =
+            10 * level.lvl * (level.lvl / std::log(level.lvl));
     }
-  return hasLeveledUp;
+    return hasLeveledUp;
 }
 
-RecipeLevel
-CraftingRecipe::getLevelData () const
+RecipeLevel CraftingRecipe::getLevelData() const
 {
-  return level;
+    return level;
 }
 
-RecipeSaveData
-CraftingRecipe::getData () const
+RecipeSaveData CraftingRecipe::getData() const
 {
-  RecipeSaveData result = {};
-  result.craftDone = done;
-  result.craftOngoing = craftOngoing;
-  result.keepCraftingEnabled = keepCraftingMode;
-  result.remainingTicksToCraft = remainingTicksToCraft;
-  result.lvl = level.lvl;
-  result.currentProgress = level.currentProgress;
-  result.progressNeeded = level.progressNeeded;
+    RecipeSaveData result = {};
+    result.craftDone = done;
+    result.craftOngoing = craftOngoing;
+    result.keepCraftingEnabled = keepCraftingMode;
+    result.remainingTicksToCraft = remainingTicksToCraft;
+    result.lvl = level.lvl;
+    result.currentProgress = level.currentProgress;
+    result.progressNeeded = level.progressNeeded;
 
-  return result;
+    return result;
 }
 
-void
-CraftingRecipe::loadData (const RecipeSaveData &data)
+void CraftingRecipe::loadData(const RecipeSaveData &data)
 {
-  done = data.craftDone;
-  craftOngoing = data.craftOngoing;
-  remainingTicksToCraft = data.remainingTicksToCraft;
-  level.lvl = data.lvl;
-  level.currentProgress = data.currentProgress;
-  level.progressNeeded = data.progressNeeded;
-  keepCraftingMode = data.keepCraftingEnabled;
+    done = data.craftDone;
+    craftOngoing = data.craftOngoing;
+    remainingTicksToCraft = data.remainingTicksToCraft;
+    level.lvl = data.lvl;
+    level.currentProgress = data.currentProgress;
+    level.progressNeeded = data.progressNeeded;
+    keepCraftingMode = data.keepCraftingEnabled;
 }
 
-bool
-CraftingRecipe::hasKeepCraftingEnabled () const
+bool CraftingRecipe::hasKeepCraftingEnabled() const
 {
-  return keepCraftingMode;
+    return keepCraftingMode;
 }
 
-void
-CraftingRecipe::setKeepCraftingMode (bool b)
+void CraftingRecipe::setKeepCraftingMode(bool b)
 {
-  keepCraftingMode = b;
+    keepCraftingMode = b;
 }

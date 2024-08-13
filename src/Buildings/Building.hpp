@@ -10,41 +10,41 @@
 
 class Building : public GameDataAccess
 {
-public:
-  Building () = default;
-  explicit Building (const nlohmann::json &);
+  public:
+    Building() = default;
+    explicit Building(const nlohmann::json &);
 
-  ~Building () = default;
+    ~Building() = default;
 
-  void buy ();
-  void update ();
+    void buy();
+    void update();
 
-  void setQuantity (unsigned);
-  unsigned getCurrentQuantity () const;
-  unsigned getIncreaseToMaxJfish () const;
-  std::string getBuildingName () const;
+    void setQuantity(unsigned);
+    unsigned getCurrentQuantity() const;
+    unsigned getIncreaseToMaxJfish() const;
+    std::string getBuildingName() const;
 
-  std::vector<std::pair<RessourceType, double> > getProdPerTick () const;
-  std::vector<std::pair<RessourceType, double> > getConsumPerTick () const;
-  std::vector<std::pair<RessourceType, double> > getNextBuyCost () const;
+    std::vector<std::pair<RessourceType, double>> getProdPerTick() const;
+    std::vector<std::pair<RessourceType, double>> getConsumPerTick() const;
+    std::vector<std::pair<RessourceType, double>> getNextBuyCost() const;
 
-  std::span<const std::pair<RessourceType, double> >
-  getIncreasedStorage () const;
+    std::span<const std::pair<RessourceType, double>> getIncreasedStorage()
+        const;
 
-  std::string getDescription () const;
+    std::string getDescription() const;
 
-private:
-  std::string name;
-  std::string description;
-  unsigned quantity = 0;
-  unsigned increaseToMaxJfish = 0;
-  double priceMultiplier = 1;
-  std::vector<std::pair<RessourceType, double> > basePrice;
-  std::unordered_map<RessourceType, double> baseProductionPerTick;
-  std::unordered_map<RessourceType, double> baseConsumptionPerTick;
-  std::unordered_map<RessourceType, double> baseIncreasedStorage;
+  private:
+    std::string name;
+    std::string description;
+    unsigned quantity = 0;
+    unsigned increaseToMaxJfish = 0;
+    double priceMultiplier = 1;
+    std::vector<std::pair<RessourceType, double>> basePrice;
+    std::unordered_map<RessourceType, double> baseProductionPerTick;
+    std::unordered_map<RessourceType, double> baseConsumptionPerTick;
+    std::unordered_map<RessourceType, double> baseIncreasedStorage;
 
-  std::vector<std::pair<RessourceType, double> > prodPerTick;
-  std::vector<std::pair<RessourceType, double> > consumPerTick;
-  std::vector<std::pair<RessourceType, double> > increasedStorage;
+    std::vector<std::pair<RessourceType, double>> prodPerTick;
+    std::vector<std::pair<RessourceType, double>> consumPerTick;
+    std::vector<std::pair<RessourceType, double>> increasedStorage;
 };

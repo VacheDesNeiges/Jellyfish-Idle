@@ -9,19 +9,18 @@
 class UIElement : public GameDataAccess
 {
 
-public:
-  UIElement () = default;
-  virtual ~UIElement () = default;
+  public:
+    UIElement() = default;
+    virtual ~UIElement() = default;
 
-  virtual void render () const = 0;
+    virtual void render() const = 0;
 
-  void
-  bindInputHandler (std::shared_ptr<InputHandler> inputPtr)
-  {
-    this->inputHandler = inputPtr;
-  }
+    void bindInputHandler(std::shared_ptr<InputHandler> inputPtr)
+    {
+        this->inputHandler = inputPtr;
+    }
 
-  std::shared_ptr<InputHandler> inputHandler;
+    std::shared_ptr<InputHandler> inputHandler;
 
-  SDL_Texture *loopButtonTexture = nullptr;
+    SDL_Texture *loopButtonTexture = nullptr;
 };

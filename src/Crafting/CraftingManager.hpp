@@ -9,47 +9,46 @@
 
 class CraftingManager final
     : public GameDataAccess,
-      public SaveAndLoadable<
-          std::vector<std::pair<RecipeID, RecipeSaveData> > >
+      public SaveAndLoadable<std::vector<std::pair<RecipeID, RecipeSaveData>>>
 {
-public:
-  CraftingManager ();
-  ~CraftingManager () override = default;
+  public:
+    CraftingManager();
+    ~CraftingManager() override = default;
 
-  bool assign (RecipeID);
-  bool unasign (RecipeID);
-  bool canAfford (RecipeID) const;
+    bool assign(RecipeID);
+    bool unasign(RecipeID);
+    bool canAfford(RecipeID) const;
 
-  void setKeepCraftingMode (RecipeID, bool);
-  bool isKeepCraftingEnabled (RecipeID) const;
+    void setKeepCraftingMode(RecipeID, bool);
+    bool isKeepCraftingEnabled(RecipeID) const;
 
-  bool craftIsOngoing (RecipeID) const;
-  bool distributeCraftsExp ();
-  void startRecipe (RecipeID);
-  void cancelRecipe (RecipeID);
+    bool craftIsOngoing(RecipeID) const;
+    bool distributeCraftsExp();
+    void startRecipe(RecipeID);
+    void cancelRecipe(RecipeID);
 
-  unsigned getRemainingTicks (RecipeID) const;
-  unsigned getTotalRequiredTicks (RecipeID) const;
-  unsigned getAssignedNumOfJellies (RecipeID) const;
-  unsigned getAssignedNumOfJelliesOnOngoingCrafts () const;
-  void updateAssignments ();
-  std::string getName (RecipeID) const;
+    unsigned getRemainingTicks(RecipeID) const;
+    unsigned getTotalRequiredTicks(RecipeID) const;
+    unsigned getAssignedNumOfJellies(RecipeID) const;
+    unsigned getAssignedNumOfJelliesOnOngoingCrafts() const;
+    void updateAssignments();
+    std::string getName(RecipeID) const;
 
-  bool tick ();
-  std::vector<std::pair<RessourceType, double> > getRecipe (RecipeID) const;
-  std::vector<std::pair<RessourceType, double> > getCraftResults ();
-  std::vector<std::pair<RessourceType, double> >
-      getCraftResult (RecipeID) const;
+    bool tick();
+    std::vector<std::pair<RessourceType, double>> getRecipe(RecipeID) const;
+    std::vector<std::pair<RessourceType, double>> getCraftResults();
+    std::vector<std::pair<RessourceType, double>> getCraftResult(
+        RecipeID) const;
 
-  std::span<const RecipeID> getRecipeTypes () const;
+    std::span<const RecipeID> getRecipeTypes() const;
 
-  std::vector<std::pair<RecipeID, RecipeSaveData> > getData () const override;
-  void loadData (
-      const std::vector<std::pair<RecipeID, RecipeSaveData> > &) override;
+    std::vector<std::pair<RecipeID, RecipeSaveData>> getData() const override;
+    void loadData(
+        const std::vector<std::pair<RecipeID, RecipeSaveData>> &) override;
 
-private:
-  unsigned assignedJelliesToCrafting = 0;
-  std::unordered_map<RecipeID, unsigned> assignedJelliesToRecipes;
-  std::unordered_map<RecipeID, CraftingRecipe> recipes;
-  std::vector<RecipeID> recipeTypes;
+  private:
+    unsigned assignedJelliesToCrafting = 0;
+    std::unordered_map<RecipeID, unsigned> assignedJelliesToRecipes;
+    std::unordered_map<RecipeID, CraftingRecipe> recipes;
+    std::vector<RecipeID> recipeTypes;
 };

@@ -4,10 +4,10 @@
 
 class Notification
 {
-public:
-  explicit Notification (const std::string &);
-  std::string_view getNotificationText () const;
+  public:
+    explicit Notification(const std::string &);
+    std::string_view getNotificationText() const;
 
-private:
-  std::string text;
+  private:
+    std::string text;
 };

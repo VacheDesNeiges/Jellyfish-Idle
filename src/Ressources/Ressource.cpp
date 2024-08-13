@@ -4,103 +4,91 @@
 #include <nlohmann/json_fwd.hpp>
 #include <string_view>
 
-Ressource::Ressource (const nlohmann::json &resData)
-    : name (resData.at ("Name")),
-      baseMaxQuantity (resData.value ("Max_Quantity", DBL_MAX)),
-      maxQuantity (baseMaxQuantity)
+Ressource::Ressource(const nlohmann::json &resData)
+    : name(resData.at("Name")),
+      baseMaxQuantity(resData.value("Max_Quantity", DBL_MAX)),
+      maxQuantity(baseMaxQuantity)
 {
 }
 
-void
-Ressource::add (double n)
+void Ressource::add(double n)
 {
-  if (n >= 0)
+    if (n >= 0)
     {
-      if (quantity + n <= maxQuantity)
+        if (quantity + n <= maxQuantity)
         {
-          quantity += n;
+            quantity += n;
         }
-      else
+        else
         {
-          quantity = maxQuantity;
+            quantity = maxQuantity;
         }
     }
-  else
+    else
     {
-      if (quantity + n >= 0)
+        if (quantity + n >= 0)
         {
-          quantity += n;
+            quantity += n;
         }
-      else
+        else
         {
-          quantity = 0;
+            quantity = 0;
         }
     }
 }
 
-double
-Ressource::getCurrentQuantity () const
+double Ressource::getCurrentQuantity() const
 {
-  return quantity;
+    return quantity;
 }
 
-double
-Ressource::getMaxQuantity () const
+double Ressource::getMaxQuantity() const
 {
-  return maxQuantity;
+    return maxQuantity;
 }
 
-std::string_view
-Ressource::getName () const
+std::string_view Ressource::getName() const
 {
-  return name;
+    return name;
 }
 
-void
-Ressource::resetValuesPerTick ()
+void Ressource::resetValuesPerTick()
 {
-  prodPerTick = 0;
-  consumptionPerTick = 0;
+    prodPerTick = 0;
+    consumptionPerTick = 0;
 }
 
-void
-Ressource::addToConsumptionPerTick (double n)
+void Ressource::addToConsumptionPerTick(double n)
 {
-  consumptionPerTick += n;
+    consumptionPerTick += n;
 }
 
-void
-Ressource::addToProdPerTick (double n)
+void Ressource::addToProdPerTick(double n)
 {
-  prodPerTick += n;
+    prodPerTick += n;
 }
 
-double
-Ressource::getNetProduction () const
+double Ressource::getNetProduction() const
 {
-  return prodPerTick - consumptionPerTick;
+    return prodPerTick - consumptionPerTick;
 }
 
-void
-Ressource::setQuantity (double quant)
+void Ressource::setQuantity(double quant)
 {
-  quantity = quant;
+    quantity = quant;
 }
 
-double
-Ressource::getProduction () const
+double Ressource::getProduction() const
 {
-  return prodPerTick;
+    return prodPerTick;
 }
 
-double
-Ressource::getConsumption () const
+double Ressource::getConsumption() const
 {
-  return consumptionPerTick;
+    return consumptionPerTick;
 }
 
-void
-Ressource::setBonusMaxQuantity (double n)
+void Ressource::setBonusMaxQuantity(double n)
 {
-  maxQuantity = baseMaxQuantity + n;
+    maxQuantity = baseMaxQuantity + n;
 }

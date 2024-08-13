@@ -5,13 +5,13 @@
 
 class Questline
 {
-public:
-  explicit Questline (const nlohmann::json &);
-  std::string getCurrentQuestText () const;
-  std::vector<std::pair<RessourceType, double> >
-  getCurrentQuestRequirements () const;
+  public:
+    explicit Questline(const nlohmann::json &);
+    std::string getCurrentQuestText() const;
+    std::vector<std::pair<RessourceType, double>> getCurrentQuestRequirements()
+        const;
 
-private:
-  unsigned currentQuest = 0;
-  std::vector<Quest> quests;
+  private:
+    unsigned currentQuest = 0;
+    std::vector<Quest> quests;
 };

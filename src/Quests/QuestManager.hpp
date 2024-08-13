@@ -8,13 +8,13 @@
 
 class QuestManager
 {
-public:
-  QuestManager ();
-  std::string getCurrentQuestText (QuestLineEnum) const;
+  public:
+    QuestManager();
+    std::string getCurrentQuestText(QuestLineEnum) const;
 
-  std::vector<std::pair<RessourceType, double> >
-      getCurrentQuestRequirements (QuestLineEnum) const;
+    std::vector<std::pair<RessourceType, double>> getCurrentQuestRequirements(
+        QuestLineEnum) const;
 
-private:
-  std::unordered_map<QuestLineEnum, Questline> questlines;
+  private:
+    std::unordered_map<QuestLineEnum, Questline> questlines;
 };

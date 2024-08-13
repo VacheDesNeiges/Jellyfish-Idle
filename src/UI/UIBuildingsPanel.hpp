@@ -4,12 +4,12 @@
 #include "UIElement.hpp"
 class UIBuildingPanel : public UIElement
 {
-public:
-  void render () const override;
+  public:
+    void render() const override;
 
-private:
-  bool renderBuildingButton (BuildingType) const;
-  bool renderJellyfishLuringButton () const;
+  private:
+    bool renderBuildingButton(BuildingType) const;
+    bool renderJellyfishLuringButton() const;
 
-  void setToolTip (BuildingType) const;
+    void setToolTip(BuildingType) const;
 };

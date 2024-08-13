@@ -5,147 +5,139 @@
 #include <fmt/core.h>
 #include <string>
 
-void
-UIGardenPanel::render () const
+void UIGardenPanel::render() const
 {
-  if (!ImGui::Begin ("Garden", nullptr,
+    if (!ImGui::Begin("Garden", nullptr,
 
-                     ImGuiWindowFlags_NoMove
-                         & ImGuiWindowFlags_NoFocusOnAppearing))
+                      ImGuiWindowFlags_NoMove &
+                          ImGuiWindowFlags_NoFocusOnAppearing))
     {
-      ImGui::End ();
-      return;
+        ImGui::End();
+        return;
     }
 
-  ImGui::Text (
-      "Avaiables fields : %d",
-      gardenView ()->getAssignedFieldsToCulture (CulturesAlias::NONE));
+    ImGui::Text("Avaiables fields : %d",
+                gardenView()->getAssignedFieldsToCulture(CulturesAlias::NONE));
 
-  ImGui::PushStyleColor (ImGuiCol_ChildBg, UIColors::CardElements);
-  ImGui::PushStyleColor (ImGuiCol_Separator,
-                         ImVec4 (0.791f, 0.130f, 0.130f, 0.652f));
-  for (const auto &culture : gardenView ()->getCultureTypes ())
+    ImGui::PushStyleColor(ImGuiCol_ChildBg, UIColors::CardElements);
+    ImGui::PushStyleColor(ImGuiCol_Separator,
+                          ImVec4(0.791f, 0.130f, 0.130f, 0.652f));
+    for (const auto &culture : gardenView()->getCultureTypes())
     {
-      if (achievementsView ()->isUnlocked (culture))
+        if (achievementsView()->isUnlocked(culture))
         {
-          renderCulture (culture);
-          ImGui::SameLine ();
+            renderCulture(culture);
+            ImGui::SameLine();
         }
     }
-  ImGui::PopStyleColor (2);
-  ImGui::End ();
+    ImGui::PopStyleColor(2);
+    ImGui::End();
 }
 
-void
-UIGardenPanel::renderCulture (AquaCultureID id) const
+void UIGardenPanel::renderCulture(AquaCultureID id) const
 {
-  constexpr auto size = ImVec2 (200, 270);
-  const auto &cultureName = gardenView ()->getName (id);
+    constexpr auto size = ImVec2(200, 270);
+    const auto &cultureName = gardenView()->getName(id);
 
-  ImGui::BeginChild (cultureName.c_str (), size);
+    ImGui::BeginChild(cultureName.c_str(), size);
 
-  ImGui::SeparatorText (cultureName.c_str ());
-  displayCultureProduction (id);
+    ImGui::SeparatorText(cultureName.c_str());
+    displayCultureProduction(id);
 
-  ImGui::SeparatorText ("Assigned Fields ");
-  displayFieldsAssignmentArrows (cultureName, id);
-  displayGrowAndStopButtons (id);
+    ImGui::SeparatorText("Assigned Fields ");
+    displayFieldsAssignmentArrows(cultureName, id);
+    displayGrowAndStopButtons(id);
 
-  ImGui::SeparatorText ("Cost per Field");
-  displayCultureConsumption (id);
+    ImGui::SeparatorText("Cost per Field");
+    displayCultureConsumption(id);
 
-  ImGui::EndChild ();
+    ImGui::EndChild();
 }
 
-void
-UIGardenPanel::displayCultureProduction (AquaCultureID id) const
+void UIGardenPanel::displayCultureProduction(AquaCultureID id) const
 {
-  ImGui::Text ("Each field produces :");
-  ImGui::NewLine ();
+    ImGui::Text("Each field produces :");
+    ImGui::NewLine();
 
-  const auto [rType, quant] = gardenView ()->getFieldProduction (id, 1).at (0);
+    const auto [rType, quant] = gardenView()->getFieldProduction(id, 1).at(0);
 
-  const std::string quantity = fmt::format (
-      "{} x {}/sec", ressourcesView ()->getRessourceName (rType),
-      UIUtils::formatQuantity (quant * 2));
+    const std::string quantity =
+        fmt::format("{} x {}/sec", ressourcesView()->getRessourceName(rType),
+                    UIUtils::formatQuantity(quant * 2));
 
-  ImGui::Text ("%s", quantity.c_str ());
+    ImGui::Text("%s", quantity.c_str());
 }
 
-void
-UIGardenPanel::displayCultureConsumption (AquaCultureID id) const
+void UIGardenPanel::displayCultureConsumption(AquaCultureID id) const
 {
-  const auto &costData = gardenView ()->getFieldConsumption (id, 1);
-  if (costData.empty ())
+    const auto &costData = gardenView()->getFieldConsumption(id, 1);
+    if (costData.empty())
     {
-      ImGui::Text ("Nothing");
+        ImGui::Text("Nothing");
     }
-  else
+    else
     {
-      for (const auto &[rType, quant] : costData)
+        for (const auto &[rType, quant] : costData)
         {
-          const std::string displayedText = fmt::format (
-              "{} x {}/sec", ressourcesView ()->getRessourceName (rType),
-              UIUtils::formatQuantity (quant * 2));
+            const std::string displayedText = fmt::format(
+                "{} x {}/sec", ressourcesView()->getRessourceName(rType),
+                UIUtils::formatQuantity(quant * 2));
 
-          ImGui::Text ("%s", displayedText.c_str ());
+            ImGui::Text("%s", displayedText.c_str());
         }
     }
 }
 
-void
-UIGardenPanel::displayFieldsAssignmentArrows (const std::string &cultureName,
-                                              AquaCultureID id) const
+void UIGardenPanel::displayFieldsAssignmentArrows(
+    const std::string &cultureName, AquaCultureID id) const
 {
-  ImGui::BeginDisabled (
-      gardenView ()->isOngoing (id)
-      || (gardenView ()->getAssignedFieldsToCulture (id) == 0));
+    ImGui::BeginDisabled(gardenView()->isOngoing(id) ||
+                         (gardenView()->getAssignedFieldsToCulture(id) == 0));
 
-  ImGui::SetCursorPosX (ImGui::GetCursorPosX () + 67);
+    ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 67);
 
-  if (ImGui::ArrowButton ((cultureName + "##left").c_str (), ImGuiDir_Left))
+    if (ImGui::ArrowButton((cultureName + "##left").c_str(), ImGuiDir_Left))
     {
-      inputHandler->unassignToField (id);
+        inputHandler->unassignToField(id);
     }
 
-  ImGui::EndDisabled ();
+    ImGui::EndDisabled();
 
-  ImGui::SameLine ();
+    ImGui::SameLine();
 
-  ImGui::Text ("%d", gardenView ()->getAssignedFieldsToCulture (id));
+    ImGui::Text("%d", gardenView()->getAssignedFieldsToCulture(id));
 
-  ImGui::SameLine ();
+    ImGui::SameLine();
 
-  ImGui::BeginDisabled (
-      gardenView ()->isOngoing (id)
-      || gardenView ()->getAssignedFieldsToCulture (CulturesAlias::NONE) == 0);
-  if (ImGui::ArrowButton ((cultureName + "##right").c_str (), ImGuiDir_Right))
+    ImGui::BeginDisabled(
+        gardenView()->isOngoing(id) ||
+        gardenView()->getAssignedFieldsToCulture(CulturesAlias::NONE) == 0);
+    if (ImGui::ArrowButton((cultureName + "##right").c_str(), ImGuiDir_Right))
     {
-      inputHandler->assignToField (id);
+        inputHandler->assignToField(id);
     }
-  ImGui::EndDisabled ();
+    ImGui::EndDisabled();
 }
 
-void
-UIGardenPanel::displayGrowAndStopButtons (AquaCultureID id) const
+void UIGardenPanel::displayGrowAndStopButtons(AquaCultureID id) const
 {
-  ImGui::BeginDisabled (gardenView ()->getAssignedFieldsToCulture (id) == 0
-                        || (gardenView ()->isOngoing (id)));
+    ImGui::BeginDisabled(gardenView()->getAssignedFieldsToCulture(id) == 0 ||
+                         (gardenView()->isOngoing(id)));
 
-  ImGui::SetCursorPosX (ImGui::GetCursorPosX () + 25);
+    ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 25);
 
-  if (ImGui::Button ("Grow"))
+    if (ImGui::Button("Grow"))
     {
-      inputHandler->startCulture (id);
+        inputHandler->startCulture(id);
     }
-  ImGui::EndDisabled ();
+    ImGui::EndDisabled();
 
-  ImGui::SameLine ();
+    ImGui::SameLine();
 
-  ImGui::BeginDisabled (!gardenView ()->isOngoing (id));
-  if (ImGui::Button ("Stop"))
+    ImGui::BeginDisabled(!gardenView()->isOngoing(id));
+    if (ImGui::Button("Stop"))
     {
-      inputHandler->cancelCulture (id);
+        inputHandler->cancelCulture(id);
     }
-  ImGui::EndDisabled ();
+    ImGui::EndDisabled();
 }

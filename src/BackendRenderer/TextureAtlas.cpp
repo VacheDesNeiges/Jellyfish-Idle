@@ -2,28 +2,27 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_render.h>
 
-TextureAtlas::~TextureAtlas ()
+TextureAtlas::~TextureAtlas()
 {
-  if (loopButton != nullptr)
+    if (loopButton != nullptr)
     {
-      SDL_DestroyTexture (loopButton);
-      loopButton = nullptr;
+        SDL_DestroyTexture(loopButton);
+        loopButton = nullptr;
     }
 }
 
-TextureAtlas::TextureAtlas (TextureAtlas &&other) noexcept
-    : loopButton (other.loopButton)
+TextureAtlas::TextureAtlas(TextureAtlas &&other) noexcept
+    : loopButton(other.loopButton)
 {
-  other.loopButton = nullptr;
+    other.loopButton = nullptr;
 }
 
-TextureAtlas &
-TextureAtlas::operator= (TextureAtlas &&other) noexcept
+TextureAtlas &TextureAtlas::operator=(TextureAtlas &&other) noexcept
 {
-  if (this != &other)
+    if (this != &other)
     {
-      loopButton = other.loopButton;
-      other.loopButton = nullptr;
+        loopButton = other.loopButton;
+        other.loopButton = nullptr;
     }
-  return *this;
+    return *this;
 }

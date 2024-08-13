@@ -2,58 +2,51 @@
 #include <cmath>
 #include <math.h>
 
-unsigned
-DepthSystem::getCurrentDepth () const
+unsigned DepthSystem::getCurrentDepth() const
 {
-  return currentDepth;
+    return currentDepth;
 }
 
-unsigned
-DepthSystem::getMaximumDepth () const
+unsigned DepthSystem::getMaximumDepth() const
 {
-  return maxDepth;
+    return maxDepth;
 }
 
-float
-DepthSystem::getCurrentProgress () const
+float DepthSystem::getCurrentProgress() const
 {
-  return currentProgress;
+    return currentProgress;
 }
 
-float
-DepthSystem::getProgressNeededForNextIncrease () const
+float DepthSystem::getProgressNeededForNextIncrease() const
 {
-  return progressNeeded;
+    return progressNeeded;
 }
 
-void
-DepthSystem::ExploreDepth (unsigned nJellies)
+void DepthSystem::ExploreDepth(unsigned nJellies)
 {
-  if (currentDepth < maxDepth)
+    if (currentDepth < maxDepth)
     {
-      double progressGained = nJellies * 0.5;
-      currentProgress += static_cast<float> (progressGained);
-      while (currentProgress >= progressNeeded)
+        double progressGained = nJellies * 0.5;
+        currentProgress += static_cast<float>(progressGained);
+        while (currentProgress >= progressNeeded)
         {
-          currentDepth += 1;
-          currentProgress -= progressNeeded;
-          progressNeeded = static_cast<float> (
-              currentDepth * (currentDepth / std::log (currentDepth)));
+            currentDepth += 1;
+            currentProgress -= progressNeeded;
+            progressNeeded = static_cast<float>(
+                currentDepth * (currentDepth / std::log(currentDepth)));
         }
     }
 }
 
-DepthData
-DepthSystem::getData () const
+DepthData DepthSystem::getData() const
 {
-  return { currentProgress, currentDepth };
+    return {currentProgress, currentDepth};
 }
 
-void
-DepthSystem::loadData (const DepthData &data)
+void DepthSystem::loadData(const DepthData &data)
 {
-  currentProgress = data.currentProg;
-  currentDepth = data.currentDepth;
-  progressNeeded = static_cast<float> (currentDepth
-                                       * (currentDepth / log (currentDepth)));
+    currentProgress = data.currentProg;
+    currentDepth = data.currentDepth;
+    progressNeeded =
+        static_cast<float>(currentDepth * (currentDepth / log(currentDepth)));
 }

@@ -11,251 +11,232 @@
 #include <utility>
 #include <vector>
 
-CraftingManager::CraftingManager ()
+CraftingManager::CraftingManager()
 {
-  auto fstream = FilePaths::getFileStream (FilePaths::RecipesPath);
+    auto fstream = FilePaths::getFileStream(FilePaths::RecipesPath);
 
-  try
+    try
     {
-      auto recipesJson = nlohmann::json::parse (fstream);
+        auto recipesJson = nlohmann::json::parse(fstream);
 
-      const auto numRecipes = recipesJson.at ("Recipes").size ();
-      recipes.reserve (numRecipes);
-      recipeTypes.reserve (numRecipes);
-      assignedJelliesToRecipes.reserve (numRecipes + 1);
+        const auto numRecipes = recipesJson.at("Recipes").size();
+        recipes.reserve(numRecipes);
+        recipeTypes.reserve(numRecipes);
+        assignedJelliesToRecipes.reserve(numRecipes + 1);
 
-      for (const auto &recipeData : recipesJson.at ("Recipes"))
+        for (const auto &recipeData : recipesJson.at("Recipes"))
         {
-          recipes.try_emplace (RecipeID (recipeData.at ("ID")), recipeData);
-          recipeTypes.push_back (RecipeID (recipeData.at ("ID")));
-          assignedJelliesToRecipes[RecipeID (recipeData.at ("ID"))] = 0;
+            recipes.try_emplace(RecipeID(recipeData.at("ID")), recipeData);
+            recipeTypes.push_back(RecipeID(recipeData.at("ID")));
+            assignedJelliesToRecipes[RecipeID(recipeData.at("ID"))] = 0;
         }
-      assignedJelliesToRecipes[RecipesAlias::NONE] = 0;
+        assignedJelliesToRecipes[RecipesAlias::NONE] = 0;
     }
-  catch (nlohmann::json::exception &e)
+    catch (nlohmann::json::exception &e)
     {
-      std::cerr << "Error while parsing recipes :\n" << e.what () << "\n";
-      abort ();
+        std::cerr << "Error while parsing recipes :\n" << e.what() << "\n";
+        abort();
     }
 }
 
-bool
-CraftingManager::assign (RecipeID id)
+bool CraftingManager::assign(RecipeID id)
 {
-  if (assignedJelliesToRecipes[RecipesAlias::NONE] > 0)
+    if (assignedJelliesToRecipes[RecipesAlias::NONE] > 0)
     {
-      assignedJelliesToRecipes[id]++;
-      assignedJelliesToRecipes[RecipesAlias::NONE]--;
-      return true;
+        assignedJelliesToRecipes[id]++;
+        assignedJelliesToRecipes[RecipesAlias::NONE]--;
+        return true;
     }
-  return false;
+    return false;
 }
 
-bool
-CraftingManager::unasign (RecipeID id)
+bool CraftingManager::unasign(RecipeID id)
 {
-  if (assignedJelliesToRecipes.at (id) > 0)
+    if (assignedJelliesToRecipes.at(id) > 0)
     {
-      assignedJelliesToRecipes[id]--;
-      assignedJelliesToRecipes[RecipesAlias::NONE]++;
-      if (assignedJelliesToRecipes.at (id) == 0)
-        recipes.at (id).setKeepCraftingMode (false);
+        assignedJelliesToRecipes[id]--;
+        assignedJelliesToRecipes[RecipesAlias::NONE]++;
+        if (assignedJelliesToRecipes.at(id) == 0)
+            recipes.at(id).setKeepCraftingMode(false);
 
-      return true;
+        return true;
     }
-  return false;
+    return false;
 }
 
-void
-CraftingManager::startRecipe (RecipeID id)
+void CraftingManager::startRecipe(RecipeID id)
 {
-  recipes.at (id).start ();
+    recipes.at(id).start();
 }
 
-void
-CraftingManager::cancelRecipe (RecipeID id)
+void CraftingManager::cancelRecipe(RecipeID id)
 {
-  recipes.at (id).cancel ();
+    recipes.at(id).cancel();
 }
 
-unsigned
-CraftingManager::getRemainingTicks (RecipeID id) const
+unsigned CraftingManager::getRemainingTicks(RecipeID id) const
 {
-  return recipes.at (id).getRemainingTicks ();
+    return recipes.at(id).getRemainingTicks();
 }
 
-std::vector<std::pair<RessourceType, double> >
-CraftingManager::getRecipe (RecipeID id) const
+std::vector<std::pair<RessourceType, double>> CraftingManager::getRecipe(
+    RecipeID id) const
 {
-  return recipes.at (id).getRecipe ();
+    return recipes.at(id).getRecipe();
 }
 
-bool
-CraftingManager::tick ()
+bool CraftingManager::tick()
 {
-  bool ret = false;
-  for (auto &[id, recipe] : recipes)
+    bool ret = false;
+    for (auto &[id, recipe] : recipes)
     {
-      if (recipe.tick ())
-        ret = true;
+        if (recipe.tick())
+            ret = true;
     }
-  return ret;
+    return ret;
 }
 
-std::vector<std::pair<RessourceType, double> >
-CraftingManager::getCraftResults ()
+std::vector<std::pair<RessourceType, double>> CraftingManager::getCraftResults()
 {
-  std::vector<std::pair<RessourceType, double> > result;
-  for (const auto &[id, recipe] : recipes)
+    std::vector<std::pair<RessourceType, double>> result;
+    for (const auto &[id, recipe] : recipes)
     {
-      if (recipes.at (id).isDone ())
+        if (recipes.at(id).isDone())
         {
-          auto tmp = getCraftResult (id);
-          for (auto &[rType, quant] : tmp)
+            auto tmp = getCraftResult(id);
+            for (auto &[rType, quant] : tmp)
             {
-              quant *= assignedJelliesToRecipes[id];
+                quant *= assignedJelliesToRecipes[id];
             }
-          result.insert (result.end (), tmp.begin (), tmp.end ());
-          recipes.at (id).reset ();
+            result.insert(result.end(), tmp.begin(), tmp.end());
+            recipes.at(id).reset();
         }
     }
-  return result;
+    return result;
 }
 
-std::vector<std::pair<RessourceType, double> >
-CraftingManager::getCraftResult (RecipeID id) const
+std::vector<std::pair<RessourceType, double>> CraftingManager::getCraftResult(
+    RecipeID id) const
 {
-  return recipes.at (id).getBaseResult ();
+    return recipes.at(id).getBaseResult();
 }
 
-unsigned
-CraftingManager::getTotalRequiredTicks (RecipeID id) const
+unsigned CraftingManager::getTotalRequiredTicks(RecipeID id) const
 {
-  return recipes.at (id).getTotalRequiredTicks ();
+    return recipes.at(id).getTotalRequiredTicks();
 }
 
-unsigned
-CraftingManager::getAssignedNumOfJellies (RecipeID id) const
+unsigned CraftingManager::getAssignedNumOfJellies(RecipeID id) const
 {
-  return assignedJelliesToRecipes.at (id);
+    return assignedJelliesToRecipes.at(id);
 }
 
-std::string
-CraftingManager::getName (RecipeID id) const
+std::string CraftingManager::getName(RecipeID id) const
 {
-  return recipes.at (id).getName ();
+    return recipes.at(id).getName();
 }
 
-void
-CraftingManager::updateAssignments ()
+void CraftingManager::updateAssignments()
 {
-  const auto asssignedToJob
-      = jelliesView ()->getNumJellies (JobsAlias::ARTISAN);
-  if (assignedJelliesToCrafting == asssignedToJob)
-    return;
+    const auto asssignedToJob =
+        jelliesView()->getNumJellies(JobsAlias::ARTISAN);
+    if (assignedJelliesToCrafting == asssignedToJob)
+        return;
 
-  if (asssignedToJob > assignedJelliesToCrafting)
+    if (asssignedToJob > assignedJelliesToCrafting)
     {
-      const auto dif = asssignedToJob - assignedJelliesToCrafting;
+        const auto dif = asssignedToJob - assignedJelliesToCrafting;
 
-      assignedJelliesToRecipes[RecipesAlias::NONE] += dif;
-      assignedJelliesToCrafting += dif;
+        assignedJelliesToRecipes[RecipesAlias::NONE] += dif;
+        assignedJelliesToCrafting += dif;
     }
-  else
+    else
     {
-      const auto dif = assignedJelliesToCrafting - asssignedToJob;
-      assignedJelliesToRecipes[RecipesAlias::NONE] -= dif;
-      assignedJelliesToCrafting -= dif;
+        const auto dif = assignedJelliesToCrafting - asssignedToJob;
+        assignedJelliesToRecipes[RecipesAlias::NONE] -= dif;
+        assignedJelliesToCrafting -= dif;
     }
 }
 
-bool
-CraftingManager::canAfford (RecipeID id) const
+bool CraftingManager::canAfford(RecipeID id) const
 {
-  bool ret = true;
-  for (const auto &[rType, quant] : getRecipe (id))
+    bool ret = true;
+    for (const auto &[rType, quant] : getRecipe(id))
     {
-      if (ressourcesView ()->getRessourceQuantity (rType)
-          < quant * assignedJelliesToRecipes.at (id))
-        ret = false;
+        if (ressourcesView()->getRessourceQuantity(rType) <
+            quant * assignedJelliesToRecipes.at(id))
+            ret = false;
     }
-  return ret;
+    return ret;
 }
 
-bool
-CraftingManager::craftIsOngoing (RecipeID id) const
+bool CraftingManager::craftIsOngoing(RecipeID id) const
 {
-  return recipes.at (id).isOngoing ();
+    return recipes.at(id).isOngoing();
 }
 
-bool
-CraftingManager::distributeCraftsExp ()
+bool CraftingManager::distributeCraftsExp()
 {
-  bool hasLeveledUp = false;
-  for (auto &[id, recipe] : recipes)
+    bool hasLeveledUp = false;
+    for (auto &[id, recipe] : recipes)
     {
-      if (recipe.applyExp ())
-        hasLeveledUp = true;
+        if (recipe.applyExp())
+            hasLeveledUp = true;
     }
-  return hasLeveledUp;
+    return hasLeveledUp;
 }
 
-std::vector<std::pair<RecipeID, RecipeSaveData> >
-CraftingManager::getData () const
+std::vector<std::pair<RecipeID, RecipeSaveData>> CraftingManager::getData()
+    const
 {
-  auto result = std::vector<std::pair<RecipeID, RecipeSaveData> > ();
+    auto result = std::vector<std::pair<RecipeID, RecipeSaveData>>();
 
-  for (const auto craft : recipeTypes)
+    for (const auto craft : recipeTypes)
     {
-      auto saveData = recipes.at (craft).getData ();
-      saveData.numAssignedWorkers = getAssignedNumOfJellies (craft);
-      result.emplace_back (craft, saveData);
+        auto saveData = recipes.at(craft).getData();
+        saveData.numAssignedWorkers = getAssignedNumOfJellies(craft);
+        result.emplace_back(craft, saveData);
     }
-  return result;
+    return result;
 }
 
-void
-CraftingManager::loadData (
-    const std::vector<std::pair<RecipeID, RecipeSaveData> > &data)
+void CraftingManager::loadData(
+    const std::vector<std::pair<RecipeID, RecipeSaveData>> &data)
 {
-  for (const auto &[id, recipeData] : data)
+    for (const auto &[id, recipeData] : data)
     {
-      for (size_t i = 0; i < recipeData.numAssignedWorkers; i++)
+        for (size_t i = 0; i < recipeData.numAssignedWorkers; i++)
         {
-          assign (id);
+            assign(id);
         }
-      recipes.at (id).loadData (recipeData);
+        recipes.at(id).loadData(recipeData);
     }
 }
 
-unsigned
-CraftingManager::getAssignedNumOfJelliesOnOngoingCrafts () const
+unsigned CraftingManager::getAssignedNumOfJelliesOnOngoingCrafts() const
 {
-  unsigned result = 0;
-  for (const auto &[id, recipe] : recipes)
+    unsigned result = 0;
+    for (const auto &[id, recipe] : recipes)
     {
-      if (recipe.isOngoing ())
+        if (recipe.isOngoing())
         {
-          result += getAssignedNumOfJellies (id);
+            result += getAssignedNumOfJellies(id);
         }
     }
-  return result;
+    return result;
 }
 
-std::span<const RecipeID>
-CraftingManager::getRecipeTypes () const
+std::span<const RecipeID> CraftingManager::getRecipeTypes() const
 {
-  return std::span (recipeTypes);
+    return std::span(recipeTypes);
 }
 
-bool
-CraftingManager::isKeepCraftingEnabled (RecipeID id) const
+bool CraftingManager::isKeepCraftingEnabled(RecipeID id) const
 {
-  return recipes.at (id).hasKeepCraftingEnabled ();
+    return recipes.at(id).hasKeepCraftingEnabled();
 }
 
-void
-CraftingManager::setKeepCraftingMode (RecipeID id, bool b)
+void CraftingManager::setKeepCraftingMode(RecipeID id, bool b)
 {
-  recipes.at (id).setKeepCraftingMode (b);
+    recipes.at(id).setKeepCraftingMode(b);
 }

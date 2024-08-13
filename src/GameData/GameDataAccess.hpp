@@ -14,23 +14,23 @@
  */
 class GameDataAccess
 {
-public:
-  static void bindDataView (std::shared_ptr<GameDataView>);
+  public:
+    static void bindDataView(std::shared_ptr<GameDataView>);
 
-protected:
-  std::shared_ptr<const GameDataView> getDataView () const;
-  std::shared_ptr<const MultiplierDataView> multipliersView () const;
-  std::shared_ptr<const RessourceDataView> ressourcesView () const;
-  std::shared_ptr<const JellyFishDataView> jelliesView () const;
-  std::shared_ptr<const BuildingDataView> buildingsView () const;
-  std::shared_ptr<const AchievementDataView> achievementsView () const;
-  std::shared_ptr<const DepthDataView> depthView () const;
-  std::shared_ptr<const CraftDataView> craftView () const;
-  std::shared_ptr<const UpgradeDataView> upgradeView () const;
-  std::shared_ptr<const GardenDataView> gardenView () const;
-  std::shared_ptr<const AbilityDataView> abilitiesView () const;
-  std::shared_ptr<const QuestDataView> questsView () const;
+  protected:
+    std::shared_ptr<const GameDataView> getDataView() const;
+    std::shared_ptr<const MultiplierDataView> multipliersView() const;
+    std::shared_ptr<const RessourceDataView> ressourcesView() const;
+    std::shared_ptr<const JellyFishDataView> jelliesView() const;
+    std::shared_ptr<const BuildingDataView> buildingsView() const;
+    std::shared_ptr<const AchievementDataView> achievementsView() const;
+    std::shared_ptr<const DepthDataView> depthView() const;
+    std::shared_ptr<const CraftDataView> craftView() const;
+    std::shared_ptr<const UpgradeDataView> upgradeView() const;
+    std::shared_ptr<const GardenDataView> gardenView() const;
+    std::shared_ptr<const AbilityDataView> abilitiesView() const;
+    std::shared_ptr<const QuestDataView> questsView() const;
 
-private:
-  static inline std::shared_ptr<GameDataView> view = nullptr;
+  private:
+    static inline std::shared_ptr<GameDataView> view = nullptr;
 };

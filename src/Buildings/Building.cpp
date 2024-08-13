@@ -8,145 +8,133 @@
 #include <utility>
 #include <vector>
 
-Building::Building (const nlohmann::json &data)
+Building::Building(const nlohmann::json &data)
 {
-  try
+    try
     {
-      name = data.at ("Name");
-      description = data.at ("Description");
-      increaseToMaxJfish = data.at ("IncreaseToJfish");
-      priceMultiplier = data.at ("PriceMultiplier");
+        name = data.at("Name");
+        description = data.at("Description");
+        increaseToMaxJfish = data.at("IncreaseToJfish");
+        priceMultiplier = data.at("PriceMultiplier");
 
-      basePrice.reserve (data.at ("BasePrice").size ());
-      for (const auto &price : data["BasePrice"])
+        basePrice.reserve(data.at("BasePrice").size());
+        for (const auto &price : data["BasePrice"])
         {
-          basePrice.emplace_back (price.at ("RessourceID"),
-                                  price.at ("Quantity"));
+            basePrice.emplace_back(price.at("RessourceID"),
+                                   price.at("Quantity"));
         }
 
-      if (data.contains ("Conversion"))
+        if (data.contains("Conversion"))
         {
-          for (const auto &cost : data["Conversion"].at ("Cost"))
+            for (const auto &cost : data["Conversion"].at("Cost"))
             {
-              baseConsumptionPerTick.try_emplace (
-                  RessourceType (cost.at ("RessourceID")),
-                  cost.at ("Quantity"));
+                baseConsumptionPerTick.try_emplace(
+                    RessourceType(cost.at("RessourceID")), cost.at("Quantity"));
             }
-          for (const auto &prod : data["Conversion"].at ("Production"))
+            for (const auto &prod : data["Conversion"].at("Production"))
             {
-              baseProductionPerTick.try_emplace (
-                  RessourceType (prod.at ("RessourceID")),
-                  prod.at ("Quantity"));
+                baseProductionPerTick.try_emplace(
+                    RessourceType(prod.at("RessourceID")), prod.at("Quantity"));
             }
         }
 
-      if (data.contains ("StorageIncrease"))
+        if (data.contains("StorageIncrease"))
         {
-          for (const auto &storage : data["StorageIncrease"])
+            for (const auto &storage : data["StorageIncrease"])
             {
-              baseIncreasedStorage.try_emplace (
-                  RessourceType (storage.at ("RessourceID")),
-                  storage.at ("Quantity"));
-              increasedStorage.push_back (
-                  { RessourceType (storage.at ("RessourceID")),
-                    storage.at ("Quantity") });
+                baseIncreasedStorage.try_emplace(
+                    RessourceType(storage.at("RessourceID")),
+                    storage.at("Quantity"));
+                increasedStorage.push_back(
+                    {RessourceType(storage.at("RessourceID")),
+                     storage.at("Quantity")});
             }
         }
     }
-  catch (nlohmann::json::exception &e)
+    catch (nlohmann::json::exception &e)
     {
-      std::cerr << "Error while parsing a building :\n" << e.what () << "\n";
-      abort ();
+        std::cerr << "Error while parsing a building :\n" << e.what() << "\n";
+        abort();
     }
 }
 
-void
-Building::buy ()
+void Building::buy()
 {
-  quantity++;
-  update ();
+    quantity++;
+    update();
 }
 
-unsigned
-Building::getCurrentQuantity () const
+unsigned Building::getCurrentQuantity() const
 {
-  return quantity;
+    return quantity;
 }
 
-std::vector<std::pair<RessourceType, double> >
-Building::getNextBuyCost () const
+std::vector<std::pair<RessourceType, double>> Building::getNextBuyCost() const
 {
-  std::vector<std::pair<RessourceType, double> > ret;
-  for (auto &[ressource, cost] : basePrice)
+    std::vector<std::pair<RessourceType, double>> ret;
+    for (auto &[ressource, cost] : basePrice)
     {
-      ret.emplace_back (
-          std::pair (ressource, cost * pow (priceMultiplier, quantity)));
+        ret.emplace_back(
+            std::pair(ressource, cost * pow(priceMultiplier, quantity)));
     }
-  return ret;
+    return ret;
 }
 
-std::string
-Building::getBuildingName () const
+std::string Building::getBuildingName() const
 {
-  return name;
+    return name;
 }
 
-unsigned
-Building::getIncreaseToMaxJfish () const
+unsigned Building::getIncreaseToMaxJfish() const
 {
-  return increaseToMaxJfish;
+    return increaseToMaxJfish;
 }
 
-void
-Building::setQuantity (unsigned quant)
+void Building::setQuantity(unsigned quant)
 {
-  quantity = quant;
+    quantity = quant;
 }
 
-void
-Building::update ()
+void Building::update()
 {
-  for (auto &[ressource, prod] : prodPerTick)
+    for (auto &[ressource, prod] : prodPerTick)
     {
-      prod = baseProductionPerTick.at (ressource) * quantity;
+        prod = baseProductionPerTick.at(ressource) * quantity;
     }
 
-  for (auto &[ressource, consum] : consumPerTick)
+    for (auto &[ressource, consum] : consumPerTick)
     {
-      consum = baseConsumptionPerTick.at (ressource) * quantity;
+        consum = baseConsumptionPerTick.at(ressource) * quantity;
     }
 
-  for (auto &[ressource, bonusStorage] : increasedStorage)
+    for (auto &[ressource, bonusStorage] : increasedStorage)
     {
-      bonusStorage = baseIncreasedStorage.at (ressource) * quantity;
+        bonusStorage = baseIncreasedStorage.at(ressource) * quantity;
     }
 }
 
-std::vector<std::pair<RessourceType, double> >
-Building::getProdPerTick () const
+std::vector<std::pair<RessourceType, double>> Building::getProdPerTick() const
 {
-  auto ret = prodPerTick;
-  for (auto &[rType, quant] : ret)
+    auto ret = prodPerTick;
+    for (auto &[rType, quant] : ret)
     {
-      quant *= multipliersView ()->getProductionMultiplier (rType);
+        quant *= multipliersView()->getProductionMultiplier(rType);
     }
-  return ret;
+    return ret;
 }
 
-std::vector<std::pair<RessourceType, double> >
-Building::getConsumPerTick () const
+std::vector<std::pair<RessourceType, double>> Building::getConsumPerTick() const
 {
-  return consumPerTick;
+    return consumPerTick;
 }
 
-std::string
-Building::getDescription () const
+std::string Building::getDescription() const
 {
-  return description;
+    return description;
 }
 
-std::span<const std::pair<RessourceType, double> >
-Building::getIncreasedStorage () const
+std::span<const std::pair<RessourceType, double>> Building::
+    getIncreasedStorage() const
 {
-  return std::span (increasedStorage);
+    return std::span(increasedStorage);
 }

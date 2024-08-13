@@ -4,11 +4,11 @@
 
 class Jellyfish
 {
-public:
-  void setJob (JellyJob);
-  void gainJobExp (unsigned);
-  JellyJob getJob () const;
+  public:
+    void setJob(JellyJob);
+    void gainJobExp(unsigned);
+    JellyJob getJob() const;
 
-private:
-  JellyJob currentJob = JobsAlias::NONE;
+  private:
+    JellyJob currentJob = JobsAlias::NONE;
 };

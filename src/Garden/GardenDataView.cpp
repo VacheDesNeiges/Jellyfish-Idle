@@ -4,44 +4,38 @@
 #include <memory>
 #include <optional>
 
-GardenDataView::GardenDataView (std::shared_ptr<GardenManager> g) : garden (g)
+GardenDataView::GardenDataView(std::shared_ptr<GardenManager> g) : garden(g)
 {
 }
 
-std::string
-GardenDataView::getName (AquaCultureID id) const
+std::string GardenDataView::getName(AquaCultureID id) const
 {
-  return garden->getName (id);
+    return garden->getName(id);
 }
 
-unsigned
-GardenDataView::getAssignedFieldsToCulture (AquaCultureID id) const
+unsigned GardenDataView::getAssignedFieldsToCulture(AquaCultureID id) const
 {
-  return garden->getAssignedFieldsToCulture (id);
+    return garden->getAssignedFieldsToCulture(id);
 }
 
-bool
-GardenDataView::isOngoing (AquaCultureID id) const
+bool GardenDataView::isOngoing(AquaCultureID id) const
 {
-  return garden->isOngoing (id);
+    return garden->isOngoing(id);
 }
 
-std::vector<std::pair<RessourceType, double> >
-GardenDataView::getFieldConsumption (AquaCultureID id,
-                                     std::optional<unsigned> nFields) const
+std::vector<std::pair<RessourceType, double>> GardenDataView::
+    getFieldConsumption(AquaCultureID id, std::optional<unsigned> nFields) const
 {
-  return garden->getConsumption (id, nFields);
+    return garden->getConsumption(id, nFields);
 }
 
-std::vector<std::pair<RessourceType, double> >
-GardenDataView::getFieldProduction (AquaCultureID id,
-                                    std::optional<unsigned> nFields) const
+std::vector<std::pair<RessourceType, double>> GardenDataView::
+    getFieldProduction(AquaCultureID id, std::optional<unsigned> nFields) const
 {
-  return garden->getProduction (id, nFields);
+    return garden->getProduction(id, nFields);
 }
 
-std::span<const AquaCultureID>
-GardenDataView::getCultureTypes () const
+std::span<const AquaCultureID> GardenDataView::getCultureTypes() const
 {
-  return garden->getCultureTypes ();
+    return garden->getCultureTypes();
 }

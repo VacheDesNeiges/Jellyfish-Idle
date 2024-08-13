@@ -4,13 +4,13 @@
 
 class UIJobsPanel : public UIElement
 {
-public:
-  void render () const override;
+  public:
+    void render() const override;
 
-private:
-  void renderJobsControls () const;
-  void renderRecipes () const;
-  void renderRecipe (RecipeID) const;
-  void displayRecipeText (RecipeID) const;
-  void renderLoopButton (RecipeID) const;
+  private:
+    void renderJobsControls() const;
+    void renderRecipes() const;
+    void renderRecipe(RecipeID) const;
+    void displayRecipeText(RecipeID) const;
+    void renderLoopButton(RecipeID) const;
 };

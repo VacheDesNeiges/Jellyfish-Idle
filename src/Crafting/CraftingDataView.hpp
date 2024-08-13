@@ -10,23 +10,23 @@ class CraftingManager;
 
 class CraftDataView
 {
-public:
-  explicit CraftDataView (std::shared_ptr<CraftingManager>);
-  unsigned getRemainingTicks (RecipeID) const;
-  unsigned getTotalRequiredTicks (RecipeID) const;
-  unsigned getAssignedNumOfJellies (RecipeID) const;
-  unsigned getAssignedNumOfJelliesOnOngoingCrafts () const;
-  bool canAfford (RecipeID) const;
-  bool craftIsOngoing (RecipeID) const;
-  bool isKeepCraftingEnabled (RecipeID) const;
-  std::string getName (RecipeID) const;
+  public:
+    explicit CraftDataView(std::shared_ptr<CraftingManager>);
+    unsigned getRemainingTicks(RecipeID) const;
+    unsigned getTotalRequiredTicks(RecipeID) const;
+    unsigned getAssignedNumOfJellies(RecipeID) const;
+    unsigned getAssignedNumOfJelliesOnOngoingCrafts() const;
+    bool canAfford(RecipeID) const;
+    bool craftIsOngoing(RecipeID) const;
+    bool isKeepCraftingEnabled(RecipeID) const;
+    std::string getName(RecipeID) const;
 
-  std::vector<std::pair<RessourceType, double> > getRecipe (RecipeID) const;
-  std::vector<std::pair<RessourceType, double> >
-      getCraftResults (RecipeID) const;
+    std::vector<std::pair<RessourceType, double>> getRecipe(RecipeID) const;
+    std::vector<std::pair<RessourceType, double>> getCraftResults(
+        RecipeID) const;
 
-  std::span<const RecipeID> getRecipeTypes () const;
+    std::span<const RecipeID> getRecipeTypes() const;
 
-private:
-  std::shared_ptr<const CraftingManager> crafts;
+  private:
+    std::shared_ptr<const CraftingManager> crafts;
 };

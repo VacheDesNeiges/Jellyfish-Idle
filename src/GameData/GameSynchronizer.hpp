@@ -8,20 +8,20 @@ struct SystemPtrs;
 
 class GameSynchronizer
 {
-public:
-  explicit GameSynchronizer (std::shared_ptr<SystemPtrs>);
+  public:
+    explicit GameSynchronizer(std::shared_ptr<SystemPtrs>);
 
-  void gameTick () const;
-  void synchronizeSystems () const;
+    void gameTick() const;
+    void synchronizeSystems() const;
 
-private:
-  std::shared_ptr<SystemPtrs> systems;
+  private:
+    std::shared_ptr<SystemPtrs> systems;
 
-  void checkAchievements () const;
-  void distributeExp () const;
-  void convertRessources () const;
+    void checkAchievements() const;
+    void distributeExp() const;
+    void convertRessources() const;
 
-  std::unordered_map<RessourceType, double>
-  addMaps (const std::unordered_map<RessourceType, double> &,
-           const std::unordered_map<RessourceType, double> &) const;
+    std::unordered_map<RessourceType, double> addMaps(
+        const std::unordered_map<RessourceType, double> &,
+        const std::unordered_map<RessourceType, double> &) const;
 };

@@ -16,24 +16,24 @@
 
 class UIManager : public GameDataAccess
 {
-public:
-  void renderUI () const;
-  void bindInputHandler (std::shared_ptr<InputHandler>);
+  public:
+    void renderUI() const;
+    void bindInputHandler(std::shared_ptr<InputHandler>);
 
-  void setAtlas (TextureAtlas);
+    void setAtlas(TextureAtlas);
 
-private:
-  std::shared_ptr<InputHandler> inputHandler = nullptr;
+  private:
+    std::shared_ptr<InputHandler> inputHandler = nullptr;
 
-  TextureAtlas atlas;
+    TextureAtlas atlas;
 
-  UIRessourcesPanel ressourcesPanel;
-  UIBuildingPanel buildingsPanel;
-  UIJobsPanel jobsPanel;
-  UIAbilitiesPanel abilitiesPanel;
-  UIResearchPanel researchPanel;
-  UIDepthPanel depthPanel;
-  UIOctopusPanel octopusPanel;
-  UIGardenPanel gardenPanel;
-  UINotification notifications;
+    UIRessourcesPanel ressourcesPanel;
+    UIBuildingPanel buildingsPanel;
+    UIJobsPanel jobsPanel;
+    UIAbilitiesPanel abilitiesPanel;
+    UIResearchPanel researchPanel;
+    UIDepthPanel depthPanel;
+    UIOctopusPanel octopusPanel;
+    UIGardenPanel gardenPanel;
+    UINotification notifications;
 };

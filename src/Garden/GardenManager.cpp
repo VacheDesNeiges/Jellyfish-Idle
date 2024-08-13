@@ -11,174 +11,160 @@
 #include <utility>
 #include <vector>
 
-GardenManager::GardenManager ()
+GardenManager::GardenManager()
 {
-  auto fstream = FilePaths::getFileStream (FilePaths::CulturesPath);
+    auto fstream = FilePaths::getFileStream(FilePaths::CulturesPath);
 
-  try
+    try
     {
-      auto culturesJson = nlohmann::json::parse (fstream);
+        auto culturesJson = nlohmann::json::parse(fstream);
 
-      const size_t numCultures = culturesJson.at ("Cultures").size ();
-      cultures.reserve (numCultures);
-      assignedFieldsToCultures.reserve (numCultures + 1);
-      cultureTypes.reserve (numCultures);
+        const size_t numCultures = culturesJson.at("Cultures").size();
+        cultures.reserve(numCultures);
+        assignedFieldsToCultures.reserve(numCultures + 1);
+        cultureTypes.reserve(numCultures);
 
-      assignedFieldsToCultures[CulturesAlias::NONE] = 1;
-      for (const auto &culture : culturesJson["Cultures"])
+        assignedFieldsToCultures[CulturesAlias::NONE] = 1;
+        for (const auto &culture : culturesJson["Cultures"])
         {
-          cultures.try_emplace (AquaCultureID (culture.at ("ID")), culture);
-          assignedFieldsToCultures[AquaCultureID (culture.at ("ID"))] = 0;
-          cultureTypes.push_back (AquaCultureID (culture.at ("ID")));
+            cultures.try_emplace(AquaCultureID(culture.at("ID")), culture);
+            assignedFieldsToCultures[AquaCultureID(culture.at("ID"))] = 0;
+            cultureTypes.push_back(AquaCultureID(culture.at("ID")));
         }
     }
-  catch (nlohmann::json::exception &e)
+    catch (nlohmann::json::exception &e)
     {
-      std::cerr << "Error while parsing cultures :\n" << e.what () << "\n";
-      abort ();
+        std::cerr << "Error while parsing cultures :\n" << e.what() << "\n";
+        abort();
     }
 
-  assignedFieldsToCultures[CulturesAlias::NONE] = 1;
+    assignedFieldsToCultures[CulturesAlias::NONE] = 1;
 }
 
-void
-GardenManager::startCulture (AquaCultureID id)
+void GardenManager::startCulture(AquaCultureID id)
 {
-  cultures.at (id).start ();
+    cultures.at(id).start();
 }
 
-void
-GardenManager::cancelCulture (AquaCultureID id)
+void GardenManager::cancelCulture(AquaCultureID id)
 {
-  cultures.at (id).cancel ();
+    cultures.at(id).cancel();
 }
 
-bool
-GardenManager::isOngoing (AquaCultureID id) const
+bool GardenManager::isOngoing(AquaCultureID id) const
 {
-  return cultures.at (id).isOngoing ();
+    return cultures.at(id).isOngoing();
 }
 
-std::vector<std::pair<AquaCultureID, CultureData> >
-GardenManager::getData () const
+std::vector<std::pair<AquaCultureID, CultureData>> GardenManager::getData()
+    const
 {
-  auto result = std::vector<std::pair<AquaCultureID, CultureData> > ();
+    auto result = std::vector<std::pair<AquaCultureID, CultureData>>();
 
-  for (const auto culture : cultureTypes)
+    for (const auto culture : cultureTypes)
     {
-      auto saveData = cultures.at (culture).getData ();
-      saveData.fieldCount = getAssignedFieldsToCulture (culture);
-      result.emplace_back (culture, saveData);
+        auto saveData = cultures.at(culture).getData();
+        saveData.fieldCount = getAssignedFieldsToCulture(culture);
+        result.emplace_back(culture, saveData);
     }
-  return result;
+    return result;
 }
 
-void
-GardenManager::loadData (
-    const std::vector<std::pair<AquaCultureID, CultureData> > &data)
+void GardenManager::loadData(
+    const std::vector<std::pair<AquaCultureID, CultureData>> &data)
 {
-  for (const auto &[culture, cultureData] : data)
+    for (const auto &[culture, cultureData] : data)
     {
-      for (size_t i = 0; i < cultureData.fieldCount; i++)
+        for (size_t i = 0; i < cultureData.fieldCount; i++)
         {
-          assign (culture);
+            assign(culture);
         }
-      cultures.at (culture).loadData (cultureData);
+        cultures.at(culture).loadData(cultureData);
     }
 }
 
-std::vector<std::pair<RessourceType, double> >
-GardenManager::getConsumption (AquaCultureID id,
-                               std::optional<unsigned> nFields) const
+std::vector<std::pair<RessourceType, double>> GardenManager::getConsumption(
+    AquaCultureID id, std::optional<unsigned> nFields) const
 {
-  auto vec = cultures.at (id).getBaseConsumption ();
-  for (auto &[rType, val] : vec)
+    auto vec = cultures.at(id).getBaseConsumption();
+    for (auto &[rType, val] : vec)
     {
-      val *= nFields.value_or (assignedFieldsToCultures.at (id));
+        val *= nFields.value_or(assignedFieldsToCultures.at(id));
     }
-  return vec;
+    return vec;
 }
 
-std::vector<std::pair<RessourceType, double> >
-GardenManager::getProduction (AquaCultureID id,
-                              std::optional<unsigned> nFields) const
+std::vector<std::pair<RessourceType, double>> GardenManager::getProduction(
+    AquaCultureID id, std::optional<unsigned> nFields) const
 {
-  auto vec = cultures.at (id).getBaseProduction ();
+    auto vec = cultures.at(id).getBaseProduction();
 
-  for (auto &[rType, val] : vec)
+    for (auto &[rType, val] : vec)
     {
-      val *= multipliersView ()->getAllFieldsMultiplier ();
-      val *= nFields.value_or (assignedFieldsToCultures.at (id));
+        val *= multipliersView()->getAllFieldsMultiplier();
+        val *= nFields.value_or(assignedFieldsToCultures.at(id));
     }
 
-  return vec;
+    return vec;
 }
 
-bool
-GardenManager::canAffordTick (AquaCultureID id) const
+bool GardenManager::canAffordTick(AquaCultureID id) const
 {
-  bool ret = true;
-  for (const auto &[rType, quant] : getConsumption (id))
+    bool ret = true;
+    for (const auto &[rType, quant] : getConsumption(id))
     {
-      if (ressourcesView ()->getRessourceQuantity (rType)
-          < quant * assignedFieldsToCultures.at (id))
+        if (ressourcesView()->getRessourceQuantity(rType) <
+            quant * assignedFieldsToCultures.at(id))
         {
-          ret = false;
+            ret = false;
         }
     }
-  return ret;
+    return ret;
 }
 
-std::string
-GardenManager::getName (AquaCultureID id) const
+std::string GardenManager::getName(AquaCultureID id) const
 {
-  return cultures.at (id).getName ();
+    return cultures.at(id).getName();
 }
 
-unsigned
-GardenManager::getTotalFields () const
+unsigned GardenManager::getTotalFields() const
 {
-  return maxFields;
+    return maxFields;
 }
 
-unsigned
-GardenManager::getAssignedFields () const
+unsigned GardenManager::getAssignedFields() const
 {
-  return maxFields - assignedFieldsToCultures.at (CulturesAlias::NONE);
+    return maxFields - assignedFieldsToCultures.at(CulturesAlias::NONE);
 }
 
-unsigned
-GardenManager::getAssignedFieldsToCulture (AquaCultureID c) const
+unsigned GardenManager::getAssignedFieldsToCulture(AquaCultureID c) const
 {
-  return assignedFieldsToCultures.at (c);
+    return assignedFieldsToCultures.at(c);
 }
 
-bool
-GardenManager::assign (AquaCultureID id)
+bool GardenManager::assign(AquaCultureID id)
 {
-  if (assignedFieldsToCultures.at (CulturesAlias::NONE) > 0)
+    if (assignedFieldsToCultures.at(CulturesAlias::NONE) > 0)
     {
-      assignedFieldsToCultures[id]++;
-      assignedFieldsToCultures[CulturesAlias::NONE]--;
-      return true;
+        assignedFieldsToCultures[id]++;
+        assignedFieldsToCultures[CulturesAlias::NONE]--;
+        return true;
     }
-  return false;
+    return false;
 }
 
-bool
-GardenManager::unnasign (AquaCultureID id)
+bool GardenManager::unnasign(AquaCultureID id)
 {
-  if (assignedFieldsToCultures.at (id) > 0)
+    if (assignedFieldsToCultures.at(id) > 0)
     {
-      assignedFieldsToCultures[id]--;
-      assignedFieldsToCultures[CulturesAlias::NONE]++;
-      return true;
+        assignedFieldsToCultures[id]--;
+        assignedFieldsToCultures[CulturesAlias::NONE]++;
+        return true;
     }
-  return false;
+    return false;
 }
 
-std::span<const AquaCultureID>
-GardenManager::getCultureTypes () const
+std::span<const AquaCultureID> GardenManager::getCultureTypes() const
 {
-  return std::span (cultureTypes);
+    return std::span(cultureTypes);
 }

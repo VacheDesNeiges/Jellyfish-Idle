@@ -8,24 +8,25 @@
 
 class MultipliersRegister : public GameDataAccess
 {
-public:
-  MultipliersRegister ();
+  public:
+    MultipliersRegister();
 
-  double getMultiplier (MultiplierID) const;
-  double getRessourceProdMultiplier (RessourceType) const;
-  double getJobLvlMultiplier (JellyJob) const;
-  double getBuildingProdMultiplier (BuildingType) const;
-  double getAllFieldsMultiplier () const;
+    double getMultiplier(MultiplierID) const;
+    double getRessourceProdMultiplier(RessourceType) const;
+    double getJobLvlMultiplier(JellyJob) const;
+    double getBuildingProdMultiplier(BuildingType) const;
+    double getAllFieldsMultiplier() const;
 
-private:
-  std::unordered_map<MultiplierID, std::unique_ptr<Multiplier> > multipliers;
+  private:
+    std::unordered_map<MultiplierID, std::unique_ptr<Multiplier>> multipliers;
 
-  struct
-  {
-    std::vector<MultiplierID> allFieldsProd;
-    std::unordered_map<RessourceType, std::vector<MultiplierID> >
-        ressourceProd;
-    std::unordered_map<BuildingType, std::vector<MultiplierID> > buildingProd;
-    std::unordered_map<JellyJob, std::vector<MultiplierID> > jobLvlProd;
-  } multipliersCategories;
+    struct
+    {
+        std::vector<MultiplierID> allFieldsProd;
+        std::unordered_map<RessourceType, std::vector<MultiplierID>>
+            ressourceProd;
+        std::unordered_map<BuildingType, std::vector<MultiplierID>>
+            buildingProd;
+        std::unordered_map<JellyJob, std::vector<MultiplierID>> jobLvlProd;
+    } multipliersCategories;
 };

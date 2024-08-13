@@ -9,26 +9,26 @@
 
 class InsightAbility : public GameDataAccess
 {
-public:
-  InsightAbility () = default;
-  explicit InsightAbility (const nlohmann::json &);
-  ~InsightAbility () = default;
-  std::string getDescription () const;
-  std::string getName () const;
-  std::vector<std::pair<RessourceType, double> > getCost () const;
-  std::vector<std::pair<RessourceType, double> > getProduction () const;
+  public:
+    InsightAbility() = default;
+    explicit InsightAbility(const nlohmann::json &);
+    ~InsightAbility() = default;
+    std::string getDescription() const;
+    std::string getName() const;
+    std::vector<std::pair<RessourceType, double>> getCost() const;
+    std::vector<std::pair<RessourceType, double>> getProduction() const;
 
-private:
-  std::string name;
-  std::string description;
-  std::vector<std::pair<RessourceType, double> > castingCost;
-  std::vector<std::pair<RessourceType, double> > baseRessourcesGained;
+  private:
+    std::string name;
+    std::string description;
+    std::vector<std::pair<RessourceType, double>> castingCost;
+    std::vector<std::pair<RessourceType, double>> baseRessourcesGained;
 
-  friend class CallThunder;
+    friend class CallThunder;
 };
 
 class AbilityFactory
 {
-public:
-  static std::unique_ptr<InsightAbility> createAbilityInstance (AbilityType t);
+  public:
+    static std::unique_ptr<InsightAbility> createAbilityInstance(AbilityType t);
 };

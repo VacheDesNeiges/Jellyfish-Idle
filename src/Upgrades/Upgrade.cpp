@@ -5,67 +5,61 @@
 #include <optional>
 #include <string_view>
 
-Upgrade::Upgrade (const nlohmann::json &json)
+Upgrade::Upgrade(const nlohmann::json &json)
 {
 
-  try
+    try
     {
-      name = json.at ("Name");
-      description = json.at ("Description");
-      for (const auto &price : json.at ("Cost"))
+        name = json.at("Name");
+        description = json.at("Description");
+        for (const auto &price : json.at("Cost"))
         {
-          cost.push_back ({ RessourceType (price.at ("RessourceID")),
-                            price.at ("Quantity") });
+            cost.push_back(
+                {RessourceType(price.at("RessourceID")), price.at("Quantity")});
         }
 
-      if (json.contains ("UpgradeDependencyID"))
+        if (json.contains("UpgradeDependencyID"))
         {
-          dependency = UpgradeID (json.at ("UpgradeDependencyID"));
+            dependency = UpgradeID(json.at("UpgradeDependencyID"));
         }
-      else
+        else
         {
-          dependency = std::nullopt;
+            dependency = std::nullopt;
         }
     }
-  catch (nlohmann::json::exception &e)
+    catch (nlohmann::json::exception &e)
     {
-      std::cerr << "Error while parsing an upgrade :\n" << e.what () << "\n";
-      abort ();
+        std::cerr << "Error while parsing an upgrade :\n" << e.what() << "\n";
+        abort();
     }
 }
 
-void
-Upgrade::unlock ()
+void Upgrade::unlock()
 {
-  bought = true;
+    bought = true;
 }
 
-bool
-Upgrade::isUnlocked () const
+bool Upgrade::isUnlocked() const
 {
-  return bought;
+    return bought;
 }
 
-std::string_view
-Upgrade::getName () const
+std::string_view Upgrade::getName() const
 {
-  return name;
+    return name;
 }
 
-std::string_view
-Upgrade::getDescription () const
+std::string_view Upgrade::getDescription() const
 {
-  return description;
+    return description;
 }
 
-const std::vector<std::pair<RessourceType, double> > &
-Upgrade::getCost () const
+const std::vector<std::pair<RessourceType, double>> &Upgrade::getCost() const
 {
-  return cost;
+    return cost;
 }
 
-const std::optional<UpgradeID> &
-Upgrade::getDependency () const
+const std::optional<UpgradeID> &Upgrade::getDependency() const
 {
-  return dependency;
+    return dependency;
 }

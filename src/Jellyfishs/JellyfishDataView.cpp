@@ -2,67 +2,57 @@
 #include "GameIDsTypes.hpp"
 #include "JellyfishManager.hpp"
 
-JellyFishDataView::JellyFishDataView (std::shared_ptr<JellyfishManager> j)
-    : jellies (j)
+JellyFishDataView::JellyFishDataView(std::shared_ptr<JellyfishManager> j)
+    : jellies(j)
 {
 }
 
-unsigned int
-JellyFishDataView::getNumJellies () const
+unsigned int JellyFishDataView::getNumJellies() const
 {
-  return jellies->getNumJellies ();
+    return jellies->getNumJellies();
 }
 
-unsigned int
-JellyFishDataView::getNumJellies (JellyJob j) const
+unsigned int JellyFishDataView::getNumJellies(JellyJob j) const
 {
-  return jellies->getNum (j);
+    return jellies->getNum(j);
 }
 
-unsigned int
-JellyFishDataView::getMaxNumJellies () const
+unsigned int JellyFishDataView::getMaxNumJellies() const
 {
-  return jellies->getMaxNumJellies ();
+    return jellies->getMaxNumJellies();
 }
 
-std::string
-JellyFishDataView::getJobDescription (JellyJob j) const
+std::string JellyFishDataView::getJobDescription(JellyJob j) const
 {
-  return jellies->getJobDescription (j);
+    return jellies->getJobDescription(j);
 }
 
-unsigned
-JellyFishDataView::getJobLevel (JellyJob j) const
+unsigned JellyFishDataView::getJobLevel(JellyJob j) const
 {
-  return jellies->getJobLevel (j);
+    return jellies->getJobLevel(j);
 }
 
-double
-JellyFishDataView::getCurrentProgress (JellyJob j) const
+double JellyFishDataView::getCurrentProgress(JellyJob j) const
 {
-  return jellies->getJobProgress (j);
+    return jellies->getJobProgress(j);
 }
 
-double
-JellyFishDataView::getProgressNeeded (JellyJob j) const
+double JellyFishDataView::getProgressNeeded(JellyJob j) const
 {
-  return jellies->getJobProgressNeeded (j);
+    return jellies->getJobProgressNeeded(j);
 }
 
-bool
-JellyFishDataView::canLure () const
+bool JellyFishDataView::canLure() const
 {
-  return jellies->canLure ();
+    return jellies->canLure();
 }
 
-std::pair<RessourceType, double>
-JellyFishDataView::getLureCost () const
+std::pair<RessourceType, double> JellyFishDataView::getLureCost() const
 {
-  return jellies->getLureCost ();
+    return jellies->getLureCost();
 }
 
-std::span<const JellyJob>
-JellyFishDataView::getAllJobsTypes () const
+std::span<const JellyJob> JellyFishDataView::getAllJobsTypes() const
 {
-  return jellies->getAllJobsTypes ();
+    return jellies->getAllJobsTypes();
 }

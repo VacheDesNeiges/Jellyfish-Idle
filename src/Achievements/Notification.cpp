@@ -2,10 +2,11 @@
 #include <cassert>
 #include <string_view>
 
-Notification::Notification (const std::string &str) : text (str) {}
-
-std::string_view
-Notification::getNotificationText () const
+Notification::Notification(const std::string &str) : text(str)
 {
-  return text;
+}
+
+std::string_view Notification::getNotificationText() const
+{
+    return text;
 }

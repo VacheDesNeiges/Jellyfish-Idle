@@ -12,54 +12,53 @@
 
 class RessourceManager
     : public GameDataAccess,
-      public SaveAndLoadable<std::vector<std::pair<RessourceType, double> > >
+      public SaveAndLoadable<std::vector<std::pair<RessourceType, double>>>
 {
-public:
-  RessourceManager ();
-  void init ();
+  public:
+    RessourceManager();
+    void init();
 
-  void gatherSand ();
-  double getCurrentQuantity (RessourceType) const;
-  double getMaxQuantity (RessourceType) const;
-  double getNetProduction (RessourceType) const;
-  double getProduction (RessourceType) const;
-  double getConsumption (RessourceType) const;
-  std::string_view getName (RessourceType) const;
+    void gatherSand();
+    double getCurrentQuantity(RessourceType) const;
+    double getMaxQuantity(RessourceType) const;
+    double getNetProduction(RessourceType) const;
+    double getProduction(RessourceType) const;
+    double getConsumption(RessourceType) const;
+    std::string_view getName(RessourceType) const;
 
-  void zerosValuePerTick ();
+    void zerosValuePerTick();
 
-  bool
-  canAfford (const std::vector<std::pair<RessourceType, double> > &) const;
+    bool canAfford(const std::vector<std::pair<RessourceType, double>> &) const;
 
-  void add (RessourceType, double);
-  void add (const std::vector<std::pair<RessourceType, double> > &);
-  void substract (const std::vector<std::pair<RessourceType, double> > &);
+    void add(RessourceType, double);
+    void add(const std::vector<std::pair<RessourceType, double>> &);
+    void substract(const std::vector<std::pair<RessourceType, double>> &);
 
-  void addToProdPerTick (RessourceType, double);
+    void addToProdPerTick(RessourceType, double);
 
-  void updateMaxRessourcesQuantities (
-      const std::unordered_map<RessourceType, double> &);
+    void updateMaxRessourcesQuantities(
+        const std::unordered_map<RessourceType, double> &);
 
-  void recomputeMaxQuantities ();
+    void recomputeMaxQuantities();
 
-  void consume (const std::unordered_map<RessourceType, double> &);
-  void produce (const std::unordered_map<RessourceType, double> &);
-  void tryConvert (const std::vector<std::pair<RessourceType, double> > &,
-                   const std::vector<std::pair<RessourceType, double> > &);
+    void consume(const std::unordered_map<RessourceType, double> &);
+    void produce(const std::unordered_map<RessourceType, double> &);
+    void tryConvert(const std::vector<std::pair<RessourceType, double>> &,
+                    const std::vector<std::pair<RessourceType, double>> &);
 
-  std::vector<std::pair<RessourceType, double> > getData () const override;
-  void
-  loadData (const std::vector<std::pair<RessourceType, double> > &) override;
+    std::vector<std::pair<RessourceType, double>> getData() const override;
+    void loadData(
+        const std::vector<std::pair<RessourceType, double>> &) override;
 
-  std::span<const RessourceType> getAllRessourceTypes () const;
-  std::span<const RessourceType> getRegularRessourceTypes () const;
-  std::span<const RessourceType> getRareRessourceTypes () const;
-  std::span<const RessourceType> getCraftableRessourceTypes () const;
+    std::span<const RessourceType> getAllRessourceTypes() const;
+    std::span<const RessourceType> getRegularRessourceTypes() const;
+    std::span<const RessourceType> getRareRessourceTypes() const;
+    std::span<const RessourceType> getCraftableRessourceTypes() const;
 
-private:
-  std::unordered_map<RessourceType, Ressource> ressources;
-  std::vector<RessourceType> allRessourceTypes;
-  std::vector<RessourceType> regularRessourceTypes;
-  std::vector<RessourceType> rareRessourceTypes;
-  std::vector<RessourceType> craftableRessourceTypes;
+  private:
+    std::unordered_map<RessourceType, Ressource> ressources;
+    std::vector<RessourceType> allRessourceTypes;
+    std::vector<RessourceType> regularRessourceTypes;
+    std::vector<RessourceType> rareRessourceTypes;
+    std::vector<RessourceType> craftableRessourceTypes;
 };

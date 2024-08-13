@@ -3,10 +3,10 @@
 
 class UIAbilitiesPanel : public UIElement
 {
-public:
-  void render () const override;
+  public:
+    void render() const override;
 
-private:
-  void renderAbilityButton (AbilityType) const;
-  void setToolTip (AbilityType) const;
+  private:
+    void renderAbilityButton(AbilityType) const;
+    void setToolTip(AbilityType) const;
 };
