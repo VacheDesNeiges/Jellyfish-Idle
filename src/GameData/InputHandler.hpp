@@ -1,3 +1,4 @@
+
 #pragma once
 #include "GameIDsTypes.hpp"
 #include "GameSystems.hpp"
@@ -30,6 +31,7 @@ public:
   void assignToField (AquaCultureID) const;
 
   void removeCurrentNotification () const;
+  bool completeQuest (QuestLineEnum) const;
 
 private:
   std::shared_ptr<SystemPtrs> systems;

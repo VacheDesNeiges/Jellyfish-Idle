@@ -28,6 +28,9 @@ public:
 
   void zerosValuePerTick ();
 
+  bool
+  canAfford (const std::vector<std::pair<RessourceType, double> > &) const;
+
   void add (RessourceType, double);
   void add (const std::vector<std::pair<RessourceType, double> > &);
   void substract (const std::vector<std::pair<RessourceType, double> > &);

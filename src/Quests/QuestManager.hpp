@@ -11,6 +11,7 @@ class QuestManager
 public:
   QuestManager ();
   std::string getCurrentQuestText (QuestLineEnum) const;
+
   std::vector<std::pair<RessourceType, double> >
       getCurrentQuestRequirements (QuestLineEnum) const;
 

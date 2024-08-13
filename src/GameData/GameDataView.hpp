@@ -13,8 +13,6 @@
 
 #include <memory>
 
-// --- Forward Declarations to avoid circular dependencies ---
-
 struct SystemPtrs;
 
 // Gives a read only access to the variables of the game

@@ -2,6 +2,7 @@
 #include "GameIDsTypes.hpp"
 #include <memory>
 #include <span>
+#include <utility>
 
 class RessourceManager;
 
@@ -10,6 +11,8 @@ class RessourceDataView
 public:
   explicit RessourceDataView (std::shared_ptr<RessourceManager>);
 
+  bool
+  canAfford (const std::vector<std::pair<RessourceType, double> > &) const;
   double getRessourceQuantity (RessourceType) const;
   double getRessourceMaxQuantity (RessourceType) const;
   std::string_view getRessourceName (RessourceType) const;

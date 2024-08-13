@@ -73,7 +73,7 @@ UIOctopusPanel::renderTradeButton (UpgradeID id) const
 void
 UIOctopusPanel::renderQuestCard () const
 {
-  const ImVec2 size{ 400, 600 };
+  const ImVec2 size{ 400, -1 };
   ImGui::PushStyleColor (ImGuiCol_ChildBg, UIColors::CardElements);
   ImGui::BeginChild ("##", size);
   ImGui::SeparatorText ("Octopus Request");
@@ -82,6 +82,11 @@ UIOctopusPanel::renderQuestCard () const
       questsView ()->getCurrentQuestText (QuestLineEnum::Octopus).c_str ());
 
   ImGui::SeparatorText ("Ressources Requested");
+
+  if (ImGui::Button ("Give Ressources"))
+    {
+      inputHandler->completeQuest (QuestLineEnum::Octopus);
+    }
 
   ImGui::EndChild ();
   ImGui::PopStyleColor ();

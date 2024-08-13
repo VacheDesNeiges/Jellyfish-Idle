@@ -15,22 +15,15 @@ void
 GameSynchronizer::gameTick () const
 {
   systems->ressources->zerosValuePerTick ();
-
-  // Ressource consumption
   convertRessources ();
 
-  // Ressource production
   systems->ressources->produce (
       addMaps (systems->buildings->getProductionRates (),
                systems->jellies->getProductionRates ()));
 
   if (systems->crafts->tick ())
-    {
-      for (const auto &[ressource, prod] : systems->crafts->getCraftResults ())
-        {
-          systems->ressources->add (ressource, prod);
-        }
-    }
+    systems->ressources->add (systems->crafts->getCraftResults ());
+
   for (const auto recipe : systems->crafts->getRecipeTypes ())
     {
       if (!systems->crafts->craftIsOngoing (recipe)
@@ -49,10 +42,7 @@ GameSynchronizer::gameTick () const
     }
 
   systems->depth->ExploreDepth (systems->jellies->getNum (JobsAlias::EXPLORE));
-
-  // Jobs experience, with bool value return to update multipliers
   distributeExp ();
-
   checkAchievements ();
 }
 

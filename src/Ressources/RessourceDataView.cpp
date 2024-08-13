@@ -1,5 +1,8 @@
 #include "RessourceDataView.hpp"
+#include "GameIDsTypes.hpp"
 #include "RessourceManager.hpp"
+#include <utility>
+#include <vector>
 
 RessourceDataView::RessourceDataView (std::shared_ptr<RessourceManager> r)
     : ressources (r)
@@ -51,4 +54,11 @@ std::span<const RessourceType>
 RessourceDataView::getCraftableRessourceTypes () const
 {
   return ressources->getCraftableRessourceTypes ();
+}
+
+bool
+RessourceDataView::canAfford (
+    const std::vector<std::pair<RessourceType, double> > &vector) const
+{
+  return ressources->canAfford (vector);
 }
