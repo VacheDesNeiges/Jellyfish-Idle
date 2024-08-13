@@ -4,10 +4,17 @@
 #include <memory>
 #include <string>
 
-QuestDataView::QuestDataView (std::shared_ptr<QuestManager> q) : quests (q) {}
-
-std::string
-QuestDataView::getCurrentQuestText (QuestLineEnum questline) const
+QuestDataView::QuestDataView(std::shared_ptr<QuestManager> q) : quests(q)
 {
-  return quests->getCurrentQuestText (questline);
+}
+
+std::string QuestDataView::getCurrentQuestText(QuestLineEnum questline) const
+{
+    return quests->getCurrentQuestText(questline);
+}
+
+std::vector<std::pair<RessourceType, double>> QuestDataView::
+    getCurrentQuestRequirements(QuestLineEnum ql) const
+{
+    return quests->getCurrentQuestRequirements(ql);
 }

@@ -6,10 +6,13 @@
 
 class QuestDataView
 {
-public:
-  explicit QuestDataView (std::shared_ptr<QuestManager>);
-  std::string getCurrentQuestText (QuestLineEnum) const;
+  public:
+    explicit QuestDataView(std::shared_ptr<QuestManager>);
+    std::string getCurrentQuestText(QuestLineEnum) const;
 
-private:
-  std::shared_ptr<const QuestManager> quests;
+    std::vector<std::pair<RessourceType, double>> getCurrentQuestRequirements(
+        QuestLineEnum) const;
+
+  private:
+    std::shared_ptr<const QuestManager> quests;
 };

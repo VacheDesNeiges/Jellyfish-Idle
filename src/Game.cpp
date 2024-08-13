@@ -31,8 +31,8 @@ Game::Game()
     wrappedRenderer.setFont();
 
     UIUtils::setBaseUITheme();
-    UI.bindInputHandler(gameSystems.getInputHandler());
-    UI.setAtlas(wrappedRenderer.loadTextures());
+    ui.bindInputHandler(gameSystems.getInputHandler());
+    ui.setAtlas(wrappedRenderer.loadTextures());
 };
 
 void Game::run(std::optional<std::string_view> option)
@@ -63,7 +63,7 @@ void Game::run(std::optional<std::string_view> option)
 void Game::renderFrame()
 {
     wrappedRenderer.startRenderingNewFrame();
-    UI.renderUI();
+    ui.renderUI();
     wrappedRenderer.finalizeRenderingNewFrame();
 }
 

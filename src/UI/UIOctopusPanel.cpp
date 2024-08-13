@@ -5,89 +5,89 @@
 #include "fmt/core.h"
 #include "imgui.h"
 
-void
-UIOctopusPanel::render () const
+void UIOctopusPanel::render() const
 {
-  if (!ImGui::Begin ("Octopus", nullptr,
-                     ImGuiWindowFlags_NoMove
-                         & ImGuiWindowFlags_NoFocusOnAppearing))
+    if (!ImGui::Begin("Octopus", nullptr,
+                      ImGuiWindowFlags_NoMove &
+                          ImGuiWindowFlags_NoFocusOnAppearing))
     {
-      ImGui::End ();
-      return;
+        ImGui::End();
+        return;
     }
 
-  static bool showBoughtUpgrades = false;
-  ImGui::Checkbox ("Show bought upgrades", &showBoughtUpgrades);
+    static bool showBoughtUpgrades = false;
+    ImGui::Checkbox("Show bought upgrades", &showBoughtUpgrades);
 
-  for (const auto &upgradeID : upgradeView ()->getUpgradesTypes ())
+    for (const auto &upgradeID : upgradeView()->getUpgradesTypes())
     {
-      if (showBoughtUpgrades)
+        if (showBoughtUpgrades)
         {
-          if (upgradeView ()->isBought (upgradeID))
-            renderTradeButton (upgradeID);
+            if (upgradeView()->isBought(upgradeID))
+                renderTradeButton(upgradeID);
         }
-      else
+        else
         {
-          if (upgradeView ()->isAvailableForBuying (upgradeID))
+            if (upgradeView()->isAvailableForBuying(upgradeID))
 
-            renderTradeButton (upgradeID);
+                renderTradeButton(upgradeID);
         }
     }
 
-  ImGui::SameLine ();
-  ImGui::SetCursorPosX (ImGui::GetCursorPosX () + 80);
-  renderQuestCard ();
+    ImGui::SameLine();
+    ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 80);
+    renderQuestCard();
 
-  ImGui::End ();
+    ImGui::End();
 }
 
-void
-UIOctopusPanel::renderTradeButton (UpgradeID id) const
+void UIOctopusPanel::renderTradeButton(UpgradeID id) const
 {
-  auto size = ImVec2 (300.f, 45.f);
+    auto size = ImVec2(300.f, 45.f);
 
-  ImGui::BeginDisabled (!upgradeView ()->isBuyable (id));
-  std::string buttonText = fmt::format ("{}\n", upgradeView ()->getName (id));
+    ImGui::BeginDisabled(!upgradeView()->isBuyable(id));
+    std::string buttonText = fmt::format("{}\n", upgradeView()->getName(id));
 
-  if (ImGui::Button (buttonText.c_str (), size))
+    if (ImGui::Button(buttonText.c_str(), size))
     {
-      inputHandler->buy (id);
+        inputHandler->buy(id);
     }
-  if (ImGui::IsItemHovered (ImGuiHoveredFlags_DelayNone
-                            | ImGuiHoveredFlags_AllowWhenDisabled)
-      && ImGui::BeginTooltip ())
+    if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNone |
+                             ImGuiHoveredFlags_AllowWhenDisabled) &&
+        ImGui::BeginTooltip())
     {
-      std::string tooltipText
-          = fmt::format ("{}", upgradeView ()->getDescription (id));
-      ImGui::Text ("%s", tooltipText.c_str ());
+        std::string tooltipText =
+            fmt::format("{}", upgradeView()->getDescription(id));
+        ImGui::Text("%s", tooltipText.c_str());
 
-      auto cost = upgradeView ()->getCost (id);
-      UIUtils::printCostsImGui (ressourcesView (), cost);
+        auto cost = upgradeView()->getCost(id);
+        UIUtils::printCostsImGui(ressourcesView(), cost);
 
-      ImGui::EndTooltip ();
+        ImGui::EndTooltip();
     }
 
-  ImGui::EndDisabled ();
+    ImGui::EndDisabled();
 }
 
-void
-UIOctopusPanel::renderQuestCard () const
+void UIOctopusPanel::renderQuestCard() const
 {
-  const ImVec2 size{ 400, -1 };
-  ImGui::PushStyleColor (ImGuiCol_ChildBg, UIColors::CardElements);
-  ImGui::BeginChild ("##", size);
-  ImGui::SeparatorText ("Octopus Request");
-  ImGui::TextWrapped (
-      "%s",
-      questsView ()->getCurrentQuestText (QuestLineEnum::Octopus).c_str ());
+    const ImVec2 size{400, -1};
+    ImGui::PushStyleColor(ImGuiCol_ChildBg, UIColors::CardElements);
+    ImGui::BeginChild("##", size);
+    ImGui::SeparatorText("Octopus Request");
+    ImGui::TextWrapped(
+        "%s",
+        questsView()->getCurrentQuestText(QuestLineEnum::Octopus).c_str());
 
-  ImGui::SeparatorText ("Ressources Requested");
+    ImGui::SeparatorText("Ressources Requested");
+    UIUtils::printCostsImGui(
+        ressourcesView(),
+        questsView()->getCurrentQuestRequirements(QuestLineEnum::Octopus));
 
-  if (ImGui::Button ("Give Ressources"))
+    if (ImGui::Button("Give Ressources"))
     {
-      inputHandler->completeQuest (QuestLineEnum::Octopus);
+        inputHandler->completeQuest(QuestLineEnum::Octopus);
     }
 
-  ImGui::EndChild ();
-  ImGui::PopStyleColor ();
+    ImGui::EndChild();
+    ImGui::PopStyleColor();
 }
