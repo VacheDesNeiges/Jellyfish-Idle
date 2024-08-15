@@ -87,6 +87,14 @@ void SaveSystem::save(const SaveData &data)
         };
     }
 
+    for (const auto &[ql, index] : data.quests)
+    {
+        j["Quests"] += {
+            {"QuestLine", static_cast<int>(ql)},
+            {"CurrentQuest", index},
+        };
+    }
+
     std::ofstream file(saveFileName);
     file << j;
 }
@@ -253,8 +261,6 @@ SaveData SaveSystem::loadFromFile(std::string path)
                     c["Fields"].get<unsigned>(),
                 });
         }
-
-        return result;
     }
     catch (nlohmann::json::exception &e)
     {
@@ -262,4 +268,22 @@ SaveData SaveSystem::loadFromFile(std::string path)
                   << e.what() << '\n';
         abort();
     }
+
+    try
+    {
+        result.quests.reserve(data.at("Quests").size());
+        for (const auto &q : data["Quests"])
+        {
+            result.quests.emplace_back(
+                static_cast<QuestLineEnum>(q["QuestLine"].get<unsigned>()),
+                q["CurrentQuest"].get<unsigned>());
+        }
+    }
+    catch (nlohmann::json::exception &e)
+    {
+        std::cerr << "Error while parsing saved quests :\n" << e.what() << '\n';
+        abort();
+    }
+
+    return result;
 }

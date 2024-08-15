@@ -43,6 +43,7 @@ void GameSystems::save() const
     data.upgrades = systems->upgrades->getData();
     data.crafts = systems->crafts->getData();
     data.cultures = systems->garden->getData();
+    data.quests = systems->quests->getData();
 
     SaveSystem::save(data);
 }
@@ -56,6 +57,7 @@ void GameSystems::loadSave(const std::string &path) const
     systems->depth->loadData(loadedData.depth);
     systems->upgrades->loadData(loadedData.upgrades);
     systems->garden->loadData(loadedData.cultures);
+    systems->quests->loadData(loadedData.quests);
 
     synchronizer->synchronizeSystems();
 

@@ -169,6 +169,7 @@ bool InputHandler::completeQuest(QuestLineEnum ql) const
     if (systems->ressources->canAfford(cost))
     {
         systems->ressources->substract(cost);
+        systems->quests->completeQuest(ql);
         return true;
     }
     return false;

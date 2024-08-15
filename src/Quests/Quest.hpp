@@ -10,6 +10,7 @@ class Quest
 {
   public:
     explicit Quest(const nlohmann::json &);
+    void complete();
     bool isCompleted() const;
     std::string getDialogue() const;
 

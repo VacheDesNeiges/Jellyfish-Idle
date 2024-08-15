@@ -42,3 +42,27 @@ std::vector<std::pair<RessourceType, double>> QuestManager::
 {
     return questlines.at(ql).getCurrentQuestRequirements();
 }
+
+void QuestManager::completeQuest(QuestLineEnum ql)
+{
+    questlines.at(ql).completeQuest();
+}
+
+void QuestManager::loadData(
+    const std::vector<std::pair<QuestLineEnum, unsigned>> &vec)
+{
+    for (const auto &[ql, currentQuest] : vec)
+    {
+        questlines.at(ql).setCurrentQuest(currentQuest);
+    }
+}
+
+std::vector<std::pair<QuestLineEnum, unsigned>> QuestManager::getData() const
+{
+    std::vector<std::pair<QuestLineEnum, unsigned>> ret;
+    for (const auto &[qlenum, ql] : questlines)
+    {
+        ret.emplace_back(qlenum, ql.getCurrentQuestIndex());
+    }
+    return ret;
+}

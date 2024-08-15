@@ -11,7 +11,6 @@
 #include <optional>
 
 class Game
-
 {
   public:
     Game();

@@ -25,11 +25,36 @@ Questline::Questline(const nlohmann::json &json)
 
 std::string Questline::getCurrentQuestText() const
 {
-    return quests.at(currentQuest).getDialogue();
+    if (currentQuest < quests.size())
+        return quests.at(currentQuest).getDialogue();
+
+    return "No more quest available";
 }
 
 std::vector<std::pair<RessourceType, double>> Questline::
     getCurrentQuestRequirements() const
 {
-    return quests.at(currentQuest).getRequestedRessources();
+    if (currentQuest < quests.size())
+        return quests.at(currentQuest).getRequestedRessources();
+
+    return {};
+}
+
+void Questline::completeQuest()
+{
+    currentQuest++;
+}
+
+void Questline::setCurrentQuest(unsigned newCurrentQuest)
+{
+    currentQuest = newCurrentQuest;
+    for (size_t i = 0; i < currentQuest; i++)
+    {
+        quests.at(i).complete();
+    }
+}
+
+unsigned Questline::getCurrentQuestIndex() const
+{
+    return currentQuest;
 }

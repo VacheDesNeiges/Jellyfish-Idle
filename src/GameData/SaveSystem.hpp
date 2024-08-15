@@ -17,6 +17,7 @@ struct SaveData
     std::vector<std::pair<UpgradeID, bool>> upgrades;
     std::vector<std::pair<RecipeID, RecipeSaveData>> crafts;
     std::vector<std::pair<AquaCultureID, CultureData>> cultures;
+    std::vector<std::pair<QuestLineEnum, unsigned>> quests;
     JellyfishData jellies;
     DepthData depth;
 };

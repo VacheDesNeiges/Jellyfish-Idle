@@ -70,9 +70,9 @@ void UIOctopusPanel::renderTradeButton(UpgradeID id) const
 
 void UIOctopusPanel::renderQuestCard() const
 {
-    const ImVec2 size{400, -1};
+    const ImVec2 size{400, 0};
     ImGui::PushStyleColor(ImGuiCol_ChildBg, UIColors::CardElements);
-    ImGui::BeginChild("##", size);
+    ImGui::BeginChild("##", size, ImGuiChildFlags_AutoResizeY);
     ImGui::SeparatorText("Octopus Request");
     ImGui::TextWrapped(
         "%s",
@@ -87,6 +87,7 @@ void UIOctopusPanel::renderQuestCard() const
     {
         inputHandler->completeQuest(QuestLineEnum::Octopus);
     }
+    ImGui::NewLine();
 
     ImGui::EndChild();
     ImGui::PopStyleColor();

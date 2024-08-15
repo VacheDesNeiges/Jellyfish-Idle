@@ -40,3 +40,8 @@ std::vector<std::pair<RessourceType, double>> Quest::getRequestedRessources()
 {
     return requestedRessources;
 }
+
+void Quest::complete()
+{
+    completed = true;
+}

@@ -12,6 +12,16 @@
               "Quantity": 50
             }
           ]
+        },
+        {
+          "ID": 1,
+          "Text": "second quest",
+          "CompletionRequirements": [
+            {
+              "RessourceID": 2,
+              "Quantity": 50
+            }
+          ]
         }
       ]
     },
