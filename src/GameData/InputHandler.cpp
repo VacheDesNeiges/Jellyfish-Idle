@@ -165,8 +165,8 @@ void InputHandler::setKeepCraftingMode(RecipeID id, bool b) const
 
 bool InputHandler::completeQuest(QuestLineEnum ql) const
 {
-    const auto &cost = systems->quests->getCurrentQuestRequirements(ql);
-    if (systems->ressources->canAfford(cost))
+    if (const auto &cost = systems->quests->getCurrentQuestRequirements(ql);
+        systems->ressources->canAfford(cost))
     {
         systems->ressources->substract(cost);
         systems->quests->completeQuest(ql);

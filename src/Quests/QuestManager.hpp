@@ -14,7 +14,7 @@ struct QuestSaveData
 };
 
 class QuestManager
-    : SaveAndLoadable<std::vector<std::pair<QuestLineEnum, unsigned>>>
+    : private SaveAndLoadable<std::vector<std::pair<QuestLineEnum, unsigned>>>
 {
   public:
     QuestManager();
