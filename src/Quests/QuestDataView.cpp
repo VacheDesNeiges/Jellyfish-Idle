@@ -18,3 +18,8 @@ std::vector<std::pair<RessourceType, double>> QuestDataView::
 {
     return quests->getCurrentQuestRequirements(ql);
 }
+
+bool QuestDataView::isComplete(QuestLineEnum ql, unsigned qnum) const
+{
+    return quests->isComplete(ql, qnum);
+}

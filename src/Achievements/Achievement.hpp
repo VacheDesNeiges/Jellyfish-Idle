@@ -29,10 +29,12 @@ class Achievement : public GameDataAccess
     std::vector<std::pair<JellyJob, unsigned>> jobsCondition;
     std::vector<AchievementIDs> achievementsCondition;
     std::vector<UpgradeID> upgradeCondition;
+    std::vector<std::pair<QuestLineEnum, unsigned>> questCondition;
 
     bool ressourcesConditionsMet() const;
     bool buildingConditionsMet() const;
     bool achievementConditionsMet() const;
     bool jobsConditionsMet() const;
     bool upgradeConditionMet() const;
+    bool questConditionMet() const;
 };

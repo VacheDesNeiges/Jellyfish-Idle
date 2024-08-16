@@ -54,7 +54,6 @@ Achievement::Achievement(const nlohmann::json &json)
                 condition.at("BuildingID"), condition.at("MinQuantity")});
             continue;
         }
-
         if (condition.contains("AnyOf"))
         {
             if (condition.at("AnyOf") == "Rare")
@@ -65,6 +64,13 @@ Achievement::Achievement(const nlohmann::json &json)
             {
                 AnyManufacturedRessource = true;
             }
+            continue;
+        }
+        if (condition.contains("Questline"))
+        {
+            questCondition.push_back(
+                {static_cast<QuestLineEnum>(condition.at("Questline")),
+                 condition.at("QuestNumber")});
             continue;
         }
     }
@@ -123,6 +129,14 @@ bool Achievement::upgradeConditionMet() const
     });
 }
 
+bool Achievement::questConditionMet() const
+{
+    return std::ranges::all_of(questCondition, [this](const auto &pair) {
+        const auto &[ql, qnum] = pair;
+        return questsView()->isComplete(ql, qnum);
+    });
+}
+
 bool Achievement::unlockConditionMet() const
 {
 
@@ -165,6 +179,11 @@ bool Achievement::unlockConditionMet() const
             [this](const auto &rType) {
                 return ressourcesView()->getRessourceQuantity(rType) > 0;
             });
+    }
+
+    if (!questCondition.empty() && !questConditionMet())
+    {
+        return false;
     }
 
     return true;

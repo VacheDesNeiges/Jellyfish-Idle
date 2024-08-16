@@ -11,7 +11,7 @@ class Quest
   public:
     explicit Quest(const nlohmann::json &);
     void complete();
-    bool isCompleted() const;
+    bool isComplete() const;
     std::string getDialogue() const;
 
     std::vector<std::pair<RessourceType, double>> getRequestedRessources()

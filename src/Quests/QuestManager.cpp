@@ -66,3 +66,8 @@ std::vector<std::pair<QuestLineEnum, unsigned>> QuestManager::getData() const
     }
     return ret;
 }
+
+bool QuestManager::isComplete(QuestLineEnum ql, unsigned qnum) const
+{
+    return questlines.at(ql).isComplete(qnum);
+}

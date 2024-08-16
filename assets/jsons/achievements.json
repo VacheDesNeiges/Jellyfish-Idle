@@ -371,7 +371,7 @@
       "JobID": 3,
       "Condition": [
         {
-          "AchievementID": 5001
+          "AchievementID": 7000
         }
       ]
     },
@@ -458,6 +458,17 @@
       "Condition": [
         {
           "UpgradeID": 1001
+        }
+      ]
+    },
+    {
+      "Type": "Quests",
+      "Name": "FirstOctopusQuest",
+      "ID": 7000,
+      "Condition": [
+        {
+          "Questline": 0,
+          "QuestNumber": 0
         }
       ]
     }

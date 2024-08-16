@@ -9,6 +9,7 @@ class QuestDataView
   public:
     explicit QuestDataView(std::shared_ptr<QuestManager>);
     std::string getCurrentQuestText(QuestLineEnum) const;
+    bool isComplete(QuestLineEnum, unsigned) const;
 
     std::vector<std::pair<RessourceType, double>> getCurrentQuestRequirements(
         QuestLineEnum) const;

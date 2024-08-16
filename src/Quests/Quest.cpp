@@ -25,8 +25,9 @@ Quest::Quest(const nlohmann::json &json)
     }
 }
 
-bool Quest::isCompleted() const
+bool Quest::isComplete() const
 {
+    std::cout << "completed : " << completed << '\n';
     return completed;
 }
 

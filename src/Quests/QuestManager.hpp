@@ -19,6 +19,8 @@ class QuestManager
   public:
     QuestManager();
     void completeQuest(QuestLineEnum);
+    bool isComplete(QuestLineEnum, unsigned) const;
+
     std::string getCurrentQuestText(QuestLineEnum) const;
 
     std::vector<std::pair<RessourceType, double>> getCurrentQuestRequirements(

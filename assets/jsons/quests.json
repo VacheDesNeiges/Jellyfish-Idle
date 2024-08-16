@@ -2,10 +2,11 @@
   "Questlines": [
     {
       "Name": "OctopusQuests",
+      "ID": 0,
       "Quests": [
         {
           "ID": 0,
-          "Text": "The Octopus tells you that you have a hidden potential, they propose to teach you how to use it in exchange of some food.",
+          "Text": "You have found a very old Octopus. They propose to teach you how to meditate in exchange for some food.",
           "CompletionRequirements": [
             {
               "RessourceID": 1,
@@ -27,10 +28,11 @@
     },
     {
       "Name": "WhaleQuests",
+      "ID": 1,
       "Quests": [
         {
           "ID": 100,
-          "Text": "",
+          "Text": "The whale seem very hungry. They asks you for food.",
           "CompletionRequirements": [
             {
               "RessourceID": 1,

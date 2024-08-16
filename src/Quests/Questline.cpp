@@ -42,6 +42,7 @@ std::vector<std::pair<RessourceType, double>> Questline::
 
 void Questline::completeQuest()
 {
+    quests.at(currentQuest).complete();
     currentQuest++;
 }
 
@@ -57,4 +58,9 @@ void Questline::setCurrentQuest(unsigned newCurrentQuest)
 unsigned Questline::getCurrentQuestIndex() const
 {
     return currentQuest;
+}
+
+bool Questline::isComplete(unsigned i) const
+{
+    return quests.at(i).isComplete();
 }
