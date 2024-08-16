@@ -9,7 +9,7 @@ void UIGardenPanel::render() const
 {
     if (!ImGui::Begin("Garden", nullptr,
 
-                      ImGuiWindowFlags_NoMove &
+                      ImGuiWindowFlags_NoMove |
                           ImGuiWindowFlags_NoFocusOnAppearing))
     {
         ImGui::End();

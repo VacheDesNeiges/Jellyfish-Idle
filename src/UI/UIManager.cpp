@@ -45,10 +45,9 @@ void UIManager::renderUI() const
         gardenPanel.render();
 
     ressourcesPanel.render();
-    notifications.render();
-
     ImGui::ShowDemoWindow();
     ImGui::ShowStyleEditor();
+    notifications.render();
 }
 
 void UIManager::setAtlas(TextureAtlas t)

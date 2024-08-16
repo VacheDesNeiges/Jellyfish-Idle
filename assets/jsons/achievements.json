@@ -236,6 +236,7 @@
       "Type": "System",
       "Name": "Garden System",
       "ID": 2000,
+      "Notification": "You can use your aquatic fields to grow marine flora or provide a place to raise critters. Try to assign a field to plankton to gather some food.",
       "Condition": [
         {
           "BuildingID": 1,

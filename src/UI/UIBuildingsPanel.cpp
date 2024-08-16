@@ -10,7 +10,7 @@
 void UIBuildingPanel::render() const
 {
     if (!ImGui::Begin("Buildings", nullptr,
-                      ImGuiWindowFlags_NoMove &
+                      ImGuiWindowFlags_NoMove |
                           ImGuiWindowFlags_NoFocusOnAppearing))
     {
         ImGui::End();

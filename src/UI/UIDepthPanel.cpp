@@ -5,7 +5,7 @@
 void UIDepthPanel::render() const
 {
     if (!ImGui::Begin("Depth", nullptr,
-                      ImGuiWindowFlags_NoMove &
+                      ImGuiWindowFlags_NoMove |
                           ImGuiWindowFlags_NoFocusOnAppearing))
     {
         ImGui::End();

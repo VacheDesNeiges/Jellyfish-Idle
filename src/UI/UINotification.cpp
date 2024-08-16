@@ -6,13 +6,12 @@ void UINotification::render() const
     if (auto notif = achievementsView()->getNextNotification();
         notif.has_value())
     {
+        ImGui::OpenPopup("Notifications");
+        ImGui::SetNextWindowSize({400, 0});
 
-        ImGui::SetNextWindowSize({400, 250});
-
-        ImGui::OpenPopup("Notification");
-        if (ImGui::BeginPopupModal("Notification", nullptr,
-                                   ImGuiWindowFlags_NoMove &
-                                       ImGuiWindowFlags_NoBringToFrontOnFocus))
+        if (ImGui::BeginPopupModal("Notifications", nullptr,
+                                   ImGuiWindowFlags_NoTitleBar |
+                                       ImGuiWindowFlags_NoMove))
         {
             ImGui::TextWrapped("%s", std::string(notif.value()).c_str());
 
@@ -21,7 +20,6 @@ void UINotification::render() const
                 inputHandler->removeCurrentNotification();
                 ImGui::CloseCurrentPopup();
             }
-
             ImGui::EndPopup();
         }
     }
