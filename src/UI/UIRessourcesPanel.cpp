@@ -61,12 +61,13 @@ void UIRessourcesPanel::renderJfishNumbers() const
     std::string jfishtxt = UIUtils::formatQuantity(
         jelliesView()->getNumJellies(), jelliesView()->getMaxNumJellies());
 
-    auto x = (ImGui::GetCursorPosX() + ImGui::GetColumnWidth() -
-              ImGui::CalcTextSize(jfishtxt.c_str()).x - ImGui::GetScrollX() -
-              2 * ImGui::GetStyle().ItemSpacing.x);
-
-    if (x > ImGui::GetCursorPosX())
+    if (auto x = (ImGui::GetCursorPosX() + ImGui::GetColumnWidth() -
+                  ImGui::CalcTextSize(jfishtxt.c_str()).x -
+                  ImGui::GetScrollX() - 2 * ImGui::GetStyle().ItemSpacing.x);
+        x > ImGui::GetCursorPosX())
+    {
         ImGui::SetCursorPosX(x);
+    }
 
     ImGui::Text("%s", jfishtxt.c_str());
 }

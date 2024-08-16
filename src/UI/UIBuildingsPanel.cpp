@@ -4,6 +4,7 @@
 #include "UIUtils.hpp"
 
 #include "imgui.h"
+#include <fmt/core.h>
 #include <fmt/format.h>
 
 void UIBuildingPanel::render() const
@@ -51,9 +52,9 @@ bool UIBuildingPanel::renderBuildingButton(BuildingType building) const
         ImGui::BeginDisabled(!buildingsView()->isBuyable(building));
         auto name = buildingsView()->getBuildingName(building);
         auto quantity = buildingsView()->getBuildingQuantity(building);
-        std::string buttonText = fmt::format("{} lvl {}", name, quantity);
 
-        if (ImGui::Button(buttonText.c_str(),
+        if (std::string buttonText = fmt::format("{} lvl {}", name, quantity);
+            ImGui::Button(buttonText.c_str(),
                           UIConstants::UIBuildingButtonSize))
         {
             inputHandler->buy(building);

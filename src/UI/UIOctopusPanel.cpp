@@ -45,9 +45,10 @@ void UIOctopusPanel::renderTradeButton(UpgradeID id) const
     auto size = ImVec2(300.f, 45.f);
 
     ImGui::BeginDisabled(!upgradeView()->isBuyable(id));
-    std::string buttonText = fmt::format("{}\n", upgradeView()->getName(id));
 
-    if (ImGui::Button(buttonText.c_str(), size))
+    if (std::string buttonText =
+            fmt::format("{}\n", upgradeView()->getName(id));
+        ImGui::Button(buttonText.c_str(), size))
     {
         inputHandler->buy(id);
     }
