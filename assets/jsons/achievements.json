@@ -403,16 +403,6 @@
     },
     {
       "Type": "Upgrade",
-      "Name": "Focusing Upgrade Bought",
-      "ID": 5001,
-      "Condition": [
-        {
-          "UpgradeID": 0
-        }
-      ]
-    },
-    {
-      "Type": "Upgrade",
       "Name": "Telekinesis Upgrade Bought",
       "ID": 5002,
       "Condition": [
