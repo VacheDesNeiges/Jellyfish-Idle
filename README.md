@@ -44,13 +44,13 @@ You may also start with no saved data by running
 ```
 
 ## Testing
-You can compile and run the tests by running the following command
+You can compile and run the tests by running the following commands
 ```
 ./build.sh --tests
 ./test
 ```
 
-you can also combine the arguments already mentioned, or use --all to compile both executables. For exemple, the following line will build both game and tests in debug mode :
+you can also combine the arguments already mentioned, or use --all to compile both executables. For example, the following line will build both game and tests in debug mode :
 ```
 ./build.sh --all --debug
 ```
