@@ -27,17 +27,15 @@ Make sure that you have installed the required dependencies, then run the comman
 ./build.sh --game
 ```
 
-You may also build in debug mode by running
+You may also build in debug mode by adding the arg --debug
 ```
-./build.sh --debug
+./build.sh --game --debug
 ```
-
 
 Once this is done, you can start the game by running the command
 ```
 ./game
 ```
-
 You may also start with no saved data by running
 ```
 ./game --noSave
@@ -47,9 +45,11 @@ You may also start with no saved data by running
 You can compile and run the tests by running the following commands
 ```
 ./build.sh --tests
-./test
 ```
 
+```
+./test
+```
 you can also combine the arguments already mentioned, or use --all to compile both executables. For example, the following line will build both game and tests in debug mode :
 ```
 ./build.sh --all --debug
