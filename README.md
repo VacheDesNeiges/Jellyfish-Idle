@@ -13,8 +13,8 @@ This program requires the following tools and libraries :
 - C++ 20 compiler
 - CMake 3.22+
 - Ninja
-  
-- STL 
+
+- STL
 - SDL2
 - fmt
 - gtest
@@ -24,16 +24,16 @@ This program requires the following tools and libraries :
 # Installation
 Make sure that you have installed the required dependencies, then run the command
 ```
-./build.sh
+./build.sh --game
 ```
 
-You may also build in debug mode by running 
+You may also build in debug mode by running
 ```
 ./build.sh --debug
 ```
 
 
-Once this is done, you can start the game by running the command 
+Once this is done, you can start the game by running the command
 ```
 ./game
 ```
@@ -41,4 +41,16 @@ Once this is done, you can start the game by running the command
 You may also start with no saved data by running
 ```
 ./game --noSave
+```
+
+## Testing
+You can compile and run the tests by running the following command
+```
+./build.sh --tests
+./test
+```
+
+you can also combine the arguments already mentioned, or use --all to compile both executables. For exemple, the following line will build both game and tests in debug mode :
+```
+./build.sh --all --debug
 ```

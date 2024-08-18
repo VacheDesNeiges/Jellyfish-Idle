@@ -47,20 +47,6 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/src/BackendRenderer
 )
 
-file(GLOB_RECURSE SRCS ${CMAKE_SOURCE_DIR}/src/*.cpp ${CMAKE_SOURCE_DIR}/imgui/*.cpp)
-list(FILTER SRCS EXCLUDE REGEX "Main.cpp|TestsMain.cpp")
-
-file(GLOB_RECURSE IMGUI_DIR "imgui/*.c*" "imgui/*.h*")
-set_source_files_properties(${IMGUI_DIR} PROPERTIES COMPILE_FLAGS "-w")
-
-set(BUILD_DIR ${CMAKE_BINARY_DIR})
-file(MAKE_DIRECTORY ${BUILD_DIR})
-
-add_executable(game ${SRCS} ${CMAKE_SOURCE_DIR}/src/Main.cpp)
-target_link_libraries(game ${CMAKE_EXE_LINKER_FLAGS})
-set_target_properties(game PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY ${BUILD_DIR}
-)
 
 file(GLOB_RECURSE TEST_SRCS
     ${CMAKE_SOURCE_DIR}/tests/*.cpp
@@ -70,7 +56,28 @@ list(FILTER TEST_SRCS EXCLUDE REGEX "Main.cpp|TestsMain.cpp")
 set(TEST_BUILD_DIR ${CMAKE_BINARY_DIR})
 file(MAKE_DIRECTORY ${TEST_BUILD_DIR})
 
+
+
+file(GLOB_RECURSE SRCS ${CMAKE_SOURCE_DIR}/src/*.cpp ${CMAKE_SOURCE_DIR}/imgui/*.cpp)
+list(FILTER SRCS EXCLUDE REGEX "Main.cpp|TestsMain.cpp")
+
+file(GLOB_RECURSE IMGUI_DIR "imgui/*.c*" "imgui/*.h*")
+set_source_files_properties(${IMGUI_DIR} PROPERTIES COMPILE_FLAGS "-w")
+
+set(BUILD_DIR ${CMAKE_BINARY_DIR})
+file(MAKE_DIRECTORY ${BUILD_DIR})
+
+
+
 add_executable(test ${TEST_SRCS} ${SRCS} ${CMAKE_SOURCE_DIR}/tests/TestsMain.cpp)
 target_link_libraries(test ${CMAKE_EXE_LINKER_FLAGS})
 set_target_properties(test PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${TEST_BUILD_DIR})
+
+
+
+add_executable(game ${SRCS} ${CMAKE_SOURCE_DIR}/src/Main.cpp)
+target_link_libraries(game ${CMAKE_EXE_LINKER_FLAGS})
+set_target_properties(game PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${BUILD_DIR}
+)

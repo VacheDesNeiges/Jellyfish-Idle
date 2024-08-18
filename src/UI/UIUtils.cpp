@@ -95,7 +95,7 @@ void UIUtils::printCostsImGui(
             "{} : {}", ressourceName, formatQuantity(currentQuantity, cost));
 
         if (!formatedTime.empty())
-            formatedResourceQuant += ('(' + formatedTime + ')');
+            formatedResourceQuant += (" (" + formatedTime + ')');
 
         ImGui::TextColored(textColor, "%s", formatedResourceQuant.c_str());
     }

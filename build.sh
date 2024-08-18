@@ -2,12 +2,27 @@
 
 
 DEBUG_MODE=false
+BUILD_GAME=false
+BUILD_TESTS=false
 
 # Parse command-line arguments
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --debug)
             DEBUG_MODE=true
+            shift
+            ;;
+        --game)
+            BUILD_GAME=true
+            shift
+            ;;
+        --tests)
+            BUILD_TESTS=true
+            shift
+            ;;
+        --all)
+            BUILD_TESTS=true
+            BUILD_GAME=true
             shift
             ;;
         *)
@@ -17,19 +32,37 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
+if [ "$BUILD_GAME" = false ] && [ "$BUILD_TESTS" = false ]; then
+    echo "Error: you must specify at least one of --game or --tests"
+    exit 1
+fi
+
 mkdir -p build
 cd build
 
+cmake_options="-G Ninja"
 
 if [ "$DEBUG_MODE" = true ]; then
-    cmake -DDEBUG_MODE=ON .. -G Ninja
+    cmake_options="$cmake_options -DDEBUG_MODE=ON"
 else
-    cmake -DDEBUG_MODE=OFF .. -G Ninja
+    cmake_options="$cmake_options -DDEBUG_MODE=OFF"
 fi
 
+cmake $cmake_options ..
 
-ninja
+if [ "$BUILD_TESTS" = true ] && [ "$BUILD_GAME" = true ]; then
+    ninja all
+    mv game ../
+    mv test ../
+    exit 0
+fi
 
-mv game ../
-mv test ../
+if [ "$BUILD_GAME" = true ]; then
+    ninja game
+    mv game ../
+fi
 
+if [ "$BUILD_TESTS" = true ]; then
+    ninja test
+    mv test ../
+fi

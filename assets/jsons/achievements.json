@@ -260,6 +260,7 @@
       "Name": "CultureSandworm",
       "ID": 2002,
       "CultureID": 2,
+      "Notification": "While exploring, your jellies have found a colony of sand worm. They seem friendly and will accept to visit your garden if you ask them.",
       "Condition": [
         {
           "Depth": 15
@@ -392,6 +393,7 @@
       "Type": "Upgrade",
       "Name": "Octopus",
       "ID": 5000,
+      "Notification": "While exploring, your jellies have found an old octopus, maybe you can interact with them!",
       "Condition": [
         {
           "Depth": 10

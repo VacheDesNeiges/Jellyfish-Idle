@@ -1,57 +1,54 @@
 name: Build and Test
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
     runs-on: ubuntu-24.04
     steps:
+      - uses: actions/checkout@v4
 
-    - uses: actions/checkout@v4
+      - name: apt update
+        run: |
+          sudo apt-get update
 
-    - name : apt update
-      run: |
-        sudo apt-get update
+      - name: Install ninja
+        run: |
+          sudo apt-get install -y ninja-build
 
-    - name: Install ninja
-      run: |
-        sudo apt-get install -y ninja-build
+      - name: Install gtests
+        run: |
+          sudo apt-get install libgtest-dev
+      - name: Install nlohmann json
+        run: |
+          sudo apt-get install nlohmann-json3-dev
 
-    - name: Install gtests
-      run: |
-        sudo apt-get install libgtest-dev
-    - name: Install nlohmann json
-      run: |
-        sudo apt-get install nlohmann-json3-dev
-            
-    - name: Install fmt
-      run: |
-        sudo apt-get install libfmt-dev
-    
-    - name: Install sdl2
-      run: |
-        sudo apt-get install libsdl2-dev
+      - name: Install fmt
+        run: |
+          sudo apt-get install libfmt-dev
 
-    - name: Install jsonSchema
-      run: | 
-        sudo apt-get install python3-jsonschema
-      
-        
-    - name: Configure CMake
-      run: cmake -B ${{github.workspace}}/build -G Ninja
+      - name: Install sdl2
+        run: |
+          sudo apt-get install libsdl2-dev
 
-    - name: Build
-      run: |
-        ./build.sh
-    
-    - name: Validate Jsons
-      run: |
-        ./tests/jsonTests/ValidationSchemas/validateJsons.sh
+      - name: Install jsonSchema
+        run: |
+          sudo apt-get install python3-jsonschema
 
+      - name: Configure CMake
+        run: cmake -B ${{github.workspace}}/build -G Ninja
 
-    - name: Test
-      run: |
-        ./test
+      - name: Build
+        run: |
+          ./build.sh --all --debug
+
+      - name: Validate Jsons
+        run: |
+          ./tests/jsonTests/ValidationSchemas/validateJsons.sh
+
+      - name: Test
+        run: |
+          ./test
