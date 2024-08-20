@@ -139,14 +139,11 @@ bool Achievement::questConditionMet() const
 
 bool Achievement::unlockConditionMet() const
 {
-
     if (jelliesView()->getNumJellies() < jfishNumCondition)
         return false;
 
     if (depthCondition > depthView()->getCurrentDepth())
-    {
         return false;
-    }
 
     if (!ressourceCondition.empty() && !ressourcesConditionsMet())
         return false;
@@ -165,20 +162,26 @@ bool Achievement::unlockConditionMet() const
 
     if (anyRareRessource)
     {
-        return std::ranges::any_of(
-            ressourcesView()->getRareRessourceTypes(),
-            [this](const auto &rType) {
-                return ressourcesView()->getRessourceQuantity(rType) > 0;
-            });
+        if (std::ranges::all_of(
+                ressourcesView()->getRareRessourceTypes(),
+                [this](const auto &rType) {
+                    return ressourcesView()->getRessourceQuantity(rType) == 0;
+                }))
+        {
+            return false;
+        }
     }
 
     if (AnyManufacturedRessource)
     {
-        return std::ranges::any_of(
-            ressourcesView()->getCraftableRessourceTypes(),
-            [this](const auto &rType) {
-                return ressourcesView()->getRessourceQuantity(rType) > 0;
-            });
+        if (std::ranges::all_of(
+                ressourcesView()->getCraftableRessourceTypes(),
+                [this](const auto &rType) {
+                    return ressourcesView()->getRessourceQuantity(rType) == 0;
+                }))
+        {
+            return false;
+        }
     }
 
     if (!questCondition.empty() && !questConditionMet())
