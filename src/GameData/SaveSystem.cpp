@@ -125,11 +125,11 @@ SaveData SaveSystem::loadFromFile(std::string path)
     {
 
         result.buildings.reserve(data.at("Building").size());
-        for (const auto &d : data["Building"])
+        for (const auto &buildingData : data["Building"])
         {
             result.buildings.emplace_back(
-                static_cast<BuildingType>(d["id"].get<int>()),
-                d["Quantity"].get<unsigned>());
+                static_cast<BuildingType>(buildingData["id"].get<int>()),
+                buildingData["Quantity"].get<unsigned>());
         }
     }
     catch (nlohmann::json::exception &e)
@@ -143,11 +143,11 @@ SaveData SaveSystem::loadFromFile(std::string path)
     {
 
         result.achievements.reserve(data.at("Achievement").size());
-        for (const auto &d : data["Achievement"])
+        for (const auto &achievementData : data["Achievement"])
         {
             result.achievements.emplace_back(
-                static_cast<AchievementIDs>(d["id"].get<int>()),
-                d["Unlocked"].get<bool>());
+                static_cast<AchievementIDs>(achievementData["id"].get<int>()),
+                achievementData["Unlocked"].get<bool>());
         }
     }
     catch (nlohmann::json::exception &e)
@@ -160,11 +160,11 @@ SaveData SaveSystem::loadFromFile(std::string path)
     try
     {
         result.ressources.reserve(data.at("Ressource").size());
-        for (const auto &d : data["Ressource"])
+        for (const auto &ressourceData : data["Ressource"])
         {
             result.ressources.emplace_back(
-                static_cast<RessourceType>(d["id"].get<int>()),
-                d["Quantity"].get<double>());
+                static_cast<RessourceType>(ressourceData["id"].get<int>()),
+                ressourceData["Quantity"].get<double>());
         }
     }
 
@@ -212,11 +212,11 @@ SaveData SaveSystem::loadFromFile(std::string path)
     try
     {
         result.upgrades.reserve(data.at("Upgrade").size());
-        for (const auto &d : data["Upgrade"])
+        for (const auto &upgradeData : data["Upgrade"])
         {
             result.upgrades.emplace_back(
-                static_cast<UpgradeID>(d["id"].get<int>()),
-                d["Bought"].get<bool>());
+                static_cast<UpgradeID>(upgradeData["id"].get<int>()),
+                upgradeData["Bought"].get<bool>());
         }
     }
     catch (nlohmann::json::exception &e)
@@ -229,19 +229,19 @@ SaveData SaveSystem::loadFromFile(std::string path)
     try
     {
         result.crafts.reserve(data.at("Craft").size());
-        for (const auto &c : data["Craft"])
+        for (const auto &craftData : data["Craft"])
         {
             result.crafts.emplace_back(
-                static_cast<RecipeID>(c["id"].get<int>()),
+                static_cast<RecipeID>(craftData["id"].get<int>()),
                 RecipeSaveData{
-                    c["Level"].get<unsigned>(),
-                    c["CurrentProg"].get<double>(),
+                    craftData["Level"].get<unsigned>(),
+                    craftData["CurrentProg"].get<double>(),
                     0,
-                    c["Ongoing"].get<bool>(),
-                    c["Done"].get<bool>(),
-                    c["KeepCraftingMode"].get<bool>(),
-                    c["RemainingTicks"].get<unsigned>(),
-                    c["Workers"].get<unsigned>(),
+                    craftData["Ongoing"].get<bool>(),
+                    craftData["Done"].get<bool>(),
+                    craftData["KeepCraftingMode"].get<bool>(),
+                    craftData["RemainingTicks"].get<unsigned>(),
+                    craftData["Workers"].get<unsigned>(),
                 });
         }
     }
@@ -254,13 +254,13 @@ SaveData SaveSystem::loadFromFile(std::string path)
     try
     {
         result.cultures.reserve(data.at("Culture").size());
-        for (const auto &c : data["Culture"])
+        for (const auto &cultureData : data["Culture"])
         {
             result.cultures.emplace_back(
-                static_cast<AquaCultureID>(c["id"].get<int>()),
+                static_cast<AquaCultureID>(cultureData["id"].get<int>()),
                 CultureData{
-                    c["Ongoing"].get<bool>(),
-                    c["Fields"].get<unsigned>(),
+                    cultureData["Ongoing"].get<bool>(),
+                    cultureData["Fields"].get<unsigned>(),
                 });
         }
     }
@@ -274,11 +274,12 @@ SaveData SaveSystem::loadFromFile(std::string path)
     try
     {
         result.quests.reserve(data.at("Quests").size());
-        for (const auto &q : data["Quests"])
+        for (const auto &questData : data["Quests"])
         {
             result.quests.emplace_back(
-                static_cast<QuestLineEnum>(q["QuestLine"].get<unsigned>()),
-                q["CurrentQuest"].get<unsigned>());
+                static_cast<QuestLineEnum>(
+                    questData["QuestLine"].get<unsigned>()),
+                questData["CurrentQuest"].get<unsigned>());
         }
     }
     catch (nlohmann::json::exception &e)
