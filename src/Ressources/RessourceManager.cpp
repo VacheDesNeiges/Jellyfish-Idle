@@ -31,14 +31,14 @@ void RessourceManager::init()
         for (const auto &resData : ressourcesJson["Ressources"])
         {
             ressources.try_emplace(RessourceType(resData.at("Id")), resData);
-            regularRessourceTypes.push_back(RessourceType(resData.at("Id")));
+            regularRessourceTypes.emplace_back(resData.at("Id"));
         }
 
         rareRessourceTypes.reserve(ressourcesJson["RareRessources"].size());
         for (const auto &resData : ressourcesJson["RareRessources"])
         {
             ressources.try_emplace(RessourceType(resData.at("Id")), resData);
-            rareRessourceTypes.push_back(RessourceType(resData.at("Id")));
+            rareRessourceTypes.emplace_back(resData.at("Id"));
         }
 
         craftableRessourceTypes.reserve(
@@ -47,7 +47,7 @@ void RessourceManager::init()
         {
             ressources.try_emplace(RessourceType(resData.at("Id")), resData);
 
-            craftableRessourceTypes.push_back(RessourceType(resData.at("Id")));
+            craftableRessourceTypes.emplace_back(resData.at("Id"));
         }
     }
     catch (nlohmann::json::exception &e)
@@ -77,14 +77,14 @@ void RessourceManager::gatherSand()
     ressources[RessourcesAlias::SAND].add(1);
 }
 
-double RessourceManager::getCurrentQuantity(RessourceType t) const
+double RessourceManager::getCurrentQuantity(RessourceType rType) const
 {
-    return ressources.at(t).getCurrentQuantity();
+    return ressources.at(rType).getCurrentQuantity();
 }
 
-double RessourceManager::getMaxQuantity(RessourceType t) const
+double RessourceManager::getMaxQuantity(RessourceType rType) const
 {
-    return ressources.at(t).getMaxQuantity();
+    return ressources.at(rType).getMaxQuantity();
 }
 
 bool RessourceManager::canAfford(
@@ -96,9 +96,9 @@ bool RessourceManager::canAfford(
     });
 }
 
-void RessourceManager::add(RessourceType t, double n)
+void RessourceManager::add(RessourceType rType, double n)
 {
-    ressources.at(t).add(n);
+    ressources.at(rType).add(n);
 }
 
 void RessourceManager::add(
@@ -119,9 +119,9 @@ void RessourceManager::substract(
     }
 }
 
-std::string_view RessourceManager::getName(RessourceType t) const
+std::string_view RessourceManager::getName(RessourceType rType) const
 {
-    return ressources.at(t).getName();
+    return ressources.at(rType).getName();
 }
 
 void RessourceManager::zerosValuePerTick()
@@ -132,15 +132,15 @@ void RessourceManager::zerosValuePerTick()
     }
 }
 
-void RessourceManager::addToProdPerTick(RessourceType t, double n)
+void RessourceManager::addToProdPerTick(RessourceType rType, double n)
 {
     if (n < 0)
     {
-        ressources[t].addToConsumptionPerTick(-n);
+        ressources[rType].addToConsumptionPerTick(-n);
     }
     else
     {
-        ressources[t].addToProdPerTick(n);
+        ressources[rType].addToProdPerTick(n);
     }
 }
 
@@ -199,6 +199,7 @@ void RessourceManager::tryConvert(
 std::vector<std::pair<RessourceType, double>> RessourceManager::getData() const
 {
     std::vector<std::pair<RessourceType, double>> result;
+    result.reserve(ressources.size());
     for (const auto &[rtype, res] : ressources)
     {
         result.emplace_back(rtype, res.getCurrentQuantity());
@@ -228,23 +229,23 @@ double RessourceManager::getConsumption(RessourceType t) const
 
 std::span<const RessourceType> RessourceManager::getAllRessourceTypes() const
 {
-    return std::span(allRessourceTypes);
+    return {allRessourceTypes};
 }
 
 std::span<const RessourceType> RessourceManager::getRegularRessourceTypes()
     const
 {
-    return std::span(regularRessourceTypes);
+    return {regularRessourceTypes};
 }
 
 std::span<const RessourceType> RessourceManager::getRareRessourceTypes() const
 {
-    return std::span(rareRessourceTypes);
+    return {rareRessourceTypes};
 }
 std::span<const RessourceType> RessourceManager::getCraftableRessourceTypes()
     const
 {
-    return std::span(craftableRessourceTypes);
+    return {craftableRessourceTypes};
 }
 
 void RessourceManager::updateMaxRessourcesQuantities(
@@ -259,10 +260,10 @@ void RessourceManager::updateMaxRessourcesQuantities(
 void RessourceManager::recomputeMaxQuantities()
 {
     std::unordered_map<RessourceType, double> newQuantities;
-    for (const auto b : buildingsView()->getBuildingTypes())
+    for (const auto bType : buildingsView()->getBuildingTypes())
     {
         for (const auto &[rType, quant] :
-             buildingsView()->getIncreasedStorage(b))
+             buildingsView()->getIncreasedStorage(bType))
         {
 
             newQuantities[rType] += quant;

@@ -7,7 +7,7 @@ class MultipliersRegister;
 class MultiplierDataView
 {
   public:
-    explicit MultiplierDataView(std::shared_ptr<MultipliersRegister>);
+    explicit MultiplierDataView(const std::shared_ptr<MultipliersRegister> &);
 
     double getMultiplier(MultiplierID) const;
     double getProductionMultiplier(RessourceType) const;

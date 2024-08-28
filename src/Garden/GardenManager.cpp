@@ -29,7 +29,7 @@ GardenManager::GardenManager()
         {
             cultures.try_emplace(AquaCultureID(culture.at("ID")), culture);
             assignedFieldsToCultures[AquaCultureID(culture.at("ID"))] = 0;
-            cultureTypes.push_back(AquaCultureID(culture.at("ID")));
+            cultureTypes.emplace_back((culture.at("ID")));
         }
     }
     catch (nlohmann::json::exception &e)

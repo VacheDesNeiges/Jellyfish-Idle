@@ -18,8 +18,8 @@ struct JellyfishData
 struct JobLevel
 {
     unsigned lvl = 0;
-    double currentProgress;
-    double progressNeeded;
+    double currentProgress = 0;
+    double progressNeeded = 0;
 };
 
 class GameDataView;

@@ -5,7 +5,7 @@
 class Notification
 {
   public:
-    explicit Notification(const std::string &);
+    explicit Notification(std::string);
     std::string_view getNotificationText() const;
 
   private:

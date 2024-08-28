@@ -15,25 +15,26 @@
 
 void SaveSystem::save(const SaveData &data)
 {
-    nlohmann::json j;
+    nlohmann::json json;
     for (const auto &[type, quant] : data.buildings)
     {
-        j["Building"] += {{"id", static_cast<int>(type)}, {"Quantity", quant}};
+        json["Building"] +=
+            {{"id", static_cast<int>(type)}, {"Quantity", quant}};
     }
 
     for (const auto &[idAch, isUnlocked] : data.achievements)
     {
-        j["Achievement"] +=
+        json["Achievement"] +=
             {{"id", static_cast<int>(idAch)}, {"Unlocked", isUnlocked}};
     }
 
     for (const auto &[idRes, quant] : data.ressources)
     {
-        j["Ressource"] +=
+        json["Ressource"] +=
             {{"id", static_cast<int>(idRes)}, {"Quantity", quant}};
     }
 
-    j["Jellies"] = {
+    json["Jellies"] = {
         {"num", data.jellies.numJellies},
         {"numMax", data.jellies.maxNumJellies},
         {"Jobs", nlohmann::json::array()},
@@ -43,7 +44,8 @@ void SaveSystem::save(const SaveData &data)
     {
         for (const auto &[jobID, num] : data.jellies.jobNumbers)
         {
-            j["Jellies"]["Jobs"].push_back({{"id", jobID.value}, {"num", num}});
+            json["Jellies"]["Jobs"].push_back(
+                {{"id", jobID.value}, {"num", num}});
         }
     }
     catch (nlohmann::json::exception &e)
@@ -51,14 +53,14 @@ void SaveSystem::save(const SaveData &data)
         std::cerr << "Error while writting jellies :\n" << e.what() << '\n';
     }
 
-    j["Depth"] += {
+    json["Depth"] += {
         {"currentDepth", data.depth.currentDepth},
         {"currentProg", data.depth.currentProg},
     };
 
     for (const auto &[id, val] : data.upgrades)
     {
-        j["Upgrade"] += {
+        json["Upgrade"] += {
             {"id", static_cast<int>(id)},
             {"Bought", val},
         };
@@ -66,7 +68,7 @@ void SaveSystem::save(const SaveData &data)
 
     for (const auto &[id, craftData] : data.crafts)
     {
-        j["Craft"] += {
+        json["Craft"] += {
             {"id", static_cast<int>(id)},
             {"Workers", craftData.numAssignedWorkers},
             {"Done", craftData.craftDone},
@@ -80,7 +82,7 @@ void SaveSystem::save(const SaveData &data)
 
     for (const auto &[id, cultureData] : data.cultures)
     {
-        j["Culture"] += {
+        json["Culture"] += {
             {"id", static_cast<int>(id)},
             {"Fields", cultureData.fieldCount},
             {"Ongoing", cultureData.craftOngoing},
@@ -89,14 +91,14 @@ void SaveSystem::save(const SaveData &data)
 
     for (const auto &[ql, index] : data.quests)
     {
-        j["Quests"] += {
+        json["Quests"] += {
             {"QuestLine", static_cast<int>(ql)},
             {"CurrentQuest", index},
         };
     }
 
     std::ofstream file(saveFileName);
-    file << j;
+    file << json;
 }
 
 SaveData SaveSystem::loadFromFile(std::string path)
@@ -104,13 +106,13 @@ SaveData SaveSystem::loadFromFile(std::string path)
     SaveData result;
     path += "/" + saveFileName;
 
-    std::ifstream f(path);
+    std::ifstream filestream(path);
 
     nlohmann::json data;
 
     try
     {
-        data = nlohmann::json::parse(f);
+        data = nlohmann::json::parse(filestream);
     }
     catch (nlohmann::json::exception &e)
     {

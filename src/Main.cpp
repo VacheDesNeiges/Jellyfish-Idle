@@ -8,6 +8,6 @@ int main(int argc, char *argv[])
     if (argc == 2)
         option = argv[1];
 
-    Game g;
-    g.run(option);
+    Game game;
+    game.run(option);
 }

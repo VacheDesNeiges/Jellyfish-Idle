@@ -6,7 +6,6 @@
 #include "SaveAndLoadable.hpp"
 
 #include "unordered_map"
-#include <unordered_map>
 #include <utility>
 #include <vector>
 

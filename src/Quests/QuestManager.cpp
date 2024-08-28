@@ -49,9 +49,9 @@ void QuestManager::completeQuest(QuestLineEnum ql)
 }
 
 void QuestManager::loadData(
-    const std::vector<std::pair<QuestLineEnum, unsigned>> &vec)
+    const std::vector<std::pair<QuestLineEnum, unsigned>> &data)
 {
-    for (const auto &[ql, currentQuest] : vec)
+    for (const auto &[ql, currentQuest] : data)
     {
         questlines.at(ql).setCurrentQuest(currentQuest);
     }
@@ -60,6 +60,7 @@ void QuestManager::loadData(
 std::vector<std::pair<QuestLineEnum, unsigned>> QuestManager::getData() const
 {
     std::vector<std::pair<QuestLineEnum, unsigned>> ret;
+    ret.reserve(questlines.size());
     for (const auto &[qlenum, ql] : questlines)
     {
         ret.emplace_back(qlenum, ql.getCurrentQuestIndex());

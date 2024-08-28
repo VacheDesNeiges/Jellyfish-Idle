@@ -5,22 +5,29 @@ Multiplier::Multiplier(double baseMult) : baseMultiplier(baseMult)
 {
 }
 
-PerBuildingMultiplier::PerBuildingMultiplier(double baseMult, BuildingType b)
-    : Multiplier(baseMult), bType(b)
+double Multiplier::getBaseMultiplier() const
+{
+    return baseMultiplier;
+}
+
+PerBuildingMultiplier::PerBuildingMultiplier(double baseMult,
+                                             BuildingType buildingType)
+    : Multiplier(baseMult), bType(buildingType)
 {
 }
 
 double PerBuildingMultiplier::getMultValue() const
 {
-    return baseMultiplier * buildingsView()->getBuildingQuantity(bType);
+    return getBaseMultiplier() * buildingsView()->getBuildingQuantity(bType);
 }
 
-PerRessourceMultiplier::PerRessourceMultiplier(double baseMult, RessourceType r)
-    : Multiplier(baseMult), rType(r)
+PerRessourceMultiplier::PerRessourceMultiplier(double baseMult,
+                                               RessourceType ressourceType)
+    : Multiplier(baseMult), rType(ressourceType)
 {
 }
 
 double PerRessourceMultiplier::getMultValue() const
 {
-    return baseMultiplier * ressourcesView()->getRessourceQuantity(rType);
+    return getBaseMultiplier() * ressourcesView()->getRessourceQuantity(rType);
 }

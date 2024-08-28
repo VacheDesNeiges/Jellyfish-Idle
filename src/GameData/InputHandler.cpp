@@ -10,34 +10,35 @@ InputHandler::InputHandler(std::shared_ptr<SystemPtrs> sy)
 {
 }
 
-void InputHandler::useAbility(AbilityType t) const
+void InputHandler::useAbility(AbilityType abiType) const
 {
-    if (systems->abilities->isUsable(t))
+    if (systems->abilities->isUsable(abiType))
     {
-        systems->ressources->substract(systems->abilities->getAbilityCost(t));
-        systems->ressources->add(systems->abilities->getProduction(t));
+        systems->ressources->substract(
+            systems->abilities->getAbilityCost(abiType));
+        systems->ressources->add(systems->abilities->getProduction(abiType));
     }
 }
 
-bool InputHandler::assignJelly(JellyJob j) const
+bool InputHandler::assignJelly(JellyJob jJob) const
 {
-    bool ret = systems->jellies->assign(j);
+    bool ret = systems->jellies->assign(jJob);
 
-    if (j == JobsAlias::ARTISAN)
+    if (jJob == JobsAlias::ARTISAN)
         systems->crafts->updateAssignments();
 
     return ret;
 }
 
-bool InputHandler::unassignJelly(JellyJob j) const
+bool InputHandler::unassignJelly(JellyJob jJob) const
 {
 
-    if (j != JobsAlias::ARTISAN)
-        return systems->jellies->unasign(j);
+    if (jJob != JobsAlias::ARTISAN)
+        return systems->jellies->unasign(jJob);
 
-    if (systems->crafts->getAssignedNumOfJellies(RecipesAlias::NONE))
+    if (systems->crafts->getAssignedNumOfJellies(RecipesAlias::NONE) > 0)
     {
-        systems->jellies->unasign(j);
+        systems->jellies->unasign(jJob);
         systems->crafts->updateAssignments();
         return true;
     }
@@ -56,15 +57,15 @@ void InputHandler::lureJellyfish() const
     systems->jellies->createJellyfish();
 }
 
-void InputHandler::buy(BuildingType t) const
+void InputHandler::buy(BuildingType bType) const
 {
-    systems->ressources->substract(systems->buildings->nextBuyCost(t));
-    systems->buildings->buy(t);
+    systems->ressources->substract(systems->buildings->nextBuyCost(bType));
+    systems->buildings->buy(bType);
 
-    if (systems->buildings->doesIncreasesMaxJellies(t))
+    if (systems->buildings->doesIncreasesMaxJellies(bType))
         updateMaxNumJellies();
 
-    if (systems->buildings->doesIncreasesRessourcesMaxQuantities(t))
+    if (systems->buildings->doesIncreasesRessourcesMaxQuantities(bType))
         updateMaxRessourcesQuantities();
 }
 
@@ -76,21 +77,21 @@ void InputHandler::buy(UpgradeID id) const
 
 void InputHandler::updateMaxNumJellies() const
 {
-    unsigned n = 0;
-    for (const auto &b : systems->buildings->getBuildingTypes())
+    unsigned updatedNum = 0;
+    for (const auto &bType : systems->buildings->getBuildingTypes())
     {
-        n += systems->buildings->getIncreaseToMaxJfish(b);
+        updatedNum += systems->buildings->getIncreaseToMaxJfish(bType);
     }
-    systems->jellies->setBonusMaxJellies(n);
+    systems->jellies->setBonusMaxJellies(updatedNum);
 }
 
 void InputHandler::updateMaxRessourcesQuantities() const
 {
     std::unordered_map<RessourceType, double> newQuantities;
-    for (const auto &b : systems->buildings->getBuildingTypes())
+    for (const auto &bType : systems->buildings->getBuildingTypes())
     {
         for (const auto &[rType, quant] :
-             systems->buildings->getIncreasedStorage(b))
+             systems->buildings->getIncreasedStorage(bType))
         {
             newQuantities[rType] += quant;
         }

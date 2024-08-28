@@ -9,7 +9,7 @@ class JellyfishManager;
 class JellyFishDataView
 {
   public:
-    explicit JellyFishDataView(std::shared_ptr<JellyfishManager>);
+    explicit JellyFishDataView(const std::shared_ptr<JellyfishManager> &);
 
     bool canLure() const;
     std::pair<RessourceType, double> getLureCost() const;

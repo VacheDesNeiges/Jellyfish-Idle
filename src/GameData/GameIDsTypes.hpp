@@ -2,6 +2,8 @@
 #include <compare>
 #include <cstddef>
 #include <functional>
+#include <nlohmann/json.hpp>
+#include <nlohmann/json_fwd.hpp>
 
 enum class QuestLineEnum
 {
@@ -32,6 +34,17 @@ struct RessourceType
         return value;
     }
 };
+
+inline void from_json(const nlohmann::json &json, RessourceType &rType)
+{
+    auto val = json.get<int>();
+    rType = RessourceType(val);
+}
+
+inline void to_json(nlohmann::json &json, const RessourceType &rType)
+{
+    json = nlohmann::json{int(rType)};
+}
 
 template <>
 
@@ -297,9 +310,9 @@ template <>
 
 struct std::hash<MultiplierID>
 {
-    std::size_t operator()(const MultiplierID &r) const noexcept
+    std::size_t operator()(const MultiplierID &multID) const noexcept
     {
-        return std::hash<int>{}(r.value);
+        return std::hash<int>{}(multID.value);
     }
 };
 
@@ -356,7 +369,7 @@ constexpr inline JellyJob ARTISAN{4};
 namespace CulturesAlias
 {
 constexpr inline AquaCultureID NONE{0};
-}
+} // namespace CulturesAlias
 
 namespace UpgradesAlias
 {

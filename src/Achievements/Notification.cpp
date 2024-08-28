@@ -2,7 +2,7 @@
 #include <cassert>
 #include <string_view>
 
-Notification::Notification(const std::string &str) : text(str)
+Notification::Notification(std::string str) : text(std::move(str))
 {
 }
 

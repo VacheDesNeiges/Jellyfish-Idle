@@ -16,7 +16,8 @@
 
 #include <memory>
 
-GameDataView::GameDataView(std::shared_ptr<SystemPtrs> s) : systems(s)
+GameDataView::GameDataView(std::shared_ptr<SystemPtrs> sysPtrs)
+    : systems(sysPtrs)
 
 {
     ressourcesView =

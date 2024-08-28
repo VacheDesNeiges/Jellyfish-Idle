@@ -14,8 +14,7 @@ Upgrade::Upgrade(const nlohmann::json &json)
         description = json.at("Description");
         for (const auto &price : json.at("Cost"))
         {
-            cost.push_back(
-                {RessourceType(price.at("RessourceID")), price.at("Quantity")});
+            cost.emplace_back(price.at("RessourceID")), price.at("Quantity");
         }
 
         if (json.contains("UpgradeDependencyID"))

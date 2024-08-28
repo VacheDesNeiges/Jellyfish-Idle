@@ -2,8 +2,9 @@
 #include "GameIDsTypes.hpp"
 #include "JellyfishManager.hpp"
 
-JellyFishDataView::JellyFishDataView(std::shared_ptr<JellyfishManager> j)
-    : jellies(j)
+JellyFishDataView::JellyFishDataView(
+    const std::shared_ptr<JellyfishManager> &jManager)
+    : jellies(jManager)
 {
 }
 
@@ -12,9 +13,9 @@ unsigned int JellyFishDataView::getNumJellies() const
     return jellies->getNumJellies();
 }
 
-unsigned int JellyFishDataView::getNumJellies(JellyJob j) const
+unsigned int JellyFishDataView::getNumJellies(JellyJob jJob) const
 {
-    return jellies->getNum(j);
+    return jellies->getNum(jJob);
 }
 
 unsigned int JellyFishDataView::getMaxNumJellies() const
@@ -22,24 +23,24 @@ unsigned int JellyFishDataView::getMaxNumJellies() const
     return jellies->getMaxNumJellies();
 }
 
-std::string JellyFishDataView::getJobDescription(JellyJob j) const
+std::string JellyFishDataView::getJobDescription(JellyJob jJob) const
 {
-    return jellies->getJobDescription(j);
+    return jellies->getJobDescription(jJob);
 }
 
-unsigned JellyFishDataView::getJobLevel(JellyJob j) const
+unsigned JellyFishDataView::getJobLevel(JellyJob jJob) const
 {
-    return jellies->getJobLevel(j);
+    return jellies->getJobLevel(jJob);
 }
 
-double JellyFishDataView::getCurrentProgress(JellyJob j) const
+double JellyFishDataView::getCurrentProgress(JellyJob jJob) const
 {
-    return jellies->getJobProgress(j);
+    return jellies->getJobProgress(jJob);
 }
 
-double JellyFishDataView::getProgressNeeded(JellyJob j) const
+double JellyFishDataView::getProgressNeeded(JellyJob jJob) const
 {
-    return jellies->getJobProgressNeeded(j);
+    return jellies->getJobProgressNeeded(jJob);
 }
 
 bool JellyFishDataView::canLure() const

@@ -14,10 +14,10 @@
 #include <cassert>
 #include <memory>
 
-void GameDataAccess::bindDataView(std::shared_ptr<GameDataView> v)
+void GameDataAccess::bindDataView(std::shared_ptr<GameDataView> gameView)
 {
     assert(view == nullptr);
-    view = v;
+    view = gameView;
 }
 
 std::shared_ptr<const GameDataView> GameDataAccess::getDataView() const

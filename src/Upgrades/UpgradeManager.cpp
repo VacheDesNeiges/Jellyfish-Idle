@@ -24,7 +24,7 @@ UpgradeManager::UpgradeManager()
         for (const auto &upgrade : upgradesJson["Upgrades"])
         {
             upgrades.try_emplace(UpgradeID(upgrade.at("ID")), upgrade);
-            upgradeTypes.push_back(UpgradeID(upgrade.at("ID")));
+            upgradeTypes.emplace_back(upgrade.at("ID"));
         }
     }
     catch (nlohmann::json::exception &e)
@@ -48,10 +48,7 @@ bool UpgradeManager::isAvailableForBuying(UpgradeID id) const
         {
             return isBought(depend.value());
         }
-        else
-        {
-            return true;
-        }
+        return true;
     }
     return false;
 }
@@ -102,5 +99,5 @@ void UpgradeManager::loadData(
 
 std::span<const UpgradeID> UpgradeManager::getUpgradesTypes() const
 {
-    return std::span(upgradeTypes);
+    return upgradeTypes;
 }

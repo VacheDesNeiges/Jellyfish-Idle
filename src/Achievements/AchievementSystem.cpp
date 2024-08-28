@@ -125,9 +125,9 @@ void AchievementSystem::checkAchievements()
     }
 }
 
-bool AchievementSystem::isUnlocked(BuildingType t) const
+bool AchievementSystem::isUnlocked(BuildingType bType) const
 {
-    if (const auto ach = idMaps.buildings.find(t);
+    if (const auto ach = idMaps.buildings.find(bType);
         ach != idMaps.buildings.end())
     {
         return achievements.at(ach->second).isUnlocked();
@@ -135,17 +135,17 @@ bool AchievementSystem::isUnlocked(BuildingType t) const
     return true;
 }
 
-bool AchievementSystem::isUnlocked(JellyJob j) const
+bool AchievementSystem::isUnlocked(JellyJob jJob) const
 {
-    if (idMaps.jobs.contains(j))
-        return achievements.at(idMaps.jobs.at(j)).isUnlocked();
+    if (idMaps.jobs.contains(jJob))
+        return achievements.at(idMaps.jobs.at(jJob)).isUnlocked();
     return false;
 }
 
-bool AchievementSystem::isUnlocked(RessourceType r) const
+bool AchievementSystem::isUnlocked(RessourceType rType) const
 {
 
-    if (const auto ach = idMaps.ressources.find(r);
+    if (const auto ach = idMaps.ressources.find(rType);
         ach != idMaps.ressources.end())
     {
         return achievements.at(ach->second).isUnlocked();
@@ -153,9 +153,9 @@ bool AchievementSystem::isUnlocked(RessourceType r) const
     return true;
 }
 
-bool AchievementSystem::isUnlocked(AbilityType t) const
+bool AchievementSystem::isUnlocked(AbilityType abiType) const
 {
-    if (const auto ach = idMaps.abilities.find(t);
+    if (const auto ach = idMaps.abilities.find(abiType);
         ach != idMaps.abilities.end())
     {
         return achievements.at(ach->second).isUnlocked();

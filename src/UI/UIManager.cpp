@@ -8,7 +8,7 @@
 #include <fmt/core.h>
 #include <memory>
 
-void UIManager::bindInputHandler(std::shared_ptr<InputHandler> inputPtr)
+void UIManager::bindInputHandler(const std::shared_ptr<InputHandler> &inputPtr)
 {
     inputHandler = inputPtr;
 

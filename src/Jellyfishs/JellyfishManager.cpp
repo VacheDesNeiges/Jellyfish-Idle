@@ -31,7 +31,7 @@ JellyfishManager::JellyfishManager()
         {
             jobNumbers.try_emplace(JellyJob(job.at("ID")), 0);
             jobExp.try_emplace(JellyJob(job.at("ID")), 1, 0, 100);
-            allJobs.push_back(JellyJob(job.at("ID")));
+            allJobs.emplace_back(job.at("ID"));
             jobDescripions.try_emplace(JellyJob(job.at("ID")),
                                        job.at("Description"));
         }
@@ -71,7 +71,7 @@ void JellyfishManager::updateNumJobs()
     }
 }
 
-bool JellyfishManager::assign(JellyJob j)
+bool JellyfishManager::assign(JellyJob jJob)
 {
     if (jobNumbers[JobsAlias::NONE] == 0)
         return false;
@@ -81,22 +81,23 @@ bool JellyfishManager::assign(JellyJob j)
     if (it == jellies.end())
         return false;
 
-    it->setJob(j);
+    it->setJob(jJob);
     jobNumbers[JobsAlias::NONE] -= 1;
-    jobNumbers[j] += 1;
+    jobNumbers[jJob] += 1;
 
     return true;
 }
 
-bool JellyfishManager::unasign(JellyJob j)
+bool JellyfishManager::unasign(JellyJob jJob)
 {
-    if (jobNumbers[j] == 0)
+    if (jobNumbers[jJob] == 0)
         return false;
 
-    jobNumbers[j] -= 1;
+    jobNumbers[jJob] -= 1;
 
-    auto it = std::ranges::find_if(
-        jellies, [j](const auto &jelly) { return (jelly.getJob() == j); });
+    auto it = std::ranges::find_if(jellies, [jJob](const auto &jelly) {
+        return (jelly.getJob() == jJob);
+    });
 
     if (it == jellies.end())
         return false;
@@ -146,11 +147,11 @@ std::unordered_map<RessourceType, double> JellyfishManager::getProductionRates()
     return result;
 }
 
-std::string JellyfishManager::getJobDescription(JellyJob j) const
+std::string JellyfishManager::getJobDescription(JellyJob jJob) const
 {
 
-    if (jobDescripions.contains(j))
-        return jobDescripions.at(j);
+    if (jobDescripions.contains(jJob))
+        return jobDescripions.at(jJob);
 
     return "Undefined Description";
 }
@@ -163,7 +164,7 @@ JellyfishData JellyfishManager::getData() const
     result.jobNumbers.reserve(jobNumbers.size());
     for (const auto &[job, num] : jobNumbers)
     {
-        result.jobNumbers.push_back({job, num});
+        result.jobNumbers.emplace_back(job, num);
     }
     result.numJellies = static_cast<unsigned>(jellies.size());
 
@@ -195,7 +196,7 @@ void JellyfishManager::loadData(const JellyfishData &data)
 bool JellyfishManager::distributeJobExp()
 {
     bool hasLeveledUp = false;
-    double progressGained;
+    double progressGained{};
 
     for (auto &[job, lvlStruct] : jobExp)
     {

@@ -13,7 +13,7 @@ namespace UIColors
 //-------------------------------------------------
 constexpr ImVec4 RegularText(1, 1, 1, 1);
 constexpr ImVec4 ErrorText(1, 0, 0, 1);
-constexpr ImVec4 GreyedText(0.8f, 0.8f, 0.8f, 1);
+constexpr ImVec4 GreyedText(0.8f, 0.8F, 0.8F, 1);
 constexpr ImVec4 ValidText(0, 1, 0, 1);
 
 // UI Elements Colors

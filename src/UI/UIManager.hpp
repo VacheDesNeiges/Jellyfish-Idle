@@ -18,7 +18,7 @@ class UIManager : public GameDataAccess
 {
   public:
     void renderUI() const;
-    void bindInputHandler(std::shared_ptr<InputHandler>);
+    void bindInputHandler(const std::shared_ptr<InputHandler> &);
 
     void setAtlas(TextureAtlas);
 

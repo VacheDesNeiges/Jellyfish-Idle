@@ -27,7 +27,7 @@ class QuestManager
         QuestLineEnum) const;
     std::vector<std::pair<QuestLineEnum, unsigned>> getData() const override;
     void loadData(
-        const std::vector<std::pair<QuestLineEnum, unsigned>> &) override;
+        const std::vector<std::pair<QuestLineEnum, unsigned>> &data) override;
 
   private:
     std::unordered_map<QuestLineEnum, Questline> questlines;

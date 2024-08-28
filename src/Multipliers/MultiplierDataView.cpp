@@ -2,7 +2,8 @@
 #include "MultipliersRegister.hpp"
 #include <memory>
 
-MultiplierDataView::MultiplierDataView(std::shared_ptr<MultipliersRegister> ptr)
+MultiplierDataView::MultiplierDataView(
+    const std::shared_ptr<MultipliersRegister> &ptr)
     : multipliers(ptr)
 {
 }

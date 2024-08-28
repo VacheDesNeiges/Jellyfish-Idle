@@ -14,6 +14,10 @@ class Multiplier : public GameDataAccess
     virtual ~Multiplier() = default;
     virtual double getMultValue() const = 0;
 
+  protected:
+    double getBaseMultiplier() const;
+
+  private:
     const double baseMultiplier;
 };
 
