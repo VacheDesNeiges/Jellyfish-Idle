@@ -134,7 +134,7 @@ unsigned GardenManager::getTotalFields() const
 
 unsigned GardenManager::getAssignedFields() const
 {
-    return maxFields - assignedFieldsToCultures.at(CulturesAlias::NONE);
+    return getTotalFields() - assignedFieldsToCultures.at(CulturesAlias::NONE);
 }
 
 unsigned GardenManager::getAssignedFieldsToCulture(AquaCultureID c) const

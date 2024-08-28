@@ -30,7 +30,6 @@ void RendererWrapper::initializeSDL()
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) != 0)
     {
         std::cerr << "Error: %s\n" << SDL_GetError();
-        throw std::system_error();
         abort();
     }
 

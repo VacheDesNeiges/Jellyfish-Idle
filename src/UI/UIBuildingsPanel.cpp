@@ -40,7 +40,6 @@ void UIBuildingPanel::render() const
         if (odd)
             ImGui::SameLine();
     }
-
     ImGui::End();
 }
 
