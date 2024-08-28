@@ -36,7 +36,8 @@ constexpr ImVec4 NotificationBG(0.132f, 0.132f, 0.209f, 1.000f);
 namespace UIConstants
 {
 constexpr auto UIBuildingButtonSize = ImVec2{300.f, 35.f};
-}
+constexpr auto UITooltipSize = ImVec2{300, -1};
+} // namespace UIConstants
 
 namespace UIUtils
 {

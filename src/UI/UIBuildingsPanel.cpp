@@ -70,7 +70,7 @@ void UIBuildingPanel::setToolTip(BuildingType building) const
 {
     ImGui::PushStyleColor(ImGuiCol_Separator,
                           ImVec4(0.766f, 0.720f, 0.741f, 0.224f));
-    ImGui::SetNextWindowSize({300, -1});
+    ImGui::SetNextWindowSize(UIConstants::UITooltipSize);
 
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNone |
                              ImGuiHoveredFlags_AllowWhenDisabled) &&
@@ -103,7 +103,7 @@ bool UIBuildingPanel::renderJellyfishLuringButton() const
             inputHandler->lureJellyfish();
         }
         ImGui::EndDisabled();
-        ImGui::SetNextWindowSize({300, -1});
+        ImGui::SetNextWindowSize(UIConstants::UITooltipSize);
 
         if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNone |
                                  ImGuiHoveredFlags_AllowWhenDisabled) &&
