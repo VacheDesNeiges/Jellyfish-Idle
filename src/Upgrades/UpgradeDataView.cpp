@@ -6,9 +6,9 @@
 
 #include <memory>
 
-UpgradeDataView::UpgradeDataView(std::shared_ptr<UpgradeManager> u,
-                                 std::shared_ptr<RessourceManager> r)
-    : upgrades(u), ressources(r)
+UpgradeDataView::UpgradeDataView(std::shared_ptr<UpgradeManager> uManager,
+                                 std::shared_ptr<RessourceManager> rManager)
+    : upgrades(uManager), ressources(rManager)
 {
 }
 

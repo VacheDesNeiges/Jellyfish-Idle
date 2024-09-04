@@ -50,8 +50,8 @@ void UIManager::renderUI() const
     notifications.render();
 }
 
-void UIManager::setAtlas(TextureAtlas t)
+void UIManager::setAtlas(TextureAtlas textureAtlas)
 {
-    atlas = std::move(t);
+    atlas = std::move(textureAtlas);
     jobsPanel.loopButtonTexture = atlas.loopButton;
 }

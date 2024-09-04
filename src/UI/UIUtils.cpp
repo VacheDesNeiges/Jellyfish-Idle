@@ -70,8 +70,8 @@ void UIUtils::printCostsImGui(
     {
         auto currentQuantity = rView->getRessourceQuantity(ressource);
         auto ressourceName = rView->getRessourceName(ressource);
-        std::string formatedResourceQuant = "";
-        std::string formatedTime = "";
+        std::string formatedResourceQuant;
+        std::string formatedTime;
         if (cost > rView->getRessourceMaxQuantity(ressource))
         {
             textColor = UIColors::ErrorText;
@@ -132,7 +132,7 @@ std::string UIUtils::formatRemainingTime(double currentQuantity, double target,
     secondsUntilTargetMet -= (60 * minutes);
     auto seconds = std::floor(secondsUntilTargetMet);
 
-    std::string formatedString = "";
+    std::string formatedString;
     if (hours > 0)
         formatedString += fmt::format("{} hours", hours);
     if (minutes > 0)

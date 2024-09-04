@@ -16,7 +16,9 @@ class Game
     Game();
     ~Game() = default;
     Game(Game &) = delete;
+    Game(Game &&) = delete;
     Game &operator=(Game &) = delete;
+    Game &operator=(Game &&) = delete;
 
     void run(std::optional<std::string_view>);
 

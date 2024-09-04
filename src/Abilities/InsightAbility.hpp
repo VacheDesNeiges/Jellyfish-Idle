@@ -2,7 +2,6 @@
 #include "GameDataAccess.hpp"
 #include "GameIDsTypes.hpp"
 
-#include <memory>
 #include <nlohmann/json.hpp>
 #include <string>
 #include <vector>
@@ -10,9 +9,7 @@
 class InsightAbility : public GameDataAccess
 {
   public:
-    InsightAbility() = default;
     explicit InsightAbility(const nlohmann::json &);
-    ~InsightAbility() = default;
     std::string getDescription() const;
     std::string getName() const;
     std::vector<std::pair<RessourceType, double>> getCost() const;
@@ -25,10 +22,4 @@ class InsightAbility : public GameDataAccess
     std::vector<std::pair<RessourceType, double>> baseRessourcesGained;
 
     friend class CallThunder;
-};
-
-class AbilityFactory
-{
-  public:
-    static std::unique_ptr<InsightAbility> createAbilityInstance(AbilityType t);
 };

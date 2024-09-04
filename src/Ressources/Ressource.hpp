@@ -11,6 +11,12 @@ class Ressource
     Ressource() = default;
     explicit Ressource(const nlohmann::json &);
     ~Ressource() = default;
+
+    Ressource(const Ressource &) = default;
+    Ressource(Ressource &&) = delete;
+    Ressource &operator=(const Ressource &) = default;
+    Ressource &operator=(Ressource &&) = default;
+
     void add(double n);
     double getCurrentQuantity() const;
     double getMaxQuantity() const;

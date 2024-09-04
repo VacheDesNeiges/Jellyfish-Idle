@@ -19,7 +19,11 @@ class AchievementSystem
 {
   public:
     AchievementSystem();
-    ~AchievementSystem() = default;
+    virtual ~AchievementSystem() = default;
+    AchievementSystem(const AchievementSystem &) = delete;
+    AchievementSystem(AchievementSystem &&) = delete;
+    AchievementSystem &operator=(const AchievementSystem &) = delete;
+    AchievementSystem &operator=(AchievementSystem &&) = delete;
 
     bool isUnlocked(AchievementIDs) const;
     bool isUnlocked(BuildingType) const;

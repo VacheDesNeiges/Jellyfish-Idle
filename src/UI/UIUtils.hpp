@@ -45,8 +45,8 @@ namespace UIUtils
 void setBaseUITheme();
 
 void printCostsImGui(
-    std::shared_ptr<const RessourceDataView> gData,
-    const std::vector<std::pair<RessourceType, double>> &ressourcesNeeded);
+    std::shared_ptr<const RessourceDataView> rView,
+    const std::vector<std::pair<RessourceType, double>> &ressourcesCost);
 
 std::string formatQuantity(double quantity);
 std::string formatQuantity(double quantity, double maxQuantity);

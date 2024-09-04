@@ -5,7 +5,7 @@
 
 #include <memory>
 
-CraftDataView::CraftDataView(std::shared_ptr<CraftingManager> cManager)
+CraftDataView::CraftDataView(const std::shared_ptr<CraftingManager> &cManager)
     : crafts(cManager)
 {
 }

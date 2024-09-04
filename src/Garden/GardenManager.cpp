@@ -29,7 +29,7 @@ GardenManager::GardenManager()
         {
             cultures.try_emplace(AquaCultureID(culture.at("ID")), culture);
             assignedFieldsToCultures[AquaCultureID(culture.at("ID"))] = 0;
-            cultureTypes.emplace_back((culture.at("ID")));
+            cultureTypes.emplace_back(culture.at("ID"));
         }
     }
     catch (nlohmann::json::exception &e)
@@ -137,9 +137,10 @@ unsigned GardenManager::getAssignedFields() const
     return getTotalFields() - assignedFieldsToCultures.at(CulturesAlias::NONE);
 }
 
-unsigned GardenManager::getAssignedFieldsToCulture(AquaCultureID c) const
+unsigned GardenManager::getAssignedFieldsToCulture(
+    AquaCultureID cultureID) const
 {
-    return assignedFieldsToCultures.at(c);
+    return assignedFieldsToCultures.at(cultureID);
 }
 
 bool GardenManager::assign(AquaCultureID id)

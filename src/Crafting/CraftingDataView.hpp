@@ -11,7 +11,7 @@ class CraftingManager;
 class CraftDataView
 {
   public:
-    explicit CraftDataView(std::shared_ptr<CraftingManager>);
+    explicit CraftDataView(const std::shared_ptr<CraftingManager> &);
     unsigned getRemainingTicks(RecipeID) const;
     unsigned getTotalRequiredTicks(RecipeID) const;
     unsigned getAssignedNumOfJellies(RecipeID) const;
