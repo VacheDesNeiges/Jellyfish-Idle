@@ -14,15 +14,14 @@ InsightAbility::InsightAbility(const nlohmann::json &data)
 
         for (const auto &cost : data.at("Cost"))
         {
-            castingCost.push_back(
-                {RessourceType(cost.at("RessourceID")), cost.at("Quantity")});
+            castingCost.emplace_back(RessourceType(cost.at("RessourceID")),
+                                     cost.at("Quantity"));
         }
 
         for (const auto &effect : data.at("Effect"))
         {
-            baseRessourcesGained.push_back(
-                {RessourceType(effect.at("RessourceID")),
-                 effect.at("Quantity")});
+            baseRessourcesGained.emplace_back(
+                RessourceType(effect.at("RessourceID")), effect.at("Quantity"));
         }
     }
     catch (nlohmann::json::exception &e)

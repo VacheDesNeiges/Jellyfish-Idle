@@ -1,6 +1,5 @@
 #include "DepthSystem.hpp"
 #include <cmath>
-#include <math.h>
 
 unsigned DepthSystem::getCurrentDepth() const
 {

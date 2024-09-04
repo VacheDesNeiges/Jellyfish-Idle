@@ -19,7 +19,7 @@ AbilityManager::AbilityManager()
         for (const auto &ability : abilitiesJson["Ability"])
         {
             abilities.try_emplace(AbilityType(ability.at("ID")), ability);
-            abilitiesTypes.push_back(AbilityType(ability.at("ID")));
+            abilitiesTypes.emplace_back(ability.at("ID"));
         }
     }
     catch (nlohmann::json::exception &e)
@@ -29,10 +29,10 @@ AbilityManager::AbilityManager()
     }
 }
 
-bool AbilityManager::isUsable(AbilityType t) const
+bool AbilityManager::isUsable(AbilityType abiType) const
 {
     bool buyable = true;
-    for (const auto &[ressource, cost] : abilities.at(t).getCost())
+    for (const auto &[ressource, cost] : abilities.at(abiType).getCost())
     {
 
         if (!buyable)
@@ -47,28 +47,28 @@ bool AbilityManager::isUsable(AbilityType t) const
 }
 
 std::vector<std::pair<RessourceType, double>> AbilityManager::getAbilityCost(
-    AbilityType t) const
+    AbilityType abiType) const
 {
-    return abilities.at(t).getCost();
+    return abilities.at(abiType).getCost();
 }
 
 std::vector<std::pair<RessourceType, double>> AbilityManager::getProduction(
-    AbilityType t) const
+    AbilityType abiType) const
 {
-    return abilities.at(t).getProduction();
+    return abilities.at(abiType).getProduction();
 }
 
-std::string AbilityManager::getAbilityName(AbilityType t) const
+std::string AbilityManager::getAbilityName(AbilityType abiType) const
 {
-    return abilities.at(t).getName();
+    return abilities.at(abiType).getName();
 }
 
-std::string AbilityManager::getAbilityDescription(AbilityType t) const
+std::string AbilityManager::getAbilityDescription(AbilityType abiType) const
 {
-    return abilities.at(t).getDescription();
+    return abilities.at(abiType).getDescription();
 }
 
 std::span<const AbilityType> AbilityManager::getAllAbilityTypes() const
 {
-    return std::span(abilitiesTypes);
+    return abilitiesTypes;
 }

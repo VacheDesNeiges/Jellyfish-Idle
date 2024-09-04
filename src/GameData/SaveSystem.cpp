@@ -45,7 +45,7 @@ void SaveSystem::save(const SaveData &data)
         for (const auto &[jobID, num] : data.jellies.jobNumbers)
         {
             json["Jellies"]["Jobs"].push_back(
-                {{"id", jobID.value}, {"num", num}});
+                {{"id", int(jobID)}, {"num", num}});
         }
     }
     catch (nlohmann::json::exception &e)
@@ -184,9 +184,9 @@ SaveData SaveSystem::loadFromFile(std::string path)
 
         for (const auto &job : data.at("Jellies").at("Jobs"))
         {
-            result.jellies.jobNumbers.push_back(
-                {JellyJob(job.at("id").get<int>()),
-                 job.at("num").get<unsigned>()});
+            result.jellies.jobNumbers.emplace_back(
+                JellyJob(job.at("id").get<int>()),
+                job.at("num").get<unsigned>());
         }
     }
     catch (nlohmann::json::exception &e)

@@ -21,10 +21,13 @@ class Game
     void run(std::optional<std::string_view>);
 
   private:
+    const unsigned frameRenderingInterval{15};
+    const std::chrono::milliseconds frameInterval{500};
+
     void eventThread();
     bool processEvent(const SDL_Event &) const;
     void renderFrame();
-    std::atomic<bool> done = false;
+    std::atomic<bool> done{false};
 
     UIManager ui;
     GameSystems gameSystems;

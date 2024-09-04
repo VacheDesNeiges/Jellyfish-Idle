@@ -11,8 +11,8 @@ Achievement::Achievement(const nlohmann::json &json)
 
         if (condition.contains("Job"))
         {
-            jobsCondition.push_back(
-                {JellyJob{condition.at("Job")}, condition.at("NumAssigned")});
+            jobsCondition.emplace_back(JellyJob{condition.at("Job")},
+                                       condition.at("NumAssigned"));
             continue;
         }
 
@@ -30,28 +30,27 @@ Achievement::Achievement(const nlohmann::json &json)
 
         if (condition.contains("AchievementID"))
         {
-            achievementsCondition.push_back(
-                AchievementIDs(condition.at("AchievementID")));
+            achievementsCondition.emplace_back(condition.at("AchievementID"));
             continue;
         }
 
         if (condition.contains("UpgradeID"))
         {
-            upgradeCondition.push_back(UpgradeID(condition.at("UpgradeID")));
+            upgradeCondition.emplace_back(condition.at("UpgradeID"));
             continue;
         }
 
         if (condition.contains("RessourceID"))
         {
-            ressourceCondition.push_back(std::pair<RessourceType, int>{
-                condition.at("RessourceID"), condition.at("Quantity_GT")});
+            ressourceCondition.emplace_back(condition.at("RessourceID"),
+                                            condition.at("Quantity_GT"));
             continue;
         }
 
         if (condition.contains("BuildingID"))
         {
-            buildingsCondition.push_back(std::pair<BuildingType, unsigned>{
-                condition.at("BuildingID"), condition.at("MinQuantity")});
+            buildingsCondition.emplace_back(condition.at("BuildingID"),
+                                            condition.at("MinQuantity"));
             continue;
         }
         if (condition.contains("AnyOf"))
@@ -68,9 +67,9 @@ Achievement::Achievement(const nlohmann::json &json)
         }
         if (condition.contains("Questline"))
         {
-            questCondition.push_back(
-                {static_cast<QuestLineEnum>(condition.at("Questline")),
-                 condition.at("QuestNumber")});
+            questCondition.emplace_back(
+                static_cast<QuestLineEnum>(condition.at("Questline")),
+                condition.at("QuestNumber"));
             continue;
         }
     }
@@ -86,9 +85,9 @@ void Achievement::unlock()
     unlocked = true;
 }
 
-void Achievement::setState(bool b)
+void Achievement::setState(bool newState)
 {
-    unlocked = b;
+    unlocked = newState;
 }
 
 bool Achievement::ressourcesConditionsMet() const

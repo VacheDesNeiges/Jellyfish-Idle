@@ -5,16 +5,17 @@
 #include "RessourceManager.hpp"
 #include <memory>
 
-AbilityDataView::AbilityDataView(std::shared_ptr<AbilityManager> a,
-                                 std::shared_ptr<RessourceManager> r)
-    : abilities(a), ressources(r)
+AbilityDataView::AbilityDataView(
+    const std::shared_ptr<AbilityManager> &aManager,
+    const std::shared_ptr<RessourceManager> &rManager)
+    : abilities(aManager), ressources(rManager)
 {
 }
 
-bool AbilityDataView::isUsable(AbilityType t) const
+bool AbilityDataView::isUsable(AbilityType abiType) const
 {
     bool result = true;
-    for (const auto &[rType, quant] : abilities->getAbilityCost(t))
+    for (const auto &[rType, quant] : abilities->getAbilityCost(abiType))
     {
         if (ressources->getCurrentQuantity(rType) < quant)
             result = false;
@@ -23,20 +24,20 @@ bool AbilityDataView::isUsable(AbilityType t) const
     return result;
 }
 
-std::string AbilityDataView::getAbilityName(AbilityType t) const
+std::string AbilityDataView::getAbilityName(AbilityType abiType) const
 {
-    return abilities->getAbilityName(t);
+    return abilities->getAbilityName(abiType);
 }
 
-std::string AbilityDataView::getAbilityDescription(AbilityType t) const
+std::string AbilityDataView::getAbilityDescription(AbilityType abiType) const
 {
-    return abilities->getAbilityDescription(t);
+    return abilities->getAbilityDescription(abiType);
 }
 
 std::vector<std::pair<RessourceType, double>> AbilityDataView::getCost(
-    AbilityType t) const
+    AbilityType abiType) const
 {
-    return abilities->getAbilityCost(t);
+    return abilities->getAbilityCost(abiType);
 }
 
 std::span<const AbilityType> AbilityDataView::getAbilityTypes() const

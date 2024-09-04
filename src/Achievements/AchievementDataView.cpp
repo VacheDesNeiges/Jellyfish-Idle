@@ -5,8 +5,9 @@
 #include <optional>
 #include <string_view>
 
-AchievementDataView::AchievementDataView(std::shared_ptr<AchievementSystem> a)
-    : achievements(a)
+AchievementDataView::AchievementDataView(
+    std::shared_ptr<AchievementSystem> achievementsSystem)
+    : achievements(achievementsSystem)
 {
 }
 
@@ -15,24 +16,24 @@ bool AchievementDataView::isUnlocked(AchievementIDs id) const
     return achievements->isUnlocked(id);
 }
 
-bool AchievementDataView::isUnlocked(BuildingType t) const
+bool AchievementDataView::isUnlocked(BuildingType bType) const
 {
-    return achievements->isUnlocked(t);
+    return achievements->isUnlocked(bType);
 }
 
-bool AchievementDataView::isUnlocked(JellyJob j) const
+bool AchievementDataView::isUnlocked(JellyJob bType) const
 {
-    return achievements->isUnlocked(j);
+    return achievements->isUnlocked(bType);
 }
 
-bool AchievementDataView::isUnlocked(RessourceType r) const
+bool AchievementDataView::isUnlocked(RessourceType rType) const
 {
-    return achievements->isUnlocked(r);
+    return achievements->isUnlocked(rType);
 }
 
-bool AchievementDataView::isUnlocked(AbilityType t) const
+bool AchievementDataView::isUnlocked(AbilityType abiType) const
 {
-    return achievements->isUnlocked(t);
+    return achievements->isUnlocked(abiType);
 }
 
 bool AchievementDataView::isUnlocked(UpgradeID id) const
@@ -40,9 +41,9 @@ bool AchievementDataView::isUnlocked(UpgradeID id) const
     return achievements->isUnlocked(id);
 }
 
-bool AchievementDataView::isUnlocked(AquaCultureID id) const
+bool AchievementDataView::isUnlocked(AquaCultureID cultureID) const
 {
-    return achievements->isUnlocked(id);
+    return achievements->isUnlocked(cultureID);
 }
 
 std::optional<std::string_view> AchievementDataView::getNextNotification() const

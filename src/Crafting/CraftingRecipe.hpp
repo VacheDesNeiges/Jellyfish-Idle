@@ -30,7 +30,7 @@ class CraftingRecipe : public SaveAndLoadable<RecipeSaveData>
 {
   public:
     explicit CraftingRecipe(const nlohmann::json &);
-    ~CraftingRecipe() override = default;
+    ~CraftingRecipe() = default;
 
     unsigned getRecipelvl() const;
     void start();

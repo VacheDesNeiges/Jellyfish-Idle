@@ -17,7 +17,7 @@ class GardenManager final
 
   public:
     GardenManager();
-    ~GardenManager() override = default;
+    ~GardenManager() = default;
 
     void startCulture(AquaCultureID);
     void cancelCulture(AquaCultureID);

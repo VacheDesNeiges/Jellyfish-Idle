@@ -19,12 +19,11 @@ enum class QuestLineEnum
  */
 struct RessourceType
 {
-    int value;
-
     RessourceType() : value(0)
     {
     }
-    constexpr explicit RessourceType(int x) : value(x){};
+
+    constexpr explicit RessourceType(int intValue) : value(intValue){};
 
     friend std::strong_ordering operator<=>(const RessourceType &lhs,
                                             const RessourceType &rhs) = default;
@@ -33,6 +32,9 @@ struct RessourceType
     {
         return value;
     }
+
+  private:
+    int value;
 };
 
 inline void from_json(const nlohmann::json &json, RessourceType &rType)
@@ -50,9 +52,9 @@ template <>
 
 struct std::hash<RessourceType>
 {
-    std::size_t operator()(const RessourceType &r) const noexcept
+    std::size_t operator()(const RessourceType &rType) const noexcept
     {
-        return std::hash<int>{}(r.value);
+        return std::hash<int>{}(int(rType));
     }
 };
 
@@ -64,11 +66,10 @@ struct std::hash<RessourceType>
  */
 struct BuildingType
 {
-    int value;
     BuildingType() : value(0)
     {
     }
-    constexpr explicit BuildingType(int x) : value(x){};
+    constexpr explicit BuildingType(int bType) : value(bType){};
 
     friend std::strong_ordering operator<=>(const BuildingType &lhs,
                                             const BuildingType &rhs) = default;
@@ -76,15 +77,18 @@ struct BuildingType
     {
         return value;
     }
+
+  private:
+    int value;
 };
 
 template <>
 
 struct std::hash<BuildingType>
 {
-    std::size_t operator()(const BuildingType &b) const noexcept
+    std::size_t operator()(const BuildingType &bType) const noexcept
     {
-        return std::hash<int>{}(b.value);
+        return std::hash<int>{}(int(bType));
     }
 };
 
@@ -95,11 +99,10 @@ struct std::hash<BuildingType>
  */
 struct AchievementIDs
 {
-    int value;
     AchievementIDs() : value(0)
     {
     }
-    constexpr explicit AchievementIDs(int x) : value(x){};
+    constexpr explicit AchievementIDs(int achievID) : value(achievID){};
 
     friend std::strong_ordering operator<=>(
         const AchievementIDs &lhs, const AchievementIDs &rhs) = default;
@@ -108,15 +111,18 @@ struct AchievementIDs
     {
         return value;
     }
+
+  private:
+    int value;
 };
 
 template <>
 
 struct std::hash<AchievementIDs>
 {
-    std::size_t operator()(const AchievementIDs &b) const noexcept
+    std::size_t operator()(const AchievementIDs &achievID) const noexcept
     {
-        return std::hash<int>{}(b.value);
+        return std::hash<int>{}(int(achievID));
     }
 };
 
@@ -127,11 +133,10 @@ struct std::hash<AchievementIDs>
  */
 struct AbilityType
 {
-    int value;
     AbilityType() : value(0)
     {
     }
-    constexpr explicit AbilityType(int x) : value(x){};
+    constexpr explicit AbilityType(int abiType) : value(abiType){};
 
     friend std::strong_ordering operator<=>(const AbilityType &lhs,
                                             const AbilityType &rhs) = default;
@@ -140,15 +145,18 @@ struct AbilityType
     {
         return value;
     }
+
+  private:
+    int value;
 };
 
 template <>
 
 struct std::hash<AbilityType>
 {
-    std::size_t operator()(const AbilityType &a) const noexcept
+    std::size_t operator()(const AbilityType &abiType) const noexcept
     {
-        return std::hash<int>{}(a.value);
+        return std::hash<int>{}(int(abiType));
     }
 };
 
@@ -159,11 +167,10 @@ struct std::hash<AbilityType>
  */
 struct JellyJob
 {
-    int value;
     JellyJob() : value(0)
     {
     }
-    constexpr explicit JellyJob(int x) : value(x){};
+    constexpr explicit JellyJob(int jJob) : value(jJob){};
 
     friend std::strong_ordering operator<=>(const JellyJob &lhs,
                                             const JellyJob &rhs) = default;
@@ -172,15 +179,18 @@ struct JellyJob
     {
         return value;
     }
+
+  private:
+    int value;
 };
 
 template <>
 
 struct std::hash<JellyJob>
 {
-    std::size_t operator()(const JellyJob &a) const noexcept
+    std::size_t operator()(const JellyJob &jJob) const noexcept
     {
-        return std::hash<int>{}(a.value);
+        return std::hash<int>{}(int(jJob));
     }
 };
 
@@ -191,11 +201,10 @@ struct std::hash<JellyJob>
  */
 struct AquaCultureID
 {
-    int value;
     AquaCultureID() : value(0)
     {
     }
-    constexpr explicit AquaCultureID(int x) : value(x){};
+    constexpr explicit AquaCultureID(int cultureID) : value(cultureID){};
 
     friend std::strong_ordering operator<=>(const AquaCultureID &lhs,
                                             const AquaCultureID &rhs) = default;
@@ -204,15 +213,18 @@ struct AquaCultureID
     {
         return value;
     }
+
+  private:
+    int value;
 };
 
 template <>
 
 struct std::hash<AquaCultureID>
 {
-    std::size_t operator()(const AquaCultureID &a) const noexcept
+    std::size_t operator()(const AquaCultureID &cultureID) const noexcept
     {
-        return std::hash<int>{}(a.value);
+        return std::hash<int>{}(int(cultureID));
     }
 };
 
@@ -223,11 +235,10 @@ struct std::hash<AquaCultureID>
  */
 struct UpgradeID
 {
-    int value;
     UpgradeID() : value(0)
     {
     }
-    constexpr explicit UpgradeID(int x) : value(x){};
+    constexpr explicit UpgradeID(int upgrID) : value(upgrID){};
 
     friend std::strong_ordering operator<=>(const UpgradeID &lhs,
                                             const UpgradeID &rhs) = default;
@@ -236,15 +247,18 @@ struct UpgradeID
     {
         return value;
     }
+
+  private:
+    int value;
 };
 
 template <>
 
 struct std::hash<UpgradeID>
 {
-    std::size_t operator()(const UpgradeID &a) const noexcept
+    std::size_t operator()(const UpgradeID &upgrID) const noexcept
     {
-        return std::hash<int>{}(a.value);
+        return std::hash<int>{}(int(upgrID));
     }
 };
 
@@ -256,12 +270,11 @@ struct std::hash<UpgradeID>
  */
 struct RecipeID
 {
-    int value;
 
     RecipeID() : value(0)
     {
     }
-    constexpr explicit RecipeID(int x) : value(x){};
+    constexpr explicit RecipeID(int recipeID) : value(recipeID){};
 
     friend std::strong_ordering operator<=>(const RecipeID &lhs,
                                             const RecipeID &rhs) = default;
@@ -270,15 +283,18 @@ struct RecipeID
     {
         return value;
     }
+
+  private:
+    int value;
 };
 
 template <>
 
 struct std::hash<RecipeID>
 {
-    std::size_t operator()(const RecipeID &r) const noexcept
+    std::size_t operator()(const RecipeID &recipeID) const noexcept
     {
-        return std::hash<int>{}(r.value);
+        return std::hash<int>{}(int(recipeID));
     }
 };
 
@@ -290,12 +306,11 @@ struct std::hash<RecipeID>
  */
 struct MultiplierID
 {
-    int value;
 
     MultiplierID() : value(0)
     {
     }
-    constexpr explicit MultiplierID(int x) : value(x){};
+    constexpr explicit MultiplierID(int multID) : value(multID){};
 
     friend std::strong_ordering operator<=>(const MultiplierID &lhs,
                                             const MultiplierID &rhs) = default;
@@ -304,6 +319,9 @@ struct MultiplierID
     {
         return value;
     }
+
+  private:
+    int value;
 };
 
 template <>
@@ -312,7 +330,7 @@ struct std::hash<MultiplierID>
 {
     std::size_t operator()(const MultiplierID &multID) const noexcept
     {
-        return std::hash<int>{}(multID.value);
+        return std::hash<int>{}(int(multID));
     }
 };
 

@@ -144,9 +144,9 @@ void RessourceManager::addToProdPerTick(RessourceType rType, double n)
     }
 }
 
-double RessourceManager::getNetProduction(RessourceType t) const
+double RessourceManager::getNetProduction(RessourceType rType) const
 {
-    return ressources.at(t).getNetProduction();
+    return ressources.at(rType).getNetProduction();
 }
 
 void RessourceManager::consume(
@@ -217,14 +217,14 @@ void RessourceManager::loadData(
     }
 }
 
-double RessourceManager::getProduction(RessourceType t) const
+double RessourceManager::getProduction(RessourceType rType) const
 {
-    return ressources.at(t).getProduction();
+    return ressources.at(rType).getProduction();
 }
 
-double RessourceManager::getConsumption(RessourceType t) const
+double RessourceManager::getConsumption(RessourceType rType) const
 {
-    return ressources.at(t).getConsumption();
+    return ressources.at(rType).getConsumption();
 }
 
 std::span<const RessourceType> RessourceManager::getAllRessourceTypes() const

@@ -13,7 +13,7 @@ class CraftingManager final
 {
   public:
     CraftingManager();
-    ~CraftingManager() override = default;
+    ~CraftingManager() = default;
 
     bool assign(RecipeID);
     bool unasign(RecipeID);

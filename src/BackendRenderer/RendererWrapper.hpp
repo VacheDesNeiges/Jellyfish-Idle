@@ -10,6 +10,10 @@ class RendererWrapper
 {
   public:
     RendererWrapper();
+    RendererWrapper(const RendererWrapper &) = delete;
+    RendererWrapper(RendererWrapper &&) = delete;
+    RendererWrapper &operator=(const RendererWrapper &) = delete;
+    RendererWrapper &operator=(RendererWrapper &&) = delete;
     ~RendererWrapper();
 
     void startRenderingNewFrame() const;

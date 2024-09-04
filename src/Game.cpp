@@ -7,7 +7,6 @@
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_surface.h>
 #include <SDL2/SDL_video.h>
-#include <gtest/gtest.h>
 #include <linux/limits.h>
 
 #include <cassert>
@@ -43,19 +42,18 @@ void Game::run(std::optional<std::string_view> option)
         gameSystems.loadSave(std::string(FilePaths::getPath()));
     }
 
-    constexpr std::chrono::milliseconds interval(500);
-    auto nextTick = std::chrono::high_resolution_clock::now() + interval;
-
+    auto nextTick = std::chrono::high_resolution_clock::now() + frameInterval;
     std::jthread eventHandler(&Game::eventThread, this);
     while (!done)
     {
         if (std::chrono::high_resolution_clock::now() >= nextTick)
         {
             gameSystems.gameTick();
-            nextTick += interval;
+            nextTick += frameInterval;
         }
         renderFrame();
-        std::this_thread::sleep_for(std::chrono::milliseconds(15));
+        std::this_thread::sleep_for(
+            std::chrono::milliseconds(frameRenderingInterval));
     }
     gameSystems.save();
 }
@@ -73,10 +71,11 @@ void Game::eventThread()
 
     while (!done)
     {
-        while (SDL_PollEvent(&event))
+        while (SDL_PollEvent(&event) > 0)
         {
             done = wrappedRenderer.processEvent(event);
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(15));
+        std::this_thread::sleep_for(
+            std::chrono::milliseconds(frameRenderingInterval));
     }
 }

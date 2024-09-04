@@ -18,7 +18,7 @@ class DepthSystem : public GameDataAccess, public SaveAndLoadable<DepthData>
     void ExploreDepth(unsigned nJellies);
 
     DepthData getData() const override;
-    void loadData(const DepthData &) override;
+    void loadData(const DepthData &data) override;
 
   private:
     float currentProgress = 0;

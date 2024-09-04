@@ -4,34 +4,34 @@
 #include <utility>
 #include <vector>
 
-RessourceDataView::RessourceDataView(std::shared_ptr<RessourceManager> r)
-    : ressources(r)
+RessourceDataView::RessourceDataView(std::shared_ptr<RessourceManager> rManager)
+    : ressources(rManager)
 {
 }
 
-double RessourceDataView::getRessourceProduction(RessourceType r) const
+double RessourceDataView::getRessourceProduction(RessourceType rType) const
 {
-    return ressources->getProduction(r);
+    return ressources->getProduction(rType);
 }
 
-double RessourceDataView::getRessourceConsumption(RessourceType r) const
+double RessourceDataView::getRessourceConsumption(RessourceType rType) const
 {
-    return ressources->getConsumption(r);
+    return ressources->getConsumption(rType);
 }
 
-std::string_view RessourceDataView::getRessourceName(RessourceType r) const
+std::string_view RessourceDataView::getRessourceName(RessourceType rType) const
 {
-    return ressources->getName(r);
+    return ressources->getName(rType);
 }
 
-double RessourceDataView::getRessourceQuantity(RessourceType t) const
+double RessourceDataView::getRessourceQuantity(RessourceType rType) const
 {
-    return ressources->getCurrentQuantity(t);
+    return ressources->getCurrentQuantity(rType);
 }
 
-double RessourceDataView::getRessourceMaxQuantity(RessourceType t) const
+double RessourceDataView::getRessourceMaxQuantity(RessourceType rType) const
 {
-    return ressources->getMaxQuantity(t);
+    return ressources->getMaxQuantity(rType);
 }
 
 std::span<const RessourceType> RessourceDataView::getRegularRessourceTypes()

@@ -14,8 +14,6 @@ class Building : public GameDataAccess
     Building() = default;
     explicit Building(const nlohmann::json &);
 
-    ~Building() = default;
-
     void buy();
     void update();
 

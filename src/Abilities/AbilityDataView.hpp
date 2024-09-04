@@ -10,8 +10,8 @@ class RessourceManager;
 class AbilityDataView
 {
   public:
-    explicit AbilityDataView(std::shared_ptr<AbilityManager>,
-                             std::shared_ptr<RessourceManager>);
+    explicit AbilityDataView(const std::shared_ptr<AbilityManager> &,
+                             const std::shared_ptr<RessourceManager> &);
 
     std::string getAbilityName(AbilityType) const;
     std::string getAbilityDescription(AbilityType) const;

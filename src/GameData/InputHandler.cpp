@@ -159,9 +159,9 @@ void InputHandler::removeCurrentNotification() const
     systems->achievements->popNotification();
 }
 
-void InputHandler::setKeepCraftingMode(RecipeID id, bool b) const
+void InputHandler::setKeepCraftingMode(RecipeID id, bool keepCrafting) const
 {
-    systems->crafts->setKeepCraftingMode(id, b);
+    systems->crafts->setKeepCraftingMode(id, keepCrafting);
 }
 
 bool InputHandler::completeQuest(QuestLineEnum ql) const

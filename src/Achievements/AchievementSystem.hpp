@@ -19,7 +19,7 @@ class AchievementSystem
 {
   public:
     AchievementSystem();
-    ~AchievementSystem() override = default;
+    ~AchievementSystem() = default;
 
     bool isUnlocked(AchievementIDs) const;
     bool isUnlocked(BuildingType) const;

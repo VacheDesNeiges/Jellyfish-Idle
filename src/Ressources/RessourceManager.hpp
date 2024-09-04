@@ -9,12 +9,14 @@
 #include <utility>
 #include <vector>
 
-class RessourceManager
+class RessourceManager final
     : public GameDataAccess,
       public SaveAndLoadable<std::vector<std::pair<RessourceType, double>>>
 {
   public:
     RessourceManager();
+    ~RessourceManager() = default;
+
     void init();
 
     void gatherSand();

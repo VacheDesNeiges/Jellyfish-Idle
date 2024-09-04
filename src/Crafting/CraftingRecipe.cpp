@@ -158,7 +158,7 @@ bool CraftingRecipe::hasKeepCraftingEnabled() const
     return keepCraftingMode;
 }
 
-void CraftingRecipe::setKeepCraftingMode(bool b)
+void CraftingRecipe::setKeepCraftingMode(bool newMode)
 {
-    keepCraftingMode = b;
+    keepCraftingMode = newMode;
 }

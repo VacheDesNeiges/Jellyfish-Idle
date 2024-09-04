@@ -2,9 +2,9 @@
 
 #include "GameIDsTypes.hpp"
 
+#include <cmath>
 #include <fmt/core.h>
 #include <iostream>
-#include <math.h>
 #include <utility>
 #include <vector>
 
@@ -45,9 +45,9 @@ Building::Building(const nlohmann::json &data)
                 baseIncreasedStorage.try_emplace(
                     RessourceType(storage.at("RessourceID")),
                     storage.at("Quantity"));
-                increasedStorage.push_back(
-                    {RessourceType(storage.at("RessourceID")),
-                     storage.at("Quantity")});
+                increasedStorage.emplace_back(
+                    RessourceType(storage.at("RessourceID")),
+                    storage.at("Quantity"));
             }
         }
     }
@@ -72,10 +72,10 @@ unsigned Building::getCurrentQuantity() const
 std::vector<std::pair<RessourceType, double>> Building::getNextBuyCost() const
 {
     std::vector<std::pair<RessourceType, double>> ret;
-    for (auto &[ressource, cost] : basePrice)
+    ret.reserve(basePrice.size());
+    for (const auto &[ressource, cost] : basePrice)
     {
-        ret.emplace_back(
-            std::pair(ressource, cost * pow(priceMultiplier, quantity)));
+        ret.emplace_back(ressource, cost * pow(priceMultiplier, quantity));
     }
     return ret;
 }
@@ -136,5 +136,5 @@ std::string Building::getDescription() const
 std::span<const std::pair<RessourceType, double>> Building::
     getIncreasedStorage() const
 {
-    return std::span(increasedStorage);
+    return increasedStorage;
 }

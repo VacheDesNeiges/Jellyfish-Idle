@@ -228,7 +228,7 @@ unsigned CraftingManager::getAssignedNumOfJelliesOnOngoingCrafts() const
 
 std::span<const RecipeID> CraftingManager::getRecipeTypes() const
 {
-    return std::span(recipeTypes);
+    return recipeTypes;
 }
 
 bool CraftingManager::isKeepCraftingEnabled(RecipeID id) const
@@ -236,7 +236,7 @@ bool CraftingManager::isKeepCraftingEnabled(RecipeID id) const
     return recipes.at(id).hasKeepCraftingEnabled();
 }
 
-void CraftingManager::setKeepCraftingMode(RecipeID id, bool b)
+void CraftingManager::setKeepCraftingMode(RecipeID id, bool keepCrafting)
 {
-    recipes.at(id).setKeepCraftingMode(b);
+    recipes.at(id).setKeepCraftingMode(keepCrafting);
 }

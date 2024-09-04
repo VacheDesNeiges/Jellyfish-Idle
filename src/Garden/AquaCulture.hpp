@@ -19,7 +19,7 @@ class AquaCulture final : public SaveAndLoadable<CultureData>
   public:
     AquaCulture() = default;
     explicit AquaCulture(const nlohmann::json &);
-    ~AquaCulture() override = default;
+    ~AquaCulture() = default;
 
     void start();
     void cancel();

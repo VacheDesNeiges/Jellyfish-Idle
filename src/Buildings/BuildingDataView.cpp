@@ -5,16 +5,16 @@
 #include "RessourceManager.hpp"
 #include <string>
 
-BuildingDataView::BuildingDataView(std::shared_ptr<BuildingManager> b,
-                                   std::shared_ptr<RessourceManager> r)
-    : buildings(b), ressources(r)
+BuildingDataView::BuildingDataView(std::shared_ptr<BuildingManager> bManager,
+                                   std::shared_ptr<RessourceManager> rManager)
+    : buildings(bManager), ressources(rManager)
 {
 }
 
-bool BuildingDataView::isBuyable(BuildingType t) const
+bool BuildingDataView::isBuyable(BuildingType bType) const
 {
     bool buyable = true;
-    for (const auto &[ressource, price] : buildings->nextBuyCost(t))
+    for (const auto &[ressource, price] : buildings->nextBuyCost(bType))
     {
         if (price > ressources->getCurrentQuantity(ressource))
             buyable = false;
@@ -22,31 +22,31 @@ bool BuildingDataView::isBuyable(BuildingType t) const
     return buyable;
 }
 
-std::string BuildingDataView::getBuildingName(BuildingType t) const
+std::string BuildingDataView::getBuildingName(BuildingType bType) const
 {
-    return buildings->getBuildingName(t);
+    return buildings->getBuildingName(bType);
 }
 
-std::string BuildingDataView::getBuildingDescription(BuildingType t) const
+std::string BuildingDataView::getBuildingDescription(BuildingType bType) const
 {
-    return buildings->getBuildingDescription(t);
+    return buildings->getBuildingDescription(bType);
 }
 
-unsigned BuildingDataView::getBuildingQuantity(BuildingType t) const
+unsigned BuildingDataView::getBuildingQuantity(BuildingType bType) const
 {
-    return buildings->getCurrentQuantity(t);
+    return buildings->getCurrentQuantity(bType);
 }
 
 std::vector<std::pair<RessourceType, double>> BuildingDataView::
-    getBuildingProduction(BuildingType t) const
+    getBuildingProduction(BuildingType bType) const
 {
-    return buildings->getProduction(t);
+    return buildings->getProduction(bType);
 }
 
 std::vector<std::pair<RessourceType, double>> BuildingDataView::getNextBuyCost(
-    BuildingType b) const
+    BuildingType bType) const
 {
-    return buildings->nextBuyCost(b);
+    return buildings->nextBuyCost(bType);
 }
 
 std::span<const BuildingType> BuildingDataView::getBuildingTypes() const
@@ -61,7 +61,7 @@ std::span<const BuildingType> BuildingDataView::getConversionBuildingTypes()
 }
 
 std::span<const std::pair<RessourceType, double>> BuildingDataView::
-    getIncreasedStorage(BuildingType b) const
+    getIncreasedStorage(BuildingType bType) const
 {
-    return buildings->getIncreasedStorage(b);
+    return buildings->getIncreasedStorage(bType);
 }

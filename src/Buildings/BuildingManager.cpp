@@ -42,47 +42,47 @@ BuildingManager::BuildingManager()
     }
 }
 
-void BuildingManager::buy(BuildingType t)
+void BuildingManager::buy(BuildingType bType)
 {
-    buildings[t].buy();
+    buildings[bType].buy();
 }
 
-unsigned BuildingManager::getCurrentQuantity(BuildingType t) const
+unsigned BuildingManager::getCurrentQuantity(BuildingType bType) const
 {
-    return buildings.at(t).getCurrentQuantity();
+    return buildings.at(bType).getCurrentQuantity();
 }
 
 std::vector<std::pair<RessourceType, double>> BuildingManager::getProduction(
-    BuildingType t) const
+    BuildingType bType) const
 {
-    auto result = buildings.at(t).getProdPerTick();
+    auto result = buildings.at(bType).getProdPerTick();
     for (auto &[rType, prod] : result)
     {
-        prod *= multipliersView()->getProductionMultiplier(t);
+        prod *= multipliersView()->getProductionMultiplier(bType);
     }
     return result;
 }
 
 std::vector<std::pair<RessourceType, double>> BuildingManager::getConsumption(
-    BuildingType t) const
+    BuildingType bType) const
 {
-    return buildings.at(t).getConsumPerTick();
+    return buildings.at(bType).getConsumPerTick();
 }
 
 std::vector<std::pair<RessourceType, double>> BuildingManager::nextBuyCost(
-    BuildingType t) const
+    BuildingType bType) const
 {
-    return buildings.at(t).getNextBuyCost();
+    return buildings.at(bType).getNextBuyCost();
 }
 
-std::string BuildingManager::getBuildingName(BuildingType t) const
+std::string BuildingManager::getBuildingName(BuildingType bType) const
 {
-    return buildings.at(t).getBuildingName();
+    return buildings.at(bType).getBuildingName();
 }
 
-std::string BuildingManager::getBuildingDescription(BuildingType t) const
+std::string BuildingManager::getBuildingDescription(BuildingType bType) const
 {
-    return buildings.at(t).getDescription();
+    return buildings.at(bType).getDescription();
 }
 
 std::unordered_map<RessourceType, double> BuildingManager::getProductionRates()
@@ -123,20 +123,21 @@ std::unordered_map<RessourceType, double> BuildingManager::getConsumptionRates()
     return result;
 }
 
-bool BuildingManager::doesIncreasesMaxJellies(BuildingType t) const
+bool BuildingManager::doesIncreasesMaxJellies(BuildingType bType) const
 {
-    return buildings.at(t).getIncreaseToMaxJfish() > 0;
+    return buildings.at(bType).getIncreaseToMaxJfish() > 0;
 }
 
-unsigned BuildingManager::getIncreaseToMaxJfish(BuildingType t)
+unsigned BuildingManager::getIncreaseToMaxJfish(BuildingType bType)
 {
-    return buildings[t].getIncreaseToMaxJfish() *
-           buildings[t].getCurrentQuantity();
+    return buildings[bType].getIncreaseToMaxJfish() *
+           buildings[bType].getCurrentQuantity();
 }
 
 std::vector<std::pair<BuildingType, unsigned>> BuildingManager::getData() const
 {
     std::vector<std::pair<BuildingType, unsigned>> result;
+    result.reserve(buildings.size());
     for (const auto &[type, building] : buildings)
     {
         result.emplace_back(type, building.getCurrentQuantity());
@@ -166,13 +167,14 @@ std::span<const BuildingType> BuildingManager::getConversionBuildingTypes()
     return std::span(conversionBuildingsTypes);
 }
 
-bool BuildingManager::doesIncreasesRessourcesMaxQuantities(BuildingType b) const
+bool BuildingManager::doesIncreasesRessourcesMaxQuantities(
+    BuildingType bType) const
 {
-    return !buildings.at(b).getIncreasedStorage().empty();
+    return !buildings.at(bType).getIncreasedStorage().empty();
 }
 
 std::span<const std::pair<RessourceType, double>> BuildingManager::
-    getIncreasedStorage(BuildingType b) const
+    getIncreasedStorage(BuildingType bType) const
 {
-    return buildings.at(b).getIncreasedStorage();
+    return buildings.at(bType).getIncreasedStorage();
 }

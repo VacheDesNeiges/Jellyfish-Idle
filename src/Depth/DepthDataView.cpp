@@ -2,7 +2,8 @@
 
 #include "DepthSystem.hpp"
 
-DepthDataView::DepthDataView(std::shared_ptr<DepthSystem> d) : depth(d)
+DepthDataView::DepthDataView(std::shared_ptr<DepthSystem> dSystem)
+    : depth(dSystem)
 {
 }
 

@@ -13,7 +13,7 @@ class BuildingManager
 {
   public:
     BuildingManager();
-    ~BuildingManager() override = default;
+    ~BuildingManager() = default;
 
     unsigned getCurrentQuantity(BuildingType) const;
 

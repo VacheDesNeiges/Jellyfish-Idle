@@ -4,7 +4,8 @@
 #include <memory>
 #include <string>
 
-QuestDataView::QuestDataView(std::shared_ptr<QuestManager> q) : quests(q)
+QuestDataView::QuestDataView(std::shared_ptr<QuestManager> qManager)
+    : quests(qManager)
 {
 }
 
