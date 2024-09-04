@@ -54,7 +54,7 @@ class CraftingRecipe : public SaveAndLoadable<RecipeSaveData>
     std::vector<std::pair<RessourceType, double>> getBaseResult() const;
 
     RecipeSaveData getData() const override;
-    void loadData(const RecipeSaveData &) override;
+    void loadData(const RecipeSaveData &data) override;
 
   private:
     RecipeLevel getLevelData() const;

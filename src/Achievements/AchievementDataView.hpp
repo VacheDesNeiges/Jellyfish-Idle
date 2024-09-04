@@ -10,7 +10,7 @@ class AchievementSystem;
 class AchievementDataView
 {
   public:
-    explicit AchievementDataView(std::shared_ptr<AchievementSystem>);
+    explicit AchievementDataView(const std::shared_ptr<AchievementSystem> &);
 
     bool isUnlocked(BuildingType) const;
     bool isUnlocked(JellyJob) const;

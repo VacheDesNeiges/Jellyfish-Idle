@@ -11,8 +11,8 @@ class RessourceManager;
 class BuildingDataView
 {
   public:
-    explicit BuildingDataView(std::shared_ptr<BuildingManager>,
-                              std::shared_ptr<RessourceManager>);
+    explicit BuildingDataView(const std::shared_ptr<BuildingManager> &,
+                              const std::shared_ptr<RessourceManager> &);
 
     bool isBuyable(BuildingType) const;
     unsigned getBuildingQuantity(BuildingType) const;

@@ -21,6 +21,11 @@ class AquaCulture final : public SaveAndLoadable<CultureData>
     explicit AquaCulture(const nlohmann::json &);
     ~AquaCulture() = default;
 
+    AquaCulture(const AquaCulture &) = delete;
+    AquaCulture(AquaCulture &&) = delete;
+    AquaCulture &operator=(const AquaCulture &) = delete;
+    AquaCulture &operator=(AquaCulture &&) = delete;
+
     void start();
     void cancel();
     bool isOngoing() const;

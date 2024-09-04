@@ -17,7 +17,14 @@ class QuestManager
     : private SaveAndLoadable<std::vector<std::pair<QuestLineEnum, unsigned>>>
 {
   public:
+    virtual ~QuestManager() = default;
     QuestManager();
+
+    QuestManager(const QuestManager &) = delete;
+    QuestManager(QuestManager &&) = delete;
+    QuestManager &operator=(const QuestManager &) = delete;
+    QuestManager &operator=(QuestManager &&) = delete;
+
     void completeQuest(QuestLineEnum);
     bool isComplete(QuestLineEnum, unsigned) const;
 

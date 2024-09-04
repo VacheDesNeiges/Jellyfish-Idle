@@ -5,8 +5,9 @@
 #include "RessourceManager.hpp"
 #include <string>
 
-BuildingDataView::BuildingDataView(std::shared_ptr<BuildingManager> bManager,
-                                   std::shared_ptr<RessourceManager> rManager)
+BuildingDataView::BuildingDataView(
+    const std::shared_ptr<BuildingManager> &bManager,
+    const std::shared_ptr<RessourceManager> &rManager)
     : buildings(bManager), ressources(rManager)
 {
 }

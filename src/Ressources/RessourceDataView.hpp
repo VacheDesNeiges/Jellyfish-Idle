@@ -9,7 +9,7 @@ class RessourceManager;
 class RessourceDataView
 {
   public:
-    explicit RessourceDataView(std::shared_ptr<RessourceManager>);
+    explicit RessourceDataView(const std::shared_ptr<RessourceManager> &);
 
     bool canAfford(const std::vector<std::pair<RessourceType, double>> &) const;
     double getRessourceQuantity(RessourceType) const;

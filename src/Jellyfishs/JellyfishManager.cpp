@@ -225,19 +225,19 @@ bool JellyfishManager::distributeJobExp()
     return hasLeveledUp;
 }
 
-unsigned JellyfishManager::getJobLevel(JellyJob j) const
+unsigned JellyfishManager::getJobLevel(JellyJob jJob) const
 {
-    return jobExp.at(j).lvl;
+    return jobExp.at(jJob).lvl;
 }
 
-double JellyfishManager::getJobProgress(JellyJob j) const
+double JellyfishManager::getJobProgress(JellyJob jJob) const
 {
-    return jobExp.at(j).currentProgress;
+    return jobExp.at(jJob).currentProgress;
 }
 
-double JellyfishManager::getJobProgressNeeded(JellyJob j) const
+double JellyfishManager::getJobProgressNeeded(JellyJob jJob) const
 {
-    return jobExp.at(j).progressNeeded;
+    return jobExp.at(jJob).progressNeeded;
 }
 
 bool JellyfishManager::canLure() const

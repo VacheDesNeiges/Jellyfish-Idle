@@ -13,7 +13,7 @@ class GardenManager;
 class GardenDataView
 {
   public:
-    explicit GardenDataView(std::shared_ptr<GardenManager>);
+    explicit GardenDataView(const std::shared_ptr<GardenManager> &);
     std::string getName(AquaCultureID) const;
     unsigned getAssignedFieldsToCulture(AquaCultureID) const;
     bool isOngoing(AquaCultureID) const;

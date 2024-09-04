@@ -4,7 +4,8 @@
 #include <memory>
 #include <optional>
 
-GardenDataView::GardenDataView(std::shared_ptr<GardenManager> g) : garden(g)
+GardenDataView::GardenDataView(const std::shared_ptr<GardenManager> &gManager)
+    : garden(gManager)
 {
 }
 

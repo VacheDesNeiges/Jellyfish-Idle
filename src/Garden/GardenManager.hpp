@@ -18,6 +18,10 @@ class GardenManager final
   public:
     GardenManager();
     ~GardenManager() = default;
+    GardenManager(const GardenManager &) = delete;
+    GardenManager(GardenManager &&) = delete;
+    GardenManager &operator=(const GardenManager &) = delete;
+    GardenManager &operator=(GardenManager &&) = delete;
 
     void startCulture(AquaCultureID);
     void cancelCulture(AquaCultureID);

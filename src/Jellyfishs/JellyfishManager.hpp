@@ -29,6 +29,13 @@ class JellyfishManager : public GameDataAccess,
 {
   public:
     JellyfishManager();
+    virtual ~JellyfishManager() = default;
+
+    JellyfishManager(const JellyfishManager &) = delete;
+    JellyfishManager(JellyfishManager &&) = delete;
+    JellyfishManager &operator=(const JellyfishManager &) = delete;
+    JellyfishManager &operator=(JellyfishManager &&) = delete;
+
     unsigned int getNum(JellyJob) const;
     unsigned int getNumJellies() const;
     unsigned int getMaxNumJellies() const;
@@ -53,7 +60,7 @@ class JellyfishManager : public GameDataAccess,
     std::span<const JellyJob> getAllJobsTypes() const;
 
     JellyfishData getData() const override;
-    void loadData(const JellyfishData &) override;
+    void loadData(const JellyfishData &data) override;
 
   private:
     std::vector<JellyJob> allJobs;

@@ -6,7 +6,7 @@ class DepthSystem;
 class DepthDataView
 {
   public:
-    explicit DepthDataView(std::shared_ptr<DepthSystem>);
+    explicit DepthDataView(const std::shared_ptr<DepthSystem> &);
 
     float getCurrentProgress() const;
     float getProgressNeededForNextIncrease() const;

@@ -27,7 +27,7 @@ CraftingManager::CraftingManager()
         for (const auto &recipeData : recipesJson.at("Recipes"))
         {
             recipes.try_emplace(RecipeID(recipeData.at("ID")), recipeData);
-            recipeTypes.push_back(RecipeID(recipeData.at("ID")));
+            recipeTypes.emplace_back(recipeData.at("ID"));
             assignedJelliesToRecipes[RecipeID(recipeData.at("ID"))] = 0;
         }
         assignedJelliesToRecipes[RecipesAlias::NONE] = 0;

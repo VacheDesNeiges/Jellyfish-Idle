@@ -13,7 +13,12 @@ class BuildingManager
 {
   public:
     BuildingManager();
-    ~BuildingManager() = default;
+    virtual ~BuildingManager() = default;
+
+    BuildingManager(const BuildingManager &) = delete;
+    BuildingManager(BuildingManager &&) = delete;
+    BuildingManager &operator=(const BuildingManager &) = delete;
+    BuildingManager &operator=(BuildingManager &&) = delete;
 
     unsigned getCurrentQuantity(BuildingType) const;
 

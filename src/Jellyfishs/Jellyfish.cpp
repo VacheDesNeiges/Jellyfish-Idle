@@ -6,7 +6,7 @@ JellyJob Jellyfish::getJob() const
     return currentJob;
 }
 
-void Jellyfish::setJob(JellyJob j)
+void Jellyfish::setJob(JellyJob jJob)
 {
-    currentJob = j;
+    currentJob = jJob;
 }

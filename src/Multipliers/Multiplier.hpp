@@ -12,6 +12,12 @@ class Multiplier : public GameDataAccess
   public:
     explicit Multiplier(double);
     virtual ~Multiplier() = default;
+
+    Multiplier(const Multiplier &) = delete;
+    Multiplier(Multiplier &&) = delete;
+    Multiplier &operator=(const Multiplier &) = delete;
+    Multiplier &operator=(Multiplier &&) = delete;
+
     virtual double getMultValue() const = 0;
 
   protected:

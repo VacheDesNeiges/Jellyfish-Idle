@@ -14,9 +14,9 @@ class CraftingManager final
   public:
     CraftingManager();
     ~CraftingManager() = default;
-    CraftingManager(const CraftingManager &) = default;
+    CraftingManager(const CraftingManager &) = delete;
     CraftingManager(CraftingManager &&) = delete;
-    CraftingManager &operator=(const CraftingManager &) = default;
+    CraftingManager &operator=(const CraftingManager &) = delete;
     CraftingManager &operator=(CraftingManager &&) = delete;
 
     bool assign(RecipeID);

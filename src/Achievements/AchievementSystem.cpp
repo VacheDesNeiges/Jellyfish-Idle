@@ -62,7 +62,7 @@ void AchievementSystem::parseDepthReward(const nlohmann::json &achiev)
 
 void AchievementSystem::insertIdInSearchMaps(const nlohmann::json &achievement)
 {
-    idMaps.allAchievementsIDs.push_back(AchievementIDs(achievement.at("ID")));
+    idMaps.allAchievementsIDs.emplace_back(achievement.at("ID"));
 
     if (achievement.at("Type") == "Ressource")
         idMaps.ressources.emplace(achievement.at("RessourceID"),
@@ -198,11 +198,11 @@ void AchievementSystem::pushNotification(AchievementIDs id)
 
 std::span<const AchievementIDs> AchievementSystem::getAchievementsIDs() const
 {
-    return std::span(idMaps.allAchievementsIDs);
+    return idMaps.allAchievementsIDs;
 }
 
 std::span<const std::tuple<AchievementIDs, unsigned, std::string, std::string>>
 AchievementSystem::getDepthRewards() const
 {
-    return std::span(depthRewards);
+    return depthRewards;
 }

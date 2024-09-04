@@ -60,7 +60,7 @@ unsigned Questline::getCurrentQuestIndex() const
     return currentQuest;
 }
 
-bool Questline::isComplete(unsigned i) const
+bool Questline::isComplete(unsigned index) const
 {
-    return quests.at(i).isComplete();
+    return quests.at(index).isComplete();
 }

@@ -7,7 +7,7 @@
 class QuestDataView
 {
   public:
-    explicit QuestDataView(std::shared_ptr<QuestManager>);
+    explicit QuestDataView(const std::shared_ptr<QuestManager> &);
     std::string getCurrentQuestText(QuestLineEnum) const;
     bool isComplete(QuestLineEnum, unsigned) const;
 

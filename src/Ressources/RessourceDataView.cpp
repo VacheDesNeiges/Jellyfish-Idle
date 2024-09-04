@@ -4,7 +4,8 @@
 #include <utility>
 #include <vector>
 
-RessourceDataView::RessourceDataView(std::shared_ptr<RessourceManager> rManager)
+RessourceDataView::RessourceDataView(
+    const std::shared_ptr<RessourceManager> &rManager)
     : ressources(rManager)
 {
 }

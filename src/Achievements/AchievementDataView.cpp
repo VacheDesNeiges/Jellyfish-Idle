@@ -6,7 +6,7 @@
 #include <string_view>
 
 AchievementDataView::AchievementDataView(
-    std::shared_ptr<AchievementSystem> achievementsSystem)
+    const std::shared_ptr<AchievementSystem> &achievementsSystem)
     : achievements(achievementsSystem)
 {
 }
