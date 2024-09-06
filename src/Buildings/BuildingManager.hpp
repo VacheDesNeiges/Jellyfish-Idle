@@ -46,7 +46,7 @@ class BuildingManager
 
     std::vector<std::pair<BuildingType, unsigned>> getData() const override;
     void loadData(
-        const std::vector<std::pair<BuildingType, unsigned>> &) override;
+        const std::vector<std::pair<BuildingType, unsigned>> &data) override;
 
     std::span<const BuildingType> getBuildingTypes() const;
     std::span<const BuildingType> getConversionBuildingTypes() const;

@@ -16,6 +16,10 @@ class RessourceManager final
   public:
     RessourceManager();
     ~RessourceManager() = default;
+    RessourceManager(const RessourceManager &) = delete;
+    RessourceManager(RessourceManager &&) = delete;
+    RessourceManager &operator=(const RessourceManager &) = delete;
+    RessourceManager &operator=(RessourceManager &&) = delete;
 
     void init();
 
@@ -49,7 +53,7 @@ class RessourceManager final
 
     std::vector<std::pair<RessourceType, double>> getData() const override;
     void loadData(
-        const std::vector<std::pair<RessourceType, double>> &) override;
+        const std::vector<std::pair<RessourceType, double>> &data) override;
 
     std::span<const RessourceType> getAllRessourceTypes() const;
     std::span<const RessourceType> getRegularRessourceTypes() const;

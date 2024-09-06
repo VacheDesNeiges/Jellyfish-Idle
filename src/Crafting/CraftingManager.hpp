@@ -48,7 +48,7 @@ class CraftingManager final
 
     std::vector<std::pair<RecipeID, RecipeSaveData>> getData() const override;
     void loadData(
-        const std::vector<std::pair<RecipeID, RecipeSaveData>> &) override;
+        const std::vector<std::pair<RecipeID, RecipeSaveData>> &data) override;
 
   private:
     unsigned assignedJelliesToCrafting = 0;

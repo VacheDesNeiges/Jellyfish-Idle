@@ -17,7 +17,7 @@ class UIElement : public GameDataAccess
 
     void bindInputHandler(std::shared_ptr<InputHandler> inputPtr)
     {
-        this->inputHandler = inputPtr;
+        this->inputHandler = std::move(inputPtr);
     }
 
     std::shared_ptr<InputHandler> inputHandler;

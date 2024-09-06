@@ -33,7 +33,7 @@ class CraftingRecipe : public SaveAndLoadable<RecipeSaveData>
     virtual ~CraftingRecipe() = default;
     CraftingRecipe(const CraftingRecipe &) = default;
     CraftingRecipe(CraftingRecipe &&) = default;
-    CraftingRecipe &operator=(const CraftingRecipe &) = default;
+    CraftingRecipe &operator=(const CraftingRecipe &) = delete;
     CraftingRecipe &operator=(CraftingRecipe &&) = delete;
 
     unsigned getRecipelvl() const;

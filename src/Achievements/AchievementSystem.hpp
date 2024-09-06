@@ -36,7 +36,7 @@ class AchievementSystem
     void unlock(AchievementIDs);
     std::vector<std::pair<AchievementIDs, bool>> getData() const override;
     void loadData(
-        const std::vector<std::pair<AchievementIDs, bool>> &) override;
+        const std::vector<std::pair<AchievementIDs, bool>> &data) override;
     void checkAchievements();
 
     std::optional<std::string_view> getNotification() const;

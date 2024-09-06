@@ -35,7 +35,7 @@ class AquaCulture final : public SaveAndLoadable<CultureData>
     std::vector<std::pair<RessourceType, double>> getBaseProduction() const;
 
     CultureData getData() const override;
-    void loadData(const CultureData &) override;
+    void loadData(const CultureData &data) override;
 
   private:
     bool cultureOngoing = false;

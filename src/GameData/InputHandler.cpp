@@ -6,7 +6,7 @@
 
 InputHandler::InputHandler(std::shared_ptr<SystemPtrs> sy)
 
-    : systems(sy)
+    : systems(std::move(sy))
 {
 }
 

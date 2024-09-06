@@ -12,6 +12,7 @@ class UpgradeManager
 {
   public:
     UpgradeManager();
+    virtual ~UpgradeManager() = default;
     void buy(UpgradeID);
     bool isAvailableForBuying(UpgradeID) const;
     bool isBought(UpgradeID) const;
@@ -20,7 +21,7 @@ class UpgradeManager
     std::vector<std::pair<RessourceType, double>> getCost(UpgradeID) const;
 
     std::vector<std::pair<UpgradeID, bool>> getData() const override;
-    void loadData(const std::vector<std::pair<UpgradeID, bool>> &) override;
+    void loadData(const std::vector<std::pair<UpgradeID, bool>> &data) override;
 
     std::span<const UpgradeID> getUpgradesTypes() const;
 

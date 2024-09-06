@@ -7,7 +7,7 @@
 #include <memory>
 
 GameSynchronizer::GameSynchronizer(std::shared_ptr<SystemPtrs> ptrs)
-    : systems(ptrs)
+    : systems(std::move(ptrs))
 {
 }
 

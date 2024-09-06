@@ -21,8 +21,11 @@ class DepthSystem : public GameDataAccess, public SaveAndLoadable<DepthData>
     void loadData(const DepthData &data) override;
 
   private:
+    static constexpr unsigned maxDepth = 1000;
+    static constexpr float progressNeededInitValue = 10;
+    static constexpr unsigned currentDepthInitValue = 5;
+
     float currentProgress = 0;
-    float progressNeeded = 10;
-    unsigned currentDepth = 5;
-    unsigned maxDepth = 1000;
+    float progressNeeded = progressNeededInitValue;
+    unsigned currentDepth = currentDepthInitValue;
 };

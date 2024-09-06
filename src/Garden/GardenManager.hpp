@@ -43,8 +43,8 @@ class GardenManager final
     std::vector<std::pair<RessourceType, double>> getProduction(
         AquaCultureID, std::optional<unsigned> = std::nullopt) const;
 
-    void loadData(
-        const std::vector<std::pair<AquaCultureID, CultureData>> &) override;
+    void loadData(const std::vector<std::pair<AquaCultureID, CultureData>>
+                      &data) override;
 
     std::vector<std::pair<AquaCultureID, CultureData>> getData() const override;
 

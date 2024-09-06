@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Building.hpp"
 #include "UIElement.hpp"
 class UIBuildingPanel : public UIElement
 {
