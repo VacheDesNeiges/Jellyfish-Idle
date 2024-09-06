@@ -32,7 +32,7 @@ class CraftingRecipe : public SaveAndLoadable<RecipeSaveData>
     explicit CraftingRecipe(const nlohmann::json &);
     virtual ~CraftingRecipe() = default;
     CraftingRecipe(const CraftingRecipe &) = default;
-    CraftingRecipe(CraftingRecipe &&) = delete;
+    CraftingRecipe(CraftingRecipe &&) = default;
     CraftingRecipe &operator=(const CraftingRecipe &) = default;
     CraftingRecipe &operator=(CraftingRecipe &&) = delete;
 

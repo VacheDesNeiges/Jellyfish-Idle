@@ -17,7 +17,6 @@ readability-*,
 -readability-convert-member-functions-to-static,
 -modernize-use-trailing-return-type,
 -modernize-use-nodiscard,
--cppcoreguidelines-avoid-const-or-ref-data-members
 "
 
 WarningsAsErrors: ''

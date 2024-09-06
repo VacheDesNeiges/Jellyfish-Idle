@@ -13,9 +13,9 @@ class Ressource
     ~Ressource() = default;
 
     Ressource(const Ressource &) = default;
-    Ressource(Ressource &&) = delete;
-    Ressource &operator=(const Ressource &) = default;
-    Ressource &operator=(Ressource &&) = default;
+    Ressource(Ressource &&) = default;
+    Ressource &operator=(const Ressource &) = delete;
+    Ressource &operator=(Ressource &&) = delete;
 
     void add(double n);
     double getCurrentQuantity() const;
