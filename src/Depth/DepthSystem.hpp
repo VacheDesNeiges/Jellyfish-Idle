@@ -2,21 +2,17 @@
 
 #include "GameDataAccess.hpp"
 #include "SaveAndLoadable.hpp"
+
 struct DepthData
 {
     float currentProg;
     unsigned currentDepth;
 };
 
-class DepthSystem : public GameDataAccess, public SaveAndLoadable<DepthData>
+class DepthSystem final : public GameDataAccess,
+                          public SaveAndLoadable<DepthData>
 {
   public:
-    virtual ~DepthSystem() = default;
-    DepthSystem(const DepthSystem &) = delete;
-    DepthSystem(DepthSystem &&) = delete;
-    DepthSystem &operator=(const DepthSystem &) = delete;
-    DepthSystem &operator=(DepthSystem &&) = delete;
-
     float getCurrentProgress() const;
     float getProgressNeededForNextIncrease() const;
     unsigned getCurrentDepth() const;
