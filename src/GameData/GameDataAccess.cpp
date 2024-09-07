@@ -17,7 +17,7 @@
 void GameDataAccess::bindDataView(std::shared_ptr<GameDataView> gameView)
 {
     assert(view == nullptr);
-    view = gameView;
+    view = std::move(gameView);
 }
 
 std::shared_ptr<const GameDataView> GameDataAccess::getDataView() const

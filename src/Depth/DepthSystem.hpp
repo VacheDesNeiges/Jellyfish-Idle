@@ -11,6 +11,12 @@ struct DepthData
 class DepthSystem : public GameDataAccess, public SaveAndLoadable<DepthData>
 {
   public:
+    virtual ~DepthSystem() = default;
+    DepthSystem(const DepthSystem &) = delete;
+    DepthSystem(DepthSystem &&) = delete;
+    DepthSystem &operator=(const DepthSystem &) = delete;
+    DepthSystem &operator=(DepthSystem &&) = delete;
+
     float getCurrentProgress() const;
     float getProgressNeededForNextIncrease() const;
     unsigned getCurrentDepth() const;
